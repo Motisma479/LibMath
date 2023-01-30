@@ -1,3 +1,2 @@
 # LibMath
-
-![Maths drawio](https://user-images.githubusercontent.com/74106176/215473739-8515b5cc-79ea-40df-86c9-5bf6198b8a76.svg)
+![Maths drawio](https://user-images.githubusercontent.com/74106176/215480914-87004d50-d2bb-4cdf-831e-95564c33120d.png)
