@@ -91,9 +91,9 @@ namespace Maths
     };
 #endif //ENABLE_VEC2
 #if ENABLE_IVEC2
-	class IVec2
-	{
-	public:
+    class IVec2
+    {
+    public:
         //MEMBERS
         int x, y;
 
@@ -102,8 +102,8 @@ namespace Maths
         inline IVec2(const int xy);
         inline IVec2(const int x, const int y);
         inline IVec2(const IVec2& _IVec2);
-		
-		//DESTRUCTOR
+
+        //DESTRUCTOR
         inline ~IVec2(void);
 
         //ASSINGMENT AND EQUALITY OPERATIONS
@@ -138,10 +138,10 @@ namespace Maths
         inline IVec2 operator *= (const int _Sca);
         inline IVec2 operator /= (const int _Sca);
 
-        #if PRINT_FUNCTION
-            void Print();
-        #endif // PRINT_FUNCTION
-	}
+#if PRINT_FUNCTION
+        void Print();
+#endif // PRINT_FUNCTION
+    };
 #endif //ENABLE_IVEC2
 
 #if ENABLE_VEC3
@@ -168,12 +168,12 @@ namespace Maths
 
         //UTILS
 
-        inline void Normalize();
         inline float GetMagnitude();
+        inline void Normalize();
         inline float DotProduct(const Vec3& _VecB);
         static float DotProduct(const Vec3& _VecA, const Vec3& _VecB);
         inline float* ToFloat3();
-        inline Vec3 crossProduct(const Vec3& _VecA, const Vec3& _VecB);
+        inline Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB);
 
         //ASSINGMENT AND EQUALITY OPERATIONS
         inline Vec3 operator = (const Vec3& _Vec);
@@ -226,7 +226,7 @@ namespace Maths
         inline IVec3(const IVec3& _IVec3);
 
         //DESTRUCTOR
-        inline ~IVec2(void);
+        inline ~IVec3(void);
 
         //ASSINGMENT AND EQUALITY OPERATIONS
         inline IVec3 operator = (const IVec3& _IVec);
@@ -263,7 +263,7 @@ namespace Maths
 #if PRINT_FUNCTION
         void Print();
 #endif // PRINT_FUNCTION
-    }
+    };
 #endif //ENABLE_IVEC3
 
 #if ENABLE_VEC4
@@ -351,7 +351,7 @@ namespace Maths
         inline IVec4(const IVec4& _IVec4);
 
         //DESTRUCTOR
-        inline ~IVec2(void);
+        inline ~IVec4(void);
 
         //ASSINGMENT AND EQUALITY OPERATIONS
         inline IVec4 operator = (const IVec4& _IVec);
@@ -388,8 +388,8 @@ namespace Maths
 #if PRINT_FUNCTION
         void Print();
 #endif // PRINT_FUNCTION
-    }
-#endif //ENABLE_IVEC3
+    };
+#endif //ENABLE_IVEC4
 
 
 #if ENABLE_MAT3
@@ -397,11 +397,12 @@ namespace Maths
     {
     public:
         //MEMBERS
-        float data[3][3];
+        float data[9];
 
         //CONSTRUCTORS
         inline Mat3(void);
-        inline Mat3(float* p_data, long int sizeOfData);
+        inline Mat3(float p_data[9]);
+        inline Mat3(const Mat3& _Mat3);
 
         //DESTRUCTOR
         inline ~Mat3(void);

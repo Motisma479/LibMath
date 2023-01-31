@@ -48,21 +48,23 @@
 	{
 		std::cout << this << " Value :" << std::endl;
 		std::cout << "--------------------" << std::endl;
+
 		for (int y = 0; y < 3; y++)
 		{
 			std::cout << '[';
 			for (int x = 0; x < 3; x++)
 			{
-				std::cout << ' ' << data[x][y] << ' ';
+				std::cout << ' ' << data[y+x*3] << ' ';
 			}
 			std::cout << ']' << std::endl;
 		}
+
 		std::cout << "Order:" << std::endl;
 		std::cout << '[';
-		for (int y = 0; y < 9; y++)
+		for (int i = 0; i < 9; i++)
 		{
 
-			std::cout << ' ' << (*data)[y] << ' ';
+			std::cout << ' ' << data[i] << ' ';
 		}
 		std::cout << ']' << std::endl;
 		std::cout << "--------------------" << std::endl;
