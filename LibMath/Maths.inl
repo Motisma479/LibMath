@@ -1,7 +1,7 @@
 #include "Maths.hpp"
 
 #include <math.h>
-#if ENABLE_VEC2
+#ifdef ENABLE_VEC2
 /************************\
  *-------VECTOR_2-------*
 \************************/
@@ -11,10 +11,10 @@ inline Maths::Vec2::Vec2(void)							: x(0)		, y(0)			{}
 inline Maths::Vec2::Vec2(const float xy)				: x(xy)		, y(xy)			{}
 inline Maths::Vec2::Vec2(const float x, const float y)	: x(x)		, y(y)			{}
 inline Maths::Vec2::Vec2(const Vec2& _Vec2)				: x(_Vec2.x), y(_Vec2.y)	{}
-#if ENABLE_VEC3
+#ifdef ENABLE_VEC3
 inline Maths::Vec2::Vec2(const Vec3& _Vec3)				: x(_Vec3.x), y(_Vec3.y)	{}
 #endif
-#if ENABLE_VEC4
+#ifdef ENABLE_VEC4
 inline Maths::Vec2::Vec2(const Vec4& _Vec4)				: x(_Vec4.x), y(_Vec4.y)	{}
 #endif
 
@@ -163,7 +163,7 @@ inline Maths::Vec2 Maths::Vec2::operator /= (const float _Sca)
 #endif // ENABLE_VEC2
 
 
-#if ENABLE_IVEC2
+#ifdef ENABLE_IVEC2
 /************************\
  *------IVECTOR_2-------*
 \************************/
@@ -295,7 +295,7 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
 #endif // ENABLE_IVEC2
 
 
-#if ENABLE_VEC3
+#ifdef ENABLE_VEC3
 /************************\
  *-------VECTOR_3-------*
 \************************/
@@ -304,11 +304,11 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
 inline Maths::Vec3::Vec3(void)											: x(0)		, y(0)		, z(0)			{}
 inline Maths::Vec3::Vec3(const float xyz)								: x(xyz)	, y(xyz)	, z(xyz)		{}
 inline Maths::Vec3::Vec3(const float x, const float y, const float z)	: x(x)		, y(y)		, z(z)			{}
-#if ENABLE_VEC2
+#ifdef ENABLE_VEC2
 inline Maths::Vec3::Vec3(const Vec2& _Vec2)								: x(_Vec2.x), y(_Vec2.y), z(0)			{}
 #endif
 inline Maths::Vec3::Vec3(const Vec3& _Vec3)								: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z)	{}
-#if ENABLE_VEC4
+#ifdef ENABLE_VEC4
 inline Maths::Vec3::Vec3(const Vec4& _Vec4)								: x(_Vec4.x), y(_Vec4.y), z(_Vec4.z)	{}
 #endif
 
@@ -473,7 +473,7 @@ inline Maths::Vec3 Maths::Vec3::operator /= (float _Sca)
 #endif //ENABLE_VEC3
 
 
-#if ENABLE_IVEC3
+#ifdef ENABLE_IVEC3
 /************************\
  *------IVECTOR_3-------*
 \************************/
@@ -615,7 +615,7 @@ inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
 #endif // ENABLE_IVEC3
 
 
-#if ENABLE_VEC4
+#ifdef ENABLE_VEC4
 /************************\
  *-------VECTOR_4-------*
 \************************/
@@ -624,10 +624,10 @@ inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
 inline Maths::Vec4::Vec4(void)															: x(0)		, y(0)		, z(0)		, w(0)			{}
 inline Maths::Vec4::Vec4(const float xyzw)												: x(xyzw)	, y(xyzw)	, z(xyzw)	, w(xyzw)		{}
 inline Maths::Vec4::Vec4(const float x, const float y, const float z, const float w)	: x(x)		, y(y)		, z(z)		, w(w)			{}
-#if ENABLE_VEC2
+#ifdef ENABLE_VEC2
 inline Maths::Vec4::Vec4(const Vec2& _Vec2)												: x(_Vec2.x), y(_Vec2.y), z(0)		, w(0)			{}
 #endif
-#if ENABLE_VEC3
+#ifdef ENABLE_VEC3
 inline Maths::Vec4::Vec4(const Vec3& _Vec3)												: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(0)			{}
 inline Maths::Vec4::Vec4(const Vec3& _Vec3, float w)									: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(w)			{}
 #endif
@@ -808,7 +808,7 @@ inline Maths::Vec4 Maths::Vec4::operator /= (const float _Sca)
 #endif //ENABLE_VEC4
 
 
-#if ENABLE_IVEC4
+#ifdef ENABLE_IVEC4
 /************************\
  *------IVECTOR_4-------*
 \************************/
@@ -960,7 +960,7 @@ inline Maths::IVec4 Maths::IVec4::operator /= (const int _Sca)
 #endif // ENABLE_IVEC4
 
 
-#if ENABLE_MAT3
+#ifdef ENABLE_MAT3
 /************************\
  *-------MATRIX_3-------*
 \************************/
@@ -1081,7 +1081,7 @@ inline Maths::Mat3 Maths::Mat3::operator*=(Mat3 _Mat)
 #endif // ENABLE_MAT3
 
 
-#if ENABLE_MAT4
+#ifdef ENABLE_MAT4
 /************************\
  *-------MATRIX_4-------*
 \************************/

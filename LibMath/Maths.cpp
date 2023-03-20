@@ -2,48 +2,48 @@
 
 #include <iostream>
 
-#if PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
 
-	#if ENABLE_VEC2
+	#ifdef ENABLE_VEC2
 	void Maths::Vec2::Print()
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ";" << std::endl;
 	}
 	#endif //ENABLE_VEC2
-	#if ENABLE_IVEC2
+	#ifdef ENABLE_IVEC2
 	void Maths::IVec2::Print()
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ";" << std::endl;
 	}
 	#endif //ENABLE_IVEC2
 
-	#if ENABLE_VEC3
+	#ifdef ENABLE_VEC3
 	void Maths::Vec3::Print()
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ";" << std::endl;
 	}
 	#endif //ENABLE_VEC3
-	#if ENABLE_IVEC3
+	#ifdef ENABLE_IVEC3
 	void Maths::IVec3::Print()
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ";" << std::endl;
 	}
 	#endif //ENABLE_IVEC3
 
-	#if ENABLE_VEC4
+	#ifdef ENABLE_VEC4
 	void Maths::Vec4::Print()
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ", w = " << w << ";" << std::endl;
 	}
 	#endif //ENABLE_VEC4
-	#if ENABLE_IVEC4
+	#ifdef ENABLE_IVEC4
 	void Maths::IVec4::Print()
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ", w = " << w << ";" << std::endl;
 	}
 	#endif //ENABLE_IVEC4
 
-	#if ENABLE_MAT3
+	#ifdef ENABLE_MAT3
 	void Maths::Mat3::Print()
 	{
 		std::cout << this << " Value :" << std::endl;
@@ -71,7 +71,7 @@
 	}
 	#endif //ENABLE_MAT3
 
-	#if ENABLE_MAT4
+	#ifdef ENABLE_MAT4
 	void Maths::Mat4::Print()
 	{
 		std::cout << this << " Value :" << std::endl;

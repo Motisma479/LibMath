@@ -1,21 +1,21 @@
 #pragma once
 #include <cmath>
 
-#define PRINT_FUNCTION true
+#define PRINT_FUNCTION
 
 //-------USED_TO_ENABLE_CLASS-------
-#define ENABLE_VEC2 true
-#define ENABLE_IVEC2 true
+#define ENABLE_VEC2
+#define ENABLE_IVEC2
 
-#define ENABLE_VEC3 true
-#define ENABLE_IVEC3 true
+#define ENABLE_VEC3
+#define ENABLE_IVEC3
 
-#define ENABLE_VEC4 true
-#define ENABLE_IVEC4 true
+#define ENABLE_VEC4
+#define ENABLE_IVEC4
 
-#define ENABLE_MAT3 true
+#define ENABLE_MAT3
 
-#define ENABLE_MAT4 true
+#define ENABLE_MAT4
 //----------------------------------
 
 #define PI_NUM 3.141592653589793238462643383279f
@@ -24,7 +24,7 @@
 namespace Maths
 {
 // Vector Using float as Value
-#if ENABLE_VEC2
+#ifdef ENABLE_VEC2
     class Vec2
     {
     public:
@@ -36,10 +36,10 @@ namespace Maths
         inline Vec2(const float xy);
         inline Vec2(const float x, const float y);
         inline Vec2(const Vec2& _Vec2);
-#if ENABLE_VEC3
+#ifdef ENABLE_VEC3
         inline Vec2(const class Vec3& _Vec3);
 #endif
-#if ENABLE_VEC4
+#ifdef ENABLE_VEC4
         inline Vec2(const class Vec4& _Vec4);
 #endif
 
@@ -85,12 +85,12 @@ namespace Maths
         inline Vec2 operator *= (const float _Sca);
         inline Vec2 operator /= (const float _Sca);
 
-        #if PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
             void Print();
         #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC2
-#if ENABLE_IVEC2
+#ifdef ENABLE_IVEC2
     class IVec2
     {
     public:
@@ -138,13 +138,13 @@ namespace Maths
         inline IVec2 operator *= (const int _Sca);
         inline IVec2 operator /= (const int _Sca);
 
-#if PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
         void Print();
 #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_IVEC2
 
-#if ENABLE_VEC3
+#ifdef ENABLE_VEC3
     class Vec3
     {
     public:
@@ -155,11 +155,11 @@ namespace Maths
         inline Vec3(void);
         inline Vec3(const float xyz);
         inline Vec3(const float x, const float y, const float z);
-#if ENABLE_VEC2
+#ifdef ENABLE_VEC2
         inline Vec3(const class Vec2& _Vec2);
 #endif
         inline Vec3(const Vec3& _Vec3);
-#if ENABLE_VEC4
+#ifdef ENABLE_VEC4
         inline Vec3(const class Vec4& _Vec4);
 #endif
 
@@ -207,12 +207,12 @@ namespace Maths
         inline Vec3 operator *= (float _Sca);
         inline Vec3 operator /= (float _Sca);
 
-        #if PRINT_FUNCTION
+        #ifdef PRINT_FUNCTION
             void Print();
         #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC3
-#if ENABLE_IVEC3  
+#ifdef ENABLE_IVEC3  
     class IVec3
     {
     public:
@@ -260,13 +260,13 @@ namespace Maths
         inline IVec3 operator *= (const int _Sca);
         inline IVec3 operator /= (const int _Sca);
 
-#if PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
         void Print();
 #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_IVEC3
 
-#if ENABLE_VEC4
+#ifdef ENABLE_VEC4
     class Vec4
     {
     public:
@@ -277,10 +277,10 @@ namespace Maths
         inline Vec4(void);
         inline Vec4(const float xyzw);
         inline Vec4(const float x, const float y, const float z, const float w);
-#if ENABLE_VEC2
+#ifdef ENABLE_VEC2
         inline Vec4(const class Vec2& _Vec2);
 #endif
-#if ENABLE_VEC3
+#ifdef ENABLE_VEC3
         inline Vec4(const class Vec3& _Vec3);
         inline Vec4(const class Vec3& _Vec3, float w);
 #endif
@@ -332,12 +332,12 @@ namespace Maths
         inline Vec4 operator *= (const float _Sca);
         inline Vec4 operator /= (const float _Sca); 
 
-        #if PRINT_FUNCTION
+        #ifdef PRINT_FUNCTION
             void Print();
         #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC4
-#if ENABLE_IVEC4
+#ifdef ENABLE_IVEC4
     class IVec4
     {
     public:
@@ -385,14 +385,14 @@ namespace Maths
         inline IVec4 operator *= (const int _Sca);
         inline IVec4 operator /= (const int _Sca);
 
-#if PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
         void Print();
 #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_IVEC4
 
 
-#if ENABLE_MAT3
+#ifdef ENABLE_MAT3
     class Mat3
     {
     public:
@@ -423,12 +423,12 @@ namespace Maths
         inline Mat3 operator-=(Mat3 _Mat);
         inline Mat3 operator*=(Mat3 _Mat);
 
-        #if PRINT_FUNCTION
+        #ifdef PRINT_FUNCTION
             void Print();
         #endif // PRINT_FUNCTION
     };
 #endif // ENABLE_MAT3
-#if ENABLE_MAT4
+#ifdef ENABLE_MAT4
     class Mat4
     {
     public:
@@ -460,7 +460,7 @@ namespace Maths
         inline Mat4 operator-=(Mat4 _Mat);
         inline Mat4 operator*=(Mat4 _Mat);
 
-        #if PRINT_FUNCTION
+        #ifdef PRINT_FUNCTION
             void Print();
         #endif // PRINT_FUNCTION
     };
