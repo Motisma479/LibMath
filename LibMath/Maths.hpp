@@ -18,11 +18,12 @@
 #define ENABLE_MAT4
 //----------------------------------
 
-#define PI_NUM 3.141592653589793238462643383279f
-#define DEG2RAD PI_NUM/180
-
 namespace Maths
 {
+    constexpr float M_PI = 3.141592653589793238462643383279f;
+    constexpr float DEG2RAD = M_PI / 180;
+    constexpr float RAD2DEG = 180.f / M_PI;
+
 // Vector Using float as Value
 #ifdef ENABLE_VEC2
     class Vec2
