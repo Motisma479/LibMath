@@ -301,8 +301,8 @@ namespace Maths
 
         //CONSTRUCTORS
         inline Vec4(void);
-        inline Vec4(const float xyzw);
-        inline Vec4(const float x, const float y, const float z, const float w);
+        inline Vec4(float xyzw);
+        inline Vec4(float x, float y, float z, float w);
 #ifdef ENABLE_VEC2
         inline Vec4(const class Vec2& _Vec2);
 #endif
@@ -310,7 +310,6 @@ namespace Maths
         inline Vec4(const class Vec3& _Vec3);
         inline Vec4(const class Vec3& _Vec3, float w);
 #endif
-        inline Vec4(const Vec4& _Vec4);
 
         //DESTRUCTOR
         inline ~Vec4(void);
@@ -318,14 +317,14 @@ namespace Maths
         //UTILS
         inline float GetMagnitude();
         inline void Normalize();
+        inline Vec4 GetNormalized();
         inline float DotProduct(const Vec4& _VecB);
         static float DotProduct(const Vec4& _VecA, const Vec4& _VecB);
-        inline float* ToFloat4();
         inline Vec4 Homogenize();
 
         //ASSINGMENT AND EQUALITY OPERATIONS
         inline Vec4 operator = (const Vec4& _Vec);
-        inline Vec4 operator = (const float _Sca);
+        inline Vec4 operator = (float _Sca);
 
         inline Vec4 operator - (void)               const;
         inline bool operator == (const Vec4& _Vec)  const;
@@ -347,16 +346,16 @@ namespace Maths
         inline Vec4 operator /= (const Vec4& _Vec);
 
         //SCALER TO Vec4 OPERATIONS
-        inline Vec4 operator + (const float _Sca) const;
-        inline Vec4 operator - (const float _Sca) const;
-        inline Vec4 operator * (const float _Sca) const;
-        inline Vec4 operator / (const float _Sca) const;
+        inline Vec4 operator + (float _Sca) const;
+        inline Vec4 operator - (float _Sca) const;
+        inline Vec4 operator * (float _Sca) const;
+        inline Vec4 operator / (float _Sca) const;
 
         //SCALER TO THIS OPERATIONS
-        inline Vec4 operator += (const float _Sca);
-        inline Vec4 operator -= (const float _Sca);
-        inline Vec4 operator *= (const float _Sca);
-        inline Vec4 operator /= (const float _Sca); 
+        inline Vec4 operator += (float _Sca);
+        inline Vec4 operator -= (float _Sca);
+        inline Vec4 operator *= (float _Sca);
+        inline Vec4 operator /= (float _Sca); 
 
         #ifdef PRINT_FUNCTION
             void Print();
@@ -435,16 +434,15 @@ namespace Maths
 
         //CONSTRUCTORS
         inline Mat3(void);
-        inline Mat3(float p_data[9]);
-        inline Mat3(const Mat3& _Mat3);
+        inline Mat3(float data[9]);
 
         //DESTRUCTOR
         inline ~Mat3(void);
 
         //UTILS
-        inline void Print(const char* desc);
 
         //ASSINGMENT AND EQUALITY OPERATIONS
+        inline Mat3 operator=(float _data[9]);
         inline Mat3 operator=(Mat3 _Mat);
 
         //Mat3 TO Mat3 OPERATIONS
