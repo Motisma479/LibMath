@@ -167,12 +167,12 @@ namespace Maths
 
         //CONSTRUCTORS
         inline Vec3(void);
-        inline Vec3(const float xyz);
-        inline Vec3(const float x, const float y, const float z);
+        inline Vec3(float xyz);
+        inline Vec3(float x, float y, float z);
 #ifdef ENABLE_VEC2
         inline Vec3(const class Vec2& _Vec2);
+        inline Vec3(const class Vec2& _Vec2, float z);
 #endif
-        inline Vec3(const Vec3& _Vec3);
 #ifdef ENABLE_VEC4
         inline Vec3(const class Vec4& _Vec4);
 #endif
@@ -182,16 +182,21 @@ namespace Maths
 
         //UTILS
 
+        inline Vec2 xy()	const;
+        inline Vec2 xz()	const;
+        inline Vec2 yz()	const;
+
         inline float GetMagnitude();
         inline void Normalize();
+        inline Vec3 GetNormalized();
         inline float DotProduct(const Vec3& _VecB);
         static float DotProduct(const Vec3& _VecA, const Vec3& _VecB);
-        inline float* ToFloat3();
-        inline Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB);
+        inline Vec3 CrossProduct(const Vec3& _VecB);
+        static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB);
 
         //ASSINGMENT AND EQUALITY OPERATIONS
         inline Vec3 operator = (const Vec3& _Vec);
-        inline Vec3 operator = (const float _Sca);
+        inline Vec3 operator = (float _Sca);
 
         inline Vec3 operator - (void)              const;
         inline bool operator == (const Vec3& _Vec) const;
