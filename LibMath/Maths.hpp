@@ -41,9 +41,8 @@ namespace Maths
 
         //CONSTRUCTORS
         inline Vec2(void);
-        inline Vec2(const float xy);
-        inline Vec2(const float x, const float y);
-        inline Vec2(const Vec2& _Vec2);
+        inline Vec2(float xy);
+        inline Vec2(float x, float y);
 #ifdef ENABLE_VEC3
         inline Vec2(const class Vec3& _Vec3);
 #endif
@@ -57,13 +56,13 @@ namespace Maths
         //UTILS
         inline float GetMagnitude();
         inline void Normalize();
+        inline Vec2 GetNormalized();
         inline float DotProduct(const Vec2& _VecB);
         static float DotProduct(const Vec2& _VecA, const Vec2& _VecB);
-        inline float* ToFloat2();
 
         //ASSINGMENT AND EQUALITY OPERATIONS
         inline Vec2 operator = (const Vec2& _Vec);
-        inline Vec2 operator = (const float _Sca);
+        inline Vec2 operator = (float _Sca);
 
         inline Vec2 operator - (void)               const;
         inline bool operator == (const Vec2& _Vec)  const;
@@ -82,16 +81,16 @@ namespace Maths
         inline Vec2 operator /= (const Vec2& _Vec);
 
         //SCALER TO Vec2 OPERATIONS
-        inline Vec2 operator + (const float _Sca) const;
-        inline Vec2 operator - (const float _Sca) const;
-        inline Vec2 operator * (const float _Sca) const;
-        inline Vec2 operator / (const float _Sca) const;
+        inline Vec2 operator + (float _Sca) const;
+        inline Vec2 operator - (float _Sca) const;
+        inline Vec2 operator * (float _Sca) const;
+        inline Vec2 operator / (float _Sca) const;
 
         //SCALER TO THIS OPERATIONS
-        inline Vec2 operator += (const float _Sca);
-        inline Vec2 operator -= (const float _Sca);
-        inline Vec2 operator *= (const float _Sca);
-        inline Vec2 operator /= (const float _Sca);
+        inline Vec2 operator += (float _Sca);
+        inline Vec2 operator -= (float _Sca);
+        inline Vec2 operator *= (float _Sca);
+        inline Vec2 operator /= (float _Sca);
 
 #ifdef PRINT_FUNCTION
             void Print();
