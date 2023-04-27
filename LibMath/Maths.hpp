@@ -286,7 +286,14 @@ namespace Maths
     {
     public:
         //MEMBERS
-        float x, y, z, w;
+        union
+        {
+            struct
+            {
+                float x, y, z, w;
+            };
+            float xyzw[4];
+        };
 
         //CONSTRUCTORS
         inline Vec4(void);
