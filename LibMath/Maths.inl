@@ -6,31 +6,44 @@
  *-------VECTOR_2-------*
 \************************/
 #pragma region Vec2
-//CONSTRUCTORS
-inline Maths::Vec2::Vec2(void)							: x(0)		, y(0)			{}
-inline Maths::Vec2::Vec2(const float xy)				: x(xy)		, y(xy)			{}
-inline Maths::Vec2::Vec2(const float x, const float y)	: x(x)		, y(y)			{}
-inline Maths::Vec2::Vec2(const Vec2& _Vec2)				: x(_Vec2.x), y(_Vec2.y)	{}
+//CONSTRUCTORS :
+
+inline Maths::Vec2::Vec2(void)              : x(0),       y(0)       {}
+inline Maths::Vec2::Vec2(float xy)          : x(xy),      y(xy)      {}
+inline Maths::Vec2::Vec2(float x, float y)  : x(x),       y(y)       {}
 #ifdef ENABLE_VEC3
-inline Maths::Vec2::Vec2(const Vec3& _Vec3)				: x(_Vec3.x), y(_Vec3.y)	{}
+inline Maths::Vec2::Vec2(const Vec3& _Vec3) : x(_Vec3.x), y(_Vec3.y) {}
 #endif
 #ifdef ENABLE_VEC4
-inline Maths::Vec2::Vec2(const Vec4& _Vec4)				: x(_Vec4.x), y(_Vec4.y)	{}
+inline Maths::Vec2::Vec2(const Vec4& _Vec4) : x(_Vec4.x), y(_Vec4.y) {}
 #endif
 
-//DESTRUCTOR
+//DESTRUCTOR :
+
 inline Maths::Vec2::~Vec2(void) {}
 
-//UTILS
+//UTILS :
+
 inline float Maths::Vec2::GetMagnitude()
 {
-	return (float)sqrt((x * x) + (y * y));
+	return sqrtf((x * x) + (y * y));
 }
 inline void Maths::Vec2::Normalize()
 {
-	operator/=(GetMagnitude());
-	//x /= GetMagnitude();
-	//y /= GetMagnitude();
+	float i = GetMagnitude();
+	if (i != 0)
+	{
+		operator/=(i);
+	}
+}
+inline Maths::Vec2 Maths::Vec2::GetNormalized()
+{
+	float i = GetMagnitude();
+	if (i != 0)
+	{
+		return operator/(i);
+	}
+	return *this;
 }
 inline float Maths::Vec2::DotProduct(const Vec2& _VecB)
 {
@@ -40,34 +53,31 @@ inline float Maths::Vec2::DotProduct(const Vec2& _VecA, const Vec2& _VecB)
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y);
 }
-inline float* Maths::Vec2::ToFloat2()
-{
-	return &x;
-}
 
-//ASSINGMENT AND EQUALITY OPERATIONS
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
 inline Maths::Vec2 Maths::Vec2::operator = (const Vec2& _Vec)
 {
 	x = _Vec.x;
 	y = _Vec.y;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator = (const float _Sca)
+inline Maths::Vec2 Maths::Vec2::operator = (float _Sca)
 {
 	x = _Sca;
 	y = _Sca;
 	return *this;
 }
 
-inline Maths::Vec2 Maths::Vec2::operator - (void)		const
+inline Maths::Vec2 Maths::Vec2::operator - (void)       const
 {
 	return (Vec2)(-x, -y);
 }
-inline bool Maths::Vec2::operator == (const Vec2& _Vec)	const
+inline bool Maths::Vec2::operator == (const Vec2& _Vec) const
 {
 	return (x == _Vec.x) && (y == _Vec.y);
 }
-inline bool Maths::Vec2::operator != (const Vec2& _Vec)	const
+inline bool Maths::Vec2::operator != (const Vec2& _Vec) const
 {
 	return (x != _Vec.x) || (y != _Vec.y);
 }
@@ -117,19 +127,19 @@ inline Maths::Vec2 Maths::Vec2::operator /= (const Vec2& _Vec)
 }
 
 //SCALER TO Vec2 OPERATIONS
-inline Maths::Vec2 Maths::Vec2::operator + (const float _Sca) const
+inline Maths::Vec2 Maths::Vec2::operator + (float _Sca) const
 {
 	return Vec2(x + _Sca, y + _Sca);
 }
-inline Maths::Vec2 Maths::Vec2::operator - (const float _Sca) const
+inline Maths::Vec2 Maths::Vec2::operator - (float _Sca) const
 {
 	return Vec2(x - _Sca, y - _Sca);
 }
-inline Maths::Vec2 Maths::Vec2::operator * (const float _Sca) const
+inline Maths::Vec2 Maths::Vec2::operator * (float _Sca) const
 {
 	return Vec2(x * _Sca, y * _Sca);
 }
-inline Maths::Vec2 Maths::Vec2::operator / (const float _Sca) const
+inline Maths::Vec2 Maths::Vec2::operator / (float _Sca) const
 {
 	return Vec2(x / _Sca, y / _Sca);
 }

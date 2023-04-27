@@ -29,7 +29,8 @@ namespace Maths
     class Vec2
     {
     public:
-        //MEMBERS
+        //MEMBERS :
+
         union
         {
             struct
@@ -39,7 +40,8 @@ namespace Maths
             float xy[2];
         };
 
-        //CONSTRUCTORS
+        //CONSTRUCTORS :
+
         inline Vec2(void);
         inline Vec2(float xy);
         inline Vec2(float x, float y);
@@ -50,17 +52,20 @@ namespace Maths
         inline Vec2(const class Vec4& _Vec4);
 #endif
 
-        //DESTRUCTOR
+        //DESTRUCTOR :
+
         inline ~Vec2(void);
 
-        //UTILS
+        //UTILS :
+
         inline float GetMagnitude();
         inline void Normalize();
         inline Vec2 GetNormalized();
         inline float DotProduct(const Vec2& _VecB);
         static float DotProduct(const Vec2& _VecA, const Vec2& _VecB);
 
-        //ASSINGMENT AND EQUALITY OPERATIONS
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
         inline Vec2 operator = (const Vec2& _Vec);
         inline Vec2 operator = (float _Sca);
 
@@ -68,25 +73,29 @@ namespace Maths
         inline bool operator == (const Vec2& _Vec)  const;
         inline bool operator != (const Vec2& _Vec)  const;
 
-        //Vec2 TO Vec2 OPERATIONS
+        //Vec2 TO Vec2 OPERATIONS :
+
         inline Vec2 operator + (const Vec2& _Vec)   const;
         inline Vec2 operator - (const Vec2& _Vecv)  const;
         inline Vec2 operator * (const Vec2& _Vec)   const;
         inline Vec2 operator / (const Vec2& _Vec)   const;
 
-        //Vec2 TO THIS OPERATIONS
+        //Vec2 TO THIS OPERATIONS :
+
         inline Vec2 operator += (const Vec2& _Vec);
         inline Vec2 operator -= (const Vec2& _Vec);
         inline Vec2 operator *= (const Vec2& _Vec);
         inline Vec2 operator /= (const Vec2& _Vec);
 
-        //SCALER TO Vec2 OPERATIONS
+        //SCALER TO Vec2 OPERATIONS :
+
         inline Vec2 operator + (float _Sca) const;
         inline Vec2 operator - (float _Sca) const;
         inline Vec2 operator * (float _Sca) const;
         inline Vec2 operator / (float _Sca) const;
 
-        //SCALER TO THIS OPERATIONS
+        //SCALER TO THIS OPERATIONS :
+
         inline Vec2 operator += (float _Sca);
         inline Vec2 operator -= (float _Sca);
         inline Vec2 operator *= (float _Sca);
@@ -94,7 +103,7 @@ namespace Maths
 
 #ifdef PRINT_FUNCTION
             void Print();
-        #endif // PRINT_FUNCTION
+#endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC2
 #ifdef ENABLE_IVEC2
