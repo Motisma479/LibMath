@@ -419,7 +419,15 @@ namespace Maths
     {
     public:
         //MEMBERS
-        float data[9];
+        union
+        {
+            struct
+            {
+                float data[9];
+            };
+            Vec3 data3V[3];
+            float data_3_3[3][3];
+        };
 
         //CONSTRUCTORS
         inline Mat3(void);
