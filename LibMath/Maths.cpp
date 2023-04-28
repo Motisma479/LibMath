@@ -18,7 +18,7 @@
 	#endif //ENABLE_IVEC2
 
 	#ifdef ENABLE_VEC3
-	void Maths::Vec3::Print()
+	void Maths::Vec3::Print() const
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ";" << std::endl;
 	}

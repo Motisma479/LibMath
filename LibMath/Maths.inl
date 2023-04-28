@@ -311,48 +311,73 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
 \************************/
 #pragma region Vec3
 //CONSTRUCTORS
-inline Maths::Vec3::Vec3(void)											: x(0)		, y(0)		, z(0)			{}
-inline Maths::Vec3::Vec3(const float xyz)								: x(xyz)	, y(xyz)	, z(xyz)		{}
-inline Maths::Vec3::Vec3(const float x, const float y, const float z)	: x(x)		, y(y)		, z(z)			{}
+inline Maths::Vec3::Vec3(void)                       : x(0),       y(0),       z(0)       {}
+inline Maths::Vec3::Vec3(float xyz)                  : x(xyz),     y(xyz),     z(xyz)     {}
+inline Maths::Vec3::Vec3(float x, float y, float z)	 : x(x),       y(y),       z(z)       {}
 #ifdef ENABLE_VEC2
-inline Maths::Vec3::Vec3(const Vec2& _Vec2)								: x(_Vec2.x), y(_Vec2.y), z(0)			{}
+inline Maths::Vec3::Vec3(const Vec2& _Vec2)          : x(_Vec2.x), y(_Vec2.y), z(0)       {}
+inline Maths::Vec3::Vec3(const Vec2& _Vec2, float z) : x(_Vec2.x), y(_Vec2.y), z(z)       {}
 #endif
-inline Maths::Vec3::Vec3(const Vec3& _Vec3)								: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z)	{}
 #ifdef ENABLE_VEC4
-inline Maths::Vec3::Vec3(const Vec4& _Vec4)								: x(_Vec4.x), y(_Vec4.y), z(_Vec4.z)	{}
+inline Maths::Vec3::Vec3(const Vec4& _Vec4)          : x(_Vec4.x), y(_Vec4.y), z(_Vec4.z) {}
 #endif
 
 //DESTRUCTOR
 inline Maths::Vec3::~Vec3(void) {}
 
 //UTILS
-inline float Maths::Vec3::GetMagnitude()
+
+inline Maths::Vec2 Maths::Vec3::xy() const
 {
-	return (float)sqrt((x * x) + (y * y) + (z * z));
+	return { x, y };
+}
+inline Maths::Vec2 Maths::Vec3::xz() const
+{
+	return { x, z };
+}
+inline Maths::Vec2 Maths::Vec3::yz() const
+{
+	return { y, y };
+}
+
+inline float Maths::Vec3::GetMagnitude()                                           const
+{
+	return sqrtf((x * x) + (y * y) + (z * z));
 }
 inline void Maths::Vec3::Normalize()
 {
-	operator/=(GetMagnitude());
-	//x /= GetMagnitude();
-	//y /= GetMagnitude();
-	//z /= GetMagnitude();
+	float i = GetMagnitude();
+	if (i != 0)
+	{
+		operator/=(i);
+	}
 }
-inline float Maths::Vec3::DotProduct(const Vec3& _VecB)
+inline Maths::Vec3 Maths::Vec3::GetNormalized()                                    const
+{
+	float i = GetMagnitude();
+	if (i != 0)
+	{
+		return operator/(i);
+	}
+	return *this;
+}
+inline float Maths::Vec3::DotProduct(const Vec3& _VecB)                            const
 {
 	return (float)(x * _VecB.x + y * _VecB.y + z * _VecB.z);
 }
-inline float Maths::Vec3::DotProduct(const Vec3& _VecA, const Vec3& _VecB)
+inline float Maths::Vec3::DotProduct(const Vec3& _VecA, const Vec3& _VecB)         const
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y + _VecA.z * _VecB.z);
 }
-inline float* Maths::Vec3::ToFloat3()
+inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecB)                    const
 {
-	return &x;
+	return { y * _VecB.z - z * _VecB.y, z * _VecB.x - x * _VecB.z, x * _VecB.y - y * _VecB.x };
 }
-inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecA, const Vec3& _VecB)
+inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecA, const Vec3& _VecB) const
 {
 	return { _VecA.y * _VecB.z - _VecA.z * _VecB.y, _VecA.z * _VecB.x - _VecA.x * _VecB.z, _VecA.x * _VecB.y - _VecA.y * _VecB.x };
 }
+
 
 //ASSINGMENT AND EQUALITY OPERATIONS
 inline Maths::Vec3 Maths::Vec3::operator = (const Vec3& _Vec)
@@ -362,7 +387,7 @@ inline Maths::Vec3 Maths::Vec3::operator = (const Vec3& _Vec)
 	z = _Vec.z;
 	return *this;
 }
-inline Maths::Vec3 Maths::Vec3::operator = (const float _Sca)
+inline Maths::Vec3 Maths::Vec3::operator = (float _Sca)
 {
 	x = _Sca;
 	y = _Sca;

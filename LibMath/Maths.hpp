@@ -191,17 +191,17 @@ namespace Maths
 
         //UTILS
 
-        inline Vec2 xy()	const;
-        inline Vec2 xz()	const;
-        inline Vec2 yz()	const;
+        inline Vec2 xy() const;
+        inline Vec2 xz() const;
+        inline Vec2 yz() const;
 
-        inline float GetMagnitude();
+        inline float GetMagnitude()                                    const;
         inline void Normalize();
-        inline Vec3 GetNormalized();
-        inline float DotProduct(const Vec3& _VecB);
-        static float DotProduct(const Vec3& _VecA, const Vec3& _VecB);
-        inline Vec3 CrossProduct(const Vec3& _VecB);
-        static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB);
+        inline Vec3 GetNormalized()                                    const;
+        inline float DotProduct(const Vec3& _VecB)                     const;
+        static float DotProduct(const Vec3& _VecA, const Vec3& _VecB)  const;
+        inline Vec3 CrossProduct(const Vec3& _VecB)                    const;
+        static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB) const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS
         inline Vec3 operator = (const Vec3& _Vec);
@@ -236,7 +236,7 @@ namespace Maths
         inline Vec3 operator /= (float _Sca);
 
         #ifdef PRINT_FUNCTION
-            void Print();
+            void Print() const;
         #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC3
