@@ -24,7 +24,7 @@ inline Maths::Vec2::~Vec2(void) {}
 
 //UTILS :
 
-inline float Maths::Vec2::GetMagnitude()
+inline float Maths::Vec2::GetMagnitude()                                   const
 {
 	return sqrtf((x * x) + (y * y));
 }
@@ -36,7 +36,7 @@ inline void Maths::Vec2::Normalize()
 		operator/=(i);
 	}
 }
-inline Maths::Vec2 Maths::Vec2::GetNormalized()
+inline Maths::Vec2 Maths::Vec2::GetNormalized()                            const
 {
 	float i = GetMagnitude();
 	if (i != 0)
@@ -45,11 +45,11 @@ inline Maths::Vec2 Maths::Vec2::GetNormalized()
 	}
 	return *this;
 }
-inline float Maths::Vec2::DotProduct(const Vec2& _VecB)
+inline float Maths::Vec2::DotProduct(const Vec2& _VecB)                    const
 {
 	return (float)(x * _VecB.x + y * _VecB.y);
 }
-inline float Maths::Vec2::DotProduct(const Vec2& _VecA, const Vec2& _VecB)
+inline float Maths::Vec2::DotProduct(const Vec2& _VecA, const Vec2& _VecB) const
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y);
 }
@@ -145,25 +145,25 @@ inline Maths::Vec2 Maths::Vec2::operator / (float _Sca) const
 }
 
 //SCALER TO THIS OPERATIONS
-inline Maths::Vec2 Maths::Vec2::operator += (const float _Sca)
+inline Maths::Vec2 Maths::Vec2::operator += (float _Sca)
 {
 	x += _Sca;
 	y += _Sca;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator -= (const float _Sca)
+inline Maths::Vec2 Maths::Vec2::operator -= (float _Sca)
 {
 	x -= _Sca;
 	y -= _Sca;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator *= (const float _Sca)
+inline Maths::Vec2 Maths::Vec2::operator *= (float _Sca)
 {
 	x *= _Sca;
 	y *= _Sca;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator /= (const float _Sca)
+inline Maths::Vec2 Maths::Vec2::operator /= (float _Sca)
 {
 	x /= _Sca;
 	y /= _Sca;

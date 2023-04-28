@@ -5,7 +5,7 @@
 #ifdef PRINT_FUNCTION
 
 	#ifdef ENABLE_VEC2
-	void Maths::Vec2::Print()
+	void Maths::Vec2::Print() const
 	{
 		std::cout << this << " Value : x = " << x << ", y = " << y << ";" << std::endl;
 	}

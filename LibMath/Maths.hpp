@@ -58,27 +58,27 @@ namespace Maths
 
         //UTILS :
 
-        inline float GetMagnitude();
+        inline float GetMagnitude()                                   const;
         inline void Normalize();
-        inline Vec2 GetNormalized();
-        inline float DotProduct(const Vec2& _VecB);
-        static float DotProduct(const Vec2& _VecA, const Vec2& _VecB);
+        inline Vec2 GetNormalized()                                   const;
+        inline float DotProduct(const Vec2& _VecB)                    const;
+        static float DotProduct(const Vec2& _VecA, const Vec2& _VecB) const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Vec2 operator = (const Vec2& _Vec);
         inline Vec2 operator = (float _Sca);
 
-        inline Vec2 operator - (void)               const;
-        inline bool operator == (const Vec2& _Vec)  const;
-        inline bool operator != (const Vec2& _Vec)  const;
+        inline Vec2 operator - (void)              const;
+        inline bool operator == (const Vec2& _Vec) const;
+        inline bool operator != (const Vec2& _Vec) const;
 
         //Vec2 TO Vec2 OPERATIONS :
 
-        inline Vec2 operator + (const Vec2& _Vec)   const;
-        inline Vec2 operator - (const Vec2& _Vecv)  const;
-        inline Vec2 operator * (const Vec2& _Vec)   const;
-        inline Vec2 operator / (const Vec2& _Vec)   const;
+        inline Vec2 operator + (const Vec2& _Vec)  const;
+        inline Vec2 operator - (const Vec2& _Vecv) const;
+        inline Vec2 operator * (const Vec2& _Vec)  const;
+        inline Vec2 operator / (const Vec2& _Vec)  const;
 
         //Vec2 TO THIS OPERATIONS :
 
@@ -102,7 +102,7 @@ namespace Maths
         inline Vec2 operator /= (float _Sca);
 
 #ifdef PRINT_FUNCTION
-            void Print();
+            void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC2
