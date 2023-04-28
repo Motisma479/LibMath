@@ -1,3 +1,10 @@
+/***********************************************\
+* Made by : Motisma479                          *
+* GitHub : https://github.com/Motisma479        *
+* License : MIT license                         *
+* Unit Test Based on : OpenGL Mathematics (GLM) *
+* Last Update : 4/28/2023                       *
+\***********************************************/
 #include "Maths.hpp"
 
 #include <math.h>
