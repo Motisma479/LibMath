@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 4/28/2023                       *
+* Last Update : 12/05/2023                       *
 \***********************************************/
 #pragma once
 #include <cmath>
@@ -27,7 +27,7 @@
 
 namespace Maths
 {
-    constexpr float M_PI = 3.141592653589793238462643383279f;
+    constexpr float M_PI = 3.14159265358979323846f;
     constexpr float DEG2RAD = M_PI / 180;
     constexpr float RAD2DEG = 180.f / M_PI;
 
@@ -69,7 +69,7 @@ namespace Maths
         inline void Normalize();
         inline Vec2 GetNormalized()                                   const;
         inline float DotProduct(const Vec2& _VecB)                    const;
-        static float DotProduct(const Vec2& _VecA, const Vec2& _VecB) const;
+        inline static float DotProduct(const Vec2& _VecA, const Vec2& _VecB) const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -171,7 +171,8 @@ namespace Maths
     class Vec3
     {
     public:
-        //MEMBERS
+        //MEMBERS :
+
         union
         {
             struct
@@ -181,7 +182,8 @@ namespace Maths
             float xyz[3];
         };
 
-        //CONSTRUCTORS
+        //CONSTRUCTORS :
+
         inline Vec3(void);
         inline Vec3(float xyz);
         inline Vec3(float x, float y, float z);
@@ -193,10 +195,11 @@ namespace Maths
         inline Vec3(const class Vec4& _Vec4);
 #endif
 
-        //DESTRUCTOR
+        //DESTRUCTOR :
+
         inline ~Vec3(void);
 
-        //UTILS
+        //UTILS :
 
         inline Vec2 xy() const;
         inline Vec2 xz() const;
@@ -210,7 +213,8 @@ namespace Maths
         inline Vec3 CrossProduct(const Vec3& _VecB)                    const;
         static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB) const;
 
-        //ASSINGMENT AND EQUALITY OPERATIONS
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
         inline Vec3 operator = (const Vec3& _Vec);
         inline Vec3 operator = (float _Sca);
 
@@ -218,33 +222,37 @@ namespace Maths
         inline bool operator == (const Vec3& _Vec) const;
         inline bool operator != (const Vec3& _Vec) const;
 
-        //Vec3 TO Vec3 OPERATIONS
+        //Vec3 TO Vec3 OPERATIONS :
+
         inline Vec3 operator + (const Vec3& _Vec) const;
         inline Vec3 operator - (const Vec3& _Vec) const;
         inline Vec3 operator * (const Vec3& _Vec) const;
         inline Vec3 operator / (const Vec3& _Vec) const;
 
-        //Vec3 TO THIS OPERATIONS
+        //Vec3 TO THIS OPERATIONS :
+
         inline Vec3 operator += (const Vec3& _Vec);
         inline Vec3 operator -= (const Vec3& _Vec);
         inline Vec3 operator *= (const Vec3& _Vec);
         inline Vec3 operator /= (const Vec3& _Vec);
 
-        //SCALER TO Vec3 OPERATIONS
+        //SCALER TO Vec3 OPERATIONS :
+
         inline Vec3 operator + (float _Sca) const;
         inline Vec3 operator - (float _Sca) const;
         inline Vec3 operator * (float _Sca) const;
         inline Vec3 operator / (float _Sca) const;
 
-        //SCALER TO THIS OPERATIONS
+        //SCALER TO THIS OPERATIONS :
+
         inline Vec3 operator += (float _Sca);
         inline Vec3 operator -= (float _Sca);
         inline Vec3 operator *= (float _Sca);
         inline Vec3 operator /= (float _Sca);
 
-        #ifdef PRINT_FUNCTION
-            void Print() const;
-        #endif // PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
+        void Print() const;
+#endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC3
 #ifdef ENABLE_IVEC3  
@@ -305,7 +313,8 @@ namespace Maths
     class Vec4
     {
     public:
-        //MEMBERS
+        //MEMBERS :
+
         union
         {
             struct
@@ -315,7 +324,8 @@ namespace Maths
             float xyzw[4];
         };
 
-        //CONSTRUCTORS
+        //CONSTRUCTORS :
+
         inline Vec4(void);
         inline Vec4(float xyzw);
         inline Vec4(float x, float y, float z, float w);
@@ -327,27 +337,33 @@ namespace Maths
         inline Vec4(const class Vec3& _Vec3, float w);
 #endif
 
-        //DESTRUCTOR
+        //DESTRUCTOR :
+
         inline ~Vec4(void);
 
-        //UTILS
-        inline float GetMagnitude();
-        inline void Normalize();
-        inline Vec4 GetNormalized();
-        inline float DotProduct(const Vec4& _VecB);
-        static float DotProduct(const Vec4& _VecA, const Vec4& _VecB);
-        inline Vec4 Homogenize();
+        //UTILS :
 
-        //ASSINGMENT AND EQUALITY OPERATIONS
+        inline Vec3 xyz()	const;
+        inline Vec3 xzw()	const;
+        inline Vec3 xyw()	const;
+        inline Vec3 yzw()	const;
+
+
+        inline float GetMagnitude()                                   const;
+        inline void Normalize()                                       const;
+        inline Vec4 GetNormalized()                                   const;
+        inline float DotProduct(const Vec4& _VecB)                    const;
+        static float DotProduct(const Vec4& _VecA, const Vec4& _VecB) const;
+        inline Vec4 Homogenize()                                      const;
+
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
         inline Vec4 operator = (const Vec4& _Vec);
         inline Vec4 operator = (float _Sca);
 
         inline Vec4 operator - (void)               const;
         inline bool operator == (const Vec4& _Vec)  const;
         inline bool operator != (const Vec4& _Vec)  const;
-        inline bool operator >= (int v) {
-            return (x >= v || y >= v || z >= v || w >= v);
-        }
 
         //Vec4 TO Vec4 OPERATIONS
         inline Vec4 operator + (const Vec4& _Vec) const;
@@ -373,9 +389,9 @@ namespace Maths
         inline Vec4 operator *= (float _Sca);
         inline Vec4 operator /= (float _Sca); 
 
-        #ifdef PRINT_FUNCTION
-            void Print();
-        #endif // PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
+        void Print();
+#endif // PRINT_FUNCTION
     };
 #endif //ENABLE_VEC4
 #ifdef ENABLE_IVEC4

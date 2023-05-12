@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 4/28/2023                       *
+* Last Update : 12/05/2023                       *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -89,7 +89,8 @@ inline bool Maths::Vec2::operator != (const Vec2& _Vec) const
 	return (x != _Vec.x) || (y != _Vec.y);
 }
 
-//Vec2 TO Vec2 OPERATIONS
+//Vec2 TO Vec2 OPERATIONS :
+
 inline Maths::Vec2 Maths::Vec2::operator + (const Vec2& _Vec) const
 {
 	return Vec2(x + _Vec.x, y + _Vec.y);
@@ -107,7 +108,8 @@ inline Maths::Vec2 Maths::Vec2::operator / (const Vec2& _Vec) const
 	return Vec2(x / _Vec.x, y / _Vec.y);
 }
 
-//Vec2 TO THIS OPERATIONS
+//Vec2 TO THIS OPERATIONS :
+
 inline Maths::Vec2 Maths::Vec2::operator += (const Vec2& _Vec)
 {
 	x += _Vec.x;
@@ -133,7 +135,8 @@ inline Maths::Vec2 Maths::Vec2::operator /= (const Vec2& _Vec)
 	return *this;
 }
 
-//SCALER TO Vec2 OPERATIONS
+//SCALER TO Vec2 OPERATIONS :
+
 inline Maths::Vec2 Maths::Vec2::operator + (float _Sca) const
 {
 	return Vec2(x + _Sca, y + _Sca);
@@ -151,7 +154,8 @@ inline Maths::Vec2 Maths::Vec2::operator / (float _Sca) const
 	return Vec2(x / _Sca, y / _Sca);
 }
 
-//SCALER TO THIS OPERATIONS
+//SCALER TO THIS OPERATIONS :
+
 inline Maths::Vec2 Maths::Vec2::operator += (float _Sca)
 {
 	x += _Sca;
@@ -317,7 +321,8 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
  *-------VECTOR_3-------*
 \************************/
 #pragma region Vec3
-//CONSTRUCTORS
+//CONSTRUCTORS :
+
 inline Maths::Vec3::Vec3(void)                       : x(0),       y(0),       z(0)       {}
 inline Maths::Vec3::Vec3(float xyz)                  : x(xyz),     y(xyz),     z(xyz)     {}
 inline Maths::Vec3::Vec3(float x, float y, float z)	 : x(x),       y(y),       z(z)       {}
@@ -329,10 +334,11 @@ inline Maths::Vec3::Vec3(const Vec2& _Vec2, float z) : x(_Vec2.x), y(_Vec2.y), z
 inline Maths::Vec3::Vec3(const Vec4& _Vec4)          : x(_Vec4.x), y(_Vec4.y), z(_Vec4.z) {}
 #endif
 
-//DESTRUCTOR
+//DESTRUCTOR :
+
 inline Maths::Vec3::~Vec3(void) {}
 
-//UTILS
+//UTILS :
 
 inline Maths::Vec2 Maths::Vec3::xy() const
 {
@@ -344,7 +350,7 @@ inline Maths::Vec2 Maths::Vec3::xz() const
 }
 inline Maths::Vec2 Maths::Vec3::yz() const
 {
-	return { y, y };
+	return { y, z };
 }
 
 inline float Maths::Vec3::GetMagnitude()                                           const
@@ -386,7 +392,8 @@ inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecA, const Vec3& _Vec
 }
 
 
-//ASSINGMENT AND EQUALITY OPERATIONS
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
 inline Maths::Vec3 Maths::Vec3::operator = (const Vec3& _Vec)
 {
 	x = _Vec.x;
@@ -415,7 +422,8 @@ inline bool Maths::Vec3::operator != (const Vec3& _Vec)	const
 	return (x != _Vec.x) || (y != _Vec.y) || (z != _Vec.z);
 }
 
-//Vec3 TO Vec3 OPERATIONS
+//Vec3 TO Vec3 OPERATIONS :
+
 inline Maths::Vec3 Maths::Vec3::operator + (const Vec3& _Vec) const
 {
 	return Vec3(x + _Vec.x, y + _Vec.y, z + _Vec.z);
@@ -433,7 +441,8 @@ inline Maths::Vec3 Maths::Vec3::operator / (const Vec3& _Vec) const
 	return Vec3(x / _Vec.x, y / _Vec.y, z / _Vec.z);
 }
 
-//Vec3 TO THIS OPERATIONS
+//Vec3 TO THIS OPERATIONS :
+
 inline Maths::Vec3 Maths::Vec3::operator += (const Vec3& _Vec)
 {
 	x += _Vec.x;
@@ -481,7 +490,8 @@ inline Maths::Vec3 Maths::Vec3::operator / (float _Sca) const
 	return Vec3(x / _Sca, y / _Sca, z / _Sca);
 }
 
-//SCALER TO THIS OPERATIONS
+//SCALER TO THIS OPERATIONS :
+
 inline Maths::Vec3 Maths::Vec3::operator += (float _Sca)
 {
 	x += _Sca;
@@ -662,7 +672,8 @@ inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
  *-------VECTOR_4-------*
 \************************/
 #pragma region Vec4
-//CONSTRUCTORS
+//CONSTRUCTORS :
+
 inline Maths::Vec4::Vec4(void)															: x(0)		, y(0)		, z(0)		, w(0)			{}
 inline Maths::Vec4::Vec4(const float xyzw)												: x(xyzw)	, y(xyzw)	, z(xyzw)	, w(xyzw)		{}
 inline Maths::Vec4::Vec4(const float x, const float y, const float z, const float w)	: x(x)		, y(y)		, z(z)		, w(w)			{}
@@ -673,37 +684,58 @@ inline Maths::Vec4::Vec4(const Vec2& _Vec2)												: x(_Vec2.x), y(_Vec2.y),
 inline Maths::Vec4::Vec4(const Vec3& _Vec3)												: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(0)			{}
 inline Maths::Vec4::Vec4(const Vec3& _Vec3, float w)									: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(w)			{}
 #endif
-inline Maths::Vec4::Vec4(const Vec4& _Vec4)												: x(_Vec4.x), y(_Vec4.y), z(_Vec4.z), w(_Vec4.w)	{}
 
+//DESTRUCTOR :
 
-//DESTRUCTOR
 inline Maths::Vec4::~Vec4(void) { }
 
-//UTILS
+//UTILS :
 
-inline float Maths::Vec4::GetMagnitude()
+inline Maths::Vec3 Maths::Vec4::xyz()	const
 {
-	return (float)sqrt((x * x) + (y * y) + (z * z) + (w * w));
+	return Vec3(x, y, z);
+}
+inline Maths::Vec3 Maths::Vec4::xzw()	const
+{
+	return Vec3(x, z, w);
+}
+inline Maths::Vec3 Maths::Vec4::xyw()	const
+{
+	return Vec3(x, y, w);
+}
+inline Maths::Vec3 Maths::Vec4::yzw()	const
+{
+	return Vec3(y, z, w);
+}
+
+inline float Maths::Vec4::GetMagnitude()                                   const
+{
+	return sqrtf((x * x) + (y * y) + (z * z) + (w * w));
 }
 inline void Maths::Vec4::Normalize()
 {
-	//x /= GetMagnitude();
-	//y /= GetMagnitude();
-	//z /= GetMagnitude();
-	//w /= GetMagnitude();
-	operator/=(GetMagnitude());
+	float i = GetMagnitude();
+	if (i != 0)
+	{
+		operator/=(i);
+	}
 }
-inline float Maths::Vec4::DotProduct(const Vec4& _VecB)
+inline Maths::Vec4 Maths::Vec4::GetNormalized()                            const
+{
+	float i = GetMagnitude();
+	if (i != 0)
+	{
+		return operator/(i);
+	}
+	return *this;
+}
+inline float Maths::Vec4::DotProduct(const Vec4& _VecB)                    const
 {
 	return (float)(x * _VecB.x + y * _VecB.y + z * _VecB.z + w * _VecB.w);
 }
-inline float Maths::Vec4::DotProduct(const Vec4& _VecA, const Vec4& _VecB)
+inline float Maths::Vec4::DotProduct(const Vec4& _VecA, const Vec4& _VecB) const
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y + _VecA.z * _VecB.z + _VecA.w * _VecB.w);
-}
-inline float* Maths::Vec4::ToFloat4()
-{
-	return &x;
 }
 inline Maths::Vec4 Maths::Vec4::Homogenize()
 {
@@ -712,7 +744,8 @@ inline Maths::Vec4 Maths::Vec4::Homogenize()
 	return { x / w, y / w, z / w, 1 };
 }
 
-//ASSINGMENT AND EQUALITY OPERATIONS
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
 inline Maths::Vec4 Maths::Vec4::operator = (const Vec4& _Vec)
 {
 	x = _Vec.x;
@@ -721,7 +754,7 @@ inline Maths::Vec4 Maths::Vec4::operator = (const Vec4& _Vec)
 	w = _Vec.w;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator = (const float _Sca)
+inline Maths::Vec4 Maths::Vec4::operator = (float _Sca)
 {
 	x = _Sca;
 	y = _Sca;
@@ -743,7 +776,8 @@ inline bool Maths::Vec4::operator != (const Vec4& _Vec)	const
 	return (x != _Vec.x) || (y != _Vec.y) || (z != _Vec.z) || (w != _Vec.w);
 }
 
-//Vec4 TO Vec4 OPERATIONS
+//Vec4 TO Vec4 OPERATIONS :
+
 inline Maths::Vec4 Maths::Vec4::operator + (const Vec4& _Vec) const
 {
 	return Vec4(x + _Vec.x, y + _Vec.y, z + _Vec.z, w + _Vec.w);
@@ -761,7 +795,8 @@ inline Maths::Vec4 Maths::Vec4::operator / (const Vec4& _Vec) const
 	return Vec4(x / _Vec.x, y / _Vec.y, z / _Vec.z, w / _Vec.w);
 }
 
-//Vec4 TO THIS OPERATIONS
+//Vec4 TO THIS OPERATIONS :
+
 inline Maths::Vec4 Maths::Vec4::operator += (const Vec4& _Vec)
 {
 	x += _Vec.x;
@@ -796,25 +831,25 @@ inline Maths::Vec4 Maths::Vec4::operator /= (const Vec4& _Vec)
 }
 
 //SCALER TO Vec4 OPERATIONS
-inline Maths::Vec4 Maths::Vec4::operator + (const float _Sca) const
+inline Maths::Vec4 Maths::Vec4::operator + (float _Sca) const
 {
 	return Vec4(x + _Sca, y + _Sca, z + _Sca, w + _Sca);
 }
-inline Maths::Vec4 Maths::Vec4::operator - (const float _Sca) const
+inline Maths::Vec4 Maths::Vec4::operator - (float _Sca) const
 {
 	return Vec4(x - _Sca, y - _Sca, z - _Sca, w - _Sca);
 }
-inline Maths::Vec4 Maths::Vec4::operator * (const float _Sca) const
+inline Maths::Vec4 Maths::Vec4::operator * (float _Sca) const
 {
 	return Vec4(x * _Sca, y * _Sca, z * _Sca, w * _Sca);
 }
-inline Maths::Vec4 Maths::Vec4::operator / (const float _Sca) const
+inline Maths::Vec4 Maths::Vec4::operator / (float _Sca) const
 {
 	return Vec4(x / _Sca, y / _Sca, z / _Sca, w / _Sca);
 }
 
 //SCALER TO THIS OPERATIONS
-inline Maths::Vec4 Maths::Vec4::operator += (const float _Sca)
+inline Maths::Vec4 Maths::Vec4::operator += (float _Sca)
 {
 	x += _Sca;
 	y += _Sca;
@@ -822,7 +857,7 @@ inline Maths::Vec4 Maths::Vec4::operator += (const float _Sca)
 	w += _Sca;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator -= (const float _Sca)
+inline Maths::Vec4 Maths::Vec4::operator -= (float _Sca)
 {
 	x -= _Sca;
 	y -= _Sca;
@@ -830,7 +865,7 @@ inline Maths::Vec4 Maths::Vec4::operator -= (const float _Sca)
 	w -= _Sca;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator *= (const float _Sca)
+inline Maths::Vec4 Maths::Vec4::operator *= (float _Sca)
 {
 	x *= _Sca;
 	y *= _Sca;
@@ -838,7 +873,7 @@ inline Maths::Vec4 Maths::Vec4::operator *= (const float _Sca)
 	w *= _Sca;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator /= (const float _Sca)
+inline Maths::Vec4 Maths::Vec4::operator /= (float _Sca)
 {
 	x /= _Sca;
 	y /= _Sca;
