@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 12/05/2023                       *
+* Last Update : 05/15/2023                       *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -59,6 +59,14 @@ inline float Maths::Vec2::DotProduct(const Vec2& _VecB)                    const
 inline float Maths::Vec2::DotProduct(const Vec2& _VecA, const Vec2& _VecB) const
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y);
+}
+inline float Maths::Vec2::GetLength()                                      const
+{
+	return sqrtf(LenghtSquared());
+}
+inline float Maths::Vec2::LenghtSquared()
+{
+	return (x * x + y * y);
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :

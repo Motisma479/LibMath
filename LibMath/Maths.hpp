@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 12/05/2023                       *
+* Last Update : 05/15/2023                       *
 \***********************************************/
 #pragma once
 
@@ -66,11 +66,13 @@ namespace Maths
 
         //UTILS :
 
-        inline float GetMagnitude()                                   const;
+        inline float GetMagnitude()                                          const;
         inline void Normalize();
-        inline Vec2 GetNormalized()                                   const;
-        inline float DotProduct(const Vec2& _VecB)                    const;
+        inline Vec2 GetNormalized()                                          const;
+        inline float DotProduct(const Vec2& _VecB)                           const;
         inline static float DotProduct(const Vec2& _VecA, const Vec2& _VecB) const;
+        inline float GetLength()                                             const;
+        inline float LenghtSquared()                                         const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -245,11 +247,11 @@ namespace Maths
 
 
         inline float GetMagnitude()                                   const;
-        inline void Normalize()                                       const;
+        inline void Normalize();
         inline Vec4 GetNormalized()                                   const;
         inline float DotProduct(const Vec4& _VecB)                    const;
         static float DotProduct(const Vec4& _VecA, const Vec4& _VecB) const;
-        inline Vec4 Homogenize()                                      const;
+        inline Vec4 Homogenize();
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
