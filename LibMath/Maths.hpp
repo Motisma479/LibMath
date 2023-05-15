@@ -6,33 +6,34 @@
 * Last Update : 12/05/2023                       *
 \***********************************************/
 #pragma once
-#include <cmath>
+
+//-------USED_TO_ENABLE_PRINT_FUNCTIONS-------
 
 #define PRINT_FUNCTION
 
-//-------USED_TO_ENABLE_CLASS-------
-#define ENABLE_VEC2
-#define ENABLE_IVEC2
+//-------USED_TO_DISABLE_CLASS-------
 
-#define ENABLE_VEC3
-#define ENABLE_IVEC3
+//#define DISABLE_VEC2
+//#define DISABLE_VEC3
+//#define DISABLE_VEC4
 
-#define ENABLE_VEC4
-#define ENABLE_IVEC4
+//#define DISABLE_IVEC2
+//#define DISABLE_IVEC3
+//#define DISABLE_IVEC4
 
-#define ENABLE_MAT3
+//#define DISABLE_MAT3
 
-#define ENABLE_MAT4
+//#define DISABLE_MAT4
+
 //----------------------------------
-
 namespace Maths
 {
     constexpr float M_PI = 3.14159265358979323846f;
     constexpr float DEG2RAD = M_PI / 180;
     constexpr float RAD2DEG = 180.f / M_PI;
 
-// Vector Using float as Value
-#ifdef ENABLE_VEC2
+// Vector Using float as Value -----------------------------------------------------------------------------
+#ifndef DISABLE_VEC2
     class Vec2
     {
     public:
@@ -52,10 +53,10 @@ namespace Maths
         inline Vec2(void);
         inline Vec2(float xy);
         inline Vec2(float x, float y);
-#ifdef ENABLE_VEC3
+#ifndef DISABLE_VEC3
         inline Vec2(const class Vec3& _Vec3);
 #endif
-#ifdef ENABLE_VEC4
+#ifndef DISABLE_VEC4
         inline Vec2(const class Vec4& _Vec4);
 #endif
 
@@ -112,62 +113,9 @@ namespace Maths
             void Print() const;
 #endif // PRINT_FUNCTION
     };
-#endif //ENABLE_VEC2
-#ifdef ENABLE_IVEC2
-    class IVec2
-    {
-    public:
-        //MEMBERS
-        int x, y;
+#endif
 
-        //CONSTRUCTORS
-        inline IVec2(void);
-        inline IVec2(const int xy);
-        inline IVec2(const int x, const int y);
-        inline IVec2(const IVec2& _IVec2);
-
-        //DESTRUCTOR
-        inline ~IVec2(void);
-
-        //ASSINGMENT AND EQUALITY OPERATIONS
-        inline IVec2 operator = (const IVec2& _IVec);
-        inline IVec2 operator = (const int _Sca);
-
-        inline IVec2 operator - (void)               const;
-        inline bool operator == (const IVec2& _IVec)  const;
-        inline bool operator != (const IVec2& _IVec)  const;
-
-        //Vec2 TO Vec2 OPERATIONS
-        inline IVec2 operator + (const IVec2& _IVec)   const;
-        inline IVec2 operator - (const IVec2& _IVec)  const;
-        inline IVec2 operator * (const IVec2& _IVec)   const;
-        inline IVec2 operator / (const IVec2& _IVec)   const;
-
-        //Vec2 TO THIS OPERATIONS
-        inline IVec2 operator += (const IVec2& _IVec);
-        inline IVec2 operator -= (const IVec2& _IVec);
-        inline IVec2 operator *= (const IVec2& _IVec);
-        inline IVec2 operator /= (const IVec2& _IVec);
-
-        //SCALER TO Vec2 OPERATIONS
-        inline IVec2 operator + (const int _Sca) const;
-        inline IVec2 operator - (const int _Sca) const;
-        inline IVec2 operator * (const int _Sca) const;
-        inline IVec2 operator / (const int _Sca) const;
-
-        //SCALER TO THIS OPERATIONS
-        inline IVec2 operator += (const int _Sca);
-        inline IVec2 operator -= (const int _Sca);
-        inline IVec2 operator *= (const int _Sca);
-        inline IVec2 operator /= (const int _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print();
-#endif // PRINT_FUNCTION
-    };
-#endif //ENABLE_IVEC2
-
-#ifdef ENABLE_VEC3
+#ifndef DISABLE_VEC3
     class Vec3
     {
     public:
@@ -187,11 +135,11 @@ namespace Maths
         inline Vec3(void);
         inline Vec3(float xyz);
         inline Vec3(float x, float y, float z);
-#ifdef ENABLE_VEC2
+#ifndef DISABLE_VEC2
         inline Vec3(const class Vec2& _Vec2);
         inline Vec3(const class Vec2& _Vec2, float z);
 #endif
-#ifdef ENABLE_VEC4
+#ifndef DISABLE_VEC4
         inline Vec3(const class Vec4& _Vec4);
 #endif
 
@@ -254,62 +202,9 @@ namespace Maths
         void Print() const;
 #endif // PRINT_FUNCTION
     };
-#endif //ENABLE_VEC3
-#ifdef ENABLE_IVEC3  
-    class IVec3
-    {
-    public:
-        //MEMBERS
-        int x, y, z;
+#endif
 
-        //CONSTRUCTORS
-        inline IVec3(void);
-        inline IVec3(const int xyz);
-        inline IVec3(const int x, const int y, const int z);
-        inline IVec3(const IVec3& _IVec3);
-
-        //DESTRUCTOR
-        inline ~IVec3(void);
-
-        //ASSINGMENT AND EQUALITY OPERATIONS
-        inline IVec3 operator = (const IVec3& _IVec);
-        inline IVec3 operator = (const int _Sca);
-
-        inline IVec3 operator - (void)               const;
-        inline bool operator == (const IVec3& _IVec)  const;
-        inline bool operator != (const IVec3& _IVec)  const;
-
-        //Vec2 TO Vec2 OPERATIONS
-        inline IVec3 operator + (const IVec3& _IVec)   const;
-        inline IVec3 operator - (const IVec3& _IVec)  const;
-        inline IVec3 operator * (const IVec3& _IVec)   const;
-        inline IVec3 operator / (const IVec3& _IVec)   const;
-
-        //Vec2 TO THIS OPERATIONS
-        inline IVec3 operator += (const IVec3& _IVec);
-        inline IVec3 operator -= (const IVec3& _IVec);
-        inline IVec3 operator *= (const IVec3& _IVec);
-        inline IVec3 operator /= (const IVec3& _IVec);
-
-        //SCALER TO Vec2 OPERATIONS
-        inline IVec3 operator + (const int _Sca) const;
-        inline IVec3 operator - (const int _Sca) const;
-        inline IVec3 operator * (const int _Sca) const;
-        inline IVec3 operator / (const int _Sca) const;
-
-        //SCALER TO THIS OPERATIONS
-        inline IVec3 operator += (const int _Sca);
-        inline IVec3 operator -= (const int _Sca);
-        inline IVec3 operator *= (const int _Sca);
-        inline IVec3 operator /= (const int _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print();
-#endif // PRINT_FUNCTION
-    };
-#endif //ENABLE_IVEC3
-
-#ifdef ENABLE_VEC4
+#ifndef DISABLE_VEC4
     class Vec4
     {
     public:
@@ -329,10 +224,10 @@ namespace Maths
         inline Vec4(void);
         inline Vec4(float xyzw);
         inline Vec4(float x, float y, float z, float w);
-#ifdef ENABLE_VEC2
+#ifndef DISABLE_VEC2
         inline Vec4(const class Vec2& _Vec2);
 #endif
-#ifdef ENABLE_VEC3
+#ifndef DISABLE_VEC3
         inline Vec4(const class Vec3& _Vec3);
         inline Vec4(const class Vec3& _Vec3, float w);
 #endif
@@ -387,73 +282,212 @@ namespace Maths
         inline Vec4 operator += (float _Sca);
         inline Vec4 operator -= (float _Sca);
         inline Vec4 operator *= (float _Sca);
-        inline Vec4 operator /= (float _Sca); 
+        inline Vec4 operator /= (float _Sca);
 
 #ifdef PRINT_FUNCTION
         void Print();
 #endif // PRINT_FUNCTION
     };
-#endif //ENABLE_VEC4
-#ifdef ENABLE_IVEC4
+#endif
+
+// Vector Using int as Value -------------------------------------------------------------------------------
+#ifndef DISABLE_IVEC2
+    class IVec2
+    {
+    public:
+        //MEMBERS :
+
+        union
+        {
+            struct
+            {
+                int x, y;
+            };
+            int xy[2];
+        };
+
+        //CONSTRUCTORS :
+
+        inline IVec2(void);
+        inline IVec2(int xy);
+        inline IVec2(int x,  int y);
+
+        //DESTRUCTOR :
+
+        inline ~IVec2(void);
+
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
+        inline IVec2 operator = (const IVec2& _IVec);
+        inline IVec2 operator = (int _Sca);
+
+        inline IVec2 operator - (void)               const;
+        inline bool operator == (const IVec2& _IVec)  const;
+        inline bool operator != (const IVec2& _IVec)  const;
+
+        //Vec2 TO Vec2 OPERATIONS :
+
+        inline IVec2 operator + (const IVec2& _IVec)   const;
+        inline IVec2 operator - (const IVec2& _IVec)  const;
+        inline IVec2 operator * (const IVec2& _IVec)   const;
+        inline IVec2 operator / (const IVec2& _IVec)   const;
+
+        //Vec2 TO THIS OPERATIONS :
+
+        inline IVec2 operator += (const IVec2& _IVec);
+        inline IVec2 operator -= (const IVec2& _IVec);
+        inline IVec2 operator *= (const IVec2& _IVec);
+        inline IVec2 operator /= (const IVec2& _IVec);
+
+        //SCALER TO Vec2 OPERATIONS :
+
+        inline IVec2 operator + (int _Sca) const;
+        inline IVec2 operator - (int _Sca) const;
+        inline IVec2 operator * (int _Sca) const;
+        inline IVec2 operator / (int _Sca) const;
+
+        //SCALER TO THIS OPERATIONS :
+
+        inline IVec2 operator += (int _Sca);
+        inline IVec2 operator -= (int _Sca);
+        inline IVec2 operator *= (int _Sca);
+        inline IVec2 operator /= (int _Sca);
+
+#ifdef PRINT_FUNCTION
+        void Print();
+#endif // PRINT_FUNCTION
+    };
+#endif
+
+#ifndef DISABLE_IVEC3  
+    class IVec3
+    {
+    public:
+        //MEMBERS :
+
+        int x, y, z;
+
+        //CONSTRUCTORS :
+
+        inline IVec3(void);
+        inline IVec3(int xyz);
+        inline IVec3(int x, int y, int z);
+
+        //DESTRUCTOR :
+
+        inline ~IVec3(void);
+
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
+        inline IVec3 operator = (const IVec3& _IVec);
+        inline IVec3 operator = (const int _Sca);
+
+        inline IVec3 operator - (void)               const;
+        inline bool operator == (const IVec3& _IVec) const;
+        inline bool operator != (const IVec3& _IVec) const;
+
+        //Vec2 TO Vec2 OPERATIONS :
+
+        inline IVec3 operator + (const IVec3& _IVec) const;
+        inline IVec3 operator - (const IVec3& _IVec) const;
+        inline IVec3 operator * (const IVec3& _IVec) const;
+        inline IVec3 operator / (const IVec3& _IVec) const;
+
+        //Vec2 TO THIS OPERATIONS :
+
+        inline IVec3 operator += (const IVec3& _IVec);
+        inline IVec3 operator -= (const IVec3& _IVec);
+        inline IVec3 operator *= (const IVec3& _IVec);
+        inline IVec3 operator /= (const IVec3& _IVec);
+
+        //SCALER TO Vec2 OPERATIONS :
+
+        inline IVec3 operator + (int _Sca) const;
+        inline IVec3 operator - (int _Sca) const;
+        inline IVec3 operator * (int _Sca) const;
+        inline IVec3 operator / (int _Sca) const;
+
+        //SCALER TO THIS OPERATIONS :
+
+        inline IVec3 operator += (int _Sca);
+        inline IVec3 operator -= (int _Sca);
+        inline IVec3 operator *= (int _Sca);
+        inline IVec3 operator /= (int _Sca);
+
+#ifdef PRINT_FUNCTION
+        void Print();
+#endif // PRINT_FUNCTION
+    };
+#endif
+
+#ifndef DISABLE_IVEC4
     class IVec4
     {
     public:
-        //MEMBERS
+        //MEMBERS :
+
         int x, y, z, w;
 
-        //CONSTRUCTORS
-        inline IVec4(void);
-        inline IVec4(const int xyzw);
-        inline IVec4(const int x, const int y, const int z, const int w);
-        inline IVec4(const IVec4& _IVec4);
+        //CONSTRUCTORS :
 
-        //DESTRUCTOR
+        inline IVec4(void);
+        inline IVec4(int xyzw);
+        inline IVec4(int x, int y, int z, int w);
+
+        //DESTRUCTOR :
+
         inline ~IVec4(void);
 
-        //ASSINGMENT AND EQUALITY OPERATIONS
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
         inline IVec4 operator = (const IVec4& _IVec);
-        inline IVec4 operator = (const int _Sca);
+        inline IVec4 operator = (int _Sca);
 
         inline IVec4 operator - (void)               const;
-        inline bool operator == (const IVec4& _IVec)  const;
-        inline bool operator != (const IVec4& _IVec)  const;
+        inline bool operator == (const IVec4& _IVec) const;
+        inline bool operator != (const IVec4& _IVec) const;
 
-        //Vec2 TO Vec2 OPERATIONS
-        inline IVec4 operator + (const IVec4& _IVec)   const;
-        inline IVec4 operator - (const IVec4& _IVec)  const;
-        inline IVec4 operator * (const IVec4& _IVec)   const;
-        inline IVec4 operator / (const IVec4& _IVec)   const;
+        //Vec2 TO Vec2 OPERATIONS :
 
-        //Vec2 TO THIS OPERATIONS
+        inline IVec4 operator + (const IVec4& _IVec) const;
+        inline IVec4 operator - (const IVec4& _IVec) const;
+        inline IVec4 operator * (const IVec4& _IVec) const;
+        inline IVec4 operator / (const IVec4& _IVec) const;
+
+        //Vec2 TO THIS OPERATIONS :
+
         inline IVec4 operator += (const IVec4& _IVec);
         inline IVec4 operator -= (const IVec4& _IVec);
         inline IVec4 operator *= (const IVec4& _IVec);
         inline IVec4 operator /= (const IVec4& _IVec);
 
-        //SCALER TO Vec2 OPERATIONS
-        inline IVec4 operator + (const int _Sca) const;
-        inline IVec4 operator - (const int _Sca) const;
-        inline IVec4 operator * (const int _Sca) const;
-        inline IVec4 operator / (const int _Sca) const;
+        //SCALER TO Vec2 OPERATIONS :
 
-        //SCALER TO THIS OPERATIONS
-        inline IVec4 operator += (const int _Sca);
-        inline IVec4 operator -= (const int _Sca);
-        inline IVec4 operator *= (const int _Sca);
-        inline IVec4 operator /= (const int _Sca);
+        inline IVec4 operator + (int _Sca) const;
+        inline IVec4 operator - (int _Sca) const;
+        inline IVec4 operator * (int _Sca) const;
+        inline IVec4 operator / (int _Sca) const;
+
+        //SCALER TO THIS OPERATIONS :
+
+        inline IVec4 operator += (int _Sca);
+        inline IVec4 operator -= (int _Sca);
+        inline IVec4 operator *= (int _Sca);
+        inline IVec4 operator /= (int _Sca);
 
 #ifdef PRINT_FUNCTION
         void Print();
 #endif // PRINT_FUNCTION
     };
-#endif //ENABLE_IVEC4
+#endif
 
-
-#ifdef ENABLE_MAT3
+// Matrix --------------------------------------------------------------------------------------------------
+#ifndef DISABLE_MAT3
     class Mat3
     {
     public:
-        //MEMBERS
+        //MEMBERS :
+
         union
         {
             struct
@@ -464,25 +498,30 @@ namespace Maths
             float data_3_3[3][3];
         };
 
-        //CONSTRUCTORS
+        //CONSTRUCTORS :
+
         inline Mat3(void);
         inline Mat3(float data[9]);
 
-        //DESTRUCTOR
+        //DESTRUCTOR :
+
         inline ~Mat3(void);
 
-        //UTILS
+        //UTILS :
 
-        //ASSINGMENT AND EQUALITY OPERATIONS
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
         inline Mat3 operator=(float _data[9]);
         inline Mat3 operator=(Mat3 _Mat);
 
-        //Mat3 TO Mat3 OPERATIONS
+        //Mat3 TO Mat3 OPERATIONS :
+
         inline Mat3 operator+(Mat3 _Mat) const;
         inline Mat3 operator-(Mat3 _Mat) const;
         inline Mat3 operator*(Mat3 _Mat) const;
 
-        //Mat3 TO THIS OPERATIONS
+        //Mat3 TO THIS OPERATIONS :
+
         inline Mat3 operator+=(Mat3 _Mat);
         inline Mat3 operator-=(Mat3 _Mat);
         inline Mat3 operator*=(Mat3 _Mat);
@@ -491,12 +530,14 @@ namespace Maths
             void Print();
         #endif // PRINT_FUNCTION
     };
-#endif // ENABLE_MAT3
-#ifdef ENABLE_MAT4
+#endif
+
+#ifndef DISABLE_MAT4
     class Mat4
     {
     public:
-        //MEMBERS
+        //MEMBERS :
+
         union
         {
             struct
@@ -507,27 +548,33 @@ namespace Maths
             float data_4_4[4][4];
         };
 
-        //CONSTRUCTORS
+        //CONSTRUCTORS :
+
         inline Mat4(void);
         inline Mat4(float* p_data, long int sizeOfData);
 
-        //DESTRUCTOR
+        //DESTRUCTOR :
+
         inline ~Mat4(void);
 
-        //UTILS
+        //UTILS :
+
         inline Mat4 GetIdentity(Mat4 identity);
         inline float* GetData();
 
-        //ASSINGMENT AND EQUALITY OPERATIONS
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
         inline Mat4 operator=(float p_newData[16]);
         inline Mat4 operator=(Mat4 _Mat);
 
-        //Mat4 TO Mat4 OPERATIONS
+        //Mat4 TO Mat4 OPERATIONS :
+
         inline Mat4 operator+(Mat4 _Mat) const;
         inline Mat4 operator-(Mat4 _Mat) const;
         inline Mat4 operator*(Mat4 _Mat) const;
         
-        //Mat4 TO THIS OPERATIONS
+        //Mat4 TO THIS OPERATIONS :
+
         inline Mat4 operator+=(Mat4 _Mat);
         inline Mat4 operator-=(Mat4 _Mat);
         inline Mat4 operator*=(Mat4 _Mat);
@@ -536,7 +583,7 @@ namespace Maths
             void Print();
         #endif // PRINT_FUNCTION
     };
-#endif // ENABLE_MAT4
+#endif
 }
 
 #include "Maths.inl"

@@ -7,8 +7,8 @@
 \***********************************************/
 #include "Maths.hpp"
 
-#include <math.h>
-#ifdef ENABLE_VEC2
+#include <cmath>
+#ifndef DISABLE_VEC2
 /************************\
  *-------VECTOR_2-------*
 \************************/
@@ -18,10 +18,10 @@
 inline Maths::Vec2::Vec2(void)              : x(0),       y(0)       {}
 inline Maths::Vec2::Vec2(float xy)          : x(xy),      y(xy)      {}
 inline Maths::Vec2::Vec2(float x, float y)  : x(x),       y(y)       {}
-#ifdef ENABLE_VEC3
+#ifndef DISABLE_VEC3
 inline Maths::Vec2::Vec2(const Vec3& _Vec3) : x(_Vec3.x), y(_Vec3.y) {}
 #endif
-#ifdef ENABLE_VEC4
+#ifndef DISABLE_VEC4
 inline Maths::Vec2::Vec2(const Vec4& _Vec4) : x(_Vec4.x), y(_Vec4.y) {}
 #endif
 
@@ -181,142 +181,9 @@ inline Maths::Vec2 Maths::Vec2::operator /= (float _Sca)
 	return *this;
 }
 #pragma endregion Vec2
-#endif // ENABLE_VEC2
+#endif
 
-
-#ifdef ENABLE_IVEC2
-/************************\
- *------IVECTOR_2-------*
-\************************/
-#pragma region IVec2
-//CONSTRUCTORS
-inline Maths::IVec2::IVec2(void)						: x(0)			, y(0)			{}
-inline Maths::IVec2::IVec2(const int xy)				: x(xy)			, y(xy)			{}
-inline Maths::IVec2::IVec2(const int x, const int y)	: x(x)			, y(y)			{}
-inline Maths::IVec2::IVec2(const IVec2& _IVec2)			: x(_IVec2.x)	, y(_IVec2.y)	{}
-
-//DESTRUCTOR
-inline Maths::IVec2::~IVec2(void) {}
-
-//ASSINGMENT AND EQUALITY OPERATIONS
-inline Maths::IVec2 Maths::IVec2::operator = (const IVec2& _IVec)
-{
-	x = _IVec.x;
-	y = _IVec.y;
-	return *this;
-}
-inline Maths::IVec2 Maths::IVec2::operator = (const int _Sca)
-{
-	x = _Sca;
-	y = _Sca;
-	return *this;
-}
-
-inline Maths::IVec2 Maths::IVec2::operator - (void)			const
-{
-	return IVec2(-x, -y);
-}
-inline bool Maths::IVec2::operator == (const IVec2& _IVec)	const
-{
-	return (x == _IVec.x) && (y == _IVec.y);
-}
-inline bool Maths::IVec2::operator != (const IVec2& _IVec)	const
-{
-	return (x != _IVec.x) || (y != _IVec.y);
-}
-
-//Vec2 TO Vec2 OPERATIONS
-inline Maths::IVec2 Maths::IVec2::operator + (const IVec2& _IVec) const
-{
-	return IVec2(x + _IVec.x, y + _IVec.y);
-}
-inline Maths::IVec2 Maths::IVec2::operator - (const IVec2& _IVec) const
-{
-	return IVec2(x - _IVec.x, y - _IVec.y);
-}
-inline Maths::IVec2 Maths::IVec2::operator * (const IVec2& _IVec) const
-{
-	return IVec2(x * _IVec.x, y * _IVec.y);
-}
-inline Maths::IVec2 Maths::IVec2::operator / (const IVec2& _IVec) const
-{
-	return IVec2(x / _IVec.x, y / _IVec.y);
-}
-
-//Vec2 TO THIS OPERATIONS
-inline Maths::IVec2 Maths::IVec2::operator += (const IVec2& _IVec)
-{
-	x += _IVec.x;
-	y += _IVec.y;
-	return *this;
-}
-inline Maths::IVec2 Maths::IVec2::operator -= (const IVec2& _IVec)
-{
-	x -= _IVec.x;
-	y -= _IVec.y;
-	return *this;
-}
-inline Maths::IVec2 Maths::IVec2::operator *= (const IVec2& _IVec)
-{
-	x *= _IVec.x;
-	y *= _IVec.y;
-	return *this;
-}
-inline Maths::IVec2 Maths::IVec2::operator /= (const IVec2& _IVec)
-{
-	x /= _IVec.x;
-	y /= _IVec.y;
-	return *this;
-}
-
-//SCALER TO Vec2 OPERATIONS
-inline Maths::IVec2 Maths::IVec2::operator + (const int _Sca) const
-{
-	return IVec2(x + _Sca, y + _Sca);
-}
-inline Maths::IVec2 Maths::IVec2::operator - (const int _Sca) const
-{
-	return IVec2(x - _Sca, y - _Sca);
-}
-inline Maths::IVec2 Maths::IVec2::operator * (const int _Sca) const
-{
-	return IVec2(x * _Sca, y * _Sca);
-}
-inline Maths::IVec2 Maths::IVec2::operator / (const int _Sca) const
-{
-	return IVec2(x / _Sca, y / _Sca);
-}
-
-//SCALER TO THIS OPERATIONS
-inline Maths::IVec2 Maths::IVec2::operator += (const int _Sca)
-{
-	x += _Sca;
-	y += _Sca;
-	return *this;
-}
-inline Maths::IVec2 Maths::IVec2::operator -= (const int _Sca)
-{
-	x -= _Sca;
-	y -= _Sca;
-	return *this;
-}
-inline Maths::IVec2 Maths::IVec2::operator *= (const int _Sca)
-{
-	x *= _Sca;
-	y *= _Sca;
-	return *this;
-}
-inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
-{
-	x /= _Sca;
-	y /= _Sca;
-	return *this;
-}
-#pragma endregion IVec2
-#endif // ENABLE_IVEC2
-
-
-#ifdef ENABLE_VEC3
+#ifndef DISABLE_VEC3
 /************************\
  *-------VECTOR_3-------*
 \************************/
@@ -326,11 +193,11 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
 inline Maths::Vec3::Vec3(void)                       : x(0),       y(0),       z(0)       {}
 inline Maths::Vec3::Vec3(float xyz)                  : x(xyz),     y(xyz),     z(xyz)     {}
 inline Maths::Vec3::Vec3(float x, float y, float z)	 : x(x),       y(y),       z(z)       {}
-#ifdef ENABLE_VEC2
+#ifndef DISABLE_VEC2
 inline Maths::Vec3::Vec3(const Vec2& _Vec2)          : x(_Vec2.x), y(_Vec2.y), z(0)       {}
 inline Maths::Vec3::Vec3(const Vec2& _Vec2, float z) : x(_Vec2.x), y(_Vec2.y), z(z)       {}
 #endif
-#ifdef ENABLE_VEC4
+#ifndef DISABLE_VEC4
 inline Maths::Vec3::Vec3(const Vec4& _Vec4)          : x(_Vec4.x), y(_Vec4.y), z(_Vec4.z) {}
 #endif
 
@@ -472,7 +339,8 @@ inline Maths::Vec3 Maths::Vec3::operator /= (const Vec3& _Vec)
 	return *this;
 }
 
-//SCALER TO Vec3 OPERATIONS
+//SCALER TO Vec3 OPERATIONS :
+
 inline Maths::Vec3 Maths::Vec3::operator + (float _Sca) const
 {
 	return Vec3(x + _Sca, y + _Sca, z + _Sca);
@@ -522,152 +390,9 @@ inline Maths::Vec3 Maths::Vec3::operator /= (float _Sca)
 }
 
 #pragma endregion Vec3
-#endif //ENABLE_VEC3
+#endif
 
-
-#ifdef ENABLE_IVEC3
-/************************\
- *------IVECTOR_3-------*
-\************************/
-#pragma region IVec3
-//CONSTRUCTORS
-inline Maths::IVec3::IVec3(void)									: x(0)			, y(0)			, z(0)			{}
-inline Maths::IVec3::IVec3(const int xyz)							: x(xyz)		, y(xyz)		, z(xyz)		{}
-inline Maths::IVec3::IVec3(const int x, const int y, const int z)	: x(x)			, y(y)			, z(z)			{}
-inline Maths::IVec3::IVec3(const IVec3& _IVec3)						: x(_IVec3.x)	, y(_IVec3.y)	, z(_IVec3.z)	{}
-
-//DESTRUCTOR
-inline Maths::IVec3::~IVec3(void) {}
-
-//ASSINGMENT AND EQUALITY OPERATIONS
-inline Maths::IVec3 Maths::IVec3::operator = (const IVec3& _IVec)
-{
-	x = _IVec.x;
-	y = _IVec.y;
-	z = _IVec.z;
-	return *this;
-}
-inline Maths::IVec3 Maths::IVec3::operator = (const int _Sca)
-{
-	x = _Sca;
-	y = _Sca;
-	z = _Sca;
-	return *this;
-}
-
-inline Maths::IVec3 Maths::IVec3::operator - (void)			const
-{
-	return IVec3(-x, -y, -z);
-}
-inline bool Maths::IVec3::operator == (const IVec3& _IVec)	const
-{
-	return (x == _IVec.x) && (y == _IVec.y) && (z == _IVec.z);
-}
-inline bool Maths::IVec3::operator != (const IVec3& _IVec)	const
-{
-	return (x != _IVec.x) || (y != _IVec.y) || (z != _IVec.z);
-}
-
-//Vec2 TO Vec2 OPERATIONS
-inline Maths::IVec3 Maths::IVec3::operator + (const IVec3& _IVec) const
-{
-	return IVec3(x + _IVec.x, y + _IVec.y, z + _IVec.z);
-}
-inline Maths::IVec3 Maths::IVec3::operator - (const IVec3& _IVec) const
-{
-	return IVec3(x - _IVec.x, y - _IVec.y, z - _IVec.z);
-}
-inline Maths::IVec3 Maths::IVec3::operator * (const IVec3& _IVec) const
-{
-	return IVec3(x * _IVec.x, y * _IVec.y, z * _IVec.z);
-}
-inline Maths::IVec3 Maths::IVec3::operator / (const IVec3& _IVec) const
-{
-	return IVec3(x / _IVec.x, y / _IVec.y, z / _IVec.z);
-}
-
-//Vec2 TO THIS OPERATIONS
-inline Maths::IVec3 Maths::IVec3::operator += (const IVec3& _IVec)
-{
-	x += _IVec.x;
-	y += _IVec.y;
-	z += _IVec.z;
-	return *this;
-}
-inline Maths::IVec3 Maths::IVec3::operator -= (const IVec3& _IVec)
-{
-	x -= _IVec.x;
-	y -= _IVec.y;
-	z -= _IVec.z;
-	return *this;
-}
-inline Maths::IVec3 Maths::IVec3::operator *= (const IVec3& _IVec)
-{
-	x *= _IVec.x;
-	y *= _IVec.y;
-	z *= _IVec.z;
-	return *this;
-}
-inline Maths::IVec3 Maths::IVec3::operator /= (const IVec3& _IVec)
-{
-	x /= _IVec.x;
-	y /= _IVec.y;
-	z /= _IVec.z;
-	return *this;
-}
-
-//SCALER TO Vec2 OPERATIONS
-inline Maths::IVec3 Maths::IVec3::operator + (const int _Sca) const
-{
-	return IVec3(x + _Sca, y + _Sca, z + _Sca);
-}
-inline Maths::IVec3 Maths::IVec3::operator - (const int _Sca) const
-{
-	return IVec3(x - _Sca, y - _Sca, z - _Sca);
-}
-inline Maths::IVec3 Maths::IVec3::operator * (const int _Sca) const
-{
-	return IVec3(x * _Sca, y * _Sca, z * _Sca);
-}
-inline Maths::IVec3 Maths::IVec3::operator / (const int _Sca) const
-{
-	return IVec3(x / _Sca, y / _Sca, z / _Sca);
-}
-
-//SCALER TO THIS OPERATIONS
-inline Maths::IVec3 Maths::IVec3::operator += (const int _Sca)
-{
-	x += _Sca;
-	y += _Sca;
-	z += _Sca;
-	return *this;
-}
-inline Maths::IVec3 Maths::IVec3::operator -= (const int _Sca)
-{
-	x -= _Sca;
-	y -= _Sca;
-	z -= _Sca;
-	return *this;
-}
-inline Maths::IVec3 Maths::IVec3::operator *= (const int _Sca)
-{
-	x *= _Sca;
-	y *= _Sca;
-	z *= _Sca;
-	return *this;
-}
-inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
-{
-	x /= _Sca;
-	y /= _Sca;
-	z /= _Sca;
-	return *this;
-}
-#pragma endregion IVec3
-#endif // ENABLE_IVEC3
-
-
-#ifdef ENABLE_VEC4
+#ifndef DISABLE_VEC4
 /************************\
  *-------VECTOR_4-------*
 \************************/
@@ -677,10 +402,10 @@ inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
 inline Maths::Vec4::Vec4(void)															: x(0)		, y(0)		, z(0)		, w(0)			{}
 inline Maths::Vec4::Vec4(const float xyzw)												: x(xyzw)	, y(xyzw)	, z(xyzw)	, w(xyzw)		{}
 inline Maths::Vec4::Vec4(const float x, const float y, const float z, const float w)	: x(x)		, y(y)		, z(z)		, w(w)			{}
-#ifdef ENABLE_VEC2
+#ifndef DISABLE_VEC2
 inline Maths::Vec4::Vec4(const Vec2& _Vec2)												: x(_Vec2.x), y(_Vec2.y), z(0)		, w(0)			{}
 #endif
-#ifdef ENABLE_VEC3
+#ifndef DISABLE_VEC3
 inline Maths::Vec4::Vec4(const Vec3& _Vec3)												: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(0)			{}
 inline Maths::Vec4::Vec4(const Vec3& _Vec3, float w)									: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(w)			{}
 #endif
@@ -830,7 +555,8 @@ inline Maths::Vec4 Maths::Vec4::operator /= (const Vec4& _Vec)
 	return *this;
 }
 
-//SCALER TO Vec4 OPERATIONS
+//SCALER TO Vec4 OPERATIONS :
+
 inline Maths::Vec4 Maths::Vec4::operator + (float _Sca) const
 {
 	return Vec4(x + _Sca, y + _Sca, z + _Sca, w + _Sca);
@@ -848,7 +574,8 @@ inline Maths::Vec4 Maths::Vec4::operator / (float _Sca) const
 	return Vec4(x / _Sca, y / _Sca, z / _Sca, w / _Sca);
 }
 
-//SCALER TO THIS OPERATIONS
+//SCALER TO THIS OPERATIONS :
+
 inline Maths::Vec4 Maths::Vec4::operator += (float _Sca)
 {
 	x += _Sca;
@@ -882,24 +609,313 @@ inline Maths::Vec4 Maths::Vec4::operator /= (float _Sca)
 	return *this;
 }
 #pragma endregion Vec4
-#endif //ENABLE_VEC4
+#endif
 
 
-#ifdef ENABLE_IVEC4
+#ifndef DISABLE_IVEC2
+/************************\
+ *------IVECTOR_2-------*
+\************************/
+#pragma region IVec2
+//CONSTRUCTORS :
+
+inline Maths::IVec2::IVec2(void)						: x(0)			, y(0)			{}
+inline Maths::IVec2::IVec2(const int xy)				: x(xy)			, y(xy)			{}
+inline Maths::IVec2::IVec2(const int x, const int y)	: x(x)			, y(y)			{}
+inline Maths::IVec2::IVec2(const IVec2& _IVec2)			: x(_IVec2.x)	, y(_IVec2.y)	{}
+
+//DESTRUCTOR :
+
+inline Maths::IVec2::~IVec2(void) {}
+
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
+inline Maths::IVec2 Maths::IVec2::operator = (const IVec2& _IVec)
+{
+	x = _IVec.x;
+	y = _IVec.y;
+	return *this;
+}
+inline Maths::IVec2 Maths::IVec2::operator = (const int _Sca)
+{
+	x = _Sca;
+	y = _Sca;
+	return *this;
+}
+
+inline Maths::IVec2 Maths::IVec2::operator - (void)			const
+{
+	return IVec2(-x, -y);
+}
+inline bool Maths::IVec2::operator == (const IVec2& _IVec)	const
+{
+	return (x == _IVec.x) && (y == _IVec.y);
+}
+inline bool Maths::IVec2::operator != (const IVec2& _IVec)	const
+{
+	return (x != _IVec.x) || (y != _IVec.y);
+}
+
+//Vec2 TO Vec2 OPERATIONS :
+
+inline Maths::IVec2 Maths::IVec2::operator + (const IVec2& _IVec) const
+{
+	return IVec2(x + _IVec.x, y + _IVec.y);
+}
+inline Maths::IVec2 Maths::IVec2::operator - (const IVec2& _IVec) const
+{
+	return IVec2(x - _IVec.x, y - _IVec.y);
+}
+inline Maths::IVec2 Maths::IVec2::operator * (const IVec2& _IVec) const
+{
+	return IVec2(x * _IVec.x, y * _IVec.y);
+}
+inline Maths::IVec2 Maths::IVec2::operator / (const IVec2& _IVec) const
+{
+	return IVec2(x / _IVec.x, y / _IVec.y);
+}
+
+//Vec2 TO THIS OPERATIONS :
+
+inline Maths::IVec2 Maths::IVec2::operator += (const IVec2& _IVec)
+{
+	x += _IVec.x;
+	y += _IVec.y;
+	return *this;
+}
+inline Maths::IVec2 Maths::IVec2::operator -= (const IVec2& _IVec)
+{
+	x -= _IVec.x;
+	y -= _IVec.y;
+	return *this;
+}
+inline Maths::IVec2 Maths::IVec2::operator *= (const IVec2& _IVec)
+{
+	x *= _IVec.x;
+	y *= _IVec.y;
+	return *this;
+}
+inline Maths::IVec2 Maths::IVec2::operator /= (const IVec2& _IVec)
+{
+	x /= _IVec.x;
+	y /= _IVec.y;
+	return *this;
+}
+
+//SCALER TO Vec2 OPERATIONS :
+
+inline Maths::IVec2 Maths::IVec2::operator + (const int _Sca) const
+{
+	return IVec2(x + _Sca, y + _Sca);
+}
+inline Maths::IVec2 Maths::IVec2::operator - (const int _Sca) const
+{
+	return IVec2(x - _Sca, y - _Sca);
+}
+inline Maths::IVec2 Maths::IVec2::operator * (const int _Sca) const
+{
+	return IVec2(x * _Sca, y * _Sca);
+}
+inline Maths::IVec2 Maths::IVec2::operator / (const int _Sca) const
+{
+	return IVec2(x / _Sca, y / _Sca);
+}
+
+//SCALER TO THIS OPERATIONS :
+
+inline Maths::IVec2 Maths::IVec2::operator += (const int _Sca)
+{
+	x += _Sca;
+	y += _Sca;
+	return *this;
+}
+inline Maths::IVec2 Maths::IVec2::operator -= (const int _Sca)
+{
+	x -= _Sca;
+	y -= _Sca;
+	return *this;
+}
+inline Maths::IVec2 Maths::IVec2::operator *= (const int _Sca)
+{
+	x *= _Sca;
+	y *= _Sca;
+	return *this;
+}
+inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
+{
+	x /= _Sca;
+	y /= _Sca;
+	return *this;
+}
+#pragma endregion IVec2
+#endif
+
+#ifndef DISABLE_IVEC3
+/************************\
+ *------IVECTOR_3-------*
+\************************/
+#pragma region IVec3
+//CONSTRUCTORS :
+
+inline Maths::IVec3::IVec3(void)									: x(0)			, y(0)			, z(0)			{}
+inline Maths::IVec3::IVec3(const int xyz)							: x(xyz)		, y(xyz)		, z(xyz)		{}
+inline Maths::IVec3::IVec3(const int x, const int y, const int z)	: x(x)			, y(y)			, z(z)			{}
+inline Maths::IVec3::IVec3(const IVec3& _IVec3)						: x(_IVec3.x)	, y(_IVec3.y)	, z(_IVec3.z)	{}
+
+//DESTRUCTOR :
+
+inline Maths::IVec3::~IVec3(void) {}
+
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
+inline Maths::IVec3 Maths::IVec3::operator = (const IVec3& _IVec)
+{
+	x = _IVec.x;
+	y = _IVec.y;
+	z = _IVec.z;
+	return *this;
+}
+inline Maths::IVec3 Maths::IVec3::operator = (const int _Sca)
+{
+	x = _Sca;
+	y = _Sca;
+	z = _Sca;
+	return *this;
+}
+
+inline Maths::IVec3 Maths::IVec3::operator - (void)			const
+{
+	return IVec3(-x, -y, -z);
+}
+inline bool Maths::IVec3::operator == (const IVec3& _IVec)	const
+{
+	return (x == _IVec.x) && (y == _IVec.y) && (z == _IVec.z);
+}
+inline bool Maths::IVec3::operator != (const IVec3& _IVec)	const
+{
+	return (x != _IVec.x) || (y != _IVec.y) || (z != _IVec.z);
+}
+
+//Vec2 TO Vec2 OPERATIONS :
+
+inline Maths::IVec3 Maths::IVec3::operator + (const IVec3& _IVec) const
+{
+	return IVec3(x + _IVec.x, y + _IVec.y, z + _IVec.z);
+}
+inline Maths::IVec3 Maths::IVec3::operator - (const IVec3& _IVec) const
+{
+	return IVec3(x - _IVec.x, y - _IVec.y, z - _IVec.z);
+}
+inline Maths::IVec3 Maths::IVec3::operator * (const IVec3& _IVec) const
+{
+	return IVec3(x * _IVec.x, y * _IVec.y, z * _IVec.z);
+}
+inline Maths::IVec3 Maths::IVec3::operator / (const IVec3& _IVec) const
+{
+	return IVec3(x / _IVec.x, y / _IVec.y, z / _IVec.z);
+}
+
+//Vec2 TO THIS OPERATIONS :
+
+inline Maths::IVec3 Maths::IVec3::operator += (const IVec3& _IVec)
+{
+	x += _IVec.x;
+	y += _IVec.y;
+	z += _IVec.z;
+	return *this;
+}
+inline Maths::IVec3 Maths::IVec3::operator -= (const IVec3& _IVec)
+{
+	x -= _IVec.x;
+	y -= _IVec.y;
+	z -= _IVec.z;
+	return *this;
+}
+inline Maths::IVec3 Maths::IVec3::operator *= (const IVec3& _IVec)
+{
+	x *= _IVec.x;
+	y *= _IVec.y;
+	z *= _IVec.z;
+	return *this;
+}
+inline Maths::IVec3 Maths::IVec3::operator /= (const IVec3& _IVec)
+{
+	x /= _IVec.x;
+	y /= _IVec.y;
+	z /= _IVec.z;
+	return *this;
+}
+
+//SCALER TO Vec2 OPERATIONS :
+
+inline Maths::IVec3 Maths::IVec3::operator + (const int _Sca) const
+{
+	return IVec3(x + _Sca, y + _Sca, z + _Sca);
+}
+inline Maths::IVec3 Maths::IVec3::operator - (const int _Sca) const
+{
+	return IVec3(x - _Sca, y - _Sca, z - _Sca);
+}
+inline Maths::IVec3 Maths::IVec3::operator * (const int _Sca) const
+{
+	return IVec3(x * _Sca, y * _Sca, z * _Sca);
+}
+inline Maths::IVec3 Maths::IVec3::operator / (const int _Sca) const
+{
+	return IVec3(x / _Sca, y / _Sca, z / _Sca);
+}
+
+//SCALER TO THIS OPERATIONS :
+
+inline Maths::IVec3 Maths::IVec3::operator += (const int _Sca)
+{
+	x += _Sca;
+	y += _Sca;
+	z += _Sca;
+	return *this;
+}
+inline Maths::IVec3 Maths::IVec3::operator -= (const int _Sca)
+{
+	x -= _Sca;
+	y -= _Sca;
+	z -= _Sca;
+	return *this;
+}
+inline Maths::IVec3 Maths::IVec3::operator *= (const int _Sca)
+{
+	x *= _Sca;
+	y *= _Sca;
+	z *= _Sca;
+	return *this;
+}
+inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
+{
+	x /= _Sca;
+	y /= _Sca;
+	z /= _Sca;
+	return *this;
+}
+#pragma endregion IVec3
+#endif
+
+#ifndef DISABLE_IVEC4
 /************************\
  *------IVECTOR_4-------*
 \************************/
 #pragma region IVec4
-//CONSTRUCTORS
+//CONSTRUCTORS :
+
 inline Maths::IVec4::IVec4(void)												: x(0)			, y(0)			, z(0)			, w(0)			{}
 inline Maths::IVec4::IVec4(const int xyzw)										: x(xyzw)		, y(xyzw)		, z(xyzw)		, w(xyzw)		{}
 inline Maths::IVec4::IVec4(const int x, const int y, const int z, const int w)	: x(x)			, y(y)			, z(z)			, w(w)			{}
 inline Maths::IVec4::IVec4(const IVec4& _IVec4)									: x(_IVec4.x)	, y(_IVec4.y)	, z(_IVec4.z)	, w(_IVec4.w)	{}
 
-//DESTRUCTOR
+//DESTRUCTOR :
+
 inline Maths::IVec4::~IVec4(void) {}
 
-//ASSINGMENT AND EQUALITY OPERATIONS
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
 inline Maths::IVec4 Maths::IVec4::operator = (const IVec4& _IVec)
 {
 	x = _IVec.x;
@@ -930,7 +946,8 @@ inline bool Maths::IVec4::operator != (const IVec4& _IVec)	const
 	return (x != _IVec.x) || (y != _IVec.y) || (z != _IVec.z) || (w != _IVec.w);
 }
 
-//Vec2 TO Vec2 OPERATIONS
+//Vec2 TO Vec2 OPERATIONS :
+
 inline Maths::IVec4 Maths::IVec4::operator + (const IVec4& _IVec) const
 {
 	return IVec4(x + _IVec.x, y + _IVec.y, z + _IVec.z, w + _IVec.w);
@@ -948,7 +965,8 @@ inline Maths::IVec4 Maths::IVec4::operator / (const IVec4& _IVec) const
 	return IVec4(x / _IVec.x, y / _IVec.y, z / _IVec.z, w / _IVec.w);
 }
 
-//Vec2 TO THIS OPERATIONS
+//Vec2 TO THIS OPERATIONS :
+
 inline Maths::IVec4 Maths::IVec4::operator += (const IVec4& _IVec)
 {
 	x += _IVec.x;
@@ -982,7 +1000,8 @@ inline Maths::IVec4 Maths::IVec4::operator /= (const IVec4& _IVec)
 	return *this;
 }
 
-//SCALER TO Vec2 OPERATIONS
+//SCALER TO Vec2 OPERATIONS :
+
 inline Maths::IVec4 Maths::IVec4::operator + (const int _Sca) const
 {
 	return IVec4(x + _Sca, y + _Sca, z + _Sca, w + _Sca);
@@ -1000,7 +1019,8 @@ inline Maths::IVec4 Maths::IVec4::operator / (const int _Sca) const
 	return IVec4(x / _Sca, y / _Sca, z / _Sca, w / _Sca);
 }
 
-//SCALER TO THIS OPERATIONS
+//SCALER TO THIS OPERATIONS :
+
 inline Maths::IVec4 Maths::IVec4::operator += (const int _Sca)
 {
 	x += _Sca;
@@ -1034,15 +1054,16 @@ inline Maths::IVec4 Maths::IVec4::operator /= (const int _Sca)
 	return *this;
 }
 #pragma endregion IVec4
-#endif // ENABLE_IVEC4
+#endif
 
 
-#ifdef ENABLE_MAT3
+#ifndef DISABLE_MAT3
 /************************\
  *-------MATRIX_3-------*
 \************************/
 #pragma region Mat3
-//CONSTRUCTORS
+//CONSTRUCTORS :
+
 inline Maths::Mat3::Mat3(void)
 {
 	for (int i = 0; i < 9; i++)
@@ -1062,12 +1083,14 @@ inline Maths::Mat3::Mat3(const Mat3& _Mat3)
 	//Todo
 }
 
-//DESTRUCTOR
+//DESTRUCTOR :
+
 inline Maths::Mat3::~Mat3(void) {}
 
-//UTILS
+//UTILS :
 
-//ASSINGMENT AND EQUALITY OPERATIONS
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
 inline Maths::Mat3 Maths::Mat3::operator=(Mat3 _Mat)
 {
 	/*for (int y = 0; y < 3; y++)
@@ -1080,7 +1103,8 @@ inline Maths::Mat3 Maths::Mat3::operator=(Mat3 _Mat)
 	return *this;
 }
 
-//Mat3 TO Mat3 OPERATIONS
+//Mat3 TO Mat3 OPERATIONS :
+
 inline Maths::Mat3 Maths::Mat3::operator+(Mat3 _Mat) const
 {
 	Mat3 temp;
@@ -1155,15 +1179,16 @@ inline Maths::Mat3 Maths::Mat3::operator*=(Mat3 _Mat)
 	return *this;
 }
 #pragma endregion Mat3
-#endif // ENABLE_MAT3
+#endif
 
 
-#ifdef ENABLE_MAT4
+#ifndef DISABLE_MAT4
 /************************\
  *-------MATRIX_4-------*
 \************************/
 #pragma region Mat4
-//CONSTRUCTORS
+//CONSTRUCTORS :
+
 inline Maths::Mat4::Mat4(void)
 {
 	for (int y = 0; y < 4; y++)
@@ -1186,16 +1211,19 @@ inline Maths::Mat4::Mat4(float* p_data, long int sizeOfData)
 	}
 }
 
-//DESTRUCTOR
+//DESTRUCTOR :
+
 inline Maths::Mat4::~Mat4(void) {}
 
-//UTILS
+//UTILS :
+
 inline float* Maths::Mat4::GetData()
 {
 	return *data;
 }
 
-//ASSINGMENT AND EQUALITY OPERATIONS
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
 inline Maths::Mat4 Maths::Mat4::operator=(float p_newData[16]) 
 {
 	for (int y = 0; y < 4; y++)
@@ -1220,7 +1248,8 @@ inline Maths::Mat4 Maths::Mat4::operator=(Mat4 _Mat)
 	return *this;
 }
 
-//Mat4 TO Mat4 OPERATIONS
+//Mat4 TO Mat4 OPERATIONS :
+
 inline Maths::Mat4 Maths::Mat4::operator+(Mat4 _Mat) const
 {
 	Mat4 temp;
@@ -1258,7 +1287,8 @@ inline Maths::Mat4 Maths::Mat4::operator*(Mat4 _Mat) const
 	return temp;
 }
 
-//Mat4 TO THIS OPERATIONS
+//Mat4 TO THIS OPERATIONS :
+
 inline Maths::Mat4 Maths::Mat4::operator+=(Mat4 _Mat)
 {
 	for (int y = 0; y < 4; y++)
@@ -1296,4 +1326,4 @@ inline Maths::Mat4 Maths::Mat4::operator*=(Mat4 _Mat)
 }
 
 #pragma endregion Mat4
-#endif // ENABLE_MAT4
+#endif
