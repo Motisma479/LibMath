@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 05/15/2023                       *
+* Last Update : 16/05/2023                      *
 \***********************************************/
 #pragma once
 
@@ -29,7 +29,9 @@
 namespace Maths
 {
     constexpr float M_PI = 3.14159265358979323846f;
+    //multiply your angle in degrees by this value to convert it to radians.
     constexpr float DEG2RAD = M_PI / 180;
+    //multiply your angle in radians by this value to convert it to degrees.
     constexpr float RAD2DEG = 180.f / M_PI;
 
 // Vector Using float as Value -----------------------------------------------------------------------------
@@ -162,6 +164,8 @@ namespace Maths
         static float DotProduct(const Vec3& _VecA, const Vec3& _VecB)  const;
         inline Vec3 CrossProduct(const Vec3& _VecB)                    const;
         static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB) const;
+        inline float GetLength()                                       const;
+        inline float LenghtSquared()                                   const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -240,10 +244,10 @@ namespace Maths
 
         //UTILS :
 
-        inline Vec3 xyz()	const;
-        inline Vec3 xzw()	const;
-        inline Vec3 xyw()	const;
-        inline Vec3 yzw()	const;
+        inline Vec3 xyz() const;
+        inline Vec3 xzw() const;
+        inline Vec3 xyw() const;
+        inline Vec3 yzw() const;
 
 
         inline float GetMagnitude()                                   const;
@@ -251,16 +255,19 @@ namespace Maths
         inline Vec4 GetNormalized()                                   const;
         inline float DotProduct(const Vec4& _VecB)                    const;
         static float DotProduct(const Vec4& _VecA, const Vec4& _VecB) const;
-        inline Vec4 Homogenize();
+        inline void Homogenize();
+        inline Vec4 GetHomogenized()                                  const;
+        inline float GetLength()                                      const;
+        inline float LenghtSquared()                                  const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Vec4 operator = (const Vec4& _Vec);
         inline Vec4 operator = (float _Sca);
 
-        inline Vec4 operator - (void)               const;
-        inline bool operator == (const Vec4& _Vec)  const;
-        inline bool operator != (const Vec4& _Vec)  const;
+        inline Vec4 operator - (void)              const;
+        inline bool operator == (const Vec4& _Vec) const;
+        inline bool operator != (const Vec4& _Vec) const;
 
         //Vec4 TO Vec4 OPERATIONS
         inline Vec4 operator + (const Vec4& _Vec) const;
@@ -318,21 +325,26 @@ namespace Maths
 
         inline ~IVec2(void);
 
+        //UTILS :
+
+        inline float GetLength()     const;
+        inline float LenghtSquared() const;
+
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline IVec2 operator = (const IVec2& _IVec);
         inline IVec2 operator = (int _Sca);
 
         inline IVec2 operator - (void)               const;
-        inline bool operator == (const IVec2& _IVec)  const;
-        inline bool operator != (const IVec2& _IVec)  const;
+        inline bool operator == (const IVec2& _IVec) const;
+        inline bool operator != (const IVec2& _IVec) const;
 
         //Vec2 TO Vec2 OPERATIONS :
 
-        inline IVec2 operator + (const IVec2& _IVec)   const;
-        inline IVec2 operator - (const IVec2& _IVec)  const;
-        inline IVec2 operator * (const IVec2& _IVec)   const;
-        inline IVec2 operator / (const IVec2& _IVec)   const;
+        inline IVec2 operator + (const IVec2& _IVec) const;
+        inline IVec2 operator - (const IVec2& _IVec) const;
+        inline IVec2 operator * (const IVec2& _IVec) const;
+        inline IVec2 operator / (const IVec2& _IVec) const;
 
         //Vec2 TO THIS OPERATIONS :
 
@@ -367,7 +379,14 @@ namespace Maths
     public:
         //MEMBERS :
 
-        int x, y, z;
+        union
+        {
+            struct
+            {
+                int x, y, z;
+            };
+            int xyz[3];
+        };
 
         //CONSTRUCTORS :
 
@@ -378,6 +397,11 @@ namespace Maths
         //DESTRUCTOR :
 
         inline ~IVec3(void);
+
+        //UTILS :
+
+        inline float GetLength()     const;
+        inline float LenghtSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -428,7 +452,14 @@ namespace Maths
     public:
         //MEMBERS :
 
-        int x, y, z, w;
+        union
+        {
+            struct
+            {
+                int x, y, z, w;
+            };
+            int xyzw[4];
+        };
 
         //CONSTRUCTORS :
 
@@ -439,6 +470,11 @@ namespace Maths
         //DESTRUCTOR :
 
         inline ~IVec4(void);
+
+        //UTILS :
+
+        inline float GetLength()     const;
+        inline float LenghtSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -553,7 +589,7 @@ namespace Maths
         //CONSTRUCTORS :
 
         inline Mat4(void);
-        inline Mat4(float* p_data, long int sizeOfData);
+        inline Mat4(float _data[16]);
 
         //DESTRUCTOR :
 

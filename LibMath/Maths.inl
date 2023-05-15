@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 05/15/2023                       *
+* Last Update : 16/05/2023                      *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -64,7 +64,7 @@ inline float Maths::Vec2::GetLength()                                      const
 {
 	return sqrtf(LenghtSquared());
 }
-inline float Maths::Vec2::LenghtSquared()
+inline float Maths::Vec2::LenghtSquared()                                  const
 {
 	return (x * x + y * y);
 }
@@ -265,7 +265,14 @@ inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecA, const Vec3& _Vec
 {
 	return { _VecA.y * _VecB.z - _VecA.z * _VecB.y, _VecA.z * _VecB.x - _VecA.x * _VecB.z, _VecA.x * _VecB.y - _VecA.y * _VecB.x };
 }
-
+inline float Maths::Vec3::GetLength()                                              const
+{
+	return sqrtf(LenghtSquared());
+}
+inline float Maths::Vec3::LenghtSquared()                                          const
+{
+	return (x * x + y * y + z * z);
+}
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -470,11 +477,25 @@ inline float Maths::Vec4::DotProduct(const Vec4& _VecA, const Vec4& _VecB) const
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y + _VecA.z * _VecB.z + _VecA.w * _VecB.w);
 }
-inline Maths::Vec4 Maths::Vec4::Homogenize()
+inline void Maths::Vec4::Homogenize()
+{
+	if (w == 0)
+		return;
+	operator/=(w);
+}
+inline Maths::Vec4 Maths::Vec4::GetHomogenized()                           const
 {
 	if (w == 0)
 		return { x, y, z, w };
 	return { x / w, y / w, z / w, 1 };
+}
+inline float Maths::Vec4::GetLength()                                      const
+{
+	return sqrtf(LenghtSquared());
+}
+inline float Maths::Vec4::LenghtSquared()                                  const
+{
+	return (x * x + y * y + z * z + w * w);
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -636,6 +657,17 @@ inline Maths::IVec2::IVec2(const IVec2& _IVec2)			: x(_IVec2.x)	, y(_IVec2.y)	{}
 
 inline Maths::IVec2::~IVec2(void) {}
 
+//UTILS :
+
+inline float Maths::IVec2::GetLength()     const
+{
+	return sqrtf(LenghtSquared());
+}
+inline float Maths::IVec2::LenghtSquared() const
+{
+	return (x * x + y * y);
+}
+
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
 inline Maths::IVec2 Maths::IVec2::operator = (const IVec2& _IVec)
@@ -773,6 +805,17 @@ inline Maths::IVec3::IVec3(const IVec3& _IVec3)						: x(_IVec3.x)	, y(_IVec3.y)
 //DESTRUCTOR :
 
 inline Maths::IVec3::~IVec3(void) {}
+
+//UTILS :
+
+inline float Maths::IVec3::GetLength()     const
+{
+	return sqrtf(LenghtSquared());
+}
+inline float Maths::IVec3::LenghtSquared() const
+{
+	return (x * x + y * y + z * z);
+}
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -921,6 +964,17 @@ inline Maths::IVec4::IVec4(const IVec4& _IVec4)									: x(_IVec4.x)	, y(_IVec4
 //DESTRUCTOR :
 
 inline Maths::IVec4::~IVec4(void) {}
+
+//UTILS :
+
+inline float Maths::IVec4::GetLength()     const
+{
+	return sqrtf(LenghtSquared());
+}
+inline float Maths::IVec4::LenghtSquared() const
+{
+	return (x * x + y * y + z * z + w * w);
+}
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
