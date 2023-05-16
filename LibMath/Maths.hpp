@@ -7,11 +7,11 @@
 \***********************************************/
 #pragma once
 
-//-------USED_TO_ENABLE_PRINT_FUNCTIONS-------
+//--------USED_TO_ENABLE_PRINT_FUNCTIONS--------
 
 #define PRINT_FUNCTION
 
-//-------USED_TO_DISABLE_CLASS-------
+//------------USED_TO_DISABLE_CLASS-------------
 
 //#define DISABLE_VEC2
 //#define DISABLE_VEC3
@@ -22,10 +22,13 @@
 //#define DISABLE_IVEC4
 
 //#define DISABLE_MAT3
-
 //#define DISABLE_MAT4
 
-//----------------------------------
+//---USED_TO_ENABLE_CLASS_DISABLED_BY_DEFAULT---
+
+#define ENABLE_MATXY
+
+//----------------------------------------------
 namespace Maths
 {
     constexpr float M_PI = 3.14159265358979323846f;
@@ -633,6 +636,35 @@ namespace Maths
         #endif // PRINT_FUNCTION
     };
 #endif
+#ifdef ENABLE_MATXY
+    template<int row, int col>
+    class MatXY
+    {
+    public:
+        union
+        {
+            struct
+            {
+                float data[row*col];
+            };
+            float __data[row][col];
+        };
+
+        //CONSTRUCTORS :
+
+        //inline MatXY(void);
+        //inline MatXY(float _data[row * col]);
+
+        //DESTRUCTOR :
+
+        //inline ~MatXY(void);
+    #ifdef PRINT_FUNCTION
+        void Print();
+    #endif // PRINT_FUNCTION
+    };
+#endif
+
+
 }
 
 #include "Maths.inl"

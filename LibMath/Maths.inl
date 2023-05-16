@@ -1394,3 +1394,23 @@ inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 }
 #pragma endregion Mat4
 #endif
+
+#ifdef ENABLE_MATXY
+/************************\
+ *-------MATRIX_XY------*
+\************************/
+#pragma region MatXY
+//CONSTRUCTORS :
+//inline Maths::MatXY::MatXY(void)
+//{
+//
+//}
+//
+//template<int row, int col>
+//inline Maths::MatXY::MatXY(float _data[row * col])
+//{
+//
+//}
+
+#pragma endregion MatXY
+#endif
