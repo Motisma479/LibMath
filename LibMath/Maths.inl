@@ -414,15 +414,15 @@ inline Maths::Vec3 Maths::Vec3::operator /= (float _Sca)
 #pragma region Vec4
 //CONSTRUCTORS :
 
-inline Maths::Vec4::Vec4(void)															: x(0)		, y(0)		, z(0)		, w(0)			{}
-inline Maths::Vec4::Vec4(const float xyzw)												: x(xyzw)	, y(xyzw)	, z(xyzw)	, w(xyzw)		{}
-inline Maths::Vec4::Vec4(const float x, const float y, const float z, const float w)	: x(x)		, y(y)		, z(z)		, w(w)			{}
+inline Maths::Vec4::Vec4(void)                                                       : x(0),       y(0),       z(0),       w(0)    {}
+inline Maths::Vec4::Vec4(const float xyzw)                                           : x(xyzw),    y(xyzw),    z(xyzw),    w(xyzw) {}
+inline Maths::Vec4::Vec4(const float x, const float y, const float z, const float w) : x(x),       y(y),       z(z),       w(w)    {}
 #ifndef DISABLE_VEC2
-inline Maths::Vec4::Vec4(const Vec2& _Vec2)												: x(_Vec2.x), y(_Vec2.y), z(0)		, w(0)			{}
+inline Maths::Vec4::Vec4(const Vec2& _Vec2)                                          : x(_Vec2.x), y(_Vec2.y), z(0),       w(0)    {}
 #endif
 #ifndef DISABLE_VEC3
-inline Maths::Vec4::Vec4(const Vec3& _Vec3)												: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(0)			{}
-inline Maths::Vec4::Vec4(const Vec3& _Vec3, float w)									: x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(w)			{}
+inline Maths::Vec4::Vec4(const Vec3& _Vec3)                                          : x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(0)    {}
+inline Maths::Vec4::Vec4(const Vec3& _Vec3, float w)                                 : x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(w)    {}
 #endif
 
 //DESTRUCTOR :
@@ -648,10 +648,12 @@ inline Maths::Vec4 Maths::Vec4::operator /= (float _Sca)
 #pragma region IVec2
 //CONSTRUCTORS :
 
-inline Maths::IVec2::IVec2(void)						: x(0)			, y(0)			{}
-inline Maths::IVec2::IVec2(const int xy)				: x(xy)			, y(xy)			{}
-inline Maths::IVec2::IVec2(const int x, const int y)	: x(x)			, y(y)			{}
-inline Maths::IVec2::IVec2(const IVec2& _IVec2)			: x(_IVec2.x)	, y(_IVec2.y)	{}
+inline Maths::IVec2::IVec2(void)                     : x(0),                         y(0)                         {}
+inline Maths::IVec2::IVec2(const int xy)             : x(xy),                        y(xy)                        {}
+inline Maths::IVec2::IVec2(const int x, const int y) : x(x),                         y(y)                         {}
+#ifndef DISABLE_VEC2
+inline Maths::IVec2::IVec2(const class Vec2& _Vec2)  : x(static_cast<int>(_Vec2.x)), y(static_cast<int>(_Vec2.y)) {}
+#endif
 
 //DESTRUCTOR :
 
@@ -797,10 +799,12 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
 #pragma region IVec3
 //CONSTRUCTORS :
 
-inline Maths::IVec3::IVec3(void)									: x(0)			, y(0)			, z(0)			{}
-inline Maths::IVec3::IVec3(const int xyz)							: x(xyz)		, y(xyz)		, z(xyz)		{}
-inline Maths::IVec3::IVec3(const int x, const int y, const int z)	: x(x)			, y(y)			, z(z)			{}
-inline Maths::IVec3::IVec3(const IVec3& _IVec3)						: x(_IVec3.x)	, y(_IVec3.y)	, z(_IVec3.z)	{}
+inline Maths::IVec3::IVec3(void)                                  : x(0),                         y(0),                         z(0)                         {}
+inline Maths::IVec3::IVec3(const int xyz)                         : x(xyz),                       y(xyz),                       z(xyz)                       {}
+inline Maths::IVec3::IVec3(const int x, const int y, const int z) : x(x),                         y(y),                         z(z)                         {}
+#ifndef DISABLE_VEC3
+inline Maths::IVec3::IVec3(const class Vec3& _Vec3)               : x(static_cast<int>(_Vec3.x)), y(static_cast<int>(_Vec3.y)), z(static_cast<int>(_Vec3.z)) {}
+#endif
 
 //DESTRUCTOR :
 
@@ -956,10 +960,12 @@ inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
 #pragma region IVec4
 //CONSTRUCTORS :
 
-inline Maths::IVec4::IVec4(void)												: x(0)			, y(0)			, z(0)			, w(0)			{}
-inline Maths::IVec4::IVec4(const int xyzw)										: x(xyzw)		, y(xyzw)		, z(xyzw)		, w(xyzw)		{}
-inline Maths::IVec4::IVec4(const int x, const int y, const int z, const int w)	: x(x)			, y(y)			, z(z)			, w(w)			{}
-inline Maths::IVec4::IVec4(const IVec4& _IVec4)									: x(_IVec4.x)	, y(_IVec4.y)	, z(_IVec4.z)	, w(_IVec4.w)	{}
+inline Maths::IVec4::IVec4(void)                                               : x(0),                         y(0),                         z(0),                         w(0)                         {}
+inline Maths::IVec4::IVec4(const int xyzw)                                     : x(xyzw),                      y(xyzw),                      z(xyzw),                      w(xyzw)                      {}
+inline Maths::IVec4::IVec4(const int x, const int y, const int z, const int w) : x(x),                         y(y),                         z(z),                         w(w)                         {}
+#ifndef DISABLE_VEC4
+inline Maths::IVec4::IVec4(const class Vec4& _Vec4)                            : x(static_cast<int>(_Vec4.x)), y(static_cast<int>(_Vec4.y)), z(static_cast<int>(_Vec4.z)), w(static_cast<int>(_Vec4.w)) {}
+#endif
 
 //DESTRUCTOR :
 

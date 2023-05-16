@@ -320,7 +320,9 @@ namespace Maths
         inline IVec2(void);
         inline IVec2(int xy);
         inline IVec2(int x,  int y);
-
+#ifndef DISABLE_VEC2
+        inline IVec2(const class Vec2& _Vec2);
+#endif
         //DESTRUCTOR :
 
         inline ~IVec2(void);
@@ -393,6 +395,9 @@ namespace Maths
         inline IVec3(void);
         inline IVec3(int xyz);
         inline IVec3(int x, int y, int z);
+#ifndef DISABLE_VEC3
+        inline IVec3(const class Vec3& _Vec3);
+#endif
 
         //DESTRUCTOR :
 
@@ -466,6 +471,9 @@ namespace Maths
         inline IVec4(void);
         inline IVec4(int xyzw);
         inline IVec4(int x, int y, int z, int w);
+#ifndef DISABLE_VEC4
+        inline IVec4(const class Vec4& _Vec4);
+#endif
 
         //DESTRUCTOR :
 
