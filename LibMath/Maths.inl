@@ -15,9 +15,9 @@
 #pragma region Vec2
 //CONSTRUCTORS :
 
-inline Maths::Vec2::Vec2(void)              : x(0),       y(0)       {}
-inline Maths::Vec2::Vec2(float xy)          : x(xy),      y(xy)      {}
-inline Maths::Vec2::Vec2(float x, float y)  : x(x),       y(y)       {}
+inline Maths::Vec2::Vec2(void) : x(0), y(0) {}
+inline Maths::Vec2::Vec2(float xy) : x(xy), y(xy) {}
+inline Maths::Vec2::Vec2(float x, float y) : x(x), y(y) {}
 #ifndef DISABLE_VEC3
 inline Maths::Vec2::Vec2(const Vec3& _Vec3) : x(_Vec3.x), y(_Vec3.y) {}
 #endif
@@ -56,7 +56,7 @@ inline float Maths::Vec2::DotProduct(const Vec2& _VecB)                    const
 {
 	return (float)(x * _VecB.x + y * _VecB.y);
 }
-inline float Maths::Vec2::DotProduct(const Vec2& _VecA, const Vec2& _VecB) const
+inline float Maths::Vec2::DotProduct(const Vec2& _VecA, const Vec2& _VecB)
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y);
 }
@@ -198,15 +198,15 @@ inline Maths::Vec2 Maths::Vec2::operator /= (float _Sca)
 #pragma region Vec3
 //CONSTRUCTORS :
 
-inline Maths::Vec3::Vec3(void)                       : x(0),       y(0),       z(0)       {}
-inline Maths::Vec3::Vec3(float xyz)                  : x(xyz),     y(xyz),     z(xyz)     {}
-inline Maths::Vec3::Vec3(float x, float y, float z)	 : x(x),       y(y),       z(z)       {}
+inline Maths::Vec3::Vec3(void) : x(0), y(0), z(0) {}
+inline Maths::Vec3::Vec3(float xyz) : x(xyz), y(xyz), z(xyz) {}
+inline Maths::Vec3::Vec3(float x, float y, float z) : x(x), y(y), z(z) {}
 #ifndef DISABLE_VEC2
-inline Maths::Vec3::Vec3(const Vec2& _Vec2)          : x(_Vec2.x), y(_Vec2.y), z(0)       {}
-inline Maths::Vec3::Vec3(const Vec2& _Vec2, float z) : x(_Vec2.x), y(_Vec2.y), z(z)       {}
+inline Maths::Vec3::Vec3(const Vec2& _Vec2) : x(_Vec2.x), y(_Vec2.y), z(0) {}
+inline Maths::Vec3::Vec3(const Vec2& _Vec2, float z) : x(_Vec2.x), y(_Vec2.y), z(z) {}
 #endif
 #ifndef DISABLE_VEC4
-inline Maths::Vec3::Vec3(const Vec4& _Vec4)          : x(_Vec4.x), y(_Vec4.y), z(_Vec4.z) {}
+inline Maths::Vec3::Vec3(const Vec4& _Vec4) : x(_Vec4.x), y(_Vec4.y), z(_Vec4.z) {}
 #endif
 
 //DESTRUCTOR :
@@ -253,7 +253,7 @@ inline float Maths::Vec3::DotProduct(const Vec3& _VecB)                         
 {
 	return (float)(x * _VecB.x + y * _VecB.y + z * _VecB.z);
 }
-inline float Maths::Vec3::DotProduct(const Vec3& _VecA, const Vec3& _VecB)         const
+inline float Maths::Vec3::DotProduct(const Vec3& _VecA, const Vec3& _VecB)
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y + _VecA.z * _VecB.z);
 }
@@ -261,7 +261,7 @@ inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecB)                 
 {
 	return { y * _VecB.z - z * _VecB.y, z * _VecB.x - x * _VecB.z, x * _VecB.y - y * _VecB.x };
 }
-inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecA, const Vec3& _VecB) const
+inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecA, const Vec3& _VecB)
 {
 	return { _VecA.y * _VecB.z - _VecA.z * _VecB.y, _VecA.z * _VecB.x - _VecA.x * _VecB.z, _VecA.x * _VecB.y - _VecA.y * _VecB.x };
 }
@@ -414,15 +414,15 @@ inline Maths::Vec3 Maths::Vec3::operator /= (float _Sca)
 #pragma region Vec4
 //CONSTRUCTORS :
 
-inline Maths::Vec4::Vec4(void)                                                       : x(0),       y(0),       z(0),       w(0)    {}
-inline Maths::Vec4::Vec4(const float xyzw)                                           : x(xyzw),    y(xyzw),    z(xyzw),    w(xyzw) {}
-inline Maths::Vec4::Vec4(const float x, const float y, const float z, const float w) : x(x),       y(y),       z(z),       w(w)    {}
+inline Maths::Vec4::Vec4(void) : x(0), y(0), z(0), w(0) {}
+inline Maths::Vec4::Vec4(const float xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
+inline Maths::Vec4::Vec4(const float x, const float y, const float z, const float w) : x(x), y(y), z(z), w(w) {}
 #ifndef DISABLE_VEC2
-inline Maths::Vec4::Vec4(const Vec2& _Vec2)                                          : x(_Vec2.x), y(_Vec2.y), z(0),       w(0)    {}
+inline Maths::Vec4::Vec4(const Vec2& _Vec2) : x(_Vec2.x), y(_Vec2.y), z(0), w(0) {}
 #endif
 #ifndef DISABLE_VEC3
-inline Maths::Vec4::Vec4(const Vec3& _Vec3)                                          : x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(0)    {}
-inline Maths::Vec4::Vec4(const Vec3& _Vec3, float w)                                 : x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(w)    {}
+inline Maths::Vec4::Vec4(const Vec3& _Vec3) : x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(0) {}
+inline Maths::Vec4::Vec4(const Vec3& _Vec3, float w) : x(_Vec3.x), y(_Vec3.y), z(_Vec3.z), w(w) {}
 #endif
 
 //DESTRUCTOR :
@@ -473,7 +473,7 @@ inline float Maths::Vec4::DotProduct(const Vec4& _VecB)                    const
 {
 	return (float)(x * _VecB.x + y * _VecB.y + z * _VecB.z + w * _VecB.w);
 }
-inline float Maths::Vec4::DotProduct(const Vec4& _VecA, const Vec4& _VecB) const
+inline float Maths::Vec4::DotProduct(const Vec4& _VecA, const Vec4& _VecB)
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y + _VecA.z * _VecB.z + _VecA.w * _VecB.w);
 }
@@ -648,11 +648,11 @@ inline Maths::Vec4 Maths::Vec4::operator /= (float _Sca)
 #pragma region IVec2
 //CONSTRUCTORS :
 
-inline Maths::IVec2::IVec2(void)                     : x(0),                         y(0)                         {}
-inline Maths::IVec2::IVec2(const int xy)             : x(xy),                        y(xy)                        {}
-inline Maths::IVec2::IVec2(const int x, const int y) : x(x),                         y(y)                         {}
+inline Maths::IVec2::IVec2(void) : x(0), y(0) {}
+inline Maths::IVec2::IVec2(const int xy) : x(xy), y(xy) {}
+inline Maths::IVec2::IVec2(const int x, const int y) : x(x), y(y) {}
 #ifndef DISABLE_VEC2
-inline Maths::IVec2::IVec2(const class Vec2& _Vec2)  : x(static_cast<int>(_Vec2.x)), y(static_cast<int>(_Vec2.y)) {}
+inline Maths::IVec2::IVec2(const class Vec2& _Vec2) : x(static_cast<int>(_Vec2.x)), y(static_cast<int>(_Vec2.y)) {}
 #endif
 
 //DESTRUCTOR :
@@ -663,9 +663,9 @@ inline Maths::IVec2::~IVec2(void) {}
 
 inline float Maths::IVec2::GetLength()     const
 {
-	return sqrtf(LenghtSquared());
+	return sqrtf(static_cast<float>(LenghtSquared()));
 }
-inline float Maths::IVec2::LenghtSquared() const
+inline int Maths::IVec2::LenghtSquared() const
 {
 	return (x * x + y * y);
 }
@@ -799,11 +799,11 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const int _Sca)
 #pragma region IVec3
 //CONSTRUCTORS :
 
-inline Maths::IVec3::IVec3(void)                                  : x(0),                         y(0),                         z(0)                         {}
-inline Maths::IVec3::IVec3(const int xyz)                         : x(xyz),                       y(xyz),                       z(xyz)                       {}
-inline Maths::IVec3::IVec3(const int x, const int y, const int z) : x(x),                         y(y),                         z(z)                         {}
+inline Maths::IVec3::IVec3(void) : x(0), y(0), z(0) {}
+inline Maths::IVec3::IVec3(const int xyz) : x(xyz), y(xyz), z(xyz) {}
+inline Maths::IVec3::IVec3(const int x, const int y, const int z) : x(x), y(y), z(z) {}
 #ifndef DISABLE_VEC3
-inline Maths::IVec3::IVec3(const class Vec3& _Vec3)               : x(static_cast<int>(_Vec3.x)), y(static_cast<int>(_Vec3.y)), z(static_cast<int>(_Vec3.z)) {}
+inline Maths::IVec3::IVec3(const class Vec3& _Vec3) : x(static_cast<int>(_Vec3.x)), y(static_cast<int>(_Vec3.y)), z(static_cast<int>(_Vec3.z)) {}
 #endif
 
 //DESTRUCTOR :
@@ -814,9 +814,9 @@ inline Maths::IVec3::~IVec3(void) {}
 
 inline float Maths::IVec3::GetLength()     const
 {
-	return sqrtf(LenghtSquared());
+	return sqrtf(static_cast<float>(LenghtSquared()));
 }
-inline float Maths::IVec3::LenghtSquared() const
+inline int Maths::IVec3::LenghtSquared() const
 {
 	return (x * x + y * y + z * z);
 }
@@ -960,11 +960,11 @@ inline Maths::IVec3 Maths::IVec3::operator /= (const int _Sca)
 #pragma region IVec4
 //CONSTRUCTORS :
 
-inline Maths::IVec4::IVec4(void)                                               : x(0),                         y(0),                         z(0),                         w(0)                         {}
-inline Maths::IVec4::IVec4(const int xyzw)                                     : x(xyzw),                      y(xyzw),                      z(xyzw),                      w(xyzw)                      {}
-inline Maths::IVec4::IVec4(const int x, const int y, const int z, const int w) : x(x),                         y(y),                         z(z),                         w(w)                         {}
+inline Maths::IVec4::IVec4(void) : x(0), y(0), z(0), w(0) {}
+inline Maths::IVec4::IVec4(const int xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
+inline Maths::IVec4::IVec4(const int x, const int y, const int z, const int w) : x(x), y(y), z(z), w(w) {}
 #ifndef DISABLE_VEC4
-inline Maths::IVec4::IVec4(const class Vec4& _Vec4)                            : x(static_cast<int>(_Vec4.x)), y(static_cast<int>(_Vec4.y)), z(static_cast<int>(_Vec4.z)), w(static_cast<int>(_Vec4.w)) {}
+inline Maths::IVec4::IVec4(const class Vec4& _Vec4) : x(static_cast<int>(_Vec4.x)), y(static_cast<int>(_Vec4.y)), z(static_cast<int>(_Vec4.z)), w(static_cast<int>(_Vec4.w)) {}
 #endif
 
 //DESTRUCTOR :
@@ -975,9 +975,9 @@ inline Maths::IVec4::~IVec4(void) {}
 
 inline float Maths::IVec4::GetLength()     const
 {
-	return sqrtf(LenghtSquared());
+	return sqrtf(static_cast<float>(LenghtSquared()));
 }
-inline float Maths::IVec4::LenghtSquared() const
+inline int Maths::IVec4::LenghtSquared() const
 {
 	return (x * x + y * y + z * z + w * w);
 }
@@ -1196,7 +1196,7 @@ inline Maths::Mat3 Maths::Mat3::operator-(const Mat3& _Mat) const
 inline Maths::Mat3 Maths::Mat3::operator*(const Mat3& _Mat) const
 {
 	Mat3 temp;
-	
+
 	temp.data[0] = data[0] * _Mat.data[0] + data[3] * _Mat.data[1] + data[6] * _Mat.data[2];
 	temp.data[1] = data[1] * _Mat.data[0] + data[4] * _Mat.data[1] + data[7] * _Mat.data[2];
 	temp.data[2] = data[2] * _Mat.data[0] + data[5] * _Mat.data[1] + data[8] * _Mat.data[2];
@@ -1204,7 +1204,7 @@ inline Maths::Mat3 Maths::Mat3::operator*(const Mat3& _Mat) const
 	temp.data[3] = data[0] * _Mat.data[3] + data[3] * _Mat.data[4] + data[6] * _Mat.data[5];
 	temp.data[4] = data[1] * _Mat.data[3] + data[4] * _Mat.data[4] + data[7] * _Mat.data[5];
 	temp.data[5] = data[2] * _Mat.data[3] + data[5] * _Mat.data[4] + data[8] * _Mat.data[5];
-	
+
 	temp.data[6] = data[0] * _Mat.data[6] + data[3] * _Mat.data[7] + data[6] * _Mat.data[8];
 	temp.data[7] = data[1] * _Mat.data[6] + data[4] * _Mat.data[7] + data[7] * _Mat.data[8];
 	temp.data[8] = data[2] * _Mat.data[6] + data[5] * _Mat.data[7] + data[8] * _Mat.data[8];
@@ -1233,7 +1233,7 @@ inline Maths::Mat3 Maths::Mat3::operator-=(const Mat3& _Mat)
 inline Maths::Mat3 Maths::Mat3::operator*=(const Mat3& _Mat)
 {
 	Mat3 temp;
-	
+
 	temp.data[0] = data[0] * _Mat.data[0] + data[3] * _Mat.data[1] + data[6] * _Mat.data[2];
 	temp.data[1] = data[1] * _Mat.data[0] + data[4] * _Mat.data[1] + data[7] * _Mat.data[2];
 	temp.data[2] = data[2] * _Mat.data[0] + data[5] * _Mat.data[1] + data[8] * _Mat.data[2];
@@ -1283,7 +1283,7 @@ inline Maths::Mat4::~Mat4(void) {}
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
-inline Maths::Mat4 Maths::Mat4::operator=(float _data[16]) 
+inline Maths::Mat4 Maths::Mat4::operator=(float _data[16])
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -1393,24 +1393,4 @@ inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 	return *this;
 }
 #pragma endregion Mat4
-#endif
-
-#ifdef ENABLE_MATXY
-/************************\
- *-------MATRIX_XY------*
-\************************/
-#pragma region MatXY
-//CONSTRUCTORS :
-//inline Maths::MatXY::MatXY(void)
-//{
-//
-//}
-//
-//template<int row, int col>
-//inline Maths::MatXY::MatXY(float _data[row * col])
-//{
-//
-//}
-
-#pragma endregion MatXY
 #endif

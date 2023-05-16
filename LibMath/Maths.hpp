@@ -26,9 +26,15 @@
 
 //---USED_TO_ENABLE_CLASS_DISABLED_BY_DEFAULT---
 
-#define ENABLE_MATXY
+//#define ENABLE_MATYX
 
 //----------------------------------------------
+
+#if defined(ENABLE_MATYX) && defined(PRINT_FUNCTION)
+#include <iostream>
+#endif
+
+
 namespace Maths
 {
     constexpr float M_PI = 3.14159265358979323846f;
@@ -37,7 +43,7 @@ namespace Maths
     //multiply your angle in radians by this value to convert it to degrees.
     constexpr float RAD2DEG = 180.f / M_PI;
 
-// Vector Using float as Value -----------------------------------------------------------------------------
+    // Vector Using float as Value -----------------------------------------------------------------------------
 #ifndef DISABLE_VEC2
     class Vec2
     {
@@ -75,7 +81,7 @@ namespace Maths
         inline void Normalize();
         inline Vec2 GetNormalized()                                          const;
         inline float DotProduct(const Vec2& _VecB)                           const;
-        inline static float DotProduct(const Vec2& _VecA, const Vec2& _VecB) const;
+        inline static float DotProduct(const Vec2& _VecA, const Vec2& _VecB);
         inline float GetLength()                                             const;
         inline float LenghtSquared()                                         const;
 
@@ -117,7 +123,7 @@ namespace Maths
         inline Vec2 operator /= (float _Sca);
 
 #ifdef PRINT_FUNCTION
-            void Print() const;
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -160,15 +166,15 @@ namespace Maths
         inline Vec2 xz() const;
         inline Vec2 yz() const;
 
-        inline float GetMagnitude()                                    const;
+        inline float GetMagnitude()                                          const;
         inline void Normalize();
-        inline Vec3 GetNormalized()                                    const;
-        inline float DotProduct(const Vec3& _VecB)                     const;
-        static float DotProduct(const Vec3& _VecA, const Vec3& _VecB)  const;
-        inline Vec3 CrossProduct(const Vec3& _VecB)                    const;
-        static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB) const;
-        inline float GetLength()                                       const;
-        inline float LenghtSquared()                                   const;
+        inline Vec3 GetNormalized()                                          const;
+        inline float DotProduct(const Vec3& _VecB)                           const;
+        inline static float DotProduct(const Vec3& _VecA, const Vec3& _VecB);
+        inline Vec3 CrossProduct(const Vec3& _VecB)                          const;
+        static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB);
+        inline float GetLength()                                             const;
+        inline float LenghtSquared()                                         const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -253,15 +259,15 @@ namespace Maths
         inline Vec3 yzw() const;
 
 
-        inline float GetMagnitude()                                   const;
+        inline float GetMagnitude()                                          const;
         inline void Normalize();
-        inline Vec4 GetNormalized()                                   const;
-        inline float DotProduct(const Vec4& _VecB)                    const;
-        static float DotProduct(const Vec4& _VecA, const Vec4& _VecB) const;
+        inline Vec4 GetNormalized()                                          const;
+        inline float DotProduct(const Vec4& _VecB)                           const;
+        inline static float DotProduct(const Vec4& _VecA, const Vec4& _VecB);
         inline void Homogenize();
-        inline Vec4 GetHomogenized()                                  const;
-        inline float GetLength()                                      const;
-        inline float LenghtSquared()                                  const;
+        inline Vec4 GetHomogenized()                                         const;
+        inline float GetLength()                                             const;
+        inline float LenghtSquared()                                         const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -302,7 +308,7 @@ namespace Maths
     };
 #endif
 
-// Vector Using int as Value -------------------------------------------------------------------------------
+    // Vector Using int as Value -------------------------------------------------------------------------------
 #ifndef DISABLE_IVEC2
     class IVec2
     {
@@ -322,7 +328,7 @@ namespace Maths
 
         inline IVec2(void);
         inline IVec2(int xy);
-        inline IVec2(int x,  int y);
+        inline IVec2(int x, int y);
 #ifndef DISABLE_VEC2
         inline IVec2(const class Vec2& _Vec2);
 #endif
@@ -333,7 +339,7 @@ namespace Maths
         //UTILS :
 
         inline float GetLength()     const;
-        inline float LenghtSquared() const;
+        inline int LenghtSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -409,7 +415,7 @@ namespace Maths
         //UTILS :
 
         inline float GetLength()     const;
-        inline float LenghtSquared() const;
+        inline int LenghtSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -485,7 +491,7 @@ namespace Maths
         //UTILS :
 
         inline float GetLength()     const;
-        inline float LenghtSquared() const;
+        inline int LenghtSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -530,7 +536,7 @@ namespace Maths
     };
 #endif
 
-// Matrix --------------------------------------------------------------------------------------------------
+    // Matrix --------------------------------------------------------------------------------------------------
 #ifndef DISABLE_MAT3
     class Mat3
     {
@@ -577,9 +583,9 @@ namespace Maths
         inline Mat3 operator-=(const Mat3& _Mat);
         inline Mat3 operator*=(const Mat3& _Mat);
 
-        #ifdef PRINT_FUNCTION
-            void Print();
-        #endif // PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
+        void Print();
+#endif // PRINT_FUNCTION
     };
 #endif
 
@@ -624,20 +630,21 @@ namespace Maths
         inline Mat4 operator+(const Mat4& _Mat) const;
         inline Mat4 operator-(const Mat4& _Mat) const;
         inline Mat4 operator*(const Mat4& _Mat) const;
-        
+
         //Mat4 TO THIS OPERATIONS :
 
         inline Mat4 operator+=(const Mat4& _Mat);
         inline Mat4 operator-=(const Mat4& _Mat);
         inline Mat4 operator*=(const Mat4& _Mat);
 
-        #ifdef PRINT_FUNCTION
-            void Print();
-        #endif // PRINT_FUNCTION
+#ifdef PRINT_FUNCTION
+        void Print();
+#endif // PRINT_FUNCTION
     };
 #endif
-#ifdef ENABLE_MATXY
-    template<int row, int col>
+
+#ifdef ENABLE_MATYX
+    template<unsigned int row, unsigned int col>
     class MatXY
     {
     public:
@@ -645,22 +652,56 @@ namespace Maths
         {
             struct
             {
-                float data[row*col];
+                float data[row * col];
             };
-            float __data[row][col];
+            float __data[col][row];
         };
 
         //CONSTRUCTORS :
 
-        //inline MatXY(void);
-        //inline MatXY(float _data[row * col]);
+        inline MatXY(void)
+        {
+            for (unsigned int i = 0; i < row * col; i++)
+                data[i] = 0;
+        }
+        // intit a matrix of y by x 
+        inline MatXY(float _data[row * col])
+        {
+            for (unsigned int i = 0; i < row * col; i++)
+                data[i] = _data[i];
+        }
 
         //DESTRUCTOR :
 
-        //inline ~MatXY(void);
-    #ifdef PRINT_FUNCTION
-        void Print();
-    #endif // PRINT_FUNCTION
+        inline ~MatXY(void) {}
+
+#ifdef PRINT_FUNCTION
+        inline void Print()
+        {
+            std::cout << this << " Value :" << std::endl;
+            std::cout << "--------------------" << std::endl;
+
+            for (unsigned int y = 0; y < row; y++)
+            {
+                std::cout << '[';
+                for (unsigned int x = 0; x < col; x++)
+                {
+                    std::cout << ' ' << __data[x][y] << ' ';
+                }
+                std::cout << ']' << std::endl;
+            }
+
+            std::cout << "Order:" << std::endl;
+            std::cout << '[';
+            for (unsigned int i = 0; i < row * col; i++)
+            {
+
+                std::cout << ' ' << data[i] << ' ';
+            }
+            std::cout << ']' << std::endl;
+            std::cout << "--------------------" << std::endl;
+        }
+#endif // PRINT_FUNCTION
     };
 #endif
 
