@@ -540,7 +540,9 @@ namespace Maths
             {
                 float data[9];
             };
+#ifndef DISABLE_VEC3
             Vec3 data3V[3];
+#endif
             float data_3_3[3][3];
         };
 
@@ -558,19 +560,19 @@ namespace Maths
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Mat3 operator=(float _data[9]);
-        inline Mat3 operator=(Mat3 _Mat);
+        inline Mat3 operator=(const Mat3& _Mat);
 
         //Mat3 TO Mat3 OPERATIONS :
 
-        inline Mat3 operator+(Mat3 _Mat) const;
-        inline Mat3 operator-(Mat3 _Mat) const;
-        inline Mat3 operator*(Mat3 _Mat) const;
+        inline Mat3 operator+(const Mat3& _Mat) const;
+        inline Mat3 operator-(const Mat3& _Mat) const;
+        inline Mat3 operator*(const Mat3& _Mat) const;
 
         //Mat3 TO THIS OPERATIONS :
 
-        inline Mat3 operator+=(Mat3 _Mat);
-        inline Mat3 operator-=(Mat3 _Mat);
-        inline Mat3 operator*=(Mat3 _Mat);
+        inline Mat3 operator+=(const Mat3& _Mat);
+        inline Mat3 operator-=(const Mat3& _Mat);
+        inline Mat3 operator*=(const Mat3& _Mat);
 
         #ifdef PRINT_FUNCTION
             void Print();
@@ -590,7 +592,9 @@ namespace Maths
             {
                 float data[16];
             };
+#ifndef DISABLE_VEC4
             Vec4 data4V[4];
+#endif
             float data_4_4[4][4];
         };
 
@@ -605,25 +609,24 @@ namespace Maths
 
         //UTILS :
 
-        inline Mat4 GetIdentity(Mat4 identity);
-        inline float* GetData();
+        //inline Mat4 GetIdentity(const Mat4& identity);
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
-        inline Mat4 operator=(float p_newData[16]);
-        inline Mat4 operator=(Mat4 _Mat);
+        inline Mat4 operator=(float _data[16]);
+        inline Mat4 operator=(const Mat4& _Mat);
 
         //Mat4 TO Mat4 OPERATIONS :
 
-        inline Mat4 operator+(Mat4 _Mat) const;
-        inline Mat4 operator-(Mat4 _Mat) const;
-        inline Mat4 operator*(Mat4 _Mat) const;
+        inline Mat4 operator+(const Mat4& _Mat) const;
+        inline Mat4 operator-(const Mat4& _Mat) const;
+        inline Mat4 operator*(const Mat4& _Mat) const;
         
         //Mat4 TO THIS OPERATIONS :
 
-        inline Mat4 operator+=(Mat4 _Mat);
-        inline Mat4 operator-=(Mat4 _Mat);
-        inline Mat4 operator*=(Mat4 _Mat);
+        inline Mat4 operator+=(const Mat4& _Mat);
+        inline Mat4 operator-=(const Mat4& _Mat);
+        inline Mat4 operator*=(const Mat4& _Mat);
 
         #ifdef PRINT_FUNCTION
             void Print();

@@ -1139,16 +1139,12 @@ inline Maths::Mat3::Mat3(void)
 		data[i] = 0;
 	}
 }
-inline Maths::Mat3::Mat3(float p_data[9])
+inline Maths::Mat3::Mat3(float _data[9])
 {
 	for (int i = 0; i < 9; i++)
 	{
-		data[i] = p_data[i];
+		data[i] = _data[i];
 	}
-}
-inline Maths::Mat3::Mat3(const Mat3& _Mat3)
-{
-	//Todo
 }
 
 //DESTRUCTOR :
@@ -1159,90 +1155,97 @@ inline Maths::Mat3::~Mat3(void) {}
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
-inline Maths::Mat3 Maths::Mat3::operator=(Mat3 _Mat)
+inline Maths::Mat3 Maths::Mat3::operator=(float _data[9])
 {
-	/*for (int y = 0; y < 3; y++)
+	for (int i = 0; i < 9; i++)
 	{
-		for (int x = 0; x < 3; x++)
-		{
-			data[x][y] = _Mat.data[x][y];
-		}
-	}*/
+		data[i] = _data[i];
+	}
+	return *this;
+}
+
+inline Maths::Mat3 Maths::Mat3::operator=(const Mat3& _Mat)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		data[i] = _Mat.data[i];
+	}
 	return *this;
 }
 
 //Mat3 TO Mat3 OPERATIONS :
 
-inline Maths::Mat3 Maths::Mat3::operator+(Mat3 _Mat) const
+inline Maths::Mat3 Maths::Mat3::operator+(const Mat3& _Mat) const
 {
 	Mat3 temp;
-	/*for (int y = 0; y < 3; y++)
+	for (int i = 0; i < 9; i++)
 	{
-		for (int x = 0; x < 3; x++)
-		{
-			temp.data[x][y] = data[x][y] + _Mat.data[x][y];
-		}
-	}*/
+		temp.data[i] = data[i] + _Mat.data[i];
+	}
 	return temp;
 }
-inline Maths::Mat3 Maths::Mat3::operator-(Mat3 _Mat) const
+inline Maths::Mat3 Maths::Mat3::operator-(const Mat3& _Mat) const
 {
 	Mat3 temp;
-	/*for (int y = 0; y < 3; y++)
+	for (int i = 0; i < 9; i++)
 	{
-		for (int x = 0; x < 3; x++)
-		{
-			temp.data[x][y] = data[x][y] - _Mat.data[x][y];
-		}
-	}*/
+		temp.data[i] = data[i] - _Mat.data[i];
+	}
 	return temp;
 }
-inline Maths::Mat3 Maths::Mat3::operator*(Mat3 _Mat) const
+inline Maths::Mat3 Maths::Mat3::operator*(const Mat3& _Mat) const
 {
 	Mat3 temp;
-	/*for (int y = 0; y < 3; y++)
-	{
-		for (int x = 0; x < 3; x++)
-		{
-			temp.data[x][y] = data[0][y] * _Mat.data[x][0] + data[1][y] * _Mat.data[x][1] + data[2][y] * _Mat.data[x][2];
-		}
-	}*/
+	
+	temp.data[0] = data[0] * _Mat.data[0] + data[3] * _Mat.data[1] + data[6] * _Mat.data[2];
+	temp.data[1] = data[1] * _Mat.data[0] + data[4] * _Mat.data[1] + data[7] * _Mat.data[2];
+	temp.data[2] = data[2] * _Mat.data[0] + data[5] * _Mat.data[1] + data[8] * _Mat.data[2];
+
+	temp.data[3] = data[0] * _Mat.data[3] + data[3] * _Mat.data[4] + data[6] * _Mat.data[5];
+	temp.data[4] = data[1] * _Mat.data[3] + data[4] * _Mat.data[4] + data[7] * _Mat.data[5];
+	temp.data[5] = data[2] * _Mat.data[3] + data[5] * _Mat.data[4] + data[8] * _Mat.data[5];
+	
+	temp.data[6] = data[0] * _Mat.data[6] + data[3] * _Mat.data[7] + data[6] * _Mat.data[8];
+	temp.data[7] = data[1] * _Mat.data[6] + data[4] * _Mat.data[7] + data[7] * _Mat.data[8];
+	temp.data[8] = data[2] * _Mat.data[6] + data[5] * _Mat.data[7] + data[8] * _Mat.data[8];
+
 	return temp;
 }
 
-//Mat3 TO THIS OPERATIONS
-inline Maths::Mat3 Maths::Mat3::operator+=(Mat3 _Mat)
+//Mat3 TO THIS OPERATIONS :
+
+inline Maths::Mat3 Maths::Mat3::operator+=(const Mat3& _Mat)
 {
-	/*for (int y = 0; y < 3; y++)
+	for (int i = 0; i < 9; i++)
 	{
-		for (int x = 0; x < 3; x++)
-		{
-			data[x][y] += _Mat.data[x][y];
-		}
-	}*/
+		data[i] += _Mat.data[i];
+	}
 	return *this;
 }
-inline Maths::Mat3 Maths::Mat3::operator-=(Mat3 _Mat)
+inline Maths::Mat3 Maths::Mat3::operator-=(const Mat3& _Mat)
 {
-	/*for (int y = 0; y < 3; y++)
+	for (int i = 0; i < 9; i++)
 	{
-		for (int x = 0; x < 3; x++)
-		{
-			data[x][y] -= _Mat.data[x][y];
-		}
-	}*/
+		data[i] -= _Mat.data[i];
+	}
 	return *this;
 }
-inline Maths::Mat3 Maths::Mat3::operator*=(Mat3 _Mat)
+inline Maths::Mat3 Maths::Mat3::operator*=(const Mat3& _Mat)
 {
 	Mat3 temp;
-	/*for (int y = 0; y < 3; y++)
-	{
-		for (int x = 0; x < 3; x++)
-		{
-			temp.data[x][y] = data[0][y] * _Mat.data[x][0] + data[1][y] * _Mat.data[x][1] + data[2][y] * _Mat.data[x][2];
-		}
-	}*/
+	
+	temp.data[0] = data[0] * _Mat.data[0] + data[3] * _Mat.data[1] + data[6] * _Mat.data[2];
+	temp.data[1] = data[1] * _Mat.data[0] + data[4] * _Mat.data[1] + data[7] * _Mat.data[2];
+	temp.data[2] = data[2] * _Mat.data[0] + data[5] * _Mat.data[1] + data[8] * _Mat.data[2];
+
+	temp.data[3] = data[0] * _Mat.data[3] + data[3] * _Mat.data[4] + data[6] * _Mat.data[5];
+	temp.data[4] = data[1] * _Mat.data[3] + data[4] * _Mat.data[4] + data[7] * _Mat.data[5];
+	temp.data[5] = data[2] * _Mat.data[3] + data[5] * _Mat.data[4] + data[8] * _Mat.data[5];
+
+	temp.data[6] = data[0] * _Mat.data[6] + data[3] * _Mat.data[7] + data[6] * _Mat.data[8];
+	temp.data[7] = data[1] * _Mat.data[6] + data[4] * _Mat.data[7] + data[7] * _Mat.data[8];
+	temp.data[8] = data[2] * _Mat.data[6] + data[5] * _Mat.data[7] + data[8] * _Mat.data[8];
+
 	*this = temp;
 	return *this;
 }
@@ -1259,23 +1262,16 @@ inline Maths::Mat3 Maths::Mat3::operator*=(Mat3 _Mat)
 
 inline Maths::Mat4::Mat4(void)
 {
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			data[x][y] = 0;
-		}
+		data[i] = 0;
 	}
 }
-inline Maths::Mat4::Mat4(float* p_data, long int sizeOfData)
+inline Maths::Mat4::Mat4(float _data[16])
 {
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			if (x + y * 4 < sizeOfData)  data[x][y] = p_data[x + y * 4];
-			else data[x][y] = 0;
-		}
+		data[i] = _data[i];
 	}
 }
 
@@ -1285,113 +1281,116 @@ inline Maths::Mat4::~Mat4(void) {}
 
 //UTILS :
 
-inline float* Maths::Mat4::GetData()
-{
-	return *data;
-}
-
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
-inline Maths::Mat4 Maths::Mat4::operator=(float p_newData[16]) 
+inline Maths::Mat4 Maths::Mat4::operator=(float _data[16]) 
 {
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			if (x + y * 4 < 16)  data[x][y] = p_newData[x + y * 4];
-			else data[x][y] = 0;
-		}
+		data[i] = _data[i];
 	}
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator=(Mat4 _Mat)
+inline Maths::Mat4 Maths::Mat4::operator=(const Mat4& _Mat)
 {
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			data[x][y] = _Mat.data[x][y];
-		}
+		data[i] = _Mat.data[i];
 	}
 	return *this;
 }
 
 //Mat4 TO Mat4 OPERATIONS :
 
-inline Maths::Mat4 Maths::Mat4::operator+(Mat4 _Mat) const
+inline Maths::Mat4 Maths::Mat4::operator+(const Mat4& _Mat) const
 {
 	Mat4 temp;
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			temp.data[x][y] = data[x][y] + _Mat.data[x][y];
-		}
+		temp.data[i] = data[i] + _Mat.data[i];
 	}
 	return temp;
 }
-inline Maths::Mat4 Maths::Mat4::operator-(Mat4 _Mat) const
+inline Maths::Mat4 Maths::Mat4::operator-(const Mat4& _Mat) const
 {
 	Mat4 temp;
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			temp.data[x][y] = data[x][y] - _Mat.data[x][y];
-		}
+		temp.data[i] = data[i] - _Mat.data[i];
 	}
 	return temp;
 }
-inline Maths::Mat4 Maths::Mat4::operator*(Mat4 _Mat) const
+inline Maths::Mat4 Maths::Mat4::operator*(const Mat4& _Mat) const
 {
 	Mat4 temp;
-	for (int y = 0; y < 4; y++)
-	{
-		for (int x = 0; x < 4; x++)
-		{
-			temp.data[x][y] = data[0][y] * _Mat.data[x][0] + data[1][y] * _Mat.data[x][1] + data[2][y] * _Mat.data[x][2] + data[3][y] * _Mat.data[x][3];
-		}
-	}
+
+	temp.data[0] = data[0] * _Mat.data[0] + data[4] * _Mat.data[1] + data[8] * _Mat.data[2] + data[12] * _Mat.data[3];
+	temp.data[1] = data[1] * _Mat.data[0] + data[5] * _Mat.data[1] + data[9] * _Mat.data[2] + data[13] * _Mat.data[3];
+	temp.data[2] = data[2] * _Mat.data[0] + data[6] * _Mat.data[1] + data[10] * _Mat.data[2] + data[14] * _Mat.data[3];
+	temp.data[3] = data[3] * _Mat.data[0] + data[7] * _Mat.data[1] + data[11] * _Mat.data[2] + data[15] * _Mat.data[3];
+
+	temp.data[4] = data[0] * _Mat.data[4] + data[4] * _Mat.data[5] + data[8] * _Mat.data[6] + data[12] * _Mat.data[7];
+	temp.data[5] = data[1] * _Mat.data[4] + data[5] * _Mat.data[5] + data[9] * _Mat.data[6] + data[13] * _Mat.data[7];
+	temp.data[6] = data[2] * _Mat.data[4] + data[6] * _Mat.data[5] + data[10] * _Mat.data[6] + data[14] * _Mat.data[7];
+	temp.data[7] = data[3] * _Mat.data[4] + data[7] * _Mat.data[5] + data[11] * _Mat.data[6] + data[15] * _Mat.data[7];
+
+	temp.data[8] = data[0] * _Mat.data[8] + data[4] * _Mat.data[9] + data[8] * _Mat.data[10] + data[12] * _Mat.data[11];
+	temp.data[9] = data[1] * _Mat.data[8] + data[5] * _Mat.data[9] + data[9] * _Mat.data[10] + data[13] * _Mat.data[11];
+	temp.data[10] = data[2] * _Mat.data[8] + data[6] * _Mat.data[9] + data[10] * _Mat.data[10] + data[14] * _Mat.data[11];
+	temp.data[11] = data[3] * _Mat.data[8] + data[7] * _Mat.data[9] + data[11] * _Mat.data[10] + data[15] * _Mat.data[11];
+
+	temp.data[12] = data[0] * _Mat.data[12] + data[4] * _Mat.data[13] + data[8] * _Mat.data[14] + data[12] * _Mat.data[15];
+	temp.data[13] = data[1] * _Mat.data[12] + data[5] * _Mat.data[13] + data[9] * _Mat.data[14] + data[13] * _Mat.data[15];
+	temp.data[14] = data[2] * _Mat.data[12] + data[6] * _Mat.data[13] + data[10] * _Mat.data[14] + data[14] * _Mat.data[15];
+	temp.data[15] = data[3] * _Mat.data[12] + data[7] * _Mat.data[13] + data[11] * _Mat.data[14] + data[15] * _Mat.data[15];
+
 	return temp;
 }
 
 //Mat4 TO THIS OPERATIONS :
 
-inline Maths::Mat4 Maths::Mat4::operator+=(Mat4 _Mat)
+inline Maths::Mat4 Maths::Mat4::operator+=(const Mat4& _Mat)
 {
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			data[x][y] += _Mat.data[x][y];
-		}
+		data[i] += _Mat.data[i];
 	}
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator-=(Mat4 _Mat)
+inline Maths::Mat4 Maths::Mat4::operator-=(const Mat4& _Mat)
 {
-	for (int y = 0; y < 4; y++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int x = 0; x < 4; x++)
-		{
-			data[x][y] -= _Mat.data[x][y];
-		}
+		data[i] -= _Mat.data[i];
 	}
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator*=(Mat4 _Mat)
+inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 {
 	Mat4 temp;
-	for (int y = 0; y < 4; y++)
-	{
-		for (int x = 0; x < 4; x++)
-		{
-			temp.data[x][y] = data[0][y] * _Mat.data[x][0] + data[1][y] * _Mat.data[x][1] + data[2][y] * _Mat.data[x][2] + data[3][y] * _Mat.data[x][3];
-		}
-	}
+
+	temp.data[0] = data[0] * _Mat.data[0] + data[4] * _Mat.data[1] + data[8] * _Mat.data[2] + data[12] * _Mat.data[3];
+	temp.data[1] = data[1] * _Mat.data[0] + data[5] * _Mat.data[1] + data[9] * _Mat.data[2] + data[13] * _Mat.data[3];
+	temp.data[2] = data[2] * _Mat.data[0] + data[6] * _Mat.data[1] + data[10] * _Mat.data[2] + data[14] * _Mat.data[3];
+	temp.data[3] = data[3] * _Mat.data[0] + data[7] * _Mat.data[1] + data[11] * _Mat.data[2] + data[15] * _Mat.data[3];
+
+	temp.data[4] = data[0] * _Mat.data[4] + data[4] * _Mat.data[5] + data[8] * _Mat.data[6] + data[12] * _Mat.data[7];
+	temp.data[5] = data[1] * _Mat.data[4] + data[5] * _Mat.data[5] + data[9] * _Mat.data[6] + data[13] * _Mat.data[7];
+	temp.data[6] = data[2] * _Mat.data[4] + data[6] * _Mat.data[5] + data[10] * _Mat.data[6] + data[14] * _Mat.data[7];
+	temp.data[7] = data[3] * _Mat.data[4] + data[7] * _Mat.data[5] + data[11] * _Mat.data[6] + data[15] * _Mat.data[7];
+
+	temp.data[8] = data[0] * _Mat.data[8] + data[4] * _Mat.data[9] + data[8] * _Mat.data[10] + data[12] * _Mat.data[11];
+	temp.data[9] = data[1] * _Mat.data[8] + data[5] * _Mat.data[9] + data[9] * _Mat.data[10] + data[13] * _Mat.data[11];
+	temp.data[10] = data[2] * _Mat.data[8] + data[6] * _Mat.data[9] + data[10] * _Mat.data[10] + data[14] * _Mat.data[11];
+	temp.data[11] = data[3] * _Mat.data[8] + data[7] * _Mat.data[9] + data[11] * _Mat.data[10] + data[15] * _Mat.data[11];
+
+	temp.data[12] = data[0] * _Mat.data[12] + data[4] * _Mat.data[13] + data[8] * _Mat.data[14] + data[12] * _Mat.data[15];
+	temp.data[13] = data[1] * _Mat.data[12] + data[5] * _Mat.data[13] + data[9] * _Mat.data[14] + data[13] * _Mat.data[15];
+	temp.data[14] = data[2] * _Mat.data[12] + data[6] * _Mat.data[13] + data[10] * _Mat.data[14] + data[14] * _Mat.data[15];
+	temp.data[15] = data[3] * _Mat.data[12] + data[7] * _Mat.data[13] + data[11] * _Mat.data[14] + data[15] * _Mat.data[15];
+
 	*this = temp;
 	return *this;
 }
-
 #pragma endregion Mat4
 #endif
