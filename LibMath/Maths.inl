@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 16/05/2023                      *
+* Last Update : 31/05/2023                      *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -33,7 +33,11 @@ inline Maths::Vec2::~Vec2(void) {}
 
 inline float Maths::Vec2::GetMagnitude()                                   const
 {
-	return sqrtf((x * x) + (y * y));
+	return sqrtf(GetMagnitudeSquared());
+}
+inline float Maths::Vec2::GetMagnitudeSquared()                            const
+{
+	return (x * x + y * y);
 }
 inline void Maths::Vec2::Normalize()
 {
@@ -52,6 +56,10 @@ inline Maths::Vec2 Maths::Vec2::GetNormalized()                            const
 	}
 	return *this;
 }
+inline Maths::Vec2 Maths::Vec2::GetPerpendicular()                         const
+{
+	return(-y, x);
+}
 inline float Maths::Vec2::DotProduct(const Vec2& _VecB)                    const
 {
 	return (float)(x * _VecB.x + y * _VecB.y);
@@ -60,13 +68,21 @@ inline float Maths::Vec2::DotProduct(const Vec2& _VecA, const Vec2& _VecB)
 {
 	return (float)(_VecA.x * _VecB.x + _VecA.y * _VecB.y);
 }
-inline float Maths::Vec2::GetLength()                                      const
+inline float Maths::Vec2::GetDistance(const Vec2& _VecB)                   const
 {
-	return sqrtf(LenghtSquared());
+	return Vec2(_VecB.x - x, _VecB.y - y).GetMagnitude();
 }
-inline float Maths::Vec2::LenghtSquared()                                  const
+inline float Maths::Vec2::GetDistance(const Vec2& _VecA, const Vec2& _VecB)
 {
-	return (x * x + y * y);
+	return Vec2(_VecB.x - _VecA.x, _VecB.y - _VecA.y).GetMagnitude();
+}
+inline float Maths::Vec2::GetAngleBetween(const Vec2& _VecB)               const
+{
+	return (std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
+}
+inline float Maths::Vec2::GetAngleBetween(const Vec2& _VecA, const Vec2& _VecB)
+{
+	return (std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -230,7 +246,11 @@ inline Maths::Vec2 Maths::Vec3::yz() const
 
 inline float Maths::Vec3::GetMagnitude()                                           const
 {
-	return sqrtf((x * x) + (y * y) + (z * z));
+	return sqrtf(GetMagnitudeSquared());
+}
+inline float Maths::Vec3::GetMagnitudeSquared()                                    const
+{
+	return (x * x + y * y + z * z);
 }
 inline void Maths::Vec3::Normalize()
 {
@@ -265,13 +285,21 @@ inline Maths::Vec3 Maths::Vec3::CrossProduct(const Vec3& _VecA, const Vec3& _Vec
 {
 	return { _VecA.y * _VecB.z - _VecA.z * _VecB.y, _VecA.z * _VecB.x - _VecA.x * _VecB.z, _VecA.x * _VecB.y - _VecA.y * _VecB.x };
 }
-inline float Maths::Vec3::GetLength()                                              const
+inline float Maths::Vec3::GetDistance(const Vec3& _VecB)                           const
 {
-	return sqrtf(LenghtSquared());
+	return Vec3(_VecB.x - x, _VecB.y - y, _VecB.z - z).GetMagnitude();
 }
-inline float Maths::Vec3::LenghtSquared()                                          const
+inline float Maths::Vec3::GetDistance(const Vec3& _VecA, const Vec3& _VecB)
 {
-	return (x * x + y * y + z * z);
+	return Vec3(_VecB.x - _VecA.x, _VecB.y - _VecA.y, _VecB.z - _VecA.z).GetMagnitude();
+}
+inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecB)                       const
+{
+	return (std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
+}
+inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB)
+{
+	return (std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -450,7 +478,11 @@ inline Maths::Vec3 Maths::Vec4::yzw()	const
 
 inline float Maths::Vec4::GetMagnitude()                                   const
 {
-	return sqrtf((x * x) + (y * y) + (z * z) + (w * w));
+	return sqrtf(GetMagnitudeSquared());
+}
+inline float Maths::Vec4::GetMagnitudeSquared()                            const
+{
+	return (x * x + y * y + z * z + w * w);
 }
 inline void Maths::Vec4::Normalize()
 {
@@ -489,14 +521,7 @@ inline Maths::Vec4 Maths::Vec4::GetHomogenized()                           const
 		return { x, y, z, w };
 	return { x / w, y / w, z / w, 1 };
 }
-inline float Maths::Vec4::GetLength()                                      const
-{
-	return sqrtf(LenghtSquared());
-}
-inline float Maths::Vec4::LenghtSquared()                                  const
-{
-	return (x * x + y * y + z * z + w * w);
-}
+
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -661,11 +686,11 @@ inline Maths::IVec2::~IVec2(void) {}
 
 //UTILS :
 
-inline float Maths::IVec2::GetLength()     const
+inline float Maths::IVec2::GetMagnitude()      const
 {
-	return sqrtf(static_cast<float>(LenghtSquared()));
+	return sqrtf(static_cast<float>(GetMagnitudeSquared()));
 }
-inline int Maths::IVec2::LenghtSquared() const
+inline int Maths::IVec2::GetMagnitudeSquared() const
 {
 	return (x * x + y * y);
 }
@@ -698,7 +723,7 @@ inline bool Maths::IVec2::operator != (const IVec2& _IVec)	const
 	return (x != _IVec.x) || (y != _IVec.y);
 }
 
-//Vec2 TO Vec2 OPERATIONS :
+//IVec2 TO IVec2 OPERATIONS :
 
 inline Maths::IVec2 Maths::IVec2::operator + (const IVec2& _IVec) const
 {
@@ -717,7 +742,7 @@ inline Maths::IVec2 Maths::IVec2::operator / (const IVec2& _IVec) const
 	return IVec2(x / _IVec.x, y / _IVec.y);
 }
 
-//Vec2 TO THIS OPERATIONS :
+//IVec2 TO THIS OPERATIONS :
 
 inline Maths::IVec2 Maths::IVec2::operator += (const IVec2& _IVec)
 {
@@ -744,7 +769,7 @@ inline Maths::IVec2 Maths::IVec2::operator /= (const IVec2& _IVec)
 	return *this;
 }
 
-//SCALER TO Vec2 OPERATIONS :
+//SCALER TO IVec2 OPERATIONS :
 
 inline Maths::IVec2 Maths::IVec2::operator + (const int _Sca) const
 {
@@ -812,11 +837,11 @@ inline Maths::IVec3::~IVec3(void) {}
 
 //UTILS :
 
-inline float Maths::IVec3::GetLength()     const
+inline float Maths::IVec3::GetMagnitude()      const
 {
-	return sqrtf(static_cast<float>(LenghtSquared()));
+	return sqrtf(static_cast<float>(GetMagnitudeSquared()));
 }
-inline int Maths::IVec3::LenghtSquared() const
+inline int Maths::IVec3::GetMagnitudeSquared() const
 {
 	return (x * x + y * y + z * z);
 }
@@ -851,7 +876,7 @@ inline bool Maths::IVec3::operator != (const IVec3& _IVec)	const
 	return (x != _IVec.x) || (y != _IVec.y) || (z != _IVec.z);
 }
 
-//Vec2 TO Vec2 OPERATIONS :
+//IVec3 TO IVec3 OPERATIONS :
 
 inline Maths::IVec3 Maths::IVec3::operator + (const IVec3& _IVec) const
 {
@@ -870,7 +895,7 @@ inline Maths::IVec3 Maths::IVec3::operator / (const IVec3& _IVec) const
 	return IVec3(x / _IVec.x, y / _IVec.y, z / _IVec.z);
 }
 
-//Vec2 TO THIS OPERATIONS :
+//IVec3 TO THIS OPERATIONS :
 
 inline Maths::IVec3 Maths::IVec3::operator += (const IVec3& _IVec)
 {
@@ -901,7 +926,7 @@ inline Maths::IVec3 Maths::IVec3::operator /= (const IVec3& _IVec)
 	return *this;
 }
 
-//SCALER TO Vec2 OPERATIONS :
+//SCALER TO IVec3 OPERATIONS :
 
 inline Maths::IVec3 Maths::IVec3::operator + (const int _Sca) const
 {
@@ -973,11 +998,11 @@ inline Maths::IVec4::~IVec4(void) {}
 
 //UTILS :
 
-inline float Maths::IVec4::GetLength()     const
+inline float Maths::IVec4::GetMagnitude()      const
 {
-	return sqrtf(static_cast<float>(LenghtSquared()));
+	return sqrtf(static_cast<float>(GetMagnitudeSquared()));
 }
-inline int Maths::IVec4::LenghtSquared() const
+inline int Maths::IVec4::GetMagnitudeSquared() const
 {
 	return (x * x + y * y + z * z + w * w);
 }
@@ -1014,7 +1039,7 @@ inline bool Maths::IVec4::operator != (const IVec4& _IVec)	const
 	return (x != _IVec.x) || (y != _IVec.y) || (z != _IVec.z) || (w != _IVec.w);
 }
 
-//Vec2 TO Vec2 OPERATIONS :
+//IVec4 TO Vec2 OPERATIONS :
 
 inline Maths::IVec4 Maths::IVec4::operator + (const IVec4& _IVec) const
 {
@@ -1033,7 +1058,7 @@ inline Maths::IVec4 Maths::IVec4::operator / (const IVec4& _IVec) const
 	return IVec4(x / _IVec.x, y / _IVec.y, z / _IVec.z, w / _IVec.w);
 }
 
-//Vec2 TO THIS OPERATIONS :
+//IVec4 TO THIS OPERATIONS :
 
 inline Maths::IVec4 Maths::IVec4::operator += (const IVec4& _IVec)
 {
@@ -1068,7 +1093,7 @@ inline Maths::IVec4 Maths::IVec4::operator /= (const IVec4& _IVec)
 	return *this;
 }
 
-//SCALER TO Vec2 OPERATIONS :
+//SCALER TO IVec4 OPERATIONS :
 
 inline Maths::IVec4 Maths::IVec4::operator + (const int _Sca) const
 {

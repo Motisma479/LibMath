@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 16/05/2023                      *
+* Last Update : 31/05/2023                      *
 \***********************************************/
 #pragma once
 
@@ -78,12 +78,17 @@ namespace Maths
         //UTILS :
 
         inline float GetMagnitude()                                          const;
+        inline float GetMagnitudeSquared()                                   const;
         inline void Normalize();
         inline Vec2 GetNormalized()                                          const;
+        inline Vec2 GetPerpendicular()                                       const;
         inline float DotProduct(const Vec2& _VecB)                           const;
         inline static float DotProduct(const Vec2& _VecA, const Vec2& _VecB);
-        inline float GetLength()                                             const;
-        inline float LenghtSquared()                                         const;
+        inline float GetDistance(const Vec2& _VecB)                          const;
+        inline static float GetDistance(const Vec2& _VecA, const Vec2& _VecB);
+        inline float GetAngleBetween(const Vec2& _VecB)                      const;
+        inline static float GetAngleBetween(const Vec2& _VecA, const Vec2& _VecB);
+
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -167,14 +172,17 @@ namespace Maths
         inline Vec2 yz() const;
 
         inline float GetMagnitude()                                          const;
+        inline float GetMagnitudeSquared()                                   const;
         inline void Normalize();
         inline Vec3 GetNormalized()                                          const;
         inline float DotProduct(const Vec3& _VecB)                           const;
         inline static float DotProduct(const Vec3& _VecA, const Vec3& _VecB);
         inline Vec3 CrossProduct(const Vec3& _VecB)                          const;
         static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB);
-        inline float GetLength()                                             const;
-        inline float LenghtSquared()                                         const;
+        inline float GetDistance(const Vec3& _VecB)                          const;
+        inline static float GetDistance(const Vec3& _VecA, const Vec3& _VecB);
+        inline float GetAngleBetween(const Vec3& _VecB)                      const;
+        inline static float GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB);
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -260,14 +268,13 @@ namespace Maths
 
 
         inline float GetMagnitude()                                          const;
+        inline float GetMagnitudeSquared()                                   const;
         inline void Normalize();
         inline Vec4 GetNormalized()                                          const;
         inline float DotProduct(const Vec4& _VecB)                           const;
         inline static float DotProduct(const Vec4& _VecA, const Vec4& _VecB);
         inline void Homogenize();
         inline Vec4 GetHomogenized()                                         const;
-        inline float GetLength()                                             const;
-        inline float LenghtSquared()                                         const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -338,8 +345,8 @@ namespace Maths
 
         //UTILS :
 
-        inline float GetLength()     const;
-        inline int LenghtSquared() const;
+        inline float GetMagnitude()     const;
+        inline int GetMagnitudeSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -414,8 +421,8 @@ namespace Maths
 
         //UTILS :
 
-        inline float GetLength()     const;
-        inline int LenghtSquared() const;
+        inline float GetMagnitude()     const;
+        inline int GetMagnitudeSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -490,8 +497,8 @@ namespace Maths
 
         //UTILS :
 
-        inline float GetLength()     const;
-        inline int LenghtSquared() const;
+        inline float GetMagnitude()     const;
+        inline int GetMagnitudeSquared() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
