@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 31/05/2023                      *
+* Last Update : 01/06/2023                      *
 \***********************************************/
 #pragma once
 
@@ -44,6 +44,7 @@ namespace Maths
     constexpr float RAD2DEG = 180.f / M_PI;
 
     // Vector Using float as Value -----------------------------------------------------------------------------
+
 #ifndef DISABLE_VEC2
     class Vec2
     {
@@ -316,6 +317,7 @@ namespace Maths
 #endif
 
     // Vector Using int as Value -------------------------------------------------------------------------------
+
 #ifndef DISABLE_IVEC2
     class IVec2
     {
@@ -544,6 +546,7 @@ namespace Maths
 #endif
 
     // Matrix --------------------------------------------------------------------------------------------------
+
 #ifndef DISABLE_MAT3
     class Mat3
     {
@@ -572,6 +575,28 @@ namespace Maths
         inline ~Mat3(void);
 
         //UTILS :
+
+        inline void Transpose();
+        inline static Mat3 GetTranspose(const Mat3& _Mat)                                                          const;
+        inline float Determinant()                                                                                 const;
+        inline void Inverse();
+        inline static Mat3 GetInverse(const Mat3& _Mat)                                                            const;
+        inline float Trace()                                                                                       const;
+
+        inline static Mat3 CreateIdentityMatrix()                                                                  const;
+        inline static Mat3 CreateRotationMatrix(float rotation)                                                    const;
+#ifndef DISABLE_VEC2
+        inline static Mat3 CreateTranslationMatrix(const Vec2& translation)                                        const;
+        inline static Mat3 CreateScaleMatrix(const Vec2& scale)                                                    const;
+        inline static Mat3 CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale)       const;
+#else
+        inline static Mat3 CreateTranslationMatrix(float[2] translation)                                           const;
+        inline static Mat3 CreateScaleMatrix(float[2] scale)                                                       const;
+        inline static Mat3 CreateTransformMatrix(float[2] translation, float rotation, float[2] scale)             const;
+#endif
+
+        inline Mat3 HadamardProduct(const Mat3& _Mat)                                                              const;
+        inline Mat3 HadamardProductToThis(const Mat3& _Mat);
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -625,7 +650,12 @@ namespace Maths
 
         //UTILS :
 
-        //inline Mat4 GetIdentity(const Mat4& identity);
+        inline void Transpose();
+        inline static Mat4 GetTranspose(const Mat4& _Mat)                                                          const;
+        inline float Determinant()                                                                                 const;
+        inline void Inverse();
+        inline static Mat4 GetInverse(const Mat4& _Mat)                                                            const;
+        inline float Trace()                                                                                       const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 

@@ -3,11 +3,14 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 31/05/2023                      *
+* Last Update : 01/06/2023                      *
 \***********************************************/
 #include "Maths.hpp"
 
 #include <cmath>
+
+// Vector Using float as Value -----------------------------------------------------------------------------
+
 #ifndef DISABLE_VEC2
 /************************\
  *-------VECTOR_2-------*
@@ -665,6 +668,7 @@ inline Maths::Vec4 Maths::Vec4::operator /= (float _Sca)
 #pragma endregion Vec4
 #endif
 
+// Vector Using int as Value -------------------------------------------------------------------------------
 
 #ifndef DISABLE_IVEC2
 /************************\
@@ -1149,6 +1153,7 @@ inline Maths::IVec4 Maths::IVec4::operator /= (const int _Sca)
 #pragma endregion IVec4
 #endif
 
+// Matrix --------------------------------------------------------------------------------------------------
 
 #ifndef DISABLE_MAT3
 /************************\
@@ -1177,6 +1182,190 @@ inline Maths::Mat3::Mat3(float _data[9])
 inline Maths::Mat3::~Mat3(void) {}
 
 //UTILS :
+
+inline void Maths::Mat3::Transpose()
+{
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = data_3_3[0][0];
+	temp.data_3_3[1][0] = data_3_3[0][1];
+	temp.data_3_3[2][0] = data_3_3[0][2];
+	temp.data_3_3[0][1] = data_3_3[1][0];
+	temp.data_3_3[1][1] = data_3_3[1][1];
+	temp.data_3_3[2][1] = data_3_3[1][2];
+	temp.data_3_3[0][2] = data_3_3[2][0];
+	temp.data_3_3[1][2] = data_3_3[2][1];
+	temp.data_3_3[2][2] = data_3_3[2][2];
+	
+	*this = temp;
+}
+inline static Maths::Mat3 Maths::Mat3::GetTranspose(const Mat3& _Mat)                                                          const
+{
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = _Mat.data_3_3[0][0];
+	temp.data_3_3[1][0] = _Mat.data_3_3[0][1];
+	temp.data_3_3[2][0] = _Mat.data_3_3[0][2];
+	temp.data_3_3[0][1] = _Mat.data_3_3[1][0];
+	temp.data_3_3[1][1] = _Mat.data_3_3[1][1];
+	temp.data_3_3[2][1] = _Mat.data_3_3[1][2];
+	temp.data_3_3[0][2] = _Mat.data_3_3[2][0];
+	temp.data_3_3[1][2] = _Mat.data_3_3[2][1];
+	temp.data_3_3[2][2] = _Mat.data_3_3[2][2];
+
+	return temp;
+}
+inline float Maths::Mat3::Determinant()                                                                                        const
+{
+	return data_3_3[0][0] * (data_3_3[1][1] * data_3_3[2][2] - data_3_3[2][1] * data_3_3[1][2])
+		 - data_3_3[0][1] * (data_3_3[1][0] * data_3_3[2][2] - data_3_3[2][0] * data_3_3[1][2])
+		 + data_3_3[0][2] * (data_3_3[1][0] * data_3_3[2][1] - data_3_3[2][0] * data_3_3[1][1]);
+}
+inline void Maths::Mat3::Inverse()
+{
+	float det = Determinant();
+	if (det != 0.f)
+	{
+		det = 1.f / det;
+
+		Mat3 temp;
+		temp.data_3_3[0][0] = (data_3_3[1][1] * data_3_3[2][2] - data_3_3[2][1] * data_3_3[1][2]) * det;
+		temp.data_3_3[0][1] = (data_3_3[0][2] * data_3_3[2][1] - data_3_3[0][1] * data_3_3[2][2]) * det;
+		temp.data_3_3[0][2] = (data_3_3[0][1] * data_3_3[1][2] - data_3_3[0][2] * data_3_3[1][1]) * det;
+		temp.data_3_3[1][0] = (data_3_3[1][2] * data_3_3[2][0] - data_3_3[1][0] * data_3_3[2][2]) * det;
+		temp.data_3_3[1][1] = (data_3_3[0][0] * data_3_3[2][2] - data_3_3[0][2] * data_3_3[2][0]) * det;
+		temp.data_3_3[1][2] = (data_3_3[1][0] * data_3_3[0][2] - data_3_3[0][0] * data_3_3[1][2]) * det;
+		temp.data_3_3[2][0] = (data_3_3[1][0] * data_3_3[2][1] - data_3_3[2][0] * data_3_3[1][1]) * det;
+		temp.data_3_3[2][1] = (data_3_3[2][0] * data_3_3[0][1] - data_3_3[0][0] * data_3_3[2][1]) * det;
+		temp.data_3_3[2][2] = (data_3_3[0][0] * data_3_3[1][1] - data_3_3[1][0] * data_3_3[0][1]) * det;
+		*this = temp;
+	}
+}
+inline static Maths::Mat3 Maths::Mat3::GetInverse(const Mat3& _Mat)                                                            const
+{
+	float det = _Mat.Determinant();
+	if (det != 0.f)
+	{
+		det = 1.f / det;
+
+		Mat3 temp;
+		temp.data_3_3[0][0] = (data_3_3[1][1] * data_3_3[2][2] - data_3_3[2][1] * data_3_3[1][2]) * det;
+		temp.data_3_3[0][1] = (data_3_3[0][2] * data_3_3[2][1] - data_3_3[0][1] * data_3_3[2][2]) * det;
+		temp.data_3_3[0][2] = (data_3_3[0][1] * data_3_3[1][2] - data_3_3[0][2] * data_3_3[1][1]) * det;
+		temp.data_3_3[1][0] = (data_3_3[1][2] * data_3_3[2][0] - data_3_3[1][0] * data_3_3[2][2]) * det;
+		temp.data_3_3[1][1] = (data_3_3[0][0] * data_3_3[2][2] - data_3_3[0][2] * data_3_3[2][0]) * det;
+		temp.data_3_3[1][2] = (data_3_3[1][0] * data_3_3[0][2] - data_3_3[0][0] * data_3_3[1][2]) * det;
+		temp.data_3_3[2][0] = (data_3_3[1][0] * data_3_3[2][1] - data_3_3[2][0] * data_3_3[1][1]) * det;
+		temp.data_3_3[2][1] = (data_3_3[2][0] * data_3_3[0][1] - data_3_3[0][0] * data_3_3[2][1]) * det;
+		temp.data_3_3[2][2] = (data_3_3[0][0] * data_3_3[1][1] - data_3_3[1][0] * data_3_3[0][1]) * det;
+		return temp;
+	}
+	return _Mat;
+}
+inline float Maths::Mat3::Trace()                                                                                              const
+{
+	return data_3_3[0][0] + data_3_3[1][1] + data_3_3[2][2];
+}
+
+inline static Maths::Mat3 Maths::Mat3::CreateIdentityMatrix()                                                                  const
+{
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = 1.f;
+	temp.data_3_3[1][1] = 1.f;
+	temp.data_3_3[2][2] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat3 Maths::Mat3::CreateRotationMatrix(float rotation)                                                    const
+{
+	float cosRot = cosf(rotation);
+	float sinRot = sinf(rotation);
+
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = cosRot;
+	temp.data_3_3[0][1] = -sinRot;
+	temp.data_3_3[1][0] = sinRot;
+	temp.data_3_3[1][1] = cosRot;
+	temp.data_3_3[2][2] = cosRot;
+
+	return temp;
+}
+#ifndef DISABLE_VEC2
+inline static Maths::Mat3 Maths::Mat3::CreateTranslationMatrix(const Vec2& translation)                                        const
+{
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = 1.f;
+	temp.data_3_3[1][1] = 1.f;
+	temp.data_3_3[2][2] = 1.f;
+
+	temp.data_3_3[0][2] = translation.x;
+	temp.data_3_3[1][2] = translation.y;
+
+	return temp;
+}
+inline static Maths::Mat3 Maths::Mat3::CreateScaleMatrix(const Vec2& scale)                                                    const
+{
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = scale.x;
+	temp.data_3_3[1][1] = scale.y;
+	temp.data_3_3[2][2] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat3 Maths::Mat3::CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale)       const
+{
+	return CreateTranslationMatrix(translation) * CreateScaleMatrix(scale) * CreateRotationMatrix(rotation);
+}
+#else
+inline static Maths::Mat3 Maths::Mat3::CreateTranslationMatrix(float[2] translation)                                           const
+{
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = 1.f;
+	temp.data_3_3[1][1] = 1.f;
+	temp.data_3_3[2][2] = 1.f;
+
+	temp.data_3_3[0][2] = translation[0];
+	temp.data_3_3[1][2] = translation[1];
+
+	return temp;
+}
+inline static Maths::Mat3 Maths::Mat3::CreateScaleMatrix(float[2] scale)                                                      const
+{
+	Mat3 temp;
+
+	temp.data_3_3[0][0] = scale[0];
+	temp.data_3_3[1][1] = scale[1];
+	temp.data_3_3[2][2] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat3 Maths::Mat3::CreateTransformMatrix(float[2] translation, float rotation, float[2] scale)            const
+{
+	return CreateTranslationMatrix(translation) * CreateScaleMatrix(scale) * CreateRotationMatrix(rotation);
+}
+#endif
+
+inline Maths::Mat3 Maths::Mat3::HadamardProduct(const Mat3& _Mat)                                                              const
+{
+	Mat3 temp;
+
+	for (int i = 0; i < 9 i++)
+		temp.data[i] = data[i] * _Mat.data[i];
+
+	return temp;
+}
+inline Maths::Mat3 Maths::Mat3::HadamardProductToThis(const Mat3& _Mat)
+{
+	for (int i = 0; i < 9 i++)
+		data[i] *= _Mat.data[i];
+	
+	return *this;
+}
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
@@ -1277,7 +1466,6 @@ inline Maths::Mat3 Maths::Mat3::operator*=(const Mat3& _Mat)
 #pragma endregion Mat3
 #endif
 
-
 #ifndef DISABLE_MAT4
 /************************\
  *-------MATRIX_4-------*
@@ -1305,6 +1493,81 @@ inline Maths::Mat4::Mat4(float _data[16])
 inline Maths::Mat4::~Mat4(void) {}
 
 //UTILS :
+
+inline void Maths::Mat4::Transpose()
+{
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = data_4_4[0][0];
+	temp.data_4_4[1][0] = data_4_4[0][1];
+	temp.data_4_4[2][0] = data_4_4[0][2];
+	temp.data_4_4[3][0] = data_4_4[0][3];
+	temp.data_4_4[0][1] = data_4_4[1][0];
+	temp.data_4_4[1][1] = data_4_4[1][1];
+	temp.data_4_4[2][1] = data_4_4[1][2];
+	temp.data_4_4[3][1] = data_4_4[1][3];
+	temp.data_4_4[0][2] = data_4_4[2][0];
+	temp.data_4_4[1][2] = data_4_4[2][1];
+	temp.data_4_4[2][2] = data_4_4[2][2];
+	temp.data_4_4[3][2] = data_4_4[2][3];
+	temp.data_4_4[0][3] = data_4_4[3][0];
+	temp.data_4_4[1][3] = data_4_4[3][1];
+	temp.data_4_4[2][3] = data_4_4[3][2];
+	temp.data_4_4[3][3] = data_4_4[3][3];
+
+	*this = temp;
+}
+inline static Maths::Mat4 Maths::Mat4::GetTranspose(const Mat4& _Mat) const
+{
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = _Mat.data_4_4[0][0];
+	temp.data_4_4[1][0] = _Mat.data_4_4[0][1];
+	temp.data_4_4[2][0] = _Mat.data_4_4[0][2];
+	temp.data_4_4[3][0] = _Mat.data_4_4[0][3];
+	temp.data_4_4[0][1] = _Mat.data_4_4[1][0];
+	temp.data_4_4[1][1] = _Mat.data_4_4[1][1];
+	temp.data_4_4[2][1] = _Mat.data_4_4[1][2];
+	temp.data_4_4[3][1] = _Mat.data_4_4[1][3];
+	temp.data_4_4[0][2] = _Mat.data_4_4[2][0];
+	temp.data_4_4[1][2] = _Mat.data_4_4[2][1];
+	temp.data_4_4[2][2] = _Mat.data_4_4[2][2];
+	temp.data_4_4[3][2] = _Mat.data_4_4[2][3];
+	temp.data_4_4[0][3] = _Mat.data_4_4[3][0];
+	temp.data_4_4[1][3] = _Mat.data_4_4[3][1];
+	temp.data_4_4[2][3] = _Mat.data_4_4[3][2];
+	temp.data_4_4[3][3] = _Mat.data_4_4[3][3];
+
+	return temp;
+}
+inline float Maths::Mat4::Determinant()                               const
+{
+	return data_4_4[0][0] * (data_4_4[1][1] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
+		                   - data_4_4[1][2] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
+		                   + data_4_4[1][3] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1]))
+		 - data_4_4[0][1] * (data_4_4[1][0] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
+			               - data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
+			               + data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0]))
+		 + data_4_4[0][2] * (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
+			               - data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
+			               + data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0]))
+		 - data_4_4[0][3] * (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])
+		                   - data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
+                           + data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0]));
+
+}
+inline void Maths::Mat4::Inverse()
+{
+	//TODO
+}
+inline static Maths::Mat4 Maths::Mat4::GetInverse(const Mat4& _Mat)   const
+{
+	//TODO
+}
+inline float Maths::Mat4::Trace()                                     const
+{
+	return data_4_4[0][0] + data_4_4[1][1] + data_4_4[2][2] + data_4_4[3][3];
+}
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
