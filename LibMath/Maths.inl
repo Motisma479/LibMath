@@ -1558,11 +1558,156 @@ inline float Maths::Mat4::Determinant()                               const
 }
 inline void Maths::Mat4::Inverse()
 {
-	//TODO
+	float det = Determinant();
+	if (det != 0.f)
+	{
+		det = 1.f / det;
+
+		Mat4 temp;
+
+		temp.data_4_4[0][0] = (data_4_4[1][1] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
+                             - data_4_4[1][2] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
+                             + data_4_4[1][3] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])) * det;
+
+		temp.data_4_4[0][1] = (data_4_4[0][1] * (data_4_4[2][3] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][3])
+                             - data_4_4[0][2] * (data_4_4[2][3] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][3])
+                             + data_4_4[0][3] * (data_4_4[2][2] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][2])) * det;
+
+		temp.data_4_4[0][2] = (data_4_4[0][1] * (data_4_4[1][3] * data_4_4[3][2] - data_4_4[1][2] * data_4_4[3][3])
+                             - data_4_4[0][2] * (data_4_4[1][3] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][3])
+                             + data_4_4[0][3] * (data_4_4[1][2] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][2])) * det;
+
+		temp.data_4_4[0][3] = (data_4_4[0][1] * (data_4_4[1][2] * data_4_4[2][3] - data_4_4[1][3] * data_4_4[2][2])
+                             - data_4_4[0][2] * (data_4_4[1][1] * data_4_4[2][3] - data_4_4[1][3] * data_4_4[2][1])
+                             + data_4_4[0][3] * (data_4_4[1][1] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][1])) * det;
+
+		temp.data_4_4[1][0] = (data_4_4[1][0] * (data_4_4[2][3] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][3])
+                             - data_4_4[1][2] * (data_4_4[2][3] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][3])
+                             + data_4_4[1][3] * (data_4_4[2][2] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][2])) * det;
+
+		temp.data_4_4[1][1] = (data_4_4[0][0] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
+                             - data_4_4[0][2] * (data_4_4[2][2] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][2])
+                             + data_4_4[0][3] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])) * det;
+		
+		temp.data_4_4[1][2] = (data_4_4[0][0] * (data_4_4[1][3] * data_4_4[3][2] - data_4_4[1][2] * data_4_4[3][3])
+                             - data_4_4[0][2] * (data_4_4[1][3] * data_4_4[3][0] - data_4_4[1][0] * data_4_4[3][3])
+                             + data_4_4[0][3] * (data_4_4[1][2] * data_4_4[3][0] - data_4_4[1][0] * data_4_4[3][2])) * det;
+		
+		temp.data_4_4[1][3] = (data_4_4[0][0] * (data_4_4[1][2] * data_4_4[2][3] - data_4_4[1][3] * data_4_4[2][2])
+                             - data_4_4[0][2] * (data_4_4[1][2] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][2])
+                             + data_4_4[0][3] * (data_4_4[1][0] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][0])) * det;
+
+		temp.data_4_4[2][0] = (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
+                             - data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
+                             + data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
+
+		temp.data_4_4[2][1] = (data_4_4[0][0] * (data_4_4[2][3] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][3])
+                             - data_4_4[0][1] * (data_4_4[2][3] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][3])
+                             + data_4_4[0][3] * (data_4_4[2][1] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][1])) * det;
+
+		temp.data_4_4[2][2] = (data_4_4[0][0] * (data_4_4[1][1] * data_4_4[3][3] - data_4_4[1][3] * data_4_4[3][1])
+                             - data_4_4[0][1] * (data_4_4[1][0] * data_4_4[3][3] - data_4_4[1][3] * data_4_4[3][0])
+                             + data_4_4[0][3] * (data_4_4[1][0] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][0])) * det;
+
+		temp.data_4_4[2][3] = (data_4_4[0][0] * (data_4_4[1][3] * data_4_4[2][1] - data_4_4[1][1] * data_4_4[2][3])
+                             - data_4_4[0][1] * (data_4_4[1][3] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][3])
+                             + data_4_4[0][3] * (data_4_4[1][1] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][1])) * det;
+
+		temp.data_4_4[3][0] = (data_4_4[1][0] * (data_4_4[2][2] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][2])
+                             - data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
+                             + data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
+
+		temp.data_4_4[3][1] = (data_4_4[0][0] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])
+                             - data_4_4[0][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
+                             + data_4_4[0][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
+
+		temp.data_4_4[3][2] = (data_4_4[0][0] * (data_4_4[1][2] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][2])
+                             - data_4_4[0][1] * (data_4_4[1][0] * data_4_4[3][2] - data_4_4[1][2] * data_4_4[3][0])
+                             + data_4_4[0][2] * (data_4_4[1][0] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][0])) * det;
+
+		temp.data_4_4[3][3] = (data_4_4[0][0] * (data_4_4[1][1] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][1])
+                             - data_4_4[0][1] * (data_4_4[1][0] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][0])
+                             + data_4_4[0][2] * (data_4_4[1][0] * data_4_4[2][1] - data_4_4[1][1] * data_4_4[2][0])) * det;
+
+		*this = temp;
+	}
 }
 inline static Maths::Mat4 Maths::Mat4::GetInverse(const Mat4& _Mat)   const
 {
-	//TODO
+	float det = _Mat.Determinant();
+	if (det != 0.f)
+	{
+		det = 1.f / det;
+
+		Mat4 temp;
+
+		temp.data_4_4[0][0] = (_Mat.data_4_4[1][1] * (_Mat.data_4_4[2][2] * _Mat.data_4_4[3][3] - _Mat.data_4_4[2][3] * _Mat.data_4_4[3][2])
+                             - _Mat.data_4_4[1][2] * (_Mat.data_4_4[2][1] * _Mat.data_4_4[3][3] - _Mat.data_4_4[2][3] * _Mat.data_4_4[3][1])
+                             + _Mat.data_4_4[1][3] * (_Mat.data_4_4[2][1] * _Mat.data_4_4[3][2] - _Mat.data_4_4[2][2] * _Mat.data_4_4[3][1])) * det;
+
+		temp.data_4_4[0][1] = (_Mat.data_4_4[0][1] * (_Mat.data_4_4[2][3] * _Mat.data_4_4[3][2] - _Mat.data_4_4[2][2] * _Mat.data_4_4[3][3])
+                             - _Mat.data_4_4[0][2] * (_Mat.data_4_4[2][3] * _Mat.data_4_4[3][1] - _Mat.data_4_4[2][1] * _Mat.data_4_4[3][3])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[2][2] * _Mat.data_4_4[3][1] - _Mat.data_4_4[2][1] * _Mat.data_4_4[3][2])) * det;
+
+		temp.data_4_4[0][2] = (_Mat.data_4_4[0][1] * (_Mat.data_4_4[1][3] * _Mat.data_4_4[3][2] - _Mat.data_4_4[1][2] * _Mat.data_4_4[3][3])
+                             - _Mat.data_4_4[0][2] * (_Mat.data_4_4[1][3] * _Mat.data_4_4[3][1] - _Mat.data_4_4[1][1] * _Mat.data_4_4[3][3])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[1][2] * _Mat.data_4_4[3][1] - _Mat.data_4_4[1][1] * _Mat.data_4_4[3][2])) * det;
+
+		temp.data_4_4[0][3] = (_Mat.data_4_4[0][1] * (_Mat.data_4_4[1][2] * _Mat.data_4_4[2][3] - _Mat.data_4_4[1][3] * _Mat.data_4_4[2][2])
+                             - _Mat.data_4_4[0][2] * (_Mat.data_4_4[1][1] * _Mat.data_4_4[2][3] - _Mat.data_4_4[1][3] * _Mat.data_4_4[2][1])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[1][1] * _Mat.data_4_4[2][2] - _Mat.data_4_4[1][2] * _Mat.data_4_4[2][1])) * det;
+
+		temp.data_4_4[1][0] = (_Mat.data_4_4[1][0] * (_Mat.data_4_4[2][3] * _Mat.data_4_4[3][2] - _Mat.data_4_4[2][2] * _Mat.data_4_4[3][3])
+                             - _Mat.data_4_4[1][2] * (_Mat.data_4_4[2][3] * _Mat.data_4_4[3][0] - _Mat.data_4_4[2][0] * _Mat.data_4_4[3][3])
+                             + _Mat.data_4_4[1][3] * (_Mat.data_4_4[2][2] * _Mat.data_4_4[3][0] - _Mat.data_4_4[2][0] * _Mat.data_4_4[3][2])) * det;
+
+		temp.data_4_4[1][1] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[2][2] * _Mat.data_4_4[3][3] - _Mat.data_4_4[2][3] * _Mat.data_4_4[3][2])
+                             - _Mat.data_4_4[0][2] * (_Mat.data_4_4[2][2] * _Mat.data_4_4[3][0] - _Mat.data_4_4[2][0] * _Mat.data_4_4[3][2])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[2][0] * _Mat.data_4_4[3][2] - _Mat.data_4_4[2][2] * _Mat.data_4_4[3][0])) * det;
+
+		temp.data_4_4[1][2] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[1][3] * _Mat.data_4_4[3][2] - _Mat.data_4_4[1][2] * _Mat.data_4_4[3][3])
+                             - _Mat.data_4_4[0][2] * (_Mat.data_4_4[1][3] * _Mat.data_4_4[3][0] - _Mat.data_4_4[1][0] * _Mat.data_4_4[3][3])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[1][2] * _Mat.data_4_4[3][0] - _Mat.data_4_4[1][0] * _Mat.data_4_4[3][2])) * det;
+
+		temp.data_4_4[1][3] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[1][2] * _Mat.data_4_4[2][3] - _Mat.data_4_4[1][3] * _Mat.data_4_4[2][2])
+                             - _Mat.data_4_4[0][2] * (_Mat.data_4_4[1][2] * _Mat.data_4_4[2][0] - _Mat.data_4_4[1][0] * _Mat.data_4_4[2][2])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[1][0] * _Mat.data_4_4[2][2] - _Mat.data_4_4[1][2] * _Mat.data_4_4[2][0])) * det;
+
+		temp.data_4_4[2][0] = (_Mat.data_4_4[1][0] * (_Mat.data_4_4[2][1] * _Mat.data_4_4[3][3] - _Mat.data_4_4[2][3] * _Mat.data_4_4[3][1])
+                             - _Mat.data_4_4[1][1] * (_Mat.data_4_4[2][0] * _Mat.data_4_4[3][3] - _Mat.data_4_4[2][3] * _Mat.data_4_4[3][0])
+                             + _Mat.data_4_4[1][3] * (_Mat.data_4_4[2][0] * _Mat.data_4_4[3][1] - _Mat.data_4_4[2][1] * _Mat.data_4_4[3][0])) * det;
+
+		temp.data_4_4[2][1] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[2][3] * _Mat.data_4_4[3][1] - _Mat.data_4_4[2][1] * _Mat.data_4_4[3][3])
+                             - _Mat.data_4_4[0][1] * (_Mat.data_4_4[2][3] * _Mat.data_4_4[3][0] - _Mat.data_4_4[2][0] * _Mat.data_4_4[3][3])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[2][1] * _Mat.data_4_4[3][0] - _Mat.data_4_4[2][0] * _Mat.data_4_4[3][1])) * det;
+
+		temp.data_4_4[2][2] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[1][1] * _Mat.data_4_4[3][3] - _Mat.data_4_4[1][3] * _Mat.data_4_4[3][1])
+                             - _Mat.data_4_4[0][1] * (_Mat.data_4_4[1][0] * _Mat.data_4_4[3][3] - _Mat.data_4_4[1][3] * _Mat.data_4_4[3][0])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[1][0] * _Mat.data_4_4[3][1] - _Mat.data_4_4[1][1] * _Mat.data_4_4[3][0])) * det;
+
+		temp.data_4_4[2][3] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[1][3] * _Mat.data_4_4[2][1] - _Mat.data_4_4[1][1] * _Mat.data_4_4[2][3])
+                             - _Mat.data_4_4[0][1] * (_Mat.data_4_4[1][3] * _Mat.data_4_4[2][0] - _Mat.data_4_4[1][0] * _Mat.data_4_4[2][3])
+                             + _Mat.data_4_4[0][3] * (_Mat.data_4_4[1][1] * _Mat.data_4_4[2][0] - _Mat.data_4_4[1][0] * _Mat.data_4_4[2][1])) * det;
+
+		temp.data_4_4[3][0] = (_Mat.data_4_4[1][0] * (_Mat.data_4_4[2][2] * _Mat.data_4_4[3][1] - _Mat.data_4_4[2][1] * _Mat.data_4_4[3][2])
+                             - _Mat.data_4_4[1][1] * (_Mat.data_4_4[2][0] * _Mat.data_4_4[3][2] - _Mat.data_4_4[2][2] * _Mat.data_4_4[3][0])
+                             + _Mat.data_4_4[1][2] * (_Mat.data_4_4[2][0] * _Mat.data_4_4[3][1] - _Mat.data_4_4[2][1] * _Mat.data_4_4[3][0])) * det;
+
+		temp.data_4_4[3][1] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[2][1] * _Mat.data_4_4[3][2] - _Mat.data_4_4[2][2] * _Mat.data_4_4[3][1])
+                             - _Mat.data_4_4[0][1] * (_Mat.data_4_4[2][0] * _Mat.data_4_4[3][2] - _Mat.data_4_4[2][2] * _Mat.data_4_4[3][0])
+                             + _Mat.data_4_4[0][2] * (_Mat.data_4_4[2][0] * _Mat.data_4_4[3][1] - _Mat.data_4_4[2][1] * _Mat.data_4_4[3][0])) * det;
+
+		temp.data_4_4[3][2] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[1][2] * _Mat.data_4_4[3][1] - _Mat.data_4_4[1][1] * _Mat.data_4_4[3][2])
+                             - _Mat.data_4_4[0][1] * (_Mat.data_4_4[1][0] * _Mat.data_4_4[3][2] - _Mat.data_4_4[1][2] * _Mat.data_4_4[3][0])
+                             + _Mat.data_4_4[0][2] * (_Mat.data_4_4[1][0] * _Mat.data_4_4[3][1] - _Mat.data_4_4[1][1] * _Mat.data_4_4[3][0])) * det;
+
+		temp.data_4_4[3][3] = (_Mat.data_4_4[0][0] * (_Mat.data_4_4[1][1] * _Mat.data_4_4[2][2] - _Mat.data_4_4[1][2] * _Mat.data_4_4[2][1])
+                             - _Mat.data_4_4[0][1] * (_Mat.data_4_4[1][0] * _Mat.data_4_4[2][2] - _Mat.data_4_4[1][2] * _Mat.data_4_4[2][0])
+                             + _Mat.data_4_4[0][2] * (_Mat.data_4_4[1][0] * _Mat.data_4_4[2][1] - _Mat.data_4_4[1][1] * _Mat.data_4_4[2][0])) * det;
+
+		return temp;
+	}
+	return _Mat;
 }
 inline float Maths::Mat4::Trace()                                     const
 {
