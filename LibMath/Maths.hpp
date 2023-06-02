@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 01/06/2023                      *
+* Last Update : 02/06/2023                      *
 \***********************************************/
 #pragma once
 
@@ -656,6 +656,23 @@ namespace Maths
         inline void Inverse();
         inline static Mat4 GetInverse(const Mat4& _Mat)                                                            const;
         inline float Trace()                                                                                       const;
+
+        inline static Mat4 CreateIdentityMatrix()                                                                  const;
+        inline static Mat4 CreateXRotationMatrix(float x)                                                          const;
+        inline static Mat4 CreateYRotationMatrix(float y)                                                          const;
+        inline static Mat4 CreateZRotationMatrix(float z)                                                          const;
+#ifndef DISABLE_VEC3
+        inline static Mat4 CreateTranslationMatrix(const Vec3& translation)                                        const;
+        inline static Mat4 CreateRotationMatrix(const Vec3& rotation)                                              const;
+        inline static Mat4 CreateScaleMatrix(const Vec3& scale)                                                    const;
+        inline static Mat4 CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale) const;
+#else
+        inline static Mat4 CreateTranslationMatrix(float[3] translation)                                           const;
+        inline static Mat4 CreateRotationMatrix(float[3] rotation)                                                 const;
+        inline static Mat4 CreateScaleMatrix(float[3] scale)                                                       const;
+        inline static Mat4 CreateTransformMatrix(float[3] translation, float[3] rotation, float[3] scale)          const;
+#endif
+
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
 

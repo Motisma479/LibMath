@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 01/06/2023                      *
+* Last Update : 02/06/2023                      *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -1713,6 +1713,137 @@ inline float Maths::Mat4::Trace()                                     const
 {
 	return data_4_4[0][0] + data_4_4[1][1] + data_4_4[2][2] + data_4_4[3][3];
 }
+
+inline static Maths::Mat4 Maths::Mat4::CreateIdentityMatrix()                                                                  const
+{
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = 1.f;
+	temp.data_4_4[1][1] = 1.f;
+	temp.data_4_4[2][2] = 1.f;
+	temp.data_4_4[3][3] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat4 Maths::Mat4::CreateXRotationMatrix(float x)                                                          const
+{
+	float cosX = cosf(x);
+	float sinX = sinf(x);
+
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = 1.f;
+	temp.data_4_4[1][1] = cosX;
+	temp.data_4_4[1][2] = -sinX;
+	temp.data_4_4[2][1] = sinX;
+	temp.data_4_4[2][2] = cosX;
+	temp.data_4_4[3][3] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat4 Maths::Mat4::CreateYRotationMatrix(float y)                                                          const
+{
+	float cosY = cosf(y);
+	float sinY = sinf(y);
+
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = cosY;
+	temp.data_4_4[0][2] = sinY;
+	temp.data_4_4[1][1] = 1.f;
+	temp.data_4_4[2][0] = -sinY;
+	temp.data_4_4[2][2] = cosY;
+	temp.data_4_4[3][3] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat4 Maths::Mat4::CreateZRotationMatrix(float z)                                                          const
+{
+	float cosZ = cosf(z);
+	float sinZ = sinf(z);
+
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = cosZ;
+	temp.data_4_4[0][1] = -sinZ;
+	temp.data_4_4[1][0] = sinZ;
+	temp.data_4_4[1][1] = cosZ;
+	temp.data_4_4[2][2] = 1.f;
+	temp.data_4_4[3][3] = 1.f;
+
+	return temp;
+}
+#ifndef DISABLE_VEC3
+inline static Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(const Vec3& translation)                                        const
+{
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = 1.f;
+	temp.data_4_4[1][1] = 1.f;
+	temp.data_4_4[2][2] = 1.f;
+	temp.data_4_4[3][3] = 1.f;
+
+	temp.data_4_4[3][0] = translation.x;
+	temp.data_4_4[3][1] = translation.y;
+	temp.data_4_4[3][2] = translation.z;
+
+	return temp;
+}
+inline static Maths::Mat4 Maths::Mat4::CreateRotationMatrix(const Vec3& rotation)                                              const
+{
+	return CreateXRotationMatrix(rotation.x) * CreateYRotationMatrix(rotation.y) * CreateZRotationMatrix(rotation.z);
+}
+inline static Maths::Mat4 Maths::Mat4::CreateScaleMatrix(const Vec3& scale)                                                    const
+{
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = scale.x;
+	temp.data_4_4[1][1] = scale.y;
+	temp.data_4_4[2][2] = scale.z;
+	temp.data_4_4[3][3] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat4 Maths::Mat4::CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale) const
+{
+	return CreateScaleMatrix(scale) * CreateRotationMatrix(rotation) * CreateTranslationMatrix(translation);
+}
+#else
+inline static Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(float[3] translation)                                           const
+{
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = 1.f;
+	temp.data_4_4[1][1] = 1.f;
+	temp.data_4_4[2][2] = 1.f;
+	temp.data_4_4[3][3] = 1.f;
+
+	temp.data_4_4[3][0] = translation[0];
+	temp.data_4_4[3][1] = translation[1];
+	temp.data_4_4[3][2] = translation[2];
+
+	return temp;
+}
+inline static Maths::Mat4 Maths::Mat4::CreateRotationMatrix(float[3] rotation)                                                 const
+{
+	return CreateXRotationMatrix(rotation[0]) * CreateYRotationMatrix(rotation[1]) * CreateZRotationMatrix(rotation[2]);
+}
+inline static Maths::Mat4 Maths::Mat4::CreateScaleMatrix(float[3] scale)                                                       const
+{
+	Mat4 temp;
+
+	temp.data_4_4[0][0] = scale[0];
+	temp.data_4_4[1][1] = scale[1];
+	temp.data_4_4[2][2] = scale[2];
+	temp.data_4_4[3][3] = 1.f;
+
+	return temp;
+}
+inline static Maths::Mat4 Maths::Mat4::CreateTransformMatrix(float[3] translation, float[3] rotation, float[3] scale)          const
+{
+	return CreateScaleMatrix(scale) * CreateRotationMatrix(rotation) * CreateTranslationMatrix(translation);
+}
+#endif
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
