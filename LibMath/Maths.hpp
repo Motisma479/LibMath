@@ -24,6 +24,8 @@
 //#define DISABLE_MAT3
 //#define DISABLE_MAT4
 
+//#define DISABLE_QUAT
+
 //---USED_TO_ENABLE_CLASS_DISABLED_BY_DEFAULT---
 
 //#define ENABLE_MATYX
@@ -759,6 +761,55 @@ namespace Maths
     };
 #endif
 
+    // Quaternion ----------------------------------------------------------------------------------------------
+#ifndef DISABLE_QUAT
+    class Quat
+    {
+    public:
+        //MEMBERS :
+
+        union
+        {
+            struct
+            {
+                float a, b, c, d;
+            };
+            float abcd[4];
+        };
+
+        //CONSTRUCTORS :
+
+        inline Quat(void);
+        inline Quat(float a, float b, float c, float d);
+
+        //DESTRUCTOR :
+
+        inline ~Quat(void);
+
+        //UTILS :
+
+        inline static Quat CreateFromEuler(const Vec3& _VecRotation)   const;
+        inline static Quat CreateFromRadians(const Vec3& _VecRotation) const;
+        inline static Quat CreateFromMatrix(const Mat4& _MatRotation)  const;
+
+        inline Vec3 ToEuler()                                          const;
+        inline Vec3 ToRadians()                                        const;
+        inline Mat4 ToMatrix()                                         const;
+
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
+
+        //Quat TO Quat OPERATIONS :
+
+
+        //Quat TO THIS OPERATIONS :
+
+
+#ifdef PRINT_FUNCTION
+        void Print();
+#endif // PRINT_FUNCTION
+    };
+#endif
 
 }
 

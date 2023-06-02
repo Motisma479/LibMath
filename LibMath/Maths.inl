@@ -1958,3 +1958,79 @@ inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 }
 #pragma endregion Mat4
 #endif
+
+// Quaternion ----------------------------------------------------------------------------------------------
+#ifndef DISABLE_QUAT
+/************************\
+ *------QUATERNION------*
+\************************/
+#pragma region Quat
+//CONSTRUCTORS :
+
+inline Maths::Quat::Quat(void) : a(0), b(0), c(0), d(0) {}
+inline Maths::Quat::Quat(float a, float b, float c, float d) : a(a), b(b), c(c), d(d) {}
+inline Maths::Quat::Quat(float pitch, float yaw, float roll);
+
+//DESTRUCTOR :
+
+inline Maths::Quat::~Quat(void) {}
+
+//UTILS :
+
+inline static Maths::Quat Maths::Quat::CreateFromEuler(const Maths::Vec3& _VecRotation)   const
+{
+	CreateFromRadians(_VecRotation * DEG2RAD)
+}
+inline static Maths::Quat Maths::Quat::CreateFromRadians(const Maths::Vec3& _VecRotation) const
+{
+	float sinX = sinf(_VecRotation.x * 0.5f);
+	float cosX = cosf(_VecRotation.x * 0.5f);
+	float sinY = sinf(_VecRotation.y * 0.5f);
+	float cosY = cosf(_VecRotation.y * 0.5f);
+	float sinZ = sinf(_VecRotation.z * 0.5f);
+	float cosZ = cosf(_VecRotation.z * 0.5f);
+
+	a = sinX * cosY * cosZ + cosX * sinY * sinZ;
+	b = sinX * cosY * sinZ + cosX * sinY * cosZ;
+	c = cosX * cosY * sinZ - sinX * sinY * cosZ;
+	d = cosX * cosY * cosZ - sinX * sinY * sinZ;
+}
+inline static Maths::Quat Maths::Quat::CreateFromMatrix(const Maths::Mat4& _MatRotation)  const
+{
+	//TODO
+}
+
+inline Maths::Vec3 Maths::Quat::ToEuler()                                                  const
+{
+	//TODO
+}
+inline Maths::Vec3 Maths::Quat::ToRadians()                                                const
+{
+	//TODO
+}
+inline Maths::Mat4 Maths::Quat::ToMatrix()                                                 const
+{
+	//TODO
+}
+
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
+
+
+//IVec4 TO Vec2 OPERATIONS :
+
+
+
+//IVec4 TO THIS OPERATIONS :
+
+
+
+//SCALER TO IVec4 OPERATIONS :
+
+
+
+//SCALER TO THIS OPERATIONS :
+
+
+#pragma endregion Quat
+#endif
