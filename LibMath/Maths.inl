@@ -1199,7 +1199,7 @@ inline void Maths::Mat3::Transpose()
 	
 	*this = temp;
 }
-inline static Maths::Mat3 Maths::Mat3::GetTranspose(const Mat3& _Mat)                                                          const
+inline Maths::Mat3 Maths::Mat3::GetTranspose(const Mat3& _Mat)
 {
 	Mat3 temp;
 
@@ -1241,7 +1241,7 @@ inline void Maths::Mat3::Inverse()
 		*this = temp;
 	}
 }
-inline static Maths::Mat3 Maths::Mat3::GetInverse(const Mat3& _Mat)                                                            const
+inline Maths::Mat3 Maths::Mat3::GetInverse(const Mat3& _Mat)
 {
 	float det = _Mat.Determinant();
 	if (det != 0.f)
@@ -1249,15 +1249,15 @@ inline static Maths::Mat3 Maths::Mat3::GetInverse(const Mat3& _Mat)             
 		det = 1.f / det;
 
 		Mat3 temp;
-		temp.data_3_3[0][0] = (data_3_3[1][1] * data_3_3[2][2] - data_3_3[2][1] * data_3_3[1][2]) * det;
-		temp.data_3_3[0][1] = (data_3_3[0][2] * data_3_3[2][1] - data_3_3[0][1] * data_3_3[2][2]) * det;
-		temp.data_3_3[0][2] = (data_3_3[0][1] * data_3_3[1][2] - data_3_3[0][2] * data_3_3[1][1]) * det;
-		temp.data_3_3[1][0] = (data_3_3[1][2] * data_3_3[2][0] - data_3_3[1][0] * data_3_3[2][2]) * det;
-		temp.data_3_3[1][1] = (data_3_3[0][0] * data_3_3[2][2] - data_3_3[0][2] * data_3_3[2][0]) * det;
-		temp.data_3_3[1][2] = (data_3_3[1][0] * data_3_3[0][2] - data_3_3[0][0] * data_3_3[1][2]) * det;
-		temp.data_3_3[2][0] = (data_3_3[1][0] * data_3_3[2][1] - data_3_3[2][0] * data_3_3[1][1]) * det;
-		temp.data_3_3[2][1] = (data_3_3[2][0] * data_3_3[0][1] - data_3_3[0][0] * data_3_3[2][1]) * det;
-		temp.data_3_3[2][2] = (data_3_3[0][0] * data_3_3[1][1] - data_3_3[1][0] * data_3_3[0][1]) * det;
+		temp.data_3_3[0][0] = (_Mat.data_3_3[1][1] * _Mat.data_3_3[2][2] - _Mat.data_3_3[2][1] * _Mat.data_3_3[1][2]) * det;
+		temp.data_3_3[0][1] = (_Mat.data_3_3[0][2] * _Mat.data_3_3[2][1] - _Mat.data_3_3[0][1] * _Mat.data_3_3[2][2]) * det;
+		temp.data_3_3[0][2] = (_Mat.data_3_3[0][1] * _Mat.data_3_3[1][2] - _Mat.data_3_3[0][2] * _Mat.data_3_3[1][1]) * det;
+		temp.data_3_3[1][0] = (_Mat.data_3_3[1][2] * _Mat.data_3_3[2][0] - _Mat.data_3_3[1][0] * _Mat.data_3_3[2][2]) * det;
+		temp.data_3_3[1][1] = (_Mat.data_3_3[0][0] * _Mat.data_3_3[2][2] - _Mat.data_3_3[0][2] * _Mat.data_3_3[2][0]) * det;
+		temp.data_3_3[1][2] = (_Mat.data_3_3[1][0] * _Mat.data_3_3[0][2] - _Mat.data_3_3[0][0] * _Mat.data_3_3[1][2]) * det;
+		temp.data_3_3[2][0] = (_Mat.data_3_3[1][0] * _Mat.data_3_3[2][1] - _Mat.data_3_3[2][0] * _Mat.data_3_3[1][1]) * det;
+		temp.data_3_3[2][1] = (_Mat.data_3_3[2][0] * _Mat.data_3_3[0][1] - _Mat.data_3_3[0][0] * _Mat.data_3_3[2][1]) * det;
+		temp.data_3_3[2][2] = (_Mat.data_3_3[0][0] * _Mat.data_3_3[1][1] - _Mat.data_3_3[1][0] * _Mat.data_3_3[0][1]) * det;
 		return temp;
 	}
 	return _Mat;
@@ -1267,7 +1267,7 @@ inline float Maths::Mat3::Trace()                                               
 	return data_3_3[0][0] + data_3_3[1][1] + data_3_3[2][2];
 }
 
-inline static Maths::Mat3 Maths::Mat3::CreateIdentityMatrix()                                                                  const
+inline Maths::Mat3 Maths::Mat3::CreateIdentityMatrix()
 {
 	Mat3 temp;
 
@@ -1277,7 +1277,7 @@ inline static Maths::Mat3 Maths::Mat3::CreateIdentityMatrix()                   
 
 	return temp;
 }
-inline static Maths::Mat3 Maths::Mat3::CreateRotationMatrix(float rotation)                                                    const
+inline Maths::Mat3 Maths::Mat3::CreateRotationMatrix(float rotation)
 {
 	float cosRot = cosf(rotation);
 	float sinRot = sinf(rotation);
@@ -1293,7 +1293,7 @@ inline static Maths::Mat3 Maths::Mat3::CreateRotationMatrix(float rotation)     
 	return temp;
 }
 #ifndef DISABLE_VEC2
-inline static Maths::Mat3 Maths::Mat3::CreateTranslationMatrix(const Vec2& translation)                                        const
+inline Maths::Mat3 Maths::Mat3::CreateTranslationMatrix(const Vec2& translation)
 {
 	Mat3 temp;
 
@@ -1306,7 +1306,7 @@ inline static Maths::Mat3 Maths::Mat3::CreateTranslationMatrix(const Vec2& trans
 
 	return temp;
 }
-inline static Maths::Mat3 Maths::Mat3::CreateScaleMatrix(const Vec2& scale)                                                    const
+inline Maths::Mat3 Maths::Mat3::CreateScaleMatrix(const Vec2& scale)
 {
 	Mat3 temp;
 
@@ -1316,7 +1316,7 @@ inline static Maths::Mat3 Maths::Mat3::CreateScaleMatrix(const Vec2& scale)     
 
 	return temp;
 }
-inline static Maths::Mat3 Maths::Mat3::CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale)       const
+inline Maths::Mat3 Maths::Mat3::CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale)
 {
 	return CreateTranslationMatrix(translation) * CreateScaleMatrix(scale) * CreateRotationMatrix(rotation);
 }
@@ -1354,14 +1354,14 @@ inline Maths::Mat3 Maths::Mat3::HadamardProduct(const Mat3& _Mat)               
 {
 	Mat3 temp;
 
-	for (int i = 0; i < 9 i++)
+	for (int i = 0; i < 9; i++)
 		temp.data[i] = data[i] * _Mat.data[i];
 
 	return temp;
 }
 inline Maths::Mat3 Maths::Mat3::HadamardProductToThis(const Mat3& _Mat)
 {
-	for (int i = 0; i < 9 i++)
+	for (int i = 0; i < 9; i++)
 		data[i] *= _Mat.data[i];
 	
 	return *this;
@@ -1517,7 +1517,7 @@ inline void Maths::Mat4::Transpose()
 
 	*this = temp;
 }
-inline static Maths::Mat4 Maths::Mat4::GetTranspose(const Mat4& _Mat) const
+inline Maths::Mat4 Maths::Mat4::GetTranspose(const Mat4& _Mat)
 {
 	Mat4 temp;
 
@@ -1632,7 +1632,7 @@ inline void Maths::Mat4::Inverse()
 		*this = temp;
 	}
 }
-inline static Maths::Mat4 Maths::Mat4::GetInverse(const Mat4& _Mat)   const
+inline Maths::Mat4 Maths::Mat4::GetInverse(const Mat4& _Mat)
 {
 	float det = _Mat.Determinant();
 	if (det != 0.f)
@@ -1714,7 +1714,7 @@ inline float Maths::Mat4::Trace()                                     const
 	return data_4_4[0][0] + data_4_4[1][1] + data_4_4[2][2] + data_4_4[3][3];
 }
 
-inline static Maths::Mat4 Maths::Mat4::CreateIdentityMatrix()                                                                  const
+inline Maths::Mat4 Maths::Mat4::CreateIdentityMatrix()
 {
 	Mat4 temp;
 
@@ -1725,7 +1725,7 @@ inline static Maths::Mat4 Maths::Mat4::CreateIdentityMatrix()                   
 
 	return temp;
 }
-inline static Maths::Mat4 Maths::Mat4::CreateXRotationMatrix(float x)                                                          const
+inline Maths::Mat4 Maths::Mat4::CreateXRotationMatrix(float x)
 {
 	float cosX = cosf(x);
 	float sinX = sinf(x);
@@ -1741,7 +1741,7 @@ inline static Maths::Mat4 Maths::Mat4::CreateXRotationMatrix(float x)           
 
 	return temp;
 }
-inline static Maths::Mat4 Maths::Mat4::CreateYRotationMatrix(float y)                                                          const
+inline Maths::Mat4 Maths::Mat4::CreateYRotationMatrix(float y)
 {
 	float cosY = cosf(y);
 	float sinY = sinf(y);
@@ -1757,7 +1757,7 @@ inline static Maths::Mat4 Maths::Mat4::CreateYRotationMatrix(float y)           
 
 	return temp;
 }
-inline static Maths::Mat4 Maths::Mat4::CreateZRotationMatrix(float z)                                                          const
+inline Maths::Mat4 Maths::Mat4::CreateZRotationMatrix(float z)
 {
 	float cosZ = cosf(z);
 	float sinZ = sinf(z);
@@ -1774,7 +1774,7 @@ inline static Maths::Mat4 Maths::Mat4::CreateZRotationMatrix(float z)           
 	return temp;
 }
 #ifndef DISABLE_VEC3
-inline static Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(const Vec3& translation)                                        const
+inline Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(const Vec3& translation)
 {
 	Mat4 temp;
 
@@ -1789,11 +1789,11 @@ inline static Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(const Vec3& trans
 
 	return temp;
 }
-inline static Maths::Mat4 Maths::Mat4::CreateRotationMatrix(const Vec3& rotation)                                              const
+inline Maths::Mat4 Maths::Mat4::CreateRotationMatrix(const Vec3& rotation)
 {
 	return CreateXRotationMatrix(rotation.x) * CreateYRotationMatrix(rotation.y) * CreateZRotationMatrix(rotation.z);
 }
-inline static Maths::Mat4 Maths::Mat4::CreateScaleMatrix(const Vec3& scale)                                                    const
+inline Maths::Mat4 Maths::Mat4::CreateScaleMatrix(const Vec3& scale)
 {
 	Mat4 temp;
 
@@ -1804,12 +1804,12 @@ inline static Maths::Mat4 Maths::Mat4::CreateScaleMatrix(const Vec3& scale)     
 
 	return temp;
 }
-inline static Maths::Mat4 Maths::Mat4::CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale) const
+inline Maths::Mat4 Maths::Mat4::CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale)
 {
 	return CreateScaleMatrix(scale) * CreateRotationMatrix(rotation) * CreateTranslationMatrix(translation);
 }
 #else
-inline static Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(float[3] translation)                                           const
+inline Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(float[3] translation)
 {
 	Mat4 temp;
 
@@ -1824,11 +1824,11 @@ inline static Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(float[3] translat
 
 	return temp;
 }
-inline static Maths::Mat4 Maths::Mat4::CreateRotationMatrix(float[3] rotation)                                                 const
+inline Maths::Mat4 Maths::Mat4::CreateRotationMatrix(float[3] rotation)
 {
 	return CreateXRotationMatrix(rotation[0]) * CreateYRotationMatrix(rotation[1]) * CreateZRotationMatrix(rotation[2]);
 }
-inline static Maths::Mat4 Maths::Mat4::CreateScaleMatrix(float[3] scale)                                                       const
+inline Maths::Mat4 Maths::Mat4::CreateScaleMatrix(float[3] scale)
 {
 	Mat4 temp;
 
@@ -1839,7 +1839,7 @@ inline static Maths::Mat4 Maths::Mat4::CreateScaleMatrix(float[3] scale)        
 
 	return temp;
 }
-inline static Maths::Mat4 Maths::Mat4::CreateTransformMatrix(float[3] translation, float[3] rotation, float[3] scale)          const
+inline Maths::Mat4 Maths::Mat4::CreateTransformMatrix(float[3] translation, float[3] rotation, float[3] scale)
 {
 	return CreateScaleMatrix(scale) * CreateRotationMatrix(rotation) * CreateTranslationMatrix(translation);
 }
@@ -1969,7 +1969,17 @@ inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 
 inline Maths::Quat::Quat(void) : a(0), b(0), c(0), d(0) {}
 inline Maths::Quat::Quat(float a, float b, float c, float d) : a(a), b(b), c(c), d(d) {}
-inline Maths::Quat::Quat(float pitch, float yaw, float roll);
+//inline Maths::Quat::Quat(float pitch, float yaw, float roll);
+inline Maths::Quat::Quat(const Vec3& axis, float angle)
+{
+	angle = angle * 0.5f;
+	float sinHA = sin(angle);
+	Vec3 axisNorm = axis.GetNormalized();
+	a = axisNorm.x * sinHA;
+	b = axisNorm.y * sinHA;
+	c = axisNorm.z * sinHA;
+	d = cos(angle);
+}
 
 //DESTRUCTOR :
 
@@ -1977,12 +1987,33 @@ inline Maths::Quat::~Quat(void) {}
 
 //UTILS :
 
-inline static Maths::Quat Maths::Quat::CreateFromEuler(const Maths::Vec3& _VecRotation)   const
+inline void Maths::Quat::Normalize()
 {
-	CreateFromRadians(_VecRotation * DEG2RAD)
+	float length = sqrtf(a * a + b * b + c * c + d * d);
+	if (length != 0.0f)
+	{
+		float invLength = 1.0f / length;
+		a *= invLength;
+		b *= invLength;
+		c *= invLength;
+		d *= invLength;
+	}
+
 }
-inline static Maths::Quat Maths::Quat::CreateFromRadians(const Maths::Vec3& _VecRotation) const
+
+inline Maths::Quat Maths::Quat::AxisAngle(const Vec3& axis, float angle)
 {
+	float hAngle = angle / 2;
+	return Quat(axis * sinf(hAngle), cosf(hAngle));
+}
+inline Maths::Quat Maths::Quat::CreateFromEuler(const Maths::Vec3& _VecRotation)
+{
+	return CreateFromRadians(_VecRotation * DEG2RAD);
+}
+inline Maths::Quat Maths::Quat::CreateFromRadians(const Maths::Vec3& _VecRotation)
+{
+	Quat temp;
+
 	float sinX = sinf(_VecRotation.x * 0.5f);
 	float cosX = cosf(_VecRotation.x * 0.5f);
 	float sinY = sinf(_VecRotation.y * 0.5f);
@@ -1990,12 +2021,14 @@ inline static Maths::Quat Maths::Quat::CreateFromRadians(const Maths::Vec3& _Vec
 	float sinZ = sinf(_VecRotation.z * 0.5f);
 	float cosZ = cosf(_VecRotation.z * 0.5f);
 
-	a = sinX * cosY * cosZ + cosX * sinY * sinZ;
-	b = sinX * cosY * sinZ + cosX * sinY * cosZ;
-	c = cosX * cosY * sinZ - sinX * sinY * cosZ;
-	d = cosX * cosY * cosZ - sinX * sinY * sinZ;
+	temp.a = sinX * cosY * cosZ + cosX * sinY * sinZ;
+	temp.b = sinX * cosY * sinZ + cosX * sinY * cosZ;
+	temp.c = cosX * cosY * sinZ - sinX * sinY * cosZ;
+	temp.d = cosX * cosY * cosZ - sinX * sinY * sinZ;
+
+	return temp;
 }
-inline static Maths::Quat Maths::Quat::CreateFromMatrix(const Maths::Mat4& _MatRotation)  const
+inline Maths::Quat Maths::Quat::CreateFromMatrix(const Maths::Mat4& _MatRotation)
 {
 	//TODO
 }

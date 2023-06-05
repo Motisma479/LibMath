@@ -579,22 +579,22 @@ namespace Maths
         //UTILS :
 
         inline void Transpose();
-        inline static Mat3 GetTranspose(const Mat3& _Mat)                                                          const;
+        inline static Mat3 GetTranspose(const Mat3& _Mat);
         inline float Determinant()                                                                                 const;
         inline void Inverse();
-        inline static Mat3 GetInverse(const Mat3& _Mat)                                                            const;
+        inline static Mat3 GetInverse(const Mat3& _Mat);
         inline float Trace()                                                                                       const;
 
-        inline static Mat3 CreateIdentityMatrix()                                                                  const;
-        inline static Mat3 CreateRotationMatrix(float rotation)                                                    const;
+        inline static Mat3 CreateIdentityMatrix();
+        inline static Mat3 CreateRotationMatrix(float rotation);
 #ifndef DISABLE_VEC2
-        inline static Mat3 CreateTranslationMatrix(const Vec2& translation)                                        const;
-        inline static Mat3 CreateScaleMatrix(const Vec2& scale)                                                    const;
-        inline static Mat3 CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale)       const;
+        inline static Mat3 CreateTranslationMatrix(const Vec2& translation);
+        inline static Mat3 CreateScaleMatrix(const Vec2& scale);
+        inline static Mat3 CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale);
 #else
-        inline static Mat3 CreateTranslationMatrix(float[2] translation)                                           const;
-        inline static Mat3 CreateScaleMatrix(float[2] scale)                                                       const;
-        inline static Mat3 CreateTransformMatrix(float[2] translation, float rotation, float[2] scale)             const;
+        inline static Mat3 CreateTranslationMatrix(float[2] translation);
+        inline static Mat3 CreateScaleMatrix(float[2] scale);
+        inline static Mat3 CreateTransformMatrix(float[2] translation, float rotation, float[2] scale);
 #endif
 
         inline Mat3 HadamardProduct(const Mat3& _Mat)                                                              const;
@@ -653,26 +653,26 @@ namespace Maths
         //UTILS :
 
         inline void Transpose();
-        inline static Mat4 GetTranspose(const Mat4& _Mat)                                                          const;
+        inline static Mat4 GetTranspose(const Mat4& _Mat);
         inline float Determinant()                                                                                 const;
         inline void Inverse();
-        inline static Mat4 GetInverse(const Mat4& _Mat)                                                            const;
+        inline static Mat4 GetInverse(const Mat4& _Mat);
         inline float Trace()                                                                                       const;
 
-        inline static Mat4 CreateIdentityMatrix()                                                                  const;
-        inline static Mat4 CreateXRotationMatrix(float x)                                                          const;
-        inline static Mat4 CreateYRotationMatrix(float y)                                                          const;
-        inline static Mat4 CreateZRotationMatrix(float z)                                                          const;
+        inline static Mat4 CreateIdentityMatrix();
+        inline static Mat4 CreateXRotationMatrix(float x);
+        inline static Mat4 CreateYRotationMatrix(float y);
+        inline static Mat4 CreateZRotationMatrix(float z);
 #ifndef DISABLE_VEC3
-        inline static Mat4 CreateTranslationMatrix(const Vec3& translation)                                        const;
-        inline static Mat4 CreateRotationMatrix(const Vec3& rotation)                                              const;
-        inline static Mat4 CreateScaleMatrix(const Vec3& scale)                                                    const;
-        inline static Mat4 CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale) const;
+        inline static Mat4 CreateTranslationMatrix(const Vec3& translation);
+        inline static Mat4 CreateRotationMatrix(const Vec3& rotation);
+        inline static Mat4 CreateScaleMatrix(const Vec3& scale);
+        inline static Mat4 CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale);
 #else
-        inline static Mat4 CreateTranslationMatrix(float[3] translation)                                           const;
-        inline static Mat4 CreateRotationMatrix(float[3] rotation)                                                 const;
-        inline static Mat4 CreateScaleMatrix(float[3] scale)                                                       const;
-        inline static Mat4 CreateTransformMatrix(float[3] translation, float[3] rotation, float[3] scale)          const;
+        inline static Mat4 CreateTranslationMatrix(float[3] translation);
+        inline static Mat4 CreateRotationMatrix(float[3] rotation);
+        inline static Mat4 CreateScaleMatrix(float[3] scale);
+        inline static Mat4 CreateTransformMatrix(float[3] translation, float[3] rotation, float[3] scale);
 #endif
 
 
@@ -781,6 +781,8 @@ namespace Maths
 
         inline Quat(void);
         inline Quat(float a, float b, float c, float d);
+        
+        inline Quat(const Vec3& axis, float angle);
 
         //DESTRUCTOR :
 
@@ -788,9 +790,13 @@ namespace Maths
 
         //UTILS :
 
-        inline static Quat CreateFromEuler(const Vec3& _VecRotation)   const;
-        inline static Quat CreateFromRadians(const Vec3& _VecRotation) const;
-        inline static Quat CreateFromMatrix(const Mat4& _MatRotation)  const;
+        inline void Normalize();
+
+        inline Quat AxisAngle(const Vec3& axis, float angle);
+
+        inline static Quat CreateFromEuler(const Vec3& _VecRotation);
+        inline static Quat CreateFromRadians(const Vec3& _VecRotation);
+        inline static Quat CreateFromMatrix(const Mat4& _MatRotation);
 
         inline Vec3 ToEuler()                                          const;
         inline Vec3 ToRadians()                                        const;
