@@ -45,6 +45,17 @@ NAMESPACE(Vector2)
 		}
 
 	END_NAMESPACE(Vector2_Constructor)
+
+	NAMESPACE(Vector2_Utils_function)
+
+		TEST(Vec2_GetMagnitude) {
+			Maths::Vec2 VM(2,5); glm::vec2 VG(2,5); // test default constructor
+			
+			COMPARE(VM.GetMagnitude(), glm::length(VG));
+		}
+		
+	END_NAMESPACE(Vector2_Utils_function)
+
 END_NAMESPACE(Vector2)
 
 int main()
