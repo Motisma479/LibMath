@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 02/06/2023                      *
+* Last Update : 14/09/2023                      *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -1957,6 +1957,19 @@ inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 	return *this;
 }
 #pragma endregion Mat4
+#endif
+
+// Complex number ------------------------------------------------------------------------------------------
+#ifndef  DISABLE_COMP
+/************************\
+ *----COMPLEX_NUMBER----*
+\************************/
+#pragma region Comp
+//CONSTRUCTORS :
+
+inline Maths::Comp::Comp(void) : x(0), iy(0) {}
+inline Maths::Comp::Comp(float x, float iy) : x(x), iy(iy) {}
+#pragma endregion Comp
 #endif
 
 // Quaternion ----------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 02/06/2023                      *
+* Last Update : 14/09/2023                      *
 \***********************************************/
 #pragma once
 
@@ -23,6 +23,8 @@
 
 //#define DISABLE_MAT3
 //#define DISABLE_MAT4
+
+//#define DISABLE_Comp
 
 //#define DISABLE_QUAT
 
@@ -758,6 +760,28 @@ namespace Maths
             std::cout << "--------------------" << std::endl;
         }
 #endif // PRINT_FUNCTION
+    };
+#endif
+
+    // Complex number ------------------------------------------------------------------------------------------
+#ifndef  DISABLE_COMP
+    class Comp
+    {
+        //MEMBERS :
+
+        union
+        {
+            struct
+            {
+                float x, iy;
+            };
+            float x_iy[2];
+        };
+
+        //CONSTRUCTORS :
+
+        inline Comp(void);
+        inline Comp(float x, float iy);
     };
 #endif
 
