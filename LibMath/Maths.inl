@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 14/09/2023                      *
+* Last Update : 18/09/2023                      *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -1960,6 +1960,7 @@ inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 #endif
 
 // Complex number ------------------------------------------------------------------------------------------
+
 #ifndef  DISABLE_COMP
 /************************\
  *----COMPLEX_NUMBER----*
@@ -1969,10 +1970,127 @@ inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
 
 inline Maths::Comp::Comp(void) : x(0), iy(0) {}
 inline Maths::Comp::Comp(float x, float iy) : x(x), iy(iy) {}
+
+//DESTRUCTOR :
+
+inline Maths::Comp::~Comp(void) {}
+
+//UTILS :
+
+inline void Maths::Comp::Conjugate()
+{
+	iy = -iy;
+}
+inline Maths::Comp Maths::Comp::GetConjugate() const
+{
+	return (Comp)(x, -iy);
+}
+
+//ASSINGMENT AND EQUALITY OPERATIONS :
+
+inline Maths::Comp Maths::Comp::operator = (const Comp& _Comp)
+{
+	x = _Comp.x;
+	y = _Comp.iy;
+	return *this;
+}
+
+inline Maths::Comp Maths::Comp::operator - (void)        const
+{
+	return (Comp)(-x, -iy);
+}
+inline bool Maths::Comp::operator == (const Comp& _Comp) const
+{
+	return (x == _Comp.x && y == _Comp.iy);
+}
+inline bool Maths::Comp::operator != (const Comp& _Comp) const
+{
+	return (x != _Comp.x) || (y != _Comp.y);
+}
+
+//Comp TO Comp OPERATIONS :
+
+inline Maths::Comp Maths::Comp::operator + (const Comp& _Comp) const
+{
+	return (Comp)(x + _Comp.x, iy + _Comp.iy);
+}
+inline Maths::Comp Maths::Comp::operator - (const Comp& _Comp) const
+{
+	return (Comp)(x - _Comp.x, iy - _Comp.iy);
+}
+inline Maths::Comp Maths::Comp::operator * (const Comp& _Comp) const
+{
+	return (Comp)(x * _Comp.x - iy * _Comp.iy, x * _Comp.iy + iy * _Comp.x);
+}
+inline Maths::Comp Maths::Comp::operator / (const Comp& _Comp) const
+{
+	Comp conj_Comp = _Comp.GetConjugate();
+	return (Comp)((operator*(conj_Comp)) / (comp * conj_Comp));
+}
+
+//Comp TO THIS OPERATIONS :
+
+inline Maths::Comp Maths::Comp::operator += (const Comp& _Comp)
+{
+	x  += _Comp.x;
+	iy += _Comp.iy;
+	return *this;
+}
+inline Maths::Comp Maths::Comp::operator -= (const Comp& _Comp)
+{
+	x  -= _Comp.x;
+	iy -= _Comp.iy;
+	return *this;
+}
+inline Maths::Comp Maths::Comp::operator *= (const Comp& _Comp)
+{
+	float tempX = x;
+	x  *= _Comp.x;
+	x  -= iy * _Comp.iy;
+	iy *= _Comp.x;
+	iy += tempX * _Comp.iy
+	return *this;
+}
+inline Maths::Comp Maths::Comp::operator /= (const Comp& _Comp)
+{
+	Comp conj_Comp = _Comp.GetConjugate();
+	x *= conj_Comp;
+	_Comp *= conj_Comp;
+	x /= _Comp;
+	return *this;
+}
+
+//SCALER TO Comp OPERATIONS :
+
+inline Maths::Comp Maths::Comp::operator * (float _Sca) const
+{
+	return (Comp)(x * _Sca, iy * _Sca);
+}
+inline Maths::Comp Maths::Comp::operator / (float _Sca) const
+{
+	return (Comp)(x / _Sca, iy / _Sca);
+}
+
+//SCALER TO THIS OPERATIONS :
+
+inline Maths::Comp Maths::Comp::operator *= (float _Sca)
+{
+	x  *= _Sca;
+	iy *= _Sca;
+	return *this;
+}
+inline Maths::Comp Maths::Comp::operator /= (float _Sca)
+{
+	x  /= _Sca;
+	iy /= _Sca;
+	return *this;
+}
+
 #pragma endregion Comp
 #endif
 
 // Quaternion ----------------------------------------------------------------------------------------------
+
 #ifndef DISABLE_QUAT
 /************************\
  *------QUATERNION------*

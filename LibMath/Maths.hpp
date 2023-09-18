@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 14/09/2023                      *
+* Last Update : 18/09/2023                      *
 \***********************************************/
 #pragma once
 
@@ -315,7 +315,7 @@ namespace Maths
         inline Vec4 operator /= (float _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -392,7 +392,7 @@ namespace Maths
         inline IVec2 operator /= (int _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -468,7 +468,7 @@ namespace Maths
         inline IVec3 operator /= (int _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -544,7 +544,7 @@ namespace Maths
         inline IVec4 operator /= (int _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -620,7 +620,7 @@ namespace Maths
         inline Mat3 operator*=(const Mat3& _Mat);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -696,7 +696,7 @@ namespace Maths
         inline Mat4 operator*=(const Mat4& _Mat);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -782,6 +782,51 @@ namespace Maths
 
         inline Comp(void);
         inline Comp(float x, float iy);
+
+        //DESTRUCTOR :
+
+        inline ~Comp(void);
+
+        //UTILS :
+
+        inline void Conjugate();
+        inline Comp GetConjugate() const;
+
+        //ASSINGMENT AND EQUALITY OPERATIONS :
+
+        inline Comp operator = (const Comp& _Comp);
+
+        inline Comp operator - (void)               const;
+        inline bool operator == (const Comp& _Comp) const;
+        inline bool operator != (const Comp& _Comp) const;
+
+        //Comp TO Comp OPERATIONS :
+
+        inline Comp operator + (const Comp& _Comp) const;
+        inline Comp operator - (const Comp& _Comp) const;
+        inline Comp operator * (const Comp& _Comp) const;
+        inline Comp operator / (const Comp& _Comp) const;
+
+        //Comp TO THIS OPERATIONS :
+
+        inline Comp operator += (const Comp& _Comp);
+        inline Comp operator -= (const Comp& _Comp);
+        inline Comp operator *= (const Comp& _Comp);
+        inline Comp operator /= (const Comp& _Comp);
+
+        //SCALER TO Comp OPERATIONS :
+
+        inline Comp operator * (float _Sca) const;
+        inline Comp operator / (float _Sca) const;
+
+        //SCALER TO THIS OPERATIONS :
+
+        inline Comp operator *= (float _Sca);
+        inline Comp operator /= (float _Sca);
+
+#ifdef PRINT_FUNCTION
+        void Print() const;
+#endif // PRINT_FUNCTION
     };
 #endif
 
