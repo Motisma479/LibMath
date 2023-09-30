@@ -47,7 +47,7 @@ inline void Maths::Vec2::Normalize()
 	float i = GetMagnitude();
 	if (i != 0)
 	{
-		operator/=(i);
+		operator*=(1/i);
 	}
 }
 inline Maths::Vec2 Maths::Vec2::GetNormalized()                            const
@@ -55,13 +55,13 @@ inline Maths::Vec2 Maths::Vec2::GetNormalized()                            const
 	float i = GetMagnitude();
 	if (i != 0)
 	{
-		return operator/(i);
+		return operator*(1/i);
 	}
 	return *this;
 }
 inline Maths::Vec2 Maths::Vec2::GetPerpendicular()                         const
 {
-	return(-y, x);
+	return { -y, x };
 }
 inline float Maths::Vec2::DotProduct(const Vec2& _VecB)                    const
 {
@@ -260,7 +260,7 @@ inline void Maths::Vec3::Normalize()
 	float i = GetMagnitude();
 	if (i != 0)
 	{
-		operator/=(i);
+		operator*=(1/i);
 	}
 }
 inline Maths::Vec3 Maths::Vec3::GetNormalized()                                    const
@@ -268,7 +268,7 @@ inline Maths::Vec3 Maths::Vec3::GetNormalized()                                 
 	float i = GetMagnitude();
 	if (i != 0)
 	{
-		return operator/(i);
+		return operator*(1/i);
 	}
 	return *this;
 }
@@ -492,7 +492,7 @@ inline void Maths::Vec4::Normalize()
 	float i = GetMagnitude();
 	if (i != 0)
 	{
-		operator/=(i);
+		operator*=(1/i);
 	}
 }
 inline Maths::Vec4 Maths::Vec4::GetNormalized()                            const
@@ -500,7 +500,7 @@ inline Maths::Vec4 Maths::Vec4::GetNormalized()                            const
 	float i = GetMagnitude();
 	if (i != 0)
 	{
-		return operator/(i);
+		return operator*(1/i);
 	}
 	return *this;
 }

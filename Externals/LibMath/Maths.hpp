@@ -11,6 +11,10 @@
 
 #define PRINT_FUNCTION
 
+//-----------USED_FOR_PI_TO_BE_FLOAT------------
+
+//#define PI_IS_FLOAT
+
 //------------USED_TO_DISABLE_CLASS-------------
 
 //#define DISABLE_VEC2
@@ -39,11 +43,21 @@
 
 namespace Maths
 {
-    constexpr float M_PI = 3.14159265358979323846f;
+#ifdef PI_IS_FLOAT
+    //Currently M_PI use float, to use double remove #define PI_IS_FLOAT
+    constexpr float M_PI = 3.141592653F;
     //multiply your angle in degrees by this value to convert it to radians.
     constexpr float DEG2RAD = M_PI / 180;
     //multiply your angle in radians by this value to convert it to degrees.
     constexpr float RAD2DEG = 180.f / M_PI;
+#else
+    //Currently M_PI use double, to use float define : PI_IS_FLOAT before including Maths.hpp
+    constexpr double M_PI = 3.14159265358979323846;
+    //multiply your angle in degrees by this value to convert it to radians.
+    constexpr double DEG2RAD = M_PI / 180;
+    //multiply your angle in radians by this value to convert it to degrees.
+    constexpr double RAD2DEG = 180.f / M_PI;
+#endif
 
     // Vector Using float as Value -----------------------------------------------------------------------------
 
@@ -93,7 +107,7 @@ namespace Maths
         inline static float GetAngleBetween(const Vec2& _VecA, const Vec2& _VecB);
 
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
         inline Vec2 operator = (const Vec2& _Vec);
         inline Vec2 operator = (float _Sca);
@@ -187,7 +201,7 @@ namespace Maths
         inline float GetAngleBetween(const Vec3& _VecB)                      const;
         inline static float GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB);
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
         inline Vec3 operator = (const Vec3& _Vec);
         inline Vec3 operator = (float _Sca);
@@ -279,7 +293,7 @@ namespace Maths
         inline void Homogenize();
         inline Vec4 GetHomogenized()                                         const;
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
         inline Vec4 operator = (const Vec4& _Vec);
         inline Vec4 operator = (float _Sca);
@@ -428,7 +442,7 @@ namespace Maths
         inline float GetMagnitude()     const;
         inline int GetMagnitudeSquared() const;
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
         inline IVec3 operator = (const IVec3& _IVec);
         inline IVec3 operator = (const int _Sca);
@@ -504,7 +518,7 @@ namespace Maths
         inline float GetMagnitude()     const;
         inline int GetMagnitudeSquared() const;
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
         inline IVec4 operator = (const IVec4& _IVec);
         inline IVec4 operator = (int _Sca);
@@ -600,7 +614,7 @@ namespace Maths
         inline Mat3 HadamardProduct(const Mat3& _Mat)                                                              const;
         inline Mat3 HadamardProductToThis(const Mat3& _Mat);
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
         inline Mat3 operator=(float _data[9]);
         inline Mat3 operator=(const Mat3& _Mat);
@@ -676,7 +690,7 @@ namespace Maths
 #endif
 
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
         inline Mat4 operator=(float _data[16]);
         inline Mat4 operator=(const Mat4& _Mat);
@@ -802,7 +816,7 @@ namespace Maths
         inline Vec3 ToRadians()                                        const;
         inline Mat4 ToMatrix()                                         const;
 
-        //ASSINGMENT AND EQUALITY OPERATIONS :
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
 
 
         //Quat TO Quat OPERATIONS :
