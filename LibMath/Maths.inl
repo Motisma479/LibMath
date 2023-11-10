@@ -9,6 +9,17 @@
 
 #include <cmath>
 
+template <class T>
+inline float Maths::ToRadians(T angleDegrees)
+{
+	return angleDegrees * (M_PI / 180);
+}
+template <class T>
+inline float Maths::ToDegrees(T angleRadians)
+{
+	return angleRadians * (180 / M_PI);
+}
+
 // Vector Using float as Value -----------------------------------------------------------------------------
 
 #ifndef DISABLE_VEC2
@@ -81,11 +92,11 @@ inline float Maths::Vec2::GetDistance(const Vec2& _VecA, const Vec2& _VecB)
 }
 inline float Maths::Vec2::GetAngleBetween(const Vec2& _VecB)               const
 {
-	return (std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
+	return ToDegrees(std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude())));
 }
 inline float Maths::Vec2::GetAngleBetween(const Vec2& _VecA, const Vec2& _VecB)
 {
-	return (std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
+	return ToDegrees(std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude())));
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -298,11 +309,11 @@ inline float Maths::Vec3::GetDistance(const Vec3& _VecA, const Vec3& _VecB)
 }
 inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecB)                       const
 {
-	return (std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
+	return ToDegrees(std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude())));
 }
 inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB)
 {
-	return (std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude()))) * RAD2DEG;
+	return ToDegrees(std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude())));
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -1369,7 +1380,7 @@ inline Maths::Mat3 Maths::Mat3::HadamardProductToThis(const Mat3& _Mat)
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
-inline Maths::Mat3 Maths::Mat3::operator=(float _data[9])
+inline Maths::Mat3 Maths::Mat3::operator = (float _data[9])
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -1378,7 +1389,7 @@ inline Maths::Mat3 Maths::Mat3::operator=(float _data[9])
 	return *this;
 }
 
-inline Maths::Mat3 Maths::Mat3::operator=(const Mat3& _Mat)
+inline Maths::Mat3 Maths::Mat3::operator = (const Mat3& _Mat)
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -1389,7 +1400,7 @@ inline Maths::Mat3 Maths::Mat3::operator=(const Mat3& _Mat)
 
 //Mat3 TO Mat3 OPERATIONS :
 
-inline Maths::Mat3 Maths::Mat3::operator+(const Mat3& _Mat) const
+inline Maths::Mat3 Maths::Mat3::operator + (const Mat3& _Mat) const
 {
 	Mat3 temp;
 	for (int i = 0; i < 9; i++)
@@ -1398,7 +1409,7 @@ inline Maths::Mat3 Maths::Mat3::operator+(const Mat3& _Mat) const
 	}
 	return temp;
 }
-inline Maths::Mat3 Maths::Mat3::operator-(const Mat3& _Mat) const
+inline Maths::Mat3 Maths::Mat3::operator - (const Mat3& _Mat) const
 {
 	Mat3 temp;
 	for (int i = 0; i < 9; i++)
@@ -1407,7 +1418,7 @@ inline Maths::Mat3 Maths::Mat3::operator-(const Mat3& _Mat) const
 	}
 	return temp;
 }
-inline Maths::Mat3 Maths::Mat3::operator*(const Mat3& _Mat) const
+inline Maths::Mat3 Maths::Mat3::operator * (const Mat3& _Mat) const
 {
 	Mat3 temp;
 
@@ -1428,7 +1439,7 @@ inline Maths::Mat3 Maths::Mat3::operator*(const Mat3& _Mat) const
 
 //Mat3 TO THIS OPERATIONS :
 
-inline Maths::Mat3 Maths::Mat3::operator+=(const Mat3& _Mat)
+inline Maths::Mat3 Maths::Mat3::operator += (const Mat3& _Mat)
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -1436,7 +1447,7 @@ inline Maths::Mat3 Maths::Mat3::operator+=(const Mat3& _Mat)
 	}
 	return *this;
 }
-inline Maths::Mat3 Maths::Mat3::operator-=(const Mat3& _Mat)
+inline Maths::Mat3 Maths::Mat3::operator -= (const Mat3& _Mat)
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -1444,7 +1455,7 @@ inline Maths::Mat3 Maths::Mat3::operator-=(const Mat3& _Mat)
 	}
 	return *this;
 }
-inline Maths::Mat3 Maths::Mat3::operator*=(const Mat3& _Mat)
+inline Maths::Mat3 Maths::Mat3::operator *= (const Mat3& _Mat)
 {
 	Mat3 temp;
 
@@ -1847,7 +1858,7 @@ inline Maths::Mat4 Maths::Mat4::CreateTransformMatrix(float[3] translation, floa
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
 
-inline Maths::Mat4 Maths::Mat4::operator=(float _data[16])
+inline Maths::Mat4 Maths::Mat4::operator = (float _data[16])
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -1855,7 +1866,7 @@ inline Maths::Mat4 Maths::Mat4::operator=(float _data[16])
 	}
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator=(const Mat4& _Mat)
+inline Maths::Mat4 Maths::Mat4::operator = (const Mat4& _Mat)
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -1866,7 +1877,7 @@ inline Maths::Mat4 Maths::Mat4::operator=(const Mat4& _Mat)
 
 //Mat4 TO Mat4 OPERATIONS :
 
-inline Maths::Mat4 Maths::Mat4::operator+(const Mat4& _Mat) const
+inline Maths::Mat4 Maths::Mat4::operator + (const Mat4& _Mat) const
 {
 	Mat4 temp;
 	for (int i = 0; i < 16; i++)
@@ -1875,7 +1886,7 @@ inline Maths::Mat4 Maths::Mat4::operator+(const Mat4& _Mat) const
 	}
 	return temp;
 }
-inline Maths::Mat4 Maths::Mat4::operator-(const Mat4& _Mat) const
+inline Maths::Mat4 Maths::Mat4::operator - (const Mat4& _Mat) const
 {
 	Mat4 temp;
 	for (int i = 0; i < 16; i++)
@@ -1884,7 +1895,7 @@ inline Maths::Mat4 Maths::Mat4::operator-(const Mat4& _Mat) const
 	}
 	return temp;
 }
-inline Maths::Mat4 Maths::Mat4::operator*(const Mat4& _Mat) const
+inline Maths::Mat4 Maths::Mat4::operator * (const Mat4& _Mat) const
 {
 	Mat4 temp;
 
@@ -1913,7 +1924,7 @@ inline Maths::Mat4 Maths::Mat4::operator*(const Mat4& _Mat) const
 
 //Mat4 TO THIS OPERATIONS :
 
-inline Maths::Mat4 Maths::Mat4::operator+=(const Mat4& _Mat)
+inline Maths::Mat4 Maths::Mat4::operator += (const Mat4& _Mat)
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -1921,7 +1932,7 @@ inline Maths::Mat4 Maths::Mat4::operator+=(const Mat4& _Mat)
 	}
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator-=(const Mat4& _Mat)
+inline Maths::Mat4 Maths::Mat4::operator -= (const Mat4& _Mat)
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -1929,7 +1940,7 @@ inline Maths::Mat4 Maths::Mat4::operator-=(const Mat4& _Mat)
 	}
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator*=(const Mat4& _Mat)
+inline Maths::Mat4 Maths::Mat4::operator *= (const Mat4& _Mat)
 {
 	Mat4 temp;
 
@@ -1983,7 +1994,7 @@ inline void Maths::Comp::Conjugate()
 }
 inline Maths::Comp Maths::Comp::GetConjugate() const
 {
-	return (Comp)(x, -iy);
+	return Comp(x, -iy);
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -1991,41 +2002,41 @@ inline Maths::Comp Maths::Comp::GetConjugate() const
 inline Maths::Comp Maths::Comp::operator = (const Comp& _Comp)
 {
 	x = _Comp.x;
-	y = _Comp.iy;
+	iy = _Comp.iy;
 	return *this;
 }
 
 inline Maths::Comp Maths::Comp::operator - (void)        const
 {
-	return (Comp)(-x, -iy);
+	return Comp(-x, -iy);
 }
 inline bool Maths::Comp::operator == (const Comp& _Comp) const
 {
-	return (x == _Comp.x && y == _Comp.iy);
+	return (x == _Comp.x && iy == _Comp.iy);
 }
 inline bool Maths::Comp::operator != (const Comp& _Comp) const
 {
-	return (x != _Comp.x) || (y != _Comp.y);
+	return (x != _Comp.x) || (iy != _Comp.iy);
 }
 
 //Comp TO Comp OPERATIONS :
 
 inline Maths::Comp Maths::Comp::operator + (const Comp& _Comp) const
 {
-	return (Comp)(x + _Comp.x, iy + _Comp.iy);
+	return Comp(x + _Comp.x, iy + _Comp.iy);
 }
 inline Maths::Comp Maths::Comp::operator - (const Comp& _Comp) const
 {
-	return (Comp)(x - _Comp.x, iy - _Comp.iy);
+	return Comp(x - _Comp.x, iy - _Comp.iy);
 }
 inline Maths::Comp Maths::Comp::operator * (const Comp& _Comp) const
 {
-	return (Comp)(x * _Comp.x - iy * _Comp.iy, x * _Comp.iy + iy * _Comp.x);
+	return Comp(x * _Comp.x - iy * _Comp.iy, x * _Comp.iy + iy * _Comp.x);
 }
 inline Maths::Comp Maths::Comp::operator / (const Comp& _Comp) const
 {
 	Comp conj_Comp = _Comp.GetConjugate();
-	return (Comp)((operator*(conj_Comp)) / (comp * conj_Comp));
+	return Comp((operator*(conj_Comp)) / (_Comp * conj_Comp));
 }
 
 //Comp TO THIS OPERATIONS :
@@ -2048,15 +2059,18 @@ inline Maths::Comp Maths::Comp::operator *= (const Comp& _Comp)
 	x  *= _Comp.x;
 	x  -= iy * _Comp.iy;
 	iy *= _Comp.x;
-	iy += tempX * _Comp.iy
+	iy += tempX * _Comp.iy;
 	return *this;
 }
 inline Maths::Comp Maths::Comp::operator /= (const Comp& _Comp)
 {
-	Comp conj_Comp = _Comp.GetConjugate();
-	x *= conj_Comp;
-	_Comp *= conj_Comp;
-	x /= _Comp;
+	// return Comp((operator*(conj_Comp)) / (_Comp * conj_Comp));
+
+
+	// Comp conj_Comp = _Comp.GetConjugate();
+	// x /= conj_Comp;
+	// _Comp *= conj_Comp;
+	// x /= _Comp;
 	return *this;
 }
 
@@ -2064,11 +2078,11 @@ inline Maths::Comp Maths::Comp::operator /= (const Comp& _Comp)
 
 inline Maths::Comp Maths::Comp::operator * (float _Sca) const
 {
-	return (Comp)(x * _Sca, iy * _Sca);
+	return Comp(x * _Sca, iy * _Sca);
 }
 inline Maths::Comp Maths::Comp::operator / (float _Sca) const
 {
-	return (Comp)(x / _Sca, iy / _Sca);
+	return Comp(x / _Sca, iy / _Sca);
 }
 
 //SCALER TO THIS OPERATIONS :
@@ -2098,18 +2112,17 @@ inline Maths::Comp Maths::Comp::operator /= (float _Sca)
 #pragma region Quat
 //CONSTRUCTORS :
 
-inline Maths::Quat::Quat(void) : a(0), b(0), c(0), d(0) {}
-inline Maths::Quat::Quat(float a, float b, float c, float d) : a(a), b(b), c(c), d(d) {}
+inline Maths::Quat::Quat(void) : x(0), y(0), z(0), w(0) {}
+inline Maths::Quat::Quat(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 //inline Maths::Quat::Quat(float pitch, float yaw, float roll);
 inline Maths::Quat::Quat(const Vec3& axis, float angle)
 {
 	angle = angle * 0.5f;
-	float sinHA = sin(angle);
-	Vec3 axisNorm = axis.GetNormalized();
-	a = axisNorm.x * sinHA;
-	b = axisNorm.y * sinHA;
-	c = axisNorm.z * sinHA;
-	d = cos(angle);
+	float sinHA = sinf(angle);
+	y = axis.y * sinHA;
+	x = axis.x * sinHA;
+	z = axis.z * sinHA;
+	w = cosf(angle);
 }
 
 //DESTRUCTOR :
@@ -2117,17 +2130,17 @@ inline Maths::Quat::Quat(const Vec3& axis, float angle)
 inline Maths::Quat::~Quat(void) {}
 
 //UTILS :
-
+/*
 inline void Maths::Quat::Normalize()
 {
-	float length = sqrtf(a * a + b * b + c * c + d * d);
+	float length = sqrtf(x * x + y * y + z * z + w * w);
 	if (length != 0.0f)
 	{
 		float invLength = 1.0f / length;
-		a *= invLength;
-		b *= invLength;
-		c *= invLength;
-		d *= invLength;
+		x *= invLength;
+		y *= invLength;
+		z *= invLength;
+		w *= invLength;
 	}
 
 }
@@ -2139,7 +2152,7 @@ inline Maths::Quat Maths::Quat::AxisAngle(const Vec3& axis, float angle)
 }
 inline Maths::Quat Maths::Quat::CreateFromEuler(const Maths::Vec3& _VecRotation)
 {
-	return CreateFromRadians(_VecRotation * DEG2RAD);
+	return CreateFromRadians(ToRadians(_VecRotation));
 }
 inline Maths::Quat Maths::Quat::CreateFromRadians(const Maths::Vec3& _VecRotation)
 {
@@ -2164,37 +2177,111 @@ inline Maths::Quat Maths::Quat::CreateFromMatrix(const Maths::Mat4& _MatRotation
 	//TODO
 }
 
-inline Maths::Vec3 Maths::Quat::ToEuler()                                                  const
-{
-	//TODO
-}
-inline Maths::Vec3 Maths::Quat::ToRadians()                                                const
-{
-	//TODO
-}
 inline Maths::Mat4 Maths::Quat::ToMatrix()                                                 const
 {
 	//TODO
 }
+*/
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
+	inline Maths::Quat Maths::Quat::operator=(const Quat& _Quat)
+	{
+		x = _Quat.x;
+		y = _Quat.y;
+		z = _Quat.z;
+		w = _Quat.w;
+		return *this;
+	}
 
+	inline Maths::Quat Maths::Quat::operator - (void)        const
+	{
+		return Quat(-x, -y, -z, -w);
+	}
 
+	inline bool Maths::Quat::operator == (const Quat& _Quat) const
+	{
+		return (x == _Quat.x && y == _Quat.y && z == _Quat.z && w == _Quat.w);
+	}
 
-//IVec4 TO Vec2 OPERATIONS :
+	inline bool Maths::Quat::operator != (const Quat& _Quat) const
+	{
+		return (x != _Quat.x || y != _Quat.y || z != _Quat.z || w != _Quat.w);
+	}
 
+//Quat TO Quat OPERATIONS :
 
+inline Maths::Quat Maths::Quat::operator + (const Quat& _Quat) const
+{
+	return Quat(x+_Quat.x,y+_Quat.y,z+_Quat.z,w+_Quat.w);
+}
+inline Maths::Quat Maths::Quat::operator - (const Quat& _Quat) const
+{
+	return Quat(x-_Quat.x,y-_Quat.y,z-_Quat.z,w-_Quat.w);
+}
+inline Maths::Quat Maths::Quat::operator * (const Quat& _Quat) const
+{
+	return Quat(x*_Quat.w + w*_Quat.x + y*_Quat.z - z*_Quat.y,
+				y*_Quat.w + w*_Quat.y + z*_Quat.x - x*_Quat.z,
+				z*_Quat.w + w*_Quat.z + x*_Quat.y - y*_Quat.x,
+				w*_Quat.w - x*_Quat.x - y*_Quat.y - z*_Quat.z);
+}
+inline Maths::Quat Maths::Quat::operator / (const Quat& _Quat) const
+{
+	float divisor = (_Quat.w*_Quat.w+_Quat.x*_Quat.x+_Quat.y*_Quat.y+_Quat.z*_Quat.z);
+	return Quat((_Quat.w*x-_Quat.x*w-_Quat.y*z+_Quat.z*y)/divisor,
+				(_Quat.w*y-_Quat.x*z-_Quat.y*w+_Quat.z*x)/divisor,
+				(_Quat.w*z-_Quat.x*y-_Quat.y*x+_Quat.z*w)/divisor,
+				(_Quat.w*w-_Quat.x*x-_Quat.y*y+_Quat.z*z)/divisor);
+}
 
-//IVec4 TO THIS OPERATIONS :
+//Quat TO THIS OPERATIONS :
 
+inline Maths::Quat Maths::Quat::operator += (const Quat& _Quat)
+{
+	x+=_Quat.x;
+	y+=_Quat.y;
+	z+=_Quat.z;
+	w+=_Quat.w;
+	return *this;
+}
 
+inline Maths::Quat Maths::Quat::operator -= (const Quat& _Quat)
+{
+	x-=_Quat.x;
+	y-=_Quat.y;
+	z-=_Quat.z;
+	w-=_Quat.w;
+	return *this;
+}
 
-//SCALER TO IVec4 OPERATIONS :
+inline Maths::Quat Maths::Quat::operator *= (const Quat& _Quat)
+{
+	Quat temp;
+	temp.x = x*_Quat.w + w*_Quat.x + y*_Quat.z - z*_Quat.y;
+	temp.y = y*_Quat.w + w*_Quat.y + z*_Quat.x - x*_Quat.z;
+	temp.z = z*_Quat.w + w*_Quat.z + x*_Quat.y - y*_Quat.x;
+	temp.w = w*_Quat.w - x*_Quat.x - y*_Quat.y - z*_Quat.z;
+	x = temp.x;
+	y = temp.y;
+	z = temp.z;
+	w = temp.w;
+	return *this;
+}
 
-
-
-//SCALER TO THIS OPERATIONS :
-
+inline Maths::Quat Maths::Quat::operator /= (const Quat& _Quat)
+{
+	float divisor = (_Quat.w*_Quat.w+_Quat.x*_Quat.x+_Quat.y*_Quat.y+_Quat.z*_Quat.z);
+	Quat temp;
+	temp.x = (_Quat.w*x-_Quat.x*w-_Quat.y*z+_Quat.z*y)/divisor;
+	temp.y = (_Quat.w*y-_Quat.x*z-_Quat.y*w+_Quat.z*x)/divisor;
+	temp.z = (_Quat.w*z-_Quat.x*y-_Quat.y*x+_Quat.z*w)/divisor;
+	temp.w = (_Quat.w*w-_Quat.x*x-_Quat.y*y+_Quat.z*z)/divisor;
+	x = temp.x;
+	y = temp.y;
+	z = temp.z;
+	w = temp.w;
+	return *this;
+}
 
 #pragma endregion Quat
 #endif

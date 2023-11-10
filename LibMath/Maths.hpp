@@ -24,13 +24,13 @@
 //#define DISABLE_MAT3
 //#define DISABLE_MAT4
 
-//#define DISABLE_Comp
+//#define DISABLE_COMP
 
 //#define DISABLE_QUAT
 
 //---USED_TO_ENABLE_CLASS_DISABLED_BY_DEFAULT---
 
-//#define ENABLE_MATYX
+#define ENABLE_MATYX
 
 //----------------------------------------------
 
@@ -41,11 +41,13 @@
 
 namespace Maths
 {
-    constexpr float M_PI = 3.14159265358979323846f;
+    
     //multiply your angle in degrees by this value to convert it to radians.
-    constexpr float DEG2RAD = M_PI / 180;
+    template <class T>
+    inline float ToRadians(T angleDegrees);
     //multiply your angle in radians by this value to convert it to degrees.
-    constexpr float RAD2DEG = 180.f / M_PI;
+    template <class T>
+    inline float ToDegrees(T angleRadians);
 
     // Vector Using float as Value -----------------------------------------------------------------------------
 
@@ -107,7 +109,7 @@ namespace Maths
         //Vec2 TO Vec2 OPERATIONS :
 
         inline Vec2 operator + (const Vec2& _Vec)  const;
-        inline Vec2 operator - (const Vec2& _Vecv) const;
+        inline Vec2 operator - (const Vec2& _Vec)  const;
         inline Vec2 operator * (const Vec2& _Vec)  const;
         inline Vec2 operator / (const Vec2& _Vec)  const;
 
@@ -841,15 +843,15 @@ namespace Maths
         {
             struct
             {
-                float a, b, c, d;
+                float x, y, z, w; // R : w; I : x, y, z
             };
-            float abcd[4];
+            float xyzw[4];
         };
 
         //CONSTRUCTORS :
 
         inline Quat(void);
-        inline Quat(float a, float b, float c, float d);
+        inline Quat(float x, float y, float z, float w);
         
         inline Quat(const Vec3& axis, float angle);
 
@@ -859,29 +861,39 @@ namespace Maths
 
         //UTILS :
 
-        inline void Normalize();
+        // inline void Normalize();
 
-        inline Quat AxisAngle(const Vec3& axis, float angle);
+        // inline Quat AxisAngle(const Vec3& axis, float angle);
 
-        inline static Quat CreateFromEuler(const Vec3& _VecRotation);
-        inline static Quat CreateFromRadians(const Vec3& _VecRotation);
-        inline static Quat CreateFromMatrix(const Mat4& _MatRotation);
+        // inline static Quat CreateFromEuler(const Vec3& _VecRotation);
+        // inline static Quat CreateFromRadians(const Vec3& _VecRotation);
+        // inline static Quat CreateFromMatrix(const Mat4& _MatRotation);
 
-        inline Vec3 ToEuler()                                          const;
-        inline Vec3 ToRadians()                                        const;
-        inline Mat4 ToMatrix()                                         const;
+        // inline Mat4 ToMatrix() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
+        inline Quat operator = (const Quat& _Quat);
+
+        inline Quat operator - (void)               const;
+        inline bool operator == (const Quat& _Quat) const;
+        inline bool operator != (const Quat& _Quat) const;
 
 
         //Quat TO Quat OPERATIONS :
-
+        inline Quat operator + (const Quat& _Quat) const;
+        inline Quat operator - (const Quat& _Quat) const;
+        inline Quat operator * (const Quat& _Quat) const;
+        inline Quat operator / (const Quat& _Quat) const;
 
         //Quat TO THIS OPERATIONS :
+        inline Quat operator += (const Quat& _Quat);
+        inline Quat operator -= (const Quat& _Quat);
+        inline Quat operator *= (const Quat& _Quat);
+        inline Quat operator /= (const Quat& _Quat);
 
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
