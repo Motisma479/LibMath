@@ -170,7 +170,8 @@ NAMESPACE(Vector2)
 	NAMESPACE(Vector2_Assignment_and_Equality_operations)
 	#pragma region Vector2_Assignment_and_Equality_operations
 
-		TEST(Vec2_Operator_equal_Vec) {
+		TEST(Vec2_Operator_equal_Vec)
+		 {
 			Maths::Vec2 VMA(2, 5);
 
 			Maths::Vec2 VMB;
@@ -181,7 +182,8 @@ NAMESPACE(Vector2)
 			COMPARE(VMA.y, VMB.y);
 		}
 
-		TEST(Vec2_Operator_equal_Sca) {
+		TEST(Vec2_Operator_equal_Sca)
+		 {
 			Maths::Vec2 VM;
 
 			VM = 1;
@@ -190,7 +192,8 @@ NAMESPACE(Vector2)
 			COMPARE(VM.y, 1);
 		}
 
-		TEST(Vec2_Operator_negate) {
+		TEST(Vec2_Operator_negate)
+		 {
 			Maths::Vec2 VMA(2, 5);
 			Maths::Vec2 VMB(-2, -5);
 
@@ -198,7 +201,8 @@ NAMESPACE(Vector2)
 			COMPARE(-VMA.y, VMB.y);
 		}
 
-		TEST(Vec2_Operator_isEqual) {
+		TEST(Vec2_Operator_isEqual)
+		 {
 			Maths::Vec2 VMA(2, 5);
 			Maths::Vec2 VMB(2, 5);
 			Maths::Vec2 VMC(5, 2);
@@ -207,7 +211,8 @@ NAMESPACE(Vector2)
 			COMPARE(VMA == VMC, false);
 		}
 
-		TEST(Vec2_Operator_isNotEqual) {
+		TEST(Vec2_Operator_isNotEqual)
+		{
 			Maths::Vec2 VMA(2, 5);
 			Maths::Vec2 VMB(2, 5);
 			Maths::Vec2 VMC(5, 2);
@@ -1225,6 +1230,146 @@ NAMESPACE(Vector4)
 
 	#pragma endregion
 	END_NAMESPACE(Vector4_Utils)
+
+	NAMESPACE(Vector4_Assignment_and_Equality_operations)
+	#pragma region Vector4_Assignment_and_Equality_operations
+
+		TEST(Vec4_Operator_equal_Vec)
+		{
+			Maths::Vec4 VMA(2, 5, 3, 8);
+
+			Maths::Vec4 VMB;
+
+			VMB = VMA;
+
+			COMPARE(VMA.x, VMB.x);
+			COMPARE(VMA.y, VMB.y);
+			COMPARE(VMA.z, VMB.z);
+			COMPARE(VMA.w, VMB.w);
+		}
+
+		TEST(Vec4_Operator_equal_Sca)
+		{
+			Maths::Vec4 VMA;
+
+			VMA = 8;
+
+			COMPARE(VMA.x, 8);
+			COMPARE(VMA.y, 8);
+			COMPARE(VMA.z, 8);
+			COMPARE(VMA.w, 8);
+		}
+
+		TEST(Vec4_Operator_negate)
+		{
+			Maths::Vec4 VMA(2, 5, 3, 8);
+
+			COMPARE(-VMA.x, -2);
+			COMPARE(-VMA.y, -5);
+			COMPARE(-VMA.z, -3);
+			COMPARE(-VMA.w, -8);
+		}
+
+		TEST(Vec4_Operator_isEqual)
+		{
+			Maths::Vec4 VMA(2, 5, 3, 4);
+			Maths::Vec4 VMB(2, 5, 3, 4);
+			Maths::Vec4 VMC(5, 2, 5, 7);
+
+			COMPARE(VMA == VMB, true);
+			COMPARE(VMA == VMC, false);
+		}
+
+		TEST(Vec4_Operator_isNotEqual)
+		{
+			Maths::Vec4 VMA(2, 5, 3, 4);
+			Maths::Vec4 VMB(2, 5, 3, 4);
+			Maths::Vec4 VMC(5, 2, 5, 7);
+
+			COMPARE(VMA != VMB, false);
+			COMPARE(VMA != VMC, true);
+		}
+
+	#pragma endregion
+	END_NAMESPACE(Vector4_Assignment_and_Equality_operations)
+
+	NAMESPACE(Vector4_Vec4_to_Vec4_operations)
+	#pragma region Vector4_Vec4_to_Vec4_operations
+
+		TEST(Vec4_Operator_Plus_Vec)
+		{
+			Maths::Vec4 VMA(2, 5, 9, 7);
+			Maths::Vec4 VMB(9, 5, 2, 5);
+
+			Maths::Vec4 VMC = VMA + VMB;
+
+			glm::vec4 VGA(2, 5, 9, 7);
+			glm::vec4 VGB(9, 5, 2, 5);
+
+			glm::vec4 VGC = VGA + VGB;
+
+			COMPARE(VMC.x, VGC.x);
+			COMPARE(VMC.y, VGC.y);
+			COMPARE(VMC.z, VGC.z);
+			COMPARE(VMC.w, VGC.w);
+		}
+
+		TEST(Vec4_Operator_Minus_Vec)
+		{
+			Maths::Vec4 VMA(2, 5, 9, 7);
+			Maths::Vec4 VMB(9, 5, 2, 5);
+
+			Maths::Vec4 VMC = VMA - VMB;
+
+			glm::vec4 VGA(2, 5, 9, 7);
+			glm::vec4 VGB(9, 5, 2, 5);
+
+			glm::vec4 VGC = VGA - VGB;
+
+			COMPARE(VMC.x, VGC.x);
+			COMPARE(VMC.y, VGC.y);
+			COMPARE(VMC.z, VGC.z);
+			COMPARE(VMC.w, VGC.w);
+		}
+
+		TEST(Vec4_Operator_Multiply_Vec)
+		{
+			Maths::Vec4 VMA(2, 5, 9, 7);
+			Maths::Vec4 VMB(9, 5, 2, 5);
+
+			Maths::Vec4 VMC = VMA * VMB;
+
+			glm::vec4 VGA(2, 5, 9, 7);
+			glm::vec4 VGB(9, 5, 2, 5);
+
+			glm::vec4 VGC = VGA * VGB;
+
+			COMPARE(VMC.x, VGC.x);
+			COMPARE(VMC.y, VGC.y);
+			COMPARE(VMC.z, VGC.z);
+			COMPARE(VMC.w, VGC.w);
+		}
+
+		TEST(Vec4_Operator_Divide_Vec)
+		{
+			Maths::Vec4 VMA(2, 5, 9, 7);
+			Maths::Vec4 VMB(9, 5, 2, 5);
+
+			Maths::Vec4 VMC = VMA / VMB;
+
+			glm::vec4 VGA(2, 5, 9, 7);
+			glm::vec4 VGB(9, 5, 2, 5);
+
+			glm::vec4 VGC = VGA / VGB;
+
+			COMPARE(VMC.x, VGC.x);
+			COMPARE(VMC.y, VGC.y);
+			COMPARE(VMC.z, VGC.z);
+			COMPARE(VMC.w, VGC.w);
+		}
+
+	#pragma endregion
+	END_NAMESPACE(Vector4_Vec4_to_Vec4_operations)
 
 #pragma endregion
 END_NAMESPACE(Vector4)

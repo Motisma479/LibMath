@@ -3,17 +3,13 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 02/06/2023                      *
+* Last Update : 18/09/2023                      *
 \***********************************************/
 #pragma once
 
 //--------USED_TO_ENABLE_PRINT_FUNCTIONS--------
 
 #define PRINT_FUNCTION
-
-//-----------USED_FOR_PI_TO_BE_FLOAT------------
-
-//#define PI_IS_FLOAT
 
 //------------USED_TO_DISABLE_CLASS-------------
 
@@ -28,11 +24,13 @@
 //#define DISABLE_MAT3
 //#define DISABLE_MAT4
 
+//#define DISABLE_COMP
+
 //#define DISABLE_QUAT
 
 //---USED_TO_ENABLE_CLASS_DISABLED_BY_DEFAULT---
 
-//#define ENABLE_MATYX
+#define ENABLE_MATYX
 
 //----------------------------------------------
 
@@ -43,21 +41,13 @@
 
 namespace Maths
 {
-#ifdef PI_IS_FLOAT
-    //Currently M_PI use float, to use double remove #define PI_IS_FLOAT
-    constexpr float M_PI = 3.141592653F;
+    
     //multiply your angle in degrees by this value to convert it to radians.
-    constexpr float DEG2RAD = M_PI / 180;
+    template <class T>
+    inline float ToRadians(T angleDegrees);
     //multiply your angle in radians by this value to convert it to degrees.
-    constexpr float RAD2DEG = 180.f / M_PI;
-#else
-    //Currently M_PI use double, to use float define : PI_IS_FLOAT before including Maths.hpp
-    constexpr double M_PI = 3.14159265358979323846;
-    //multiply your angle in degrees by this value to convert it to radians.
-    constexpr double DEG2RAD = M_PI / 180;
-    //multiply your angle in radians by this value to convert it to degrees.
-    constexpr double RAD2DEG = 180.f / M_PI;
-#endif
+    template <class T>
+    inline float ToDegrees(T angleRadians);
 
     // Vector Using float as Value -----------------------------------------------------------------------------
 
@@ -119,7 +109,7 @@ namespace Maths
         //Vec2 TO Vec2 OPERATIONS :
 
         inline Vec2 operator + (const Vec2& _Vec)  const;
-        inline Vec2 operator - (const Vec2& _Vecv) const;
+        inline Vec2 operator - (const Vec2& _Vec)  const;
         inline Vec2 operator * (const Vec2& _Vec)  const;
         inline Vec2 operator / (const Vec2& _Vec)  const;
 
@@ -327,7 +317,7 @@ namespace Maths
         inline Vec4 operator /= (float _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -404,7 +394,7 @@ namespace Maths
         inline IVec2 operator /= (int _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -480,7 +470,7 @@ namespace Maths
         inline IVec3 operator /= (int _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -556,7 +546,7 @@ namespace Maths
         inline IVec4 operator /= (int _Sca);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -632,7 +622,7 @@ namespace Maths
         inline Mat3 operator*=(const Mat3& _Mat);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -708,7 +698,7 @@ namespace Maths
         inline Mat4 operator*=(const Mat4& _Mat);
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif
@@ -775,6 +765,73 @@ namespace Maths
     };
 #endif
 
+    // Complex number ------------------------------------------------------------------------------------------
+#ifndef  DISABLE_COMP
+    class Comp
+    {
+        //MEMBERS :
+
+        union
+        {
+            struct
+            {
+                float x, iy;
+            };
+            float x_iy[2];
+        };
+
+        //CONSTRUCTORS :
+
+        inline Comp(void);
+        inline Comp(float x, float iy);
+
+        //DESTRUCTOR :
+
+        inline ~Comp(void);
+
+        //UTILS :
+
+        inline void Conjugate();
+        inline Comp GetConjugate() const;
+
+        //ASSIGNMENT AND EQUALITY OPERATIONS :
+
+        inline Comp operator = (const Comp& _Comp);
+
+        inline Comp operator - (void)               const;
+        inline bool operator == (const Comp& _Comp) const;
+        inline bool operator != (const Comp& _Comp) const;
+
+        //Comp TO Comp OPERATIONS :
+
+        inline Comp operator + (const Comp& _Comp) const;
+        inline Comp operator - (const Comp& _Comp) const;
+        inline Comp operator * (const Comp& _Comp) const;
+        inline Comp operator / (const Comp& _Comp) const;
+
+        //Comp TO THIS OPERATIONS :
+
+        inline Comp operator += (const Comp& _Comp);
+        inline Comp operator -= (const Comp& _Comp);
+        inline Comp operator *= (const Comp& _Comp);
+        inline Comp operator /= (const Comp& _Comp);
+
+        //SCALER TO Comp OPERATIONS :
+
+        inline Comp operator * (float _Sca) const;
+        inline Comp operator / (float _Sca) const;
+
+        //SCALER TO THIS OPERATIONS :
+
+        inline Comp operator *= (float _Sca);
+        inline Comp operator /= (float _Sca);
+
+#ifdef PRINT_FUNCTION
+        void Print() const;
+#endif // PRINT_FUNCTION
+    };
+#endif
+
     // Quaternion ----------------------------------------------------------------------------------------------
 #ifndef DISABLE_QUAT
     class Quat
@@ -786,15 +843,15 @@ namespace Maths
         {
             struct
             {
-                float a, b, c, d;
+                float x, y, z, w; // R : w; I : x, y, z
             };
-            float abcd[4];
+            float xyzw[4];
         };
 
         //CONSTRUCTORS :
 
         inline Quat(void);
-        inline Quat(float a, float b, float c, float d);
+        inline Quat(float x, float y, float z, float w);
         
         inline Quat(const Vec3& axis, float angle);
 
@@ -804,29 +861,39 @@ namespace Maths
 
         //UTILS :
 
-        inline void Normalize();
+        // inline void Normalize();
 
-        inline Quat AxisAngle(const Vec3& axis, float angle);
+        // inline Quat AxisAngle(const Vec3& axis, float angle);
 
-        inline static Quat CreateFromEuler(const Vec3& _VecRotation);
-        inline static Quat CreateFromRadians(const Vec3& _VecRotation);
-        inline static Quat CreateFromMatrix(const Mat4& _MatRotation);
+        // inline static Quat CreateFromEuler(const Vec3& _VecRotation);
+        // inline static Quat CreateFromRadians(const Vec3& _VecRotation);
+        // inline static Quat CreateFromMatrix(const Mat4& _MatRotation);
 
-        inline Vec3 ToEuler()                                          const;
-        inline Vec3 ToRadians()                                        const;
-        inline Mat4 ToMatrix()                                         const;
+        // inline Mat4 ToMatrix() const;
 
         //ASSIGNMENT AND EQUALITY OPERATIONS :
+        inline Quat operator = (const Quat& _Quat);
+
+        inline Quat operator - (void)               const;
+        inline bool operator == (const Quat& _Quat) const;
+        inline bool operator != (const Quat& _Quat) const;
 
 
         //Quat TO Quat OPERATIONS :
-
+        inline Quat operator + (const Quat& _Quat) const;
+        inline Quat operator - (const Quat& _Quat) const;
+        inline Quat operator * (const Quat& _Quat) const;
+        inline Quat operator / (const Quat& _Quat) const;
 
         //Quat TO THIS OPERATIONS :
+        inline Quat operator += (const Quat& _Quat);
+        inline Quat operator -= (const Quat& _Quat);
+        inline Quat operator *= (const Quat& _Quat);
+        inline Quat operator /= (const Quat& _Quat);
 
 
 #ifdef PRINT_FUNCTION
-        void Print();
+        void Print() const;
 #endif // PRINT_FUNCTION
     };
 #endif

@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 16/05/2023                      *
+* Last Update : 18/09/2023                      *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -13,7 +13,6 @@
 #include <iostream>
 #endif
 
-
 #ifndef DISABLE_VEC2
 void Maths::Vec2::Print() const
 {
@@ -21,7 +20,7 @@ void Maths::Vec2::Print() const
 }
 #endif //ENABLE_VEC2
 #ifndef DISABLE_IVEC2
-void Maths::IVec2::Print()
+void Maths::IVec2::Print() const
 {
 	std::cout << this << " Value : x = " << x << ", y = " << y << ";" << std::endl;
 }
@@ -34,27 +33,27 @@ void Maths::Vec3::Print() const
 }
 #endif //ENABLE_VEC3
 #ifndef DISABLE_IVEC3
-void Maths::IVec3::Print()
+void Maths::IVec3::Print() const
 {
 	std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ";" << std::endl;
 }
 #endif //ENABLE_IVEC3
 
 #ifndef DISABLE_VEC4
-void Maths::Vec4::Print()
+void Maths::Vec4::Print() const
 {
 	std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ", w = " << w << ";" << std::endl;
 }
 #endif //ENABLE_VEC4
 #ifndef DISABLE_IVEC4
-void Maths::IVec4::Print()
+void Maths::IVec4::Print() const
 {
 	std::cout << this << " Value : x = " << x << ", y = " << y << ", z = " << z << ", w = " << w << ";" << std::endl;
 }
 #endif //ENABLE_IVEC4
 
 #ifndef DISABLE_MAT3
-void Maths::Mat3::Print()
+void Maths::Mat3::Print() const
 {
 	std::cout << this << " Value :" << std::endl;
 	std::cout << "--------------------" << std::endl;
@@ -82,7 +81,7 @@ void Maths::Mat3::Print()
 #endif //ENABLE_MAT3
 
 #ifndef DISABLE_MAT4
-void Maths::Mat4::Print()
+void Maths::Mat4::Print() const
 {
 	std::cout << this << " Value :" << std::endl;
 	std::cout << "--------------------" << std::endl;
@@ -108,6 +107,13 @@ void Maths::Mat4::Print()
 	std::cout << "--------------------" << std::endl;
 }
 #endif //ENABLE_MAT4
+
+#ifndef  DISABLE_COMP
+void Maths::Comp::Print() const
+{
+	std::cout << this << " Value : x = " << x << ", iy = " << iy << ";" << std::endl;
+}
+#endif
 
 #endif // PRINT_FUNCTION
 
