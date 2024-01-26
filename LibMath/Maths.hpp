@@ -41,13 +41,21 @@
 
 namespace Maths
 {
+    namespace Constants
+    {
+        constexpr float PI = 3.1415927f;
+        constexpr double PI_Precise = 3.141592653589793;
+    } 
+
     
     //multiply your angle in degrees by this value to convert it to radians.
-    template <class T>
-    inline float ToRadians(T angleDegrees);
+   
+    inline float ToRadians(float angleDegrees);
+    inline double ToRadians(double angleDegrees);
     //multiply your angle in radians by this value to convert it to degrees.
-    template <class T>
-    inline float ToDegrees(T angleRadians);
+
+    inline float ToDegrees(float angleRadians);
+    inline double ToDegrees(double angleRadians);
 
     // Vector Using float as Value -----------------------------------------------------------------------------
 

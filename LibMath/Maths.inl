@@ -9,16 +9,25 @@
 
 #include <cmath>
 
-template <class T>
-inline float Maths::ToRadians(T angleDegrees)
+
+inline float Maths::ToRadians(float angleDegrees)
 {
-	return angleDegrees * (M_PI / 180);
+	return angleDegrees * (Constants::PI / 180);
 }
-template <class T>
-inline float Maths::ToDegrees(T angleRadians)
+inline double Maths::ToRadians(double angleDegrees)
 {
-	return angleRadians * (180 / M_PI);
+	return angleDegrees * (Constants::PI_Precise / 180);
 }
+
+inline float Maths::ToDegrees(float angleRadians)
+{
+	return angleRadians * (180 / Constants::PI);
+}
+inline double Maths::ToDegrees(double angleRadians)
+{
+	return angleRadians * (180 / Constants::PI);
+}
+
 
 // Vector Using float as Value -----------------------------------------------------------------------------
 
@@ -92,11 +101,11 @@ inline float Maths::Vec2::GetDistance(const Vec2& _VecA, const Vec2& _VecB)
 }
 inline float Maths::Vec2::GetAngleBetween(const Vec2& _VecB)               const
 {
-	return ToDegrees(std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude())));
+	return ToDegrees(std::acos(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude())));
 }
 inline float Maths::Vec2::GetAngleBetween(const Vec2& _VecA, const Vec2& _VecB)
 {
-	return ToDegrees(std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude())));
+	return ToDegrees(std::acos(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude())));
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -260,7 +269,7 @@ inline Maths::Vec2 Maths::Vec3::yz() const
 
 inline float Maths::Vec3::GetMagnitude()                                           const
 {
-	return sqrtf(GetMagnitudeSquared());
+	return sqrt(GetMagnitudeSquared());
 }
 inline float Maths::Vec3::GetMagnitudeSquared()                                    const
 {
@@ -309,7 +318,7 @@ inline float Maths::Vec3::GetDistance(const Vec3& _VecA, const Vec3& _VecB)
 }
 inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecB)                       const
 {
-	return ToDegrees(std::acosf(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude())));
+	return ToDegrees(std::acos(DotProduct(_VecB) / (GetMagnitude() * _VecB.GetMagnitude())));
 }
 inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB)
 {
