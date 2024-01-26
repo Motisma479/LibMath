@@ -41,13 +41,21 @@
 
 namespace Maths
 {
+    namespace Constants
+    {
+        constexpr float PI = 3.1415927f;
+        constexpr double PI_Precise = 3.141592653589793;
+    } 
+
     
     //multiply your angle in degrees by this value to convert it to radians.
-    template <class T>
-    inline float ToRadians(T angleDegrees);
+   
+    inline float ToRadians(float angleDegrees);
+    inline double ToRadians(double angleDegrees);
     //multiply your angle in radians by this value to convert it to degrees.
-    template <class T>
-    inline float ToDegrees(T angleRadians);
+
+    inline float ToDegrees(float angleRadians);
+    inline double ToDegrees(double angleRadians);
 
     // Vector Using float as Value -----------------------------------------------------------------------------
 
@@ -97,7 +105,7 @@ namespace Maths
         inline static float GetAngleBetween(const Vec2& _VecA, const Vec2& _VecB);
 
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Vec2 operator = (const Vec2& _Vec);
         inline Vec2 operator = (float _Sca);
@@ -191,7 +199,7 @@ namespace Maths
         inline float GetAngleBetween(const Vec3& _VecB)                      const;
         inline static float GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB);
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Vec3 operator = (const Vec3& _Vec);
         inline Vec3 operator = (float _Sca);
@@ -283,7 +291,7 @@ namespace Maths
         inline void Homogenize();
         inline Vec4 GetHomogenized()                                         const;
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Vec4 operator = (const Vec4& _Vec);
         inline Vec4 operator = (float _Sca);
@@ -432,7 +440,7 @@ namespace Maths
         inline float GetMagnitude()     const;
         inline int GetMagnitudeSquared() const;
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline IVec3 operator = (const IVec3& _IVec);
         inline IVec3 operator = (const int _Sca);
@@ -508,7 +516,7 @@ namespace Maths
         inline float GetMagnitude()     const;
         inline int GetMagnitudeSquared() const;
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline IVec4 operator = (const IVec4& _IVec);
         inline IVec4 operator = (int _Sca);
@@ -604,7 +612,7 @@ namespace Maths
         inline Mat3 HadamardProduct(const Mat3& _Mat)                                                              const;
         inline Mat3 HadamardProductToThis(const Mat3& _Mat);
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Mat3 operator=(float _data[9]);
         inline Mat3 operator=(const Mat3& _Mat);
@@ -680,7 +688,7 @@ namespace Maths
 #endif
 
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Mat4 operator=(float _data[16]);
         inline Mat4 operator=(const Mat4& _Mat);
@@ -794,7 +802,7 @@ namespace Maths
         inline void Conjugate();
         inline Comp GetConjugate() const;
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
 
         inline Comp operator = (const Comp& _Comp);
 
@@ -871,7 +879,7 @@ namespace Maths
 
         // inline Mat4 ToMatrix() const;
 
-        //ASSIGNMENT AND EQUALITY OPERATIONS :
+        //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Quat operator = (const Quat& _Quat);
 
         inline Quat operator - (void)               const;

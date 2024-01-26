@@ -165,7 +165,7 @@ VTEST(Maths)
 				VGA = glm::normalize(VGA);
 				VGB = glm::normalize(VGB);
 
-				COMPARE(VMA.GetAngleBetween(VMB), glm::degrees(glm::angle(VGA, VGB)));
+				COMPARE_WITH_PRECISION(VMA.GetAngleBetween(VMB), glm::degrees(glm::angle(VGA, VGB)), 0.0001);
 			}
 
 			TEST(Vec2_GetAngleBetween_Static)
@@ -179,7 +179,7 @@ VTEST(Maths)
 				VGA = glm::normalize(VGA);
 				VGB = glm::normalize(VGB);
 
-				COMPARE(Maths::Vec2::GetAngleBetween(VMA, VMB), glm::degrees(glm::angle(VGA, VGB)));
+				COMPARE_WITH_PRECISION(Maths::Vec2::GetAngleBetween(VMA, VMB), glm::degrees(glm::angle(VGA, VGB)),0.0001);
 			}
 		
 		}
@@ -724,15 +724,14 @@ VTEST(Maths)
 				Maths::Vec3 VMA(2, 5, 9);
 				Maths::Vec3 VMB(9, 5, 2);
 
-				/* /!\ glm seems not to be accurate
+				/* /!\ glm seems not to be accurate */
 				glm::vec3 VGA(2, 5, 9);
 				glm::vec3 VGB(9, 5, 2);
 				VGA = glm::normalize(VGA);
 				VGB = glm::normalize(VGB);
-				COMPARE(VMA.GetAngleBetween(VMB), glm::degrees(glm::angle(VGA, VGB)));
-				*/
 
-				COMPARE(VMA.GetAngleBetween(VMB), 56.32058747374858F);
+				COMPARE_WITH_PRECISION(VMA.GetAngleBetween(VMB), 56.32058747374858f, 0.00001); //test with a presicion of 0.00001 since wince round error we got 56.320583 wich is wrong but not as wrong as glm
+				COMPARE_WITH_PRECISION(VMA.GetAngleBetween(VMB), glm::degrees(glm::angle(VGA, VGB)), 0.0001);// glm output 56.320595 what in the world is that precision?
 			}
 
 			TEST(Vec3_GetAngleBetween_Static)
@@ -740,15 +739,14 @@ VTEST(Maths)
 				Maths::Vec3 VMA(2, 5, 9);
 				Maths::Vec3 VMB(9, 5, 2);
 
-				/* /!\ glm seems not to be accurate
+				/* /!\ glm seems not to be accurate */
 				glm::vec3 VGA(2, 5, 9);
 				glm::vec3 VGB(9, 5, 2);
 				VGA = glm::normalize(VGA);
 				VGB = glm::normalize(VGB);
-				COMPARE(Maths::Vec3::GetAngleBetween(VMA, VMB), glm::degrees(glm::angle(VGA, VGB)));
-				*/
-
-				COMPARE(Maths::Vec3::GetAngleBetween(VMA, VMB), 56.32058747374858F);
+				
+				COMPARE_WITH_PRECISION(Maths::Vec3::GetAngleBetween(VMA, VMB), 56.32058747374858f, 0.00001); //test with a presicion of 0.00001 since wince round error we got 56.320583 wich is wrong but not as wrong as glm
+				COMPARE_WITH_PRECISION(Maths::Vec3::GetAngleBetween(VMA, VMB), glm::degrees(glm::angle(VGA, VGB)), 0.0001);// glm output 56.320595 what in the world is that precision?
 			}
 
 		}

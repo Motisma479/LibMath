@@ -7,19 +7,27 @@
 \***********************************************/
 #include "Maths.hpp"
 
-#define _USE_MATH_DEFINES // for C++
 #include <cmath>
 
-template <class T>
-inline float Maths::ToRadians(T angleDegrees)
+
+inline float Maths::ToRadians(float angleDegrees)
 {
-	return angleDegrees * (M_PI / 180);
+	return angleDegrees * (Constants::PI / 180);
 }
-template <class T>
-inline float Maths::ToDegrees(T angleRadians)
+inline double Maths::ToRadians(double angleDegrees)
 {
-	return angleRadians * (180 / M_PI);
+	return angleDegrees * (Constants::PI_Precise / 180);
 }
+
+inline float Maths::ToDegrees(float angleRadians)
+{
+	return angleRadians * (180 / Constants::PI);
+}
+inline double Maths::ToDegrees(double angleRadians)
+{
+	return angleRadians * (180 / Constants::PI);
+}
+
 
 // Vector Using float as Value -----------------------------------------------------------------------------
 
@@ -73,7 +81,7 @@ inline Maths::Vec2 Maths::Vec2::GetNormalized()                            const
 }
 inline Maths::Vec2 Maths::Vec2::GetPerpendicular()                         const
 {
-	return Vec2(-y, x);
+	return(-y, x);
 }
 inline float Maths::Vec2::DotProduct(const Vec2& _VecB)                    const
 {
@@ -261,7 +269,7 @@ inline Maths::Vec2 Maths::Vec3::yz() const
 
 inline float Maths::Vec3::GetMagnitude()                                           const
 {
-	return sqrtf(GetMagnitudeSquared());
+	return sqrt(GetMagnitudeSquared());
 }
 inline float Maths::Vec3::GetMagnitudeSquared()                                    const
 {
@@ -314,7 +322,7 @@ inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecB)                    
 }
 inline float Maths::Vec3::GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB)
 {
-	return ToDegrees(std::acos(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude())));
+	return ToDegrees(std::acosf(DotProduct(_VecA, _VecB) / (_VecA.GetMagnitude() * _VecB.GetMagnitude())));
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
