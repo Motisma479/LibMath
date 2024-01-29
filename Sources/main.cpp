@@ -10,6 +10,32 @@
 
 VTEST(Maths)
 {
+
+	NAMESPACE(Maths_Functions)
+	{
+
+		TEST(float_Angle_to_Radians)
+		{
+			COMPARE(Maths::ToRadians(45.f), glm::radians(45.f));
+		}
+
+		TEST(double_Angle_to_Radians)
+		{
+			COMPARE(Maths::ToRadians(45.0), glm::radians(45.0));
+		}
+
+		TEST(float_Angle_to_Degrees)
+		{
+			COMPARE(Maths::ToDegrees((3*Maths::Constants::PI)/4.f), glm::degrees((3 * Maths::Constants::PI) / 4.f));
+		}
+
+		TEST(double_Angle_to_Degrees)
+		{
+			COMPARE(Maths::ToRadians((3 * Maths::Constants::PI_Precise) / 4.0), glm::radians((3 * Maths::Constants::PI_Precise) / 4.0));
+		}
+
+	}
+
 	NAMESPACE(Vector2)
 	{
 
@@ -2892,11 +2918,643 @@ VTEST(Maths)
 
 	}
 
+	NAMESPACE(Matrix_3x3)
+	{
+
+		NAMESPACE(Matrix_3_3_Constructor)
+		{
+
+			TEST(Mat3_Constructor_default)
+			{
+				Maths::Mat3 MM; glm::mat3 MG(0);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+
+			}
+
+			TEST(Mat3_Constructor_data)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM(data);
+
+				glm::mat3 MG(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+
+			}
+
+		}
+
+		NAMESPACE(Matrix_3x3_Utils)
+		{
+
+			TEST(Mat3_Transpose)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM(data);
+
+				glm::mat3 MG(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				MM.Transpose();
+				MG = glm::transpose(MG);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_GetTranspose)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM(data);
+
+				glm::mat3 MG(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				Maths::Mat3 MM2 = Maths::Mat3::GetTranspose(MM);
+				glm::mat3 MG2 = glm::transpose(MG);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM2.data_3_3[i][j], MG2[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_Determinant)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM(data);
+
+				glm::mat3 MG(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				COMPARE(MM.Determinant(), glm::determinant(MG));
+			}
+
+			TEST(Mat3_Inverse)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,415,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM(data);
+
+				glm::mat3 MG(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				MM.Inverse();
+				MG = glm::inverse(MG);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_GetInverse)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,415,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM(data);
+
+				glm::mat3 MG(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				Maths::Mat3 MM2 = Maths::Mat3::GetInverse(MM);
+				glm::mat3 MG2 = glm::inverse(MG);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_Trace)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM(data);
+
+				glm::mat3 MG(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				COMPARE(MM.Trace(), (MG[0][0]+MG[1][1]+MG[2][2]));
+			}
+
+			TEST(Mat3_CreateIdentityMatrix)
+			{
+
+				Maths::Mat3 MM = Maths::Mat3::CreateIdentityMatrix();
+
+				glm::mat3 MG = glm::identity<glm::mat3>();
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_CreateRotationMatrix)
+			{
+				
+				Maths::Mat3 MM = Maths::Mat3::CreateRotationMatrix(80.f);
+
+				glm::mat4 MG = glm::rotate(80.f, glm::vec3(0,0,1));
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE_WITH_PRECISION(MM.data_3_3[i][j], MG[i][j], 0.0000001);
+					}
+				}
+			}
+
+			TEST(Mat3_CreateTranslationMatrix)
+			{
+
+				Maths::Mat3 MM = Maths::Mat3::CreateTranslationMatrix(Maths::Vec2(85.f,963.f));
+
+				glm::mat4 MG = glm::translate(glm::vec3(85.f, 963.f, 0.f));
+
+				COMPARE(MM.data_3_3[0][2], MG[3][0]);
+				COMPARE(MM.data_3_3[1][2], MG[3][1]);
+			}
+
+			TEST(Mat3_CreateScaleMatrix)
+			{
+
+				Maths::Mat3 MM = Maths::Mat3::CreateScaleMatrix(Maths::Vec2(3.f,3.f));
+
+				glm::mat4 MG = glm::scale(glm::vec3(3.f, 3.f, 1.f));
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_CreateTransformMatrix)
+			{
+				Maths::Mat3 MM = Maths::Mat3::CreateTransformMatrix(Maths::Vec2(50.f, 734.f), 85.f, Maths::Vec2(5.f,4.f));
+
+				glm::mat4 MG = glm::identity<glm::mat4>();
+				MG[0][2] = 50.f;
+				MG[1][2] = 734.f;
+				MG *= glm::rotate(85.f, glm::vec3(0.f, 0.f, 1.f)) * glm::scale(glm::vec3(5.f, 4.f, 1.f));
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM.data_3_3[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_HadamardProduct)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+				Maths::Mat3 MM3 = MM1.HadamardProduct(MM2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				glm::mat3 MG3 = glm::matrixCompMult(MG1, MG2);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM3.data_3_3[i][j], MG3[i][j]);
+					}
+				}
+			}
+			
+			TEST(Mat3_HadamardProductToThis)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+				MM1.HadamardProductToThis(MM2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				MG1 = glm::matrixCompMult(MG1, MG2);
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM1.data_3_3[i][j], MG1[i][j]);
+					}
+				}
+			}
+			
+		}
+
+		NAMESPACE(Matrix_3x3_Assignment_and_Equality_operations)
+		{
+
+			TEST(Mat3_Operator_equal_data)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+
+
+				Maths::Mat3 MM;
+				MM = data;
+
+				for (int i = 0; i < 9; i++)
+				{
+					COMPARE(MM.data[i], data[i]);
+				}
+			}
+
+		}
+
+		NAMESPACE(Matrix_3x3_Mat3_to_Mat3_operations)
+		{
+
+			TEST(Mat3_Operator_Plus_Mat)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				Maths::Mat3 MM3 = MM1 + MM2;
+				glm::mat3 MG3 = MG1 + MG2;
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM3.data_3_3[i][j], MG3[i][j]);
+					}
+				}
+
+			}
+
+			TEST(Mat3_Operator_Minus_Mat)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				Maths::Mat3 MM3 = MM1 - MM2;
+				glm::mat3 MG3 = MG1 - MG2;
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM3.data_3_3[i][j], MG3[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_Operator_Multiply_Mat)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				Maths::Mat3 MM3 = MM1 * MM2;
+				glm::mat3 MG3 = MG1 * MG2;
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM3.data_3_3[i][j], MG3[i][j]);
+					}
+				}
+			}
+
+		}
+
+		NAMESPACE(Matrix_3x3_Mat3_to_This_operations)
+		{
+
+			TEST(Mat3_Operator_PlusEqual_Mat)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				MM1 += MM2;
+				MG1 += MG2;
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM1.data_3_3[i][j], MG1[i][j]);
+					}
+				}
+
+			}
+
+			TEST(Mat3_Operator_MinusEqual_Mat)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				MM1 -= MM2;
+				MG1 -= MG2;
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM1.data_3_3[i][j], MG1[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat3_Operator_MultiplyEqual_Mat)
+			{
+				float data[9] =
+				{
+					0,1,2,
+					3,4,5,
+					6,7,8
+				};
+				float data2[9] =
+				{
+					85,63,0,
+					4,7,52,
+					12,35,47
+				};
+
+				Maths::Mat3 MM1(data);
+				Maths::Mat3 MM2(data2);
+
+				glm::mat3 MG1(data[0], data[1], data[2],
+					data[3], data[4], data[5],
+					data[6], data[7], data[8]);
+
+				glm::mat3 MG2(data2[0], data2[1], data2[2],
+					data2[3], data2[4], data2[5],
+					data2[6], data2[7], data2[8]);
+
+				MM1 *= MM2;
+				MG1 *= MG2;
+
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						COMPARE(MM1.data_3_3[i][j], MG1[i][j]);
+					}
+				}
+			}
+
+		}
+
+	}
+
 }
 
 int main()
 {
 	system("cls");
+
+	float data[9] =
+	{
+		0,1,2,
+		3,4,5,
+		6,7,8
+	};
+	Maths::Mat3 MM(data);
+	MM.Print();
+
 	std::cout << "Library used for the tests : glm\n";
 	runTests();
 	system("pause");
