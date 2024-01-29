@@ -1599,6 +1599,7 @@ VTEST(Maths)
 				COMPARE(VMB.y, VGC.y);
 				COMPARE(VMB.z, VGC.z);
 			}
+		
 		}
 
 		NAMESPACE(Vector4_Scaler_to_This_operations)
@@ -1671,6 +1672,1226 @@ VTEST(Maths)
 		}
 
 	}
+
+	NAMESPACE(IVector2)
+	{
+
+		NAMESPACE(IVector2_Constructor)
+		{
+
+			TEST(IVec2_Constructor_default)
+			{
+				Maths::IVec2 VM; glm::ivec2 VG(0);
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+			}
+
+			TEST(IVec2_Constructor_Scalar)
+			{
+				Maths::IVec2 VM(8); glm::ivec2 VG(8);
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+			}
+
+			TEST(IVec2_Constructor_x_y)
+			{
+				Maths::IVec2 VM(8,42); glm::ivec2 VG(8,42);
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+			}
+
+			TEST(IVec2_Constructor_Vec2)
+			{
+				Maths::Vec2 temp(8, 42);
+				Maths::IVec2 VM(temp); glm::ivec2 VG(8,42);
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+			}
+
+		}
+
+		NAMESPACE(IVector2_Utils)
+		{
+
+			TEST(IVec2_GetMagnitude)
+			{
+				Maths::IVec2 VM(8, 42);
+				glm::vec2 VG(8, 42); // use of vec2 insted of ivec2 due to length function
+				
+				COMPARE(VM.GetMagnitude(), glm::length(VG));
+			}
+
+			TEST(IVec2_GetMagnitudeSquared)
+			{
+				Maths::IVec2 VM(8, 42); 
+				glm::vec2 VG(8, 42); // use of vec2 insted of ivec2 due to length2 function
+
+				COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
+			}
+
+		}
+
+		NAMESPACE(IVector2_Assignment_and_Equality_operations)
+		{
+			TEST(IVec2_Operator_equal_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				Maths::IVec2 VMB;
+
+				VMB = VMA;
+
+				COMPARE(VMA.x, VMB.x);
+				COMPARE(VMA.y, VMB.y);
+			}
+
+			TEST(IVec2_Operator_equal_Sca)
+			{
+				Maths::IVec2 VM;
+
+				VM = 1;
+
+				COMPARE(VM.x, 1);
+				COMPARE(VM.y, 1);
+			}
+
+			TEST(IVec2_Operator_negate)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(-8, -42);
+
+				COMPARE(-VMA.x, VMB.x);
+				COMPARE(-VMA.y, VMB.y);
+			}
+
+			TEST(IVec2_Operator_isEqual)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(8, 42);
+				Maths::IVec2 VMC(42, 8);
+
+				COMPARE(VMA == VMB, true);
+				COMPARE(VMA == VMC, false);
+			}
+
+			TEST(IVec2_Operator_isNotEqual)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(8, 42);
+				Maths::IVec2 VMC(42, 8);
+
+				COMPARE(VMA != VMB, false);
+				COMPARE(VMA != VMC, true);
+			}
+
+		}
+
+		NAMESPACE(IVector2_IVec2_to_IVec2_operations)
+		{
+			TEST(IVec2_Operator_Plus_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				Maths::IVec2 VMC = VMA + VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				glm::ivec2 VGC = VGA + VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+			}
+
+			TEST(IVec2_Operator_Minus_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				Maths::IVec2 VMC = VMA - VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				glm::ivec2 VGC = VGA - VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+			}
+
+			TEST(IVec2_Operator_Multiply_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				Maths::IVec2 VMC = VMA * VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				glm::ivec2 VGC = VGA * VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+			}
+
+			TEST(IVec2_Operator_Divide_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				Maths::IVec2 VMC = VMA / VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				glm::ivec2 VGC = VGA / VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+			}
+
+		}
+
+		NAMESPACE(IVector2_IVec2_to_This_operations)
+		{
+			TEST(IVec2_Operator_PlusEqual_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				VMA += VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				VGA += VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+			TEST(IVec2_Operator_MinusEqual_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				VMA -= VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				VGA -= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+			TEST(IVec2_Operator_MultiplyEqual_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				VMA *= VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				VGA *= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+			TEST(IVec2_Operator_DivideEqual_Vec)
+			{
+				Maths::IVec2 VMA(8, 42);
+				Maths::IVec2 VMB(42, 8);
+
+				VMA /= VMB;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(42, 8);
+
+				VGA /= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+		}
+
+		NAMESPACE(IVector2_Scaler_to_IVec2_operations)
+		{
+			TEST(IVec2_Operator_Plus_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				Maths::IVec2 VMB = VMA + 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				glm::ivec2 VGC = VGA + VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+			}
+
+			TEST(IVec2_Operator_Minus_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				Maths::IVec2 VMB = VMA - 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				glm::ivec2 VGC = VGA - VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+			}
+
+			TEST(IVec2_Operator_Multiply_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				Maths::IVec2 VMB = VMA * 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				glm::vec2 VGC = VGA * VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+			}
+
+			TEST(IVec2_Operator_Divide_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				Maths::IVec2 VMB = VMA / 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				glm::ivec2 VGC = VGA / VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+			}
+
+		}
+
+		NAMESPACE(IVector2_Scaler_to_This_operations)
+		{
+			TEST(IVec2_Operator_PlusEqual_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				VMA += 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				VGA += VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+			TEST(IVec2_Operator_MinusEqual_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				VMA -= 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				VGA -= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+			TEST(IVec2_Operator_MultiplyEqual_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				VMA *= 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				VGA *= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+			TEST(IVec2_Operator_DivideEqual_Sca)
+			{
+				Maths::IVec2 VMA(8, 42);
+
+				VMA /= 3;
+
+				glm::ivec2 VGA(8, 42);
+				glm::ivec2 VGB(3, 3);
+
+				VGA /= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+			}
+
+		}
+
+	}
+	
+	NAMESPACE(IVector3)
+	{
+
+		NAMESPACE(IVector3_Constructor)
+		{
+
+			TEST(IVec3_Constructor_default)
+			{
+				Maths::IVec3 VM; glm::ivec3 VG(0); // test default constructor
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+			}
+
+			TEST(IVec3_Constructor_Scalar)
+			{
+				Maths::IVec3 VM(3); glm::ivec3 VG(3); // test one scalar constructor
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+			}
+
+			TEST(IVec3_Constructor_x_y_z)
+			{
+				Maths::IVec3 VM(1, 2, 3); glm::ivec3 VG(1, 2, 3); // test constructor with x , y parameter
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+			}
+
+			TEST(IVec3_Constructor_Vec3)
+			{
+				Maths::Vec3 temp(3, 4, 5);
+				Maths::IVec3 VM(temp); glm::ivec3 VG(3, 4, 5);
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+			}
+
+		}
+
+		NAMESPACE(IVector3_Utils)
+		{
+
+			TEST(IVec3_GetMagnitude)
+			{
+				Maths::IVec3 VM(8, 42, 75);
+				glm::vec3 VG(8, 42, 75); // use of vec3 insted of ivec3 due to length function
+
+				COMPARE(VM.GetMagnitude(), glm::length(VG));
+			}
+
+			TEST(IVec3_GetMagnitudeSquared)
+			{
+				Maths::IVec3 VM(8, 42, 75);
+				glm::vec3 VG(8, 42, 75); // use of vec3 insted of ivec3 due to length2 function
+
+				COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
+			}
+
+		}
+
+		NAMESPACE(IVector3_Assignment_and_Equality_operations)
+		{
+
+			TEST(IVec3_Operator_equal_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				Maths::IVec3 VMB;
+
+				VMB = VMA;
+
+				COMPARE(VMA.x, VMB.x);
+				COMPARE(VMA.y, VMB.y);
+				COMPARE(VMA.z, VMB.z);
+			}
+
+			TEST(IVec3_Operator_equal_Sca)
+			{
+				Maths::IVec3 VM;
+
+				VM = 1;
+
+				COMPARE(VM.x, 1);
+				COMPARE(VM.y, 1);
+				COMPARE(VM.z, 1);
+			}
+
+			TEST(IVec3_Operator_negate)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(-2, -5, -9);
+
+				COMPARE(-VMA.x, VMB.x);
+				COMPARE(-VMA.y, VMB.y);
+				COMPARE(-VMA.z, VMB.z);
+			}
+
+			TEST(IVec3_Operator_isEqual)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(2, 5, 9);
+				Maths::IVec3 VMC(9, 5, 2);
+
+				COMPARE(VMA == VMB, true);
+				COMPARE(VMA == VMC, false);
+			}
+
+			TEST(IVec3_Operator_isNotEqual)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(2, 5, 9);
+				Maths::IVec3 VMC(9, 5, 2);
+
+				COMPARE(VMA != VMB, false);
+				COMPARE(VMA != VMC, true);
+			}
+
+		}
+
+		NAMESPACE(IVector3_IVec3_to_IVec3_operations)
+		{
+
+			TEST(IVec3_Operator_Plus_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				Maths::IVec3 VMC = VMA + VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				glm::ivec3 VGC = VGA + VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+			}
+
+			TEST(IVec3_Operator_Minus_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				Maths::IVec3 VMC = VMA - VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				glm::ivec3 VGC = VGA - VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+			}
+
+			TEST(IVec3_Operator_Multiply_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				Maths::IVec3 VMC = VMA * VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				glm::ivec3 VGC = VGA * VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+			}
+
+			TEST(IVec3_Operator_Divide_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				Maths::IVec3 VMC = VMA / VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				glm::ivec3 VGC = VGA / VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+			}
+
+		}
+
+		NAMESPACE(IVector3_IVec3_to_This_operations)
+		{
+
+			TEST(IVec3_Operator_PlusEqual_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				VMA += VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				VGA += VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec3_Operator_MinusEqual_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				VMA -= VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				VGA -= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec3_Operator_MultiplyEqual_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				VMA *= VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				VGA *= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec3_Operator_DivideEqual_Vec)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+				Maths::IVec3 VMB(9, 5, 2);
+
+				VMA /= VMB;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(9, 5, 2);
+
+				VGA /= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+		}
+
+		NAMESPACE(IVector3_Scaler_to_IVec3_operations)
+		{
+
+			TEST(IVec3_Operator_Plus_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				Maths::IVec3 VMB = VMA + 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				glm::ivec3 VGC = VGA + VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+			TEST(IVec3_Operator_Minus_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				Maths::IVec3 VMB = VMA - 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				glm::ivec3 VGC = VGA - VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+			TEST(Vec3_Operator_Multiply_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				Maths::IVec3 VMB = VMA * 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				glm::ivec3 VGC = VGA * VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+			TEST(Vec3_Operator_Divide_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				Maths::IVec3 VMB = VMA / 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				glm::ivec3 VGC = VGA / VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+		}
+
+		NAMESPACE(IVector3_Scaler_to_This_operations)
+		{
+
+			TEST(IVec3_Operator_PlusEqual_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				VMA += 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				VGA += VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec3_Operator_MinusEqual_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				VMA -= 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				VGA -= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec3_Operator_MultiplyEqual_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				VMA *= 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				VGA *= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(Vec3_Operator_DivideEqual_Sca)
+			{
+				Maths::IVec3 VMA(2, 5, 9);
+
+				VMA /= 3;
+
+				glm::ivec3 VGA(2, 5, 9);
+				glm::ivec3 VGB(3, 3, 3);
+
+				VGA /= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+		}
+
+	}
+
+	NAMESPACE(IVector4)
+	{
+
+		NAMESPACE(IVector4_Constructor)
+		{
+			TEST(IVec4_Constructor_default)
+			{
+				Maths::IVec4 VM; glm::ivec4 VG(0); // test default constructor
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+				COMPARE(VM.w, VG.w);
+			}
+
+			TEST(IVec4_Constructor_Scalar)
+			{
+				Maths::IVec4 VM(4); glm::ivec4 VG(4); // test one scalar constructor
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+				COMPARE(VM.w, VG.w);
+			}
+
+			TEST(IVec4_Constructor_x_y_z_w)
+			{
+				Maths::IVec4 VM(1, 2, 3, 4); glm::ivec4 VG(1, 2, 3, 4); // test constructor with x , y parameter
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+				COMPARE(VM.w, VG.w);
+			}
+
+			TEST(IVec4_Constructor_Vec4)
+			{
+				Maths::Vec4 temp(3, 4, 8, 9);
+				Maths::IVec4 VM(temp);
+
+				glm::vec4 VG(3, 4, 8, 9);
+
+				COMPARE(VM.x, VG.x);
+				COMPARE(VM.y, VG.y);
+				COMPARE(VM.z, VG.z);
+				COMPARE(VM.w, VG.w);
+			}
+
+		}
+
+		NAMESPACE(IVector4_Utils)
+		{
+
+			TEST(IVec4_GetMagnitude)
+			{
+				Maths::IVec4 VM(2, 5, 9, 11);
+				glm::vec4 VG(2, 5, 9, 11);// use of vec4 insted of ivec4 due to length function
+
+				COMPARE(VM.GetMagnitude(), glm::length(VG));
+			}
+
+			TEST(IVec4_GetMagnitudeSquared)
+			{
+				Maths::IVec4 VM(2, 5, 9, 11);
+				glm::vec4 VG(2, 5, 9, 11);// use of vec4 insted of ivec4 due to length function
+
+				COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
+			}
+
+		}
+
+		NAMESPACE(IVector4_Assignment_and_Equality_operations)
+		{
+			TEST(IVec4_Operator_equal_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 3, 8);
+
+				Maths::IVec4 VMB;
+
+				VMB = VMA;
+
+				COMPARE(VMA.x, VMB.x);
+				COMPARE(VMA.y, VMB.y);
+				COMPARE(VMA.z, VMB.z);
+				COMPARE(VMA.w, VMB.w);
+			}
+
+			TEST(IVec4_Operator_equal_Sca)
+			{
+				Maths::IVec4 VMA;
+
+				VMA = 8;
+
+				COMPARE(VMA.x, 8);
+				COMPARE(VMA.y, 8);
+				COMPARE(VMA.z, 8);
+				COMPARE(VMA.w, 8);
+			}
+
+			TEST(IVec4_Operator_negate)
+			{
+				Maths::IVec4 VMA(2, 5, 3, 8);
+
+				COMPARE(-VMA.x, -2);
+				COMPARE(-VMA.y, -5);
+				COMPARE(-VMA.z, -3);
+				COMPARE(-VMA.w, -8);
+			}
+
+			TEST(IVec4_Operator_isEqual)
+			{
+				Maths::IVec4 VMA(2, 5, 3, 4);
+				Maths::IVec4 VMB(2, 5, 3, 4);
+				Maths::IVec4 VMC(5, 2, 5, 7);
+
+				COMPARE(VMA == VMB, true);
+				COMPARE(VMA == VMC, false);
+			}
+
+			TEST(IVec4_Operator_isNotEqual)
+			{
+				Maths::IVec4 VMA(2, 5, 3, 4);
+				Maths::IVec4 VMB(2, 5, 3, 4);
+				Maths::IVec4 VMC(5, 2, 5, 7);
+
+				COMPARE(VMA != VMB, false);
+				COMPARE(VMA != VMC, true);
+			}
+
+		}
+
+		NAMESPACE(IVector4_IVec4_to_IVec4_operations)
+		{
+
+			TEST(IVec4_Operator_Plus_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				Maths::IVec4 VMC = VMA + VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				glm::ivec4 VGC = VGA + VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+				COMPARE(VMC.w, VGC.w);
+			}
+
+			TEST(IVec4_Operator_Minus_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				Maths::IVec4 VMC = VMA - VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				glm::ivec4 VGC = VGA - VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+				COMPARE(VMC.w, VGC.w);
+			}
+
+			TEST(IVec4_Operator_Multiply_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				Maths::IVec4 VMC = VMA * VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				glm::ivec4 VGC = VGA * VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+				COMPARE(VMC.w, VGC.w);
+			}
+
+			TEST(IVec4_Operator_Divide_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				Maths::IVec4 VMC = VMA / VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				glm::ivec4 VGC = VGA / VGB;
+
+				COMPARE(VMC.x, VGC.x);
+				COMPARE(VMC.y, VGC.y);
+				COMPARE(VMC.z, VGC.z);
+				COMPARE(VMC.w, VGC.w);
+			}
+
+		}
+
+		NAMESPACE(IVector4_IVec4_to_This_operations)
+		{
+
+			TEST(IVec4_Operator_PlusEqual_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				VMA += VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				VGA += VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+				COMPARE(VMA.w, VGA.w);
+			}
+
+			TEST(IVec4_Operator_MinusEqual_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				VMA -= VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				VGA -= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+				COMPARE(VMA.w, VGA.w);
+			}
+
+			TEST(IVec4_Operator_MultiplyEqual_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				VMA *= VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				VGA *= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+				COMPARE(VMA.w, VGA.w);
+			}
+
+			TEST(IVec4_Operator_DivideEqual_Vec)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+				Maths::IVec4 VMB(9, 5, 2, 5);
+
+				VMA /= VMB;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(9, 5, 2, 5);
+
+				VGA /= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+				COMPARE(VMA.w, VGA.w);
+			}
+
+		}
+
+		NAMESPACE(IVector4_Scaler_to_IVec4_operations)
+		{
+
+			TEST(IVec4_Operator_Plus_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				Maths::IVec4 VMB = VMA + 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				glm::ivec4 VGC = VGA + VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+			TEST(IVec4_Operator_Minus_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				Maths::IVec4 VMB = VMA - 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				glm::ivec4 VGC = VGA - VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+			TEST(IVec4_Operator_Multiply_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				Maths::IVec4 VMB = VMA * 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				glm::ivec4 VGC = VGA * VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+			TEST(IVec4_Operator_Divide_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				Maths::IVec4 VMB = VMA / 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				glm::ivec4 VGC = VGA / VGB;
+
+				COMPARE(VMB.x, VGC.x);
+				COMPARE(VMB.y, VGC.y);
+				COMPARE(VMB.z, VGC.z);
+			}
+
+		}
+
+		NAMESPACE(IVector4_Scaler_to_This_operations)
+		{
+
+			TEST(IVec4_Operator_PlusEqual_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				VMA += 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				VGA += VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec4_Operator_MinusEqual_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				VMA -= 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				VGA -= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec4_Operator_MultiplyEqual_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				VMA *= 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				VGA *= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+			TEST(IVec4_Operator_DivideEqual_Sca)
+			{
+				Maths::IVec4 VMA(2, 5, 9, 7);
+
+				VMA /= 3;
+
+				glm::ivec4 VGA(2, 5, 9, 7);
+				glm::ivec4 VGB(3, 3, 3, 3);
+
+				VGA /= VGB;
+
+				COMPARE(VMA.x, VGA.x);
+				COMPARE(VMA.y, VGA.y);
+				COMPARE(VMA.z, VGA.z);
+			}
+
+		}
+
+	}
+
 }
 
 int main()
