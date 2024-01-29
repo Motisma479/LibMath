@@ -81,7 +81,7 @@ inline Maths::Vec2 Maths::Vec2::GetNormalized()                            const
 }
 inline Maths::Vec2 Maths::Vec2::GetPerpendicular()                         const
 {
-	return(-y, x);
+	return Vec2(-y, x);
 }
 inline float Maths::Vec2::DotProduct(const Vec2& _VecB)                    const
 {
@@ -1305,10 +1305,10 @@ inline Maths::Mat3 Maths::Mat3::CreateRotationMatrix(float rotation)
 	Mat3 temp;
 
 	temp.data_3_3[0][0] = cosRot;
-	temp.data_3_3[0][1] = -sinRot;
-	temp.data_3_3[1][0] = sinRot;
+	temp.data_3_3[0][1] = sinRot;
+	temp.data_3_3[1][0] = -sinRot;
 	temp.data_3_3[1][1] = cosRot;
-	temp.data_3_3[2][2] = cosRot;
+	temp.data_3_3[2][2] = 1;
 
 	return temp;
 }
@@ -1338,7 +1338,7 @@ inline Maths::Mat3 Maths::Mat3::CreateScaleMatrix(const Vec2& scale)
 }
 inline Maths::Mat3 Maths::Mat3::CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale)
 {
-	return CreateTranslationMatrix(translation) * CreateScaleMatrix(scale) * CreateRotationMatrix(rotation);
+	return CreateTranslationMatrix(translation) * CreateRotationMatrix(rotation) * CreateScaleMatrix(scale);
 }
 #else
 inline static Maths::Mat3 Maths::Mat3::CreateTranslationMatrix(float[2] translation)                                           const
@@ -1586,68 +1586,68 @@ inline void Maths::Mat4::Inverse()
 		Mat4 temp;
 
 		temp.data_4_4[0][0] = (data_4_4[1][1] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
-                             - data_4_4[1][2] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
-                             + data_4_4[1][3] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])) * det;
+			- data_4_4[1][2] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
+			+ data_4_4[1][3] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])) * det;
 
 		temp.data_4_4[0][1] = (data_4_4[0][1] * (data_4_4[2][3] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][3])
-                             - data_4_4[0][2] * (data_4_4[2][3] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][3])
-                             + data_4_4[0][3] * (data_4_4[2][2] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][2])) * det;
+			- data_4_4[0][2] * (data_4_4[2][3] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][3])
+			+ data_4_4[0][3] * (data_4_4[2][2] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][2])) * det;
 
 		temp.data_4_4[0][2] = (data_4_4[0][1] * (data_4_4[1][3] * data_4_4[3][2] - data_4_4[1][2] * data_4_4[3][3])
-                             - data_4_4[0][2] * (data_4_4[1][3] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][3])
-                             + data_4_4[0][3] * (data_4_4[1][2] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][2])) * det;
+			- data_4_4[0][2] * (data_4_4[1][3] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][3])
+			+ data_4_4[0][3] * (data_4_4[1][2] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][2])) * det;
 
 		temp.data_4_4[0][3] = (data_4_4[0][1] * (data_4_4[1][2] * data_4_4[2][3] - data_4_4[1][3] * data_4_4[2][2])
-                             - data_4_4[0][2] * (data_4_4[1][1] * data_4_4[2][3] - data_4_4[1][3] * data_4_4[2][1])
-                             + data_4_4[0][3] * (data_4_4[1][1] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][1])) * det;
+			- data_4_4[0][2] * (data_4_4[1][1] * data_4_4[2][3] - data_4_4[1][3] * data_4_4[2][1])
+			+ data_4_4[0][3] * (data_4_4[1][1] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][1])) * det;
 
 		temp.data_4_4[1][0] = (data_4_4[1][0] * (data_4_4[2][3] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][3])
-                             - data_4_4[1][2] * (data_4_4[2][3] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][3])
-                             + data_4_4[1][3] * (data_4_4[2][2] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][2])) * det;
+			- data_4_4[1][2] * (data_4_4[2][3] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][3])
+			+ data_4_4[1][3] * (data_4_4[2][2] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][2])) * det;
 
 		temp.data_4_4[1][1] = (data_4_4[0][0] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
-                             - data_4_4[0][2] * (data_4_4[2][2] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][2])
-                             + data_4_4[0][3] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])) * det;
-		
+			- data_4_4[0][2] * (data_4_4[2][2] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][2])
+			+ data_4_4[0][3] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])) * det;
+
 		temp.data_4_4[1][2] = (data_4_4[0][0] * (data_4_4[1][3] * data_4_4[3][2] - data_4_4[1][2] * data_4_4[3][3])
-                             - data_4_4[0][2] * (data_4_4[1][3] * data_4_4[3][0] - data_4_4[1][0] * data_4_4[3][3])
-                             + data_4_4[0][3] * (data_4_4[1][2] * data_4_4[3][0] - data_4_4[1][0] * data_4_4[3][2])) * det;
-		
+			- data_4_4[0][2] * (data_4_4[1][3] * data_4_4[3][0] - data_4_4[1][0] * data_4_4[3][3])
+			+ data_4_4[0][3] * (data_4_4[1][2] * data_4_4[3][0] - data_4_4[1][0] * data_4_4[3][2])) * det;
+
 		temp.data_4_4[1][3] = (data_4_4[0][0] * (data_4_4[1][2] * data_4_4[2][3] - data_4_4[1][3] * data_4_4[2][2])
-                             - data_4_4[0][2] * (data_4_4[1][2] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][2])
-                             + data_4_4[0][3] * (data_4_4[1][0] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][0])) * det;
+			- data_4_4[0][2] * (data_4_4[1][2] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][2])
+			+ data_4_4[0][3] * (data_4_4[1][0] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][0])) * det;
 
 		temp.data_4_4[2][0] = (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
-                             - data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
-                             + data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
+			- data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
+			+ data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
 
 		temp.data_4_4[2][1] = (data_4_4[0][0] * (data_4_4[2][3] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][3])
-                             - data_4_4[0][1] * (data_4_4[2][3] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][3])
-                             + data_4_4[0][3] * (data_4_4[2][1] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][1])) * det;
+			- data_4_4[0][1] * (data_4_4[2][3] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][3])
+			+ data_4_4[0][3] * (data_4_4[2][1] * data_4_4[3][0] - data_4_4[2][0] * data_4_4[3][1])) * det;
 
 		temp.data_4_4[2][2] = (data_4_4[0][0] * (data_4_4[1][1] * data_4_4[3][3] - data_4_4[1][3] * data_4_4[3][1])
-                             - data_4_4[0][1] * (data_4_4[1][0] * data_4_4[3][3] - data_4_4[1][3] * data_4_4[3][0])
-                             + data_4_4[0][3] * (data_4_4[1][0] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][0])) * det;
+			- data_4_4[0][1] * (data_4_4[1][0] * data_4_4[3][3] - data_4_4[1][3] * data_4_4[3][0])
+			+ data_4_4[0][3] * (data_4_4[1][0] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][0])) * det;
 
 		temp.data_4_4[2][3] = (data_4_4[0][0] * (data_4_4[1][3] * data_4_4[2][1] - data_4_4[1][1] * data_4_4[2][3])
-                             - data_4_4[0][1] * (data_4_4[1][3] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][3])
-                             + data_4_4[0][3] * (data_4_4[1][1] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][1])) * det;
+			- data_4_4[0][1] * (data_4_4[1][3] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][3])
+			+ data_4_4[0][3] * (data_4_4[1][1] * data_4_4[2][0] - data_4_4[1][0] * data_4_4[2][1])) * det;
 
 		temp.data_4_4[3][0] = (data_4_4[1][0] * (data_4_4[2][2] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][2])
-                             - data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
-                             + data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
+			- data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
+			+ data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
 
 		temp.data_4_4[3][1] = (data_4_4[0][0] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])
-                             - data_4_4[0][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
-                             + data_4_4[0][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
+			- data_4_4[0][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
+			+ data_4_4[0][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0])) * det;
 
 		temp.data_4_4[3][2] = (data_4_4[0][0] * (data_4_4[1][2] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][2])
-                             - data_4_4[0][1] * (data_4_4[1][0] * data_4_4[3][2] - data_4_4[1][2] * data_4_4[3][0])
-                             + data_4_4[0][2] * (data_4_4[1][0] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][0])) * det;
+			- data_4_4[0][1] * (data_4_4[1][0] * data_4_4[3][2] - data_4_4[1][2] * data_4_4[3][0])
+			+ data_4_4[0][2] * (data_4_4[1][0] * data_4_4[3][1] - data_4_4[1][1] * data_4_4[3][0])) * det;
 
 		temp.data_4_4[3][3] = (data_4_4[0][0] * (data_4_4[1][1] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][1])
-                             - data_4_4[0][1] * (data_4_4[1][0] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][0])
-                             + data_4_4[0][2] * (data_4_4[1][0] * data_4_4[2][1] - data_4_4[1][1] * data_4_4[2][0])) * det;
+			- data_4_4[0][1] * (data_4_4[1][0] * data_4_4[2][2] - data_4_4[1][2] * data_4_4[2][0])
+			+ data_4_4[0][2] * (data_4_4[1][0] * data_4_4[2][1] - data_4_4[1][1] * data_4_4[2][0])) * det;
 
 		*this = temp;
 	}
@@ -1754,8 +1754,8 @@ inline Maths::Mat4 Maths::Mat4::CreateXRotationMatrix(float x)
 
 	temp.data_4_4[0][0] = 1.f;
 	temp.data_4_4[1][1] = cosX;
-	temp.data_4_4[1][2] = -sinX;
-	temp.data_4_4[2][1] = sinX;
+	temp.data_4_4[1][2] = sinX;
+	temp.data_4_4[2][1] = -sinX;
 	temp.data_4_4[2][2] = cosX;
 	temp.data_4_4[3][3] = 1.f;
 
@@ -1769,9 +1769,9 @@ inline Maths::Mat4 Maths::Mat4::CreateYRotationMatrix(float y)
 	Mat4 temp;
 
 	temp.data_4_4[0][0] = cosY;
-	temp.data_4_4[0][2] = sinY;
+	temp.data_4_4[0][2] = -sinY;
 	temp.data_4_4[1][1] = 1.f;
-	temp.data_4_4[2][0] = -sinY;
+	temp.data_4_4[2][0] = sinY;
 	temp.data_4_4[2][2] = cosY;
 	temp.data_4_4[3][3] = 1.f;
 
@@ -1785,8 +1785,8 @@ inline Maths::Mat4 Maths::Mat4::CreateZRotationMatrix(float z)
 	Mat4 temp;
 
 	temp.data_4_4[0][0] = cosZ;
-	temp.data_4_4[0][1] = -sinZ;
-	temp.data_4_4[1][0] = sinZ;
+	temp.data_4_4[0][1] = sinZ;
+	temp.data_4_4[1][0] = -sinZ;
 	temp.data_4_4[1][1] = cosZ;
 	temp.data_4_4[2][2] = 1.f;
 	temp.data_4_4[3][3] = 1.f;
@@ -1826,7 +1826,7 @@ inline Maths::Mat4 Maths::Mat4::CreateScaleMatrix(const Vec3& scale)
 }
 inline Maths::Mat4 Maths::Mat4::CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale)
 {
-	return CreateScaleMatrix(scale) * CreateRotationMatrix(rotation) * CreateTranslationMatrix(translation);
+	return CreateTranslationMatrix(translation) * CreateRotationMatrix(rotation) * CreateScaleMatrix(scale);
 }
 #else
 inline Maths::Mat4 Maths::Mat4::CreateTranslationMatrix(float[3] translation)
