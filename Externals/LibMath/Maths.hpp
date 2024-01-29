@@ -373,21 +373,21 @@ namespace Maths
         inline bool operator == (const IVec2& _IVec) const;
         inline bool operator != (const IVec2& _IVec) const;
 
-        //Vec2 TO Vec2 OPERATIONS :
+        //IVec2 TO IVec2 OPERATIONS :
 
         inline IVec2 operator + (const IVec2& _IVec) const;
         inline IVec2 operator - (const IVec2& _IVec) const;
         inline IVec2 operator * (const IVec2& _IVec) const;
         inline IVec2 operator / (const IVec2& _IVec) const;
 
-        //Vec2 TO THIS OPERATIONS :
+        //IVec2 TO THIS OPERATIONS :
 
         inline IVec2 operator += (const IVec2& _IVec);
         inline IVec2 operator -= (const IVec2& _IVec);
         inline IVec2 operator *= (const IVec2& _IVec);
         inline IVec2 operator /= (const IVec2& _IVec);
 
-        //SCALER TO Vec2 OPERATIONS :
+        //SCALER TO IVec2 OPERATIONS :
 
         inline IVec2 operator + (int _Sca) const;
         inline IVec2 operator - (int _Sca) const;
@@ -449,21 +449,21 @@ namespace Maths
         inline bool operator == (const IVec3& _IVec) const;
         inline bool operator != (const IVec3& _IVec) const;
 
-        //Vec2 TO Vec2 OPERATIONS :
+        //IVec3 TO IVec3 OPERATIONS :
 
         inline IVec3 operator + (const IVec3& _IVec) const;
         inline IVec3 operator - (const IVec3& _IVec) const;
         inline IVec3 operator * (const IVec3& _IVec) const;
         inline IVec3 operator / (const IVec3& _IVec) const;
 
-        //Vec2 TO THIS OPERATIONS :
+        //IVec3 TO THIS OPERATIONS :
 
         inline IVec3 operator += (const IVec3& _IVec);
         inline IVec3 operator -= (const IVec3& _IVec);
         inline IVec3 operator *= (const IVec3& _IVec);
         inline IVec3 operator /= (const IVec3& _IVec);
 
-        //SCALER TO Vec2 OPERATIONS :
+        //SCALER TO IVec3 OPERATIONS :
 
         inline IVec3 operator + (int _Sca) const;
         inline IVec3 operator - (int _Sca) const;
@@ -525,21 +525,21 @@ namespace Maths
         inline bool operator == (const IVec4& _IVec) const;
         inline bool operator != (const IVec4& _IVec) const;
 
-        //Vec2 TO Vec2 OPERATIONS :
+        //IVec4 TO IVec4 OPERATIONS :
 
         inline IVec4 operator + (const IVec4& _IVec) const;
         inline IVec4 operator - (const IVec4& _IVec) const;
         inline IVec4 operator * (const IVec4& _IVec) const;
         inline IVec4 operator / (const IVec4& _IVec) const;
 
-        //Vec2 TO THIS OPERATIONS :
+        //IVec4 TO THIS OPERATIONS :
 
         inline IVec4 operator += (const IVec4& _IVec);
         inline IVec4 operator -= (const IVec4& _IVec);
         inline IVec4 operator *= (const IVec4& _IVec);
         inline IVec4 operator /= (const IVec4& _IVec);
 
-        //SCALER TO Vec2 OPERATIONS :
+        //SCALER TO IVec4 OPERATIONS :
 
         inline IVec4 operator + (int _Sca) const;
         inline IVec4 operator - (int _Sca) const;
