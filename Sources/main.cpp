@@ -2921,7 +2921,7 @@ VTEST(Maths)
 	NAMESPACE(Matrix_3x3)
 	{
 
-		NAMESPACE(Matrix_3_3_Constructor)
+		NAMESPACE(Matrix_3x3_Constructor)
 		{
 
 			TEST(Mat3_Constructor_default)
@@ -3540,21 +3540,657 @@ VTEST(Maths)
 
 	}
 
+	NAMESPACE(Matrix_4x4)
+	{
+
+		NAMESPACE(Matrix_4x4_Constructor)
+		{
+
+			TEST(Mat4_Constructor_default)
+			{
+				Maths::Mat4 MM; glm::mat4 MG(0);
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM.data_4_4[i][j], MG[i][j]);
+					}
+				}
+
+			}
+
+			TEST(Mat4_Constructor_data)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+
+
+				Maths::Mat4 MM(data);
+
+				glm::mat4 MG(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM.data_4_4[i][j], MG[i][j]);
+					}
+				}
+
+			}
+
+		}
+
+		NAMESPACE(Matrix_4x4_Utils)
+		{
+
+			TEST(Mat4_Transpose)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+
+
+				Maths::Mat4 MM(data);
+
+				glm::mat4 MG(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				MM.Transpose();
+				MG = glm::transpose(MG);
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM.data_4_4[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat4_GetTranspose)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+
+
+				Maths::Mat4 MM(data);
+
+				glm::mat4 MG(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				Maths::Mat4 MM2 = Maths::Mat4::GetTranspose(MM);
+				glm::mat4 MG2 = glm::transpose(MG);
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM2.data_4_4[i][j], MG2[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat4_Determinant)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+
+
+				Maths::Mat4 MM(data);
+
+				glm::mat4 MG(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				COMPARE(MM.Determinant(), glm::determinant(MG));
+			}
+
+			TEST(Mat4_Inverse)
+			{
+				/*float data[16] =
+				{
+					52,  1, 45, 12,
+					68, 85, 89, 77,
+					55, 41, 10, 81,
+					12,  3, 14,  5
+				};*/
+
+				float data[16] =
+				{
+					73, 22, 58, 91,
+					86, 47, 33, 65,
+					20, 74, 17, 39,
+					29, 11, 42, 8
+				};
+
+
+				Maths::Mat4 MM(data);
+
+				glm::mat4 MG(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				MM.Inverse();
+
+				MG = glm::inverse(MG);
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
+					}
+				}
+			}
+
+			TEST(Mat4_GetInverse)
+			{
+				float data[16] =
+				{
+					73, 22, 58, 91,
+					86, 47, 33, 65,
+					20, 74, 17, 39,
+					29, 11, 42, 8
+				};
+
+
+				Maths::Mat4 MM(data);
+
+				glm::mat4 MG(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				Maths::Mat4 MM2 = Maths::Mat4::GetInverse(MM);
+				glm::mat4 MG2 = glm::inverse(MG);
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE_WITH_PRECISION(MM2.data_4_4[i][j], MG2[i][j], 0.0000001);
+					}
+				}
+			}
+			
+			TEST(Mat4_Trace)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+
+
+				Maths::Mat4 MM(data);
+
+				glm::mat4 MG(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				COMPARE(MM.Trace(), (MG[0][0] + MG[1][1] + MG[2][2] + MG[3][3]));
+			}
+
+			TEST(Mat4_CreateIdentityMatrix)
+			{
+
+				Maths::Mat4 MM = Maths::Mat4::CreateIdentityMatrix();
+
+				glm::mat4 MG = glm::identity<glm::mat4>();
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM.data_4_4[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat4_CreateXRotationMatrix)
+			{
+
+				Maths::Mat4 MM = Maths::Mat4::CreateXRotationMatrix(80.f);
+
+				glm::mat4 MG = glm::rotate(80.f, glm::vec3(1, 0, 0));
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
+					}
+				}
+			}
+
+			TEST(Mat4_CreateYRotationMatrix)
+			{
+
+				Maths::Mat4 MM = Maths::Mat4::CreateYRotationMatrix(80.f);
+
+				glm::mat4 MG = glm::rotate(80.f, glm::vec3(0, 1, 0));
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
+					}
+				}
+			}
+
+			TEST(Mat4_CreateZRotationMatrix)
+			{
+
+				Maths::Mat4 MM = Maths::Mat4::CreateZRotationMatrix(80.f);
+
+				glm::mat4 MG = glm::rotate(80.f, glm::vec3(0, 0, 1));
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
+					}
+				}
+			}
+
+			TEST(Mat4_CreateRotationMatrix)
+			{
+
+				Maths::Mat4 MM = Maths::Mat4::CreateRotationMatrix(Maths::Vec3(30,50,80));
+
+				glm::mat4 MG = glm::rotate(30.f, glm::vec3(1, 0, 0)) * glm::rotate(50.f, glm::vec3(0, 1, 0)) * glm::rotate(80.f, glm::vec3(0, 0, 1));
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
+					}
+				}
+			}
+
+			TEST(Mat4_CreateTranslationMatrix)
+			{
+
+				Maths::Mat4 MM = Maths::Mat4::CreateTranslationMatrix(Maths::Vec3(85.f, 963.f, 74.f));
+
+				glm::mat4 MG = glm::translate(glm::vec3(85.f, 963.f, 74.f));
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM.data_4_4[i][j], MG[i][j], 0.0000001);
+					}
+				}
+			}
+
+			TEST(Mat4_CreateScaleMatrix)
+			{
+
+				Maths::Mat4 MM = Maths::Mat4::CreateScaleMatrix(Maths::Vec3(3.f, 3.f, 3.f));
+
+				glm::mat4 MG = glm::scale(glm::vec3(3.f, 3.f, 3.f));
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM.data_4_4[i][j], MG[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat4_CreateTransformMatrix)
+			{
+				Maths::Mat4 MM = Maths::Mat4::CreateTransformMatrix(Maths::Vec3(85.f, 963.f, 74.f), Maths::Vec3(85.f, 74.f, 96.f), Maths::Vec3(5.f, 4.f, 87.f));
+
+				glm::mat4 MG = glm::translate(glm::vec3(85.f, 963.f, 74.f));
+				MG *= glm::rotate(85.f, glm::vec3(1, 0, 0)) * glm::rotate(74.f, glm::vec3(0, 1, 0)) * glm::rotate(96.f, glm::vec3(0, 0, 1));
+				MG *= glm::scale(glm::vec3(5.f, 4.f, 87.f));
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM.data_4_4[i][j], MG[i][j]);
+					}
+				}
+			}
+
+		}
+
+		NAMESPACE(Matrix_4x4_Assignment_and_Equality_operations)
+		{
+
+			TEST(Mat4_Operator_equal_data)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+
+
+				Maths::Mat4 MM;
+				MM = data;
+
+				for (int i = 0; i < 16; i++)
+				{
+					COMPARE(MM.data[i], data[i]);
+				}
+			}
+
+		}
+
+		NAMESPACE(Matrix_4x4_Mat3_to_Mat3_operations)
+		{
+
+			TEST(Mat4_Operator_Plus_Mat)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+				float data2[16] =
+				{
+					52,  1, 45, 12,
+					68, 85, 89, 77,
+					55, 41, 10, 81,
+					12,  3, 14,  5
+				};
+
+				Maths::Mat4 MM1(data);
+				Maths::Mat4 MM2(data2);
+
+				glm::mat4 MG1(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				glm::mat4 MG2(data2[0], data2[1], data2[2], data2[3],
+					data2[4], data2[5], data2[6], data2[7],
+					data2[8], data2[9], data2[10], data2[11],
+					data2[12], data2[13], data2[14], data2[15]);
+
+				Maths::Mat4 MM3 = MM1 + MM2;
+				glm::mat4 MG3 = MG1 + MG2;
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM3.data_4_4[i][j], MG3[i][j]);
+					}
+				}
+
+			}
+
+			TEST(Mat4_Operator_Minus_Mat)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+				float data2[16] =
+				{
+					52,  1, 45, 12,
+					68, 85, 89, 77,
+					55, 41, 10, 81,
+					12,  3, 14,  5
+				};
+
+				Maths::Mat4 MM1(data);
+				Maths::Mat4 MM2(data2);
+
+				glm::mat4 MG1(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				glm::mat4 MG2(data2[0], data2[1], data2[2], data2[3],
+					data2[4], data2[5], data2[6], data2[7],
+					data2[8], data2[9], data2[10], data2[11],
+					data2[12], data2[13], data2[14], data2[15]);
+
+				Maths::Mat4 MM3 = MM1 - MM2;
+				glm::mat4 MG3 = MG1 - MG2;
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM3.data_4_4[i][j], MG3[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat4_Operator_Multiply_Mat)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+				float data2[16] =
+				{
+					52,  1, 45, 12,
+					68, 85, 89, 77,
+					55, 41, 10, 81,
+					12,  3, 14,  5
+				};
+
+				Maths::Mat4 MM1(data);
+				Maths::Mat4 MM2(data2);
+
+				glm::mat4 MG1(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				glm::mat4 MG2(data2[0], data2[1], data2[2], data2[3],
+					data2[4], data2[5], data2[6], data2[7],
+					data2[8], data2[9], data2[10], data2[11],
+					data2[12], data2[13], data2[14], data2[15]);
+
+				Maths::Mat4 MM3 = MM1 * MM2;
+				glm::mat4 MG3 = MG1 * MG2;
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM3.data_4_4[i][j], MG3[i][j]);
+					}
+				}
+			}
+
+		}
+
+		NAMESPACE(Matrix_4x4_Mat3_to_This_operations)
+		{
+
+			TEST(Mat4_Operator_PlusEqual_Mat)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+				float data2[16] =
+				{
+					52,  1, 45, 12,
+					68, 85, 89, 77,
+					55, 41, 10, 81,
+					12,  3, 14,  5
+				};
+
+				Maths::Mat4 MM1(data);
+				Maths::Mat4 MM2(data2);
+
+				glm::mat4 MG1(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				glm::mat4 MG2(data2[0], data2[1], data2[2], data2[3],
+					data2[4], data2[5], data2[6], data2[7],
+					data2[8], data2[9], data2[10], data2[11],
+					data2[12], data2[13], data2[14], data2[15]);
+
+				MM1 += MM2;
+				MG1 += MG2;
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM1.data_4_4[i][j], MG1[i][j]);
+					}
+				}
+
+			}
+
+			TEST(Mat4_Operator_MinusEqual_Mat)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+				float data2[16] =
+				{
+					52,  1, 45, 12,
+					68, 85, 89, 77,
+					55, 41, 10, 81,
+					12,  3, 14,  5
+				};
+
+				Maths::Mat4 MM1(data);
+				Maths::Mat4 MM2(data2);
+
+				glm::mat4 MG1(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				glm::mat4 MG2(data2[0], data2[1], data2[2], data2[3],
+					data2[4], data2[5], data2[6], data2[7],
+					data2[8], data2[9], data2[10], data2[11],
+					data2[12], data2[13], data2[14], data2[15]);
+
+				MM1 -= MM2;
+				MG1 -= MG2;
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM1.data_4_4[i][j], MG1[i][j]);
+					}
+				}
+			}
+
+			TEST(Mat4_Operator_MultiplyEqual_Mat)
+			{
+				float data[16] =
+				{
+					 0,  1,  2,  3,
+					 4,  5,  6,  7,
+					 8,  9, 10, 11,
+					12, 13, 14, 15
+				};
+				float data2[16] =
+				{
+					52,  1, 45, 12,
+					68, 85, 89, 77,
+					55, 41, 10, 81,
+					12,  3, 14,  5
+				};
+
+				Maths::Mat4 MM1(data);
+				Maths::Mat4 MM2(data2);
+
+				glm::mat4 MG1(data[0], data[1], data[2], data[3],
+					data[4], data[5], data[6], data[7],
+					data[8], data[9], data[10], data[11],
+					data[12], data[13], data[14], data[15]);
+
+				glm::mat4 MG2(data2[0], data2[1], data2[2], data2[3],
+					data2[4], data2[5], data2[6], data2[7],
+					data2[8], data2[9], data2[10], data2[11],
+					data2[12], data2[13], data2[14], data2[15]);
+
+				MM1 *= MM2;
+				MG1 *= MG2;
+
+				for (int i = 0; i < 4; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						COMPARE(MM1.data_4_4[i][j], MG1[i][j]);
+					}
+				}
+			}
+
+		}
+
+	}
+
 }
 
 int main()
 {
 	system("cls");
-
-	float data[9] =
-	{
-		0,1,2,
-		3,4,5,
-		6,7,8
-	};
-	Maths::Mat3 MM(data);
-	MM.Print();
-
 	std::cout << "Library used for the tests : glm\n";
 	runTests();
 	system("pause");
