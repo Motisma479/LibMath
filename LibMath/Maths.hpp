@@ -7,11 +7,18 @@
 \***********************************************/
 #pragma once
 
-//--------USED_TO_ENABLE_PRINT_FUNCTIONS--------
 
-#define PRINT_FUNCTION
+// Use if you make a dll with Visual Studio(msvc)
+#ifdef MATHS_FOR_MSVC_DLL
+    #ifdef DLL_EXPORTS
+        #define MATHS_LIB_API __declspec(dllexport)
+    #else
+        #define MATHS_LIB_API __declspec(dllimport)
+    #endif
+#else
+    #define MATHS_LIB_API
+#endif
 
-//------------USED_TO_DISABLE_CLASS-------------
 
 //#define DISABLE_VEC2
 //#define DISABLE_VEC3
@@ -34,37 +41,48 @@
 
 //----------------------------------------------
 
-#if defined(ENABLE_MATYX) && defined(PRINT_FUNCTION)
-#include <iostream>
-#endif
-
-
 namespace Maths
 {
     namespace Constants
     {
         constexpr float PI = 3.1415927f;
-        constexpr double PI_Precise = 3.141592653589793;
+		constexpr float TAU = PI * 2.f;//TAU = 2PI
+
+		constexpr float PI_2 = PI / 2.f;//PI/2
+		constexpr float PI_3 = PI / 3.f;//PI/3
+		constexpr float PI_4 = PI / 4.f;//PI/4
+		constexpr float PI_6 = PI / 6.f;//PI/6
+		constexpr float I_PI = 1.f / PI;//1/PI
+		constexpr float I_TAU = 1.f / TAU;//1/2PI
+
+		constexpr double PI_PRECISE = 3.141592653589793;
+
+		constexpr float TOLERANCE = 3e-7f; //Use this rather  than 0 comparison
+
+		constexpr float DEG2RAD = PI / 180.f;
+		constexpr double DEG2RAD_PRECISE = PI_PRECISE / 180.;
+
+		constexpr float RAD2DEG = 180.f / PI;
+		constexpr double RAD2DEG_PRECISE = 180. / PI_PRECISE;
+
     } 
 
-    
-    //multiply your angle in degrees by this value to convert it to radians.
-   
-    inline float ToRadians(float angleDegrees);
-    inline double ToRadians(double angleDegrees);
-    //multiply your angle in radians by this value to convert it to degrees.
+    //-- Angle Conversion ----------------------------------------------
 
-    inline float ToDegrees(float angleRadians);
-    inline double ToDegrees(double angleRadians);
+    inline float MATHS_LIB_API  ToRadians(float _angleDegrees);
+    inline double MATHS_LIB_API ToRadians(double _angleDegrees);
 
-    // Vector Using float as Value -----------------------------------------------------------------------------
+    inline float MATHS_LIB_API ToDegrees(float _angleRadians);
+    inline double MATHS_LIB_API ToDegrees(double _angleRadians);
+
+    //------------------------------------------------------------------
+#pragma region Vector
 
 #ifndef DISABLE_VEC2
-    class Vec2
+    class MATHS_LIB_API Vec2
     {
     public:
         //MEMBERS :
-
         union
         {
             struct
@@ -75,85 +93,59 @@ namespace Maths
         };
 
         //CONSTRUCTORS :
-
         inline Vec2(void);
-        inline Vec2(float xy);
-        inline Vec2(float x, float y);
-#ifndef DISABLE_VEC3
-        inline Vec2(const class Vec3& _Vec3);
-#endif
-#ifndef DISABLE_VEC4
-        inline Vec2(const class Vec4& _Vec4);
-#endif
+        inline Vec2(float _xy);
+        inline Vec2(float _x, float _y);
+        inline Vec2(const class Vec3& _vec);
+        inline Vec2(const class Vec4& _vec);
 
         //DESTRUCTOR :
-
         inline ~Vec2(void);
 
         //UTILS :
-
-        inline float GetMagnitude()                                          const;
-        inline float GetMagnitudeSquared()                                   const;
-        inline void Normalize();
-        inline Vec2 GetNormalized()                                          const;
-        inline Vec2 GetPerpendicular()                                       const;
-        inline float DotProduct(const Vec2& _VecB)                           const;
-        inline static float DotProduct(const Vec2& _VecA, const Vec2& _VecB);
-        inline float GetDistance(const Vec2& _VecB)                          const;
-        inline static float GetDistance(const Vec2& _VecA, const Vec2& _VecB);
-        inline float GetAngleBetween(const Vec2& _VecB)                      const;
-        inline static float GetAngleBetween(const Vec2& _VecA, const Vec2& _VecB);
-
+        inline float GetMagnitude()        const;
+        inline float GetMagnitudeSquared() const;
+        inline Vec2 GetNormalized()        const;
+        inline Vec2 GetPerpendicular()     const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
-
-        inline Vec2 operator = (const Vec2& _Vec);
-        inline Vec2 operator = (float _Sca);
+        Vec2 operator = (const class Vec3& _vec);
+		Vec2 operator = (const class Vec4& _vec);
+        inline Vec2 operator = (float _sca);
 
         inline Vec2 operator - (void)              const;
-        inline bool operator == (const Vec2& _Vec) const;
-        inline bool operator != (const Vec2& _Vec) const;
+        inline bool operator == (const Vec2& _vec) const;
+        inline bool operator != (const Vec2& _vec) const;
+
+        inline float operator [] (int _index) const;
 
         //Vec2 TO Vec2 OPERATIONS :
-
-        inline Vec2 operator + (const Vec2& _Vec)  const;
-        inline Vec2 operator - (const Vec2& _Vec)  const;
-        inline Vec2 operator * (const Vec2& _Vec)  const;
-        inline Vec2 operator / (const Vec2& _Vec)  const;
+        inline Vec2 operator + (const Vec2& _vec) const;
+        inline Vec2 operator - (const Vec2& _vec) const;
 
         //Vec2 TO THIS OPERATIONS :
-
-        inline Vec2 operator += (const Vec2& _Vec);
-        inline Vec2 operator -= (const Vec2& _Vec);
-        inline Vec2 operator *= (const Vec2& _Vec);
-        inline Vec2 operator /= (const Vec2& _Vec);
+        inline Vec2 operator += (const Vec2& _vec);
+        inline Vec2 operator -= (const Vec2& _vec);
 
         //SCALER TO Vec2 OPERATIONS :
-
-        inline Vec2 operator + (float _Sca) const;
-        inline Vec2 operator - (float _Sca) const;
-        inline Vec2 operator * (float _Sca) const;
-        inline Vec2 operator / (float _Sca) const;
+        inline Vec2 operator + (float _sca) const;
+        inline Vec2 operator - (float _sca) const;
+        inline Vec2 operator * (float _sca) const;
+        inline Vec2 operator / (float _sca) const;
 
         //SCALER TO THIS OPERATIONS :
-
-        inline Vec2 operator += (float _Sca);
-        inline Vec2 operator -= (float _Sca);
-        inline Vec2 operator *= (float _Sca);
-        inline Vec2 operator /= (float _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
+        inline Vec2 operator += (float _sca);
+        inline Vec2 operator -= (float _sca);
+        inline Vec2 operator *= (float _sca);
+        inline Vec2 operator /= (float _sca);
     };
 #endif
 
 #ifndef DISABLE_VEC3
-    class Vec3
+    class MATHS_LIB_API Vec3
     {
     public:
         //MEMBERS :
-
         union
         {
             struct
@@ -164,90 +156,62 @@ namespace Maths
         };
 
         //CONSTRUCTORS :
-
         inline Vec3(void);
-        inline Vec3(float xyz);
-        inline Vec3(float x, float y, float z);
-#ifndef DISABLE_VEC2
-        inline Vec3(const class Vec2& _Vec2);
-        inline Vec3(const class Vec2& _Vec2, float z);
-#endif
-#ifndef DISABLE_VEC4
-        inline Vec3(const class Vec4& _Vec4);
-#endif
+        inline Vec3(float _xyz);
+        inline Vec3(float _x, float _y, float _z);
+        inline Vec3(const class Vec2& _vec, float z = 0.f);
+        inline Vec3(const class Vec4& _vec);
 
         //DESTRUCTOR :
-
         inline ~Vec3(void);
 
         //UTILS :
-
         inline Vec2 xy() const;
         inline Vec2 xz() const;
         inline Vec2 yz() const;
 
-        inline float GetMagnitude()                                          const;
-        inline float GetMagnitudeSquared()                                   const;
-        inline void Normalize();
-        inline Vec3 GetNormalized()                                          const;
-        inline float DotProduct(const Vec3& _VecB)                           const;
-        inline static float DotProduct(const Vec3& _VecA, const Vec3& _VecB);
-        inline Vec3 CrossProduct(const Vec3& _VecB)                          const;
-        static Vec3 CrossProduct(const Vec3& _VecA, const Vec3& _VecB);
-        inline float GetDistance(const Vec3& _VecB)                          const;
-        inline static float GetDistance(const Vec3& _VecA, const Vec3& _VecB);
-        inline float GetAngleBetween(const Vec3& _VecB)                      const;
-        inline static float GetAngleBetween(const Vec3& _VecA, const Vec3& _VecB);
+        inline float GetMagnitude()        const;
+        inline float GetMagnitudeSquared() const;
+        inline Vec3 GetNormalized()        const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
-
-        inline Vec3 operator = (const Vec3& _Vec);
-        inline Vec3 operator = (float _Sca);
+        inline Vec3 operator = (const class Vec2& _vec);
+		inline Vec3 operator = (const class Vec4& _vec);
+        inline Vec3 operator = (float _sca);
 
         inline Vec3 operator - (void)              const;
-        inline bool operator == (const Vec3& _Vec) const;
-        inline bool operator != (const Vec3& _Vec) const;
+        inline bool operator == (const Vec3& _vec) const;
+        inline bool operator != (const Vec3& _vec) const;
+
+        inline float operator [] (int _index) const;
 
         //Vec3 TO Vec3 OPERATIONS :
-
-        inline Vec3 operator + (const Vec3& _Vec) const;
-        inline Vec3 operator - (const Vec3& _Vec) const;
-        inline Vec3 operator * (const Vec3& _Vec) const;
-        inline Vec3 operator / (const Vec3& _Vec) const;
+        inline Vec3 operator + (const Vec3& _vec) const;
+        inline Vec3 operator - (const Vec3& _vec) const;
 
         //Vec3 TO THIS OPERATIONS :
-
-        inline Vec3 operator += (const Vec3& _Vec);
-        inline Vec3 operator -= (const Vec3& _Vec);
-        inline Vec3 operator *= (const Vec3& _Vec);
-        inline Vec3 operator /= (const Vec3& _Vec);
+        inline Vec3 operator += (const Vec3& _vec);
+        inline Vec3 operator -= (const Vec3& _vec);
 
         //SCALER TO Vec3 OPERATIONS :
-
-        inline Vec3 operator + (float _Sca) const;
-        inline Vec3 operator - (float _Sca) const;
-        inline Vec3 operator * (float _Sca) const;
-        inline Vec3 operator / (float _Sca) const;
+        inline Vec3 operator + (float _sca) const;
+        inline Vec3 operator - (float _sca) const;
+        inline Vec3 operator * (float _sca) const;
+        inline Vec3 operator / (float _sca) const;
 
         //SCALER TO THIS OPERATIONS :
-
-        inline Vec3 operator += (float _Sca);
-        inline Vec3 operator -= (float _Sca);
-        inline Vec3 operator *= (float _Sca);
-        inline Vec3 operator /= (float _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
+        inline Vec3 operator += (float _sca);
+        inline Vec3 operator -= (float _sca);
+        inline Vec3 operator *= (float _sca);
+        inline Vec3 operator /= (float _sca);
     };
 #endif
 
 #ifndef DISABLE_VEC4
-    class Vec4
+    class MATHS_LIB_API Vec4
     {
     public:
         //MEMBERS :
-
         union
         {
             struct
@@ -258,626 +222,421 @@ namespace Maths
         };
 
         //CONSTRUCTORS :
-
         inline Vec4(void);
-        inline Vec4(float xyzw);
-        inline Vec4(float x, float y, float z, float w);
-#ifndef DISABLE_VEC2
-        inline Vec4(const class Vec2& _Vec2);
-#endif
-#ifndef DISABLE_VEC3
-        inline Vec4(const class Vec3& _Vec3);
-        inline Vec4(const class Vec3& _Vec3, float w);
-#endif
+        inline Vec4(float _xyzw);
+        inline Vec4(float _x, float _y, float _z, float _w);
+        inline Vec4(const class Vec2& _vec, float _z = 0.f, float _w = 1.f);
+		inline Vec4(const class Vec3& _vec, float _w = 1.f);
 
         //DESTRUCTOR :
-
         inline ~Vec4(void);
 
         //UTILS :
-
         inline Vec3 xyz() const;
         inline Vec3 xzw() const;
         inline Vec3 xyw() const;
         inline Vec3 yzw() const;
 
-
-        inline float GetMagnitude()                                          const;
-        inline float GetMagnitudeSquared()                                   const;
-        inline void Normalize();
-        inline Vec4 GetNormalized()                                          const;
-        inline float DotProduct(const Vec4& _VecB)                           const;
-        inline static float DotProduct(const Vec4& _VecA, const Vec4& _VecB);
-        inline void Homogenize();
-        inline Vec4 GetHomogenized()                                         const;
+        inline float GetMagnitude()        const;
+        inline float GetMagnitudeSquared() const;
+        inline Vec4 GetNormalized()        const;
+        inline Vec4 GetHomogenized()       const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
-
-        inline Vec4 operator = (const Vec4& _Vec);
-        inline Vec4 operator = (float _Sca);
+        inline Vec4 operator = (const class Vec2& _vec);
+        inline Vec4 operator = (const class Vec3& _vec);
+        inline Vec4 operator = (float _sca);
 
         inline Vec4 operator - (void)              const;
-        inline bool operator == (const Vec4& _Vec) const;
-        inline bool operator != (const Vec4& _Vec) const;
+        inline bool operator == (const Vec4& _vec) const;
+        inline bool operator != (const Vec4& _vec) const;
+
+        inline float operator [] (int _index) const;
 
         //Vec4 TO Vec4 OPERATIONS
-        inline Vec4 operator + (const Vec4& _Vec) const;
-        inline Vec4 operator - (const Vec4& _Vec) const;
-        inline Vec4 operator * (const Vec4& _Vec) const;
-        inline Vec4 operator / (const Vec4& _Vec) const;
+        inline Vec4 operator + (const Vec4& _vec) const;
+        inline Vec4 operator - (const Vec4& _vec) const;
 
         //Vec4 TO THIS OPERATIONS
-        inline Vec4 operator += (const Vec4& _Vec);
-        inline Vec4 operator -= (const Vec4& _Vec);
-        inline Vec4 operator *= (const Vec4& _Vec);
-        inline Vec4 operator /= (const Vec4& _Vec);
+        inline Vec4 operator += (const Vec4& _vec);
+        inline Vec4 operator -= (const Vec4& _vec);
 
         //SCALER TO Vec4 OPERATIONS
-        inline Vec4 operator + (float _Sca) const;
-        inline Vec4 operator - (float _Sca) const;
-        inline Vec4 operator * (float _Sca) const;
-        inline Vec4 operator / (float _Sca) const;
+        inline Vec4 operator + (float _sca) const;
+        inline Vec4 operator - (float _sca) const;
+        inline Vec4 operator * (float _sca) const;
+        inline Vec4 operator / (float _sca) const;
 
         //SCALER TO THIS OPERATIONS
-        inline Vec4 operator += (float _Sca);
-        inline Vec4 operator -= (float _Sca);
-        inline Vec4 operator *= (float _Sca);
-        inline Vec4 operator /= (float _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
+        inline Vec4 operator += (float _sca);
+        inline Vec4 operator -= (float _sca);
+        inline Vec4 operator *= (float _sca);
+        inline Vec4 operator /= (float _sca);
     };
 #endif
 
-    // Vector Using int as Value -------------------------------------------------------------------------------
+    inline void MATHS_LIB_API Normalize(Vec2& _vec);
+    inline void MATHS_LIB_API Normalize(Vec3& _vec);
+    inline void MATHS_LIB_API Normalize(Vec4& _vec);
 
-#ifndef DISABLE_IVEC2
-    class IVec2
-    {
-    public:
-        //MEMBERS :
+    inline float MATHS_LIB_API DotProduct(const Vec2& _vecA, const Vec2& _vecB);
+	inline float MATHS_LIB_API DotProduct(const Vec3& _vecA, const Vec3& _vecB);
+	inline float MATHS_LIB_API DotProduct(const Vec4& _vecA, const Vec4& _vecB);
 
-        union
-        {
-            struct
-            {
-                int x, y;
-            };
-            int xy[2];
-        };
+	inline float MATHS_LIB_API DistanceBetween(const Vec2& _vecA, const Vec2& _vecB);
+	inline float MATHS_LIB_API DistanceBetween(const Vec3& _vecA, const Vec3& _vecB);
+	inline float MATHS_LIB_API DistanceBetween(const Vec4& _vecA, const Vec4& _vecB);
 
-        //CONSTRUCTORS :
+	inline float MATHS_LIB_API AngleBetween(const Vec2& _vecA, const Vec2& _vecB);
+	inline float MATHS_LIB_API AngleBetween(const Vec3& _vecA, const Vec3& _vecB);
+	inline float MATHS_LIB_API AngleBetween(const Vec4& _vecA, const Vec4& _vecB);
 
-        inline IVec2(void);
-        inline IVec2(int xy);
-        inline IVec2(int x, int y);
-#ifndef DISABLE_VEC2
-        inline IVec2(const class Vec2& _Vec2);
-#endif
-        //DESTRUCTOR :
+	//return the z value
+	inline float MATHS_LIB_API CrossProduct(const Vec2& _vecA, const Vec2& _vecB);
 
-        inline ~IVec2(void);
+	inline Vec3 MATHS_LIB_API CrossProduct(const Vec3& _vecA, const Vec3& _vecB);
+	inline Vec3 MATHS_LIB_API Rotate(const Vec3& _vec, float _angle, const Vec3& _axis);
 
-        //UTILS :
+#pragma endregion Vector
 
-        inline float GetMagnitude()     const;
-        inline int GetMagnitudeSquared() const;
-
-        //ASSINGMENT AND EQUALITY OPERATIONS :
-
-        inline IVec2 operator = (const IVec2& _IVec);
-        inline IVec2 operator = (int _Sca);
-
-        inline IVec2 operator - (void)               const;
-        inline bool operator == (const IVec2& _IVec) const;
-        inline bool operator != (const IVec2& _IVec) const;
-
-        //IVec2 TO IVec2 OPERATIONS :
-
-        inline IVec2 operator + (const IVec2& _IVec) const;
-        inline IVec2 operator - (const IVec2& _IVec) const;
-        inline IVec2 operator * (const IVec2& _IVec) const;
-        inline IVec2 operator / (const IVec2& _IVec) const;
-
-        //IVec2 TO THIS OPERATIONS :
-
-        inline IVec2 operator += (const IVec2& _IVec);
-        inline IVec2 operator -= (const IVec2& _IVec);
-        inline IVec2 operator *= (const IVec2& _IVec);
-        inline IVec2 operator /= (const IVec2& _IVec);
-
-        //SCALER TO IVec2 OPERATIONS :
-
-        inline IVec2 operator + (int _Sca) const;
-        inline IVec2 operator - (int _Sca) const;
-        inline IVec2 operator * (int _Sca) const;
-        inline IVec2 operator / (int _Sca) const;
-
-        //SCALER TO THIS OPERATIONS :
-
-        inline IVec2 operator += (int _Sca);
-        inline IVec2 operator -= (int _Sca);
-        inline IVec2 operator *= (int _Sca);
-        inline IVec2 operator /= (int _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
-    };
-#endif
-
-#ifndef DISABLE_IVEC3  
-    class IVec3
-    {
-    public:
-        //MEMBERS :
-
-        union
-        {
-            struct
-            {
-                int x, y, z;
-            };
-            int xyz[3];
-        };
-
-        //CONSTRUCTORS :
-
-        inline IVec3(void);
-        inline IVec3(int xyz);
-        inline IVec3(int x, int y, int z);
-#ifndef DISABLE_VEC3
-        inline IVec3(const class Vec3& _Vec3);
-#endif
-
-        //DESTRUCTOR :
-
-        inline ~IVec3(void);
-
-        //UTILS :
-
-        inline float GetMagnitude()     const;
-        inline int GetMagnitudeSquared() const;
-
-        //ASSINGMENT AND EQUALITY OPERATIONS :
-
-        inline IVec3 operator = (const IVec3& _IVec);
-        inline IVec3 operator = (const int _Sca);
-
-        inline IVec3 operator - (void)               const;
-        inline bool operator == (const IVec3& _IVec) const;
-        inline bool operator != (const IVec3& _IVec) const;
-
-        //IVec3 TO IVec3 OPERATIONS :
-
-        inline IVec3 operator + (const IVec3& _IVec) const;
-        inline IVec3 operator - (const IVec3& _IVec) const;
-        inline IVec3 operator * (const IVec3& _IVec) const;
-        inline IVec3 operator / (const IVec3& _IVec) const;
-
-        //IVec3 TO THIS OPERATIONS :
-
-        inline IVec3 operator += (const IVec3& _IVec);
-        inline IVec3 operator -= (const IVec3& _IVec);
-        inline IVec3 operator *= (const IVec3& _IVec);
-        inline IVec3 operator /= (const IVec3& _IVec);
-
-        //SCALER TO IVec3 OPERATIONS :
-
-        inline IVec3 operator + (int _Sca) const;
-        inline IVec3 operator - (int _Sca) const;
-        inline IVec3 operator * (int _Sca) const;
-        inline IVec3 operator / (int _Sca) const;
-
-        //SCALER TO THIS OPERATIONS :
-
-        inline IVec3 operator += (int _Sca);
-        inline IVec3 operator -= (int _Sca);
-        inline IVec3 operator *= (int _Sca);
-        inline IVec3 operator /= (int _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
-    };
-#endif
-
-#ifndef DISABLE_IVEC4
-    class IVec4
-    {
-    public:
-        //MEMBERS :
-
-        union
-        {
-            struct
-            {
-                int x, y, z, w;
-            };
-            int xyzw[4];
-        };
-
-        //CONSTRUCTORS :
-
-        inline IVec4(void);
-        inline IVec4(int xyzw);
-        inline IVec4(int x, int y, int z, int w);
-#ifndef DISABLE_VEC4
-        inline IVec4(const class Vec4& _Vec4);
-#endif
-
-        //DESTRUCTOR :
-
-        inline ~IVec4(void);
-
-        //UTILS :
-
-        inline float GetMagnitude()     const;
-        inline int GetMagnitudeSquared() const;
-
-        //ASSINGMENT AND EQUALITY OPERATIONS :
-
-        inline IVec4 operator = (const IVec4& _IVec);
-        inline IVec4 operator = (int _Sca);
-
-        inline IVec4 operator - (void)               const;
-        inline bool operator == (const IVec4& _IVec) const;
-        inline bool operator != (const IVec4& _IVec) const;
-
-        //IVec4 TO IVec4 OPERATIONS :
-
-        inline IVec4 operator + (const IVec4& _IVec) const;
-        inline IVec4 operator - (const IVec4& _IVec) const;
-        inline IVec4 operator * (const IVec4& _IVec) const;
-        inline IVec4 operator / (const IVec4& _IVec) const;
-
-        //IVec4 TO THIS OPERATIONS :
-
-        inline IVec4 operator += (const IVec4& _IVec);
-        inline IVec4 operator -= (const IVec4& _IVec);
-        inline IVec4 operator *= (const IVec4& _IVec);
-        inline IVec4 operator /= (const IVec4& _IVec);
-
-        //SCALER TO IVec4 OPERATIONS :
-
-        inline IVec4 operator + (int _Sca) const;
-        inline IVec4 operator - (int _Sca) const;
-        inline IVec4 operator * (int _Sca) const;
-        inline IVec4 operator / (int _Sca) const;
-
-        //SCALER TO THIS OPERATIONS :
-
-        inline IVec4 operator += (int _Sca);
-        inline IVec4 operator -= (int _Sca);
-        inline IVec4 operator *= (int _Sca);
-        inline IVec4 operator /= (int _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
-    };
-#endif
-
-    // Matrix --------------------------------------------------------------------------------------------------
+#pragma region Matrix
 
 #ifndef DISABLE_MAT3
-    class Mat3
+    class MATHS_LIB_API Mat3
     {
     public:
         //MEMBERS :
-
         union
         {
-            struct
-            {
-                float data[9];
-            };
-#ifndef DISABLE_VEC3
+            float data[9];
             Vec3 data3V[3];
-#endif
             float data_3_3[3][3];
         };
 
         //CONSTRUCTORS :
-
         inline Mat3(void);
-        inline Mat3(float data[9]);
+        inline Mat3(float _data[9]);
+        inline Mat3(float _identityValue);
+        inline Mat3(float _0, float _1, float _2,
+			float _3, float _4, float _5,
+			float _6, float _7, float _8);
+        inline Mat3(const class Mat4& _mat);
 
         //DESTRUCTOR :
-
         inline ~Mat3(void);
 
         //UTILS :
+        inline static Mat3 Rotate2D(float _angleInRad);
+        inline static Mat3 Translate2D(const Vec2& _translation);
+        inline static Mat3 Scale2D(const Vec2& _scaling);
+        inline static Mat3 Transform(const Vec2& _translation, float _angleInRad, const Vec2& _scaling);
 
-        inline void Transpose();
-        inline static Mat3 GetTranspose(const Mat3& _Mat);
-        inline float Determinant()                                                                                 const;
-        inline void Inverse();
-        inline static Mat3 GetInverse(const Mat3& _Mat);
-        inline float Trace()                                                                                       const;
-
-        inline static Mat3 CreateIdentityMatrix();
-        inline static Mat3 CreateRotationMatrix(float rotation);
-#ifndef DISABLE_VEC2
-        inline static Mat3 CreateTranslationMatrix(const Vec2& translation);
-        inline static Mat3 CreateScaleMatrix(const Vec2& scale);
-        inline static Mat3 CreateTransformMatrix(const Vec2& translation, float rotation, const Vec2& scale);
-#else
-        inline static Mat3 CreateTranslationMatrix(float[2] translation);
-        inline static Mat3 CreateScaleMatrix(float[2] scale);
-        inline static Mat3 CreateTransformMatrix(float[2] translation, float rotation, float[2] scale);
-#endif
-
-        inline Mat3 HadamardProduct(const Mat3& _Mat)                                                              const;
-        inline Mat3 HadamardProductToThis(const Mat3& _Mat);
+        inline Mat3 GetTranspose()    const;
+        inline Mat3 GetInverse()      const;
+        inline float GetDeterminant() const;
+        inline float GetTrace()       const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
+        inline Mat3 operator = (float _data[9]);
+        inline Mat3 operator = (const Mat4& _mat);
 
-        inline Mat3 operator=(float _data[9]);
-        inline Mat3 operator=(const Mat3& _Mat);
+        inline Mat3 operator - (void)              const;
+        inline bool operator == (const Mat3& _mat) const;
+		inline bool operator != (const Mat3& _mat) const;
+
+        inline Vec3 operator [] (int _index) const;
 
         //Mat3 TO Mat3 OPERATIONS :
-
-        inline Mat3 operator+(const Mat3& _Mat) const;
-        inline Mat3 operator-(const Mat3& _Mat) const;
-        inline Mat3 operator*(const Mat3& _Mat) const;
+        inline Mat3 operator + (const Mat3& _mat) const;
+        inline Mat3 operator - (const Mat3& _mat) const;
+        inline Mat3 operator * (const Mat3& _mat) const;
 
         //Mat3 TO THIS OPERATIONS :
+        inline Mat3 operator += (const Mat3& _mat);
+        inline Mat3 operator -= (const Mat3& _mat);
+        inline Mat3 operator *= (const Mat3& _mat);
 
-        inline Mat3 operator+=(const Mat3& _Mat);
-        inline Mat3 operator-=(const Mat3& _Mat);
-        inline Mat3 operator*=(const Mat3& _Mat);
+        //Sca TO Mat3 OPERATIONS :
+		inline Mat3 operator * (float _sca) const;
+		inline Mat3 operator / (float _sca) const;
 
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
+		//Sca TO This OPERATIONS :
+		inline Mat3 operator *= (float _sca);
+		inline Mat3 operator /= (float _sca);
+
+        //Mat3 TO Vec2 OPERATIONS :
+		inline Vec2 operator * (const Vec2& _vec) const;
+
+		//Mat3 TO Vec3 OPERATIONS :
+		inline Vec3 operator * (const Vec3& _vec) const;
     };
 #endif
 
 #ifndef DISABLE_MAT4
-    class Mat4
+    class MATHS_LIB_API Mat4
     {
     public:
         //MEMBERS :
-
         union
         {
-            struct
-            {
-                float data[16];
-            };
-#ifndef DISABLE_VEC4
+            float data[16];
             Vec4 data4V[4];
-#endif
             float data_4_4[4][4];
         };
 
         //CONSTRUCTORS :
-
         inline Mat4(void);
         inline Mat4(float _data[16]);
+        inline Mat4(float _indentityValue);
+		inline Mat4(float _0, float _1, float _2, float _3,
+			float _4, float _5, float _6, float _7,
+			float _8, float _9, float _10, float _11,
+			float _12, float _13, float _14, float _15);
+        inline Mat4(const Mat3& _mat);
 
         //DESTRUCTOR :
-
         inline ~Mat4(void);
 
         //UTILS :
+        inline static Mat4 Translate(const Vec3& _translation);
+        inline static Mat4 Rotate(const Vec3& _anglesInRad);
+        inline static Mat4 RotateX(float _angleInRad);
+		inline static Mat4 RotateY(float _angleInRad);
+		inline static Mat4 RotateZ(float _angleInRad);
+        inline static Mat4 Scale(const Vec3& _scale);
+        inline static Mat4 Transform(const Vec3& _translation, const Vec3& _anglesInRad, const Vec3& _scale);
+        inline static Mat4 Transform(const Vec3& _translation, const class Quat& _anglesInRad, const Vec3& _scale);
 
-        inline void Transpose();
-        inline static Mat4 GetTranspose(const Mat4& _Mat);
-        inline float Determinant()                                                                                 const;
-        inline void Inverse();
-        inline static Mat4 GetInverse(const Mat4& _Mat);
-        inline float Trace()                                                                                       const;
-
-        inline static Mat4 CreateIdentityMatrix();
-        inline static Mat4 CreateXRotationMatrix(float x);
-        inline static Mat4 CreateYRotationMatrix(float y);
-        inline static Mat4 CreateZRotationMatrix(float z);
-#ifndef DISABLE_VEC3
-        inline static Mat4 CreateTranslationMatrix(const Vec3& translation);
-        inline static Mat4 CreateRotationMatrix(const Vec3& rotation);
-        inline static Mat4 CreateScaleMatrix(const Vec3& scale);
-        inline static Mat4 CreateTransformMatrix(const Vec3& translation, const Vec3& rotation, const Vec3& scale);
-#else
-        inline static Mat4 CreateTranslationMatrix(float[3] translation);
-        inline static Mat4 CreateRotationMatrix(float[3] rotation);
-        inline static Mat4 CreateScaleMatrix(float[3] scale);
-        inline static Mat4 CreateTransformMatrix(float[3] translation, float[3] rotation, float[3] scale);
-#endif
-
+        inline Mat4 GetTranspose()    const;
+        inline Mat4 GetInverse()      const;
+        inline float GetDeterminant() const;
+        inline float GetTrace()       const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
+        inline Mat4 operator = (float _data[16]);
+        inline Mat4 operator = (const Mat3& _mat);
 
-        inline Mat4 operator=(float _data[16]);
-        inline Mat4 operator=(const Mat4& _Mat);
+        inline Mat4 operator - (void) const;
+		inline bool operator == (const Mat4& _mat) const;
+		inline bool operator != (const Mat4& _mat) const;
+
+        inline Vec4 operator [] (int _index) const;
 
         //Mat4 TO Mat4 OPERATIONS :
-
-        inline Mat4 operator+(const Mat4& _Mat) const;
-        inline Mat4 operator-(const Mat4& _Mat) const;
-        inline Mat4 operator*(const Mat4& _Mat) const;
+        inline Mat4 operator + (const Mat4& _mat) const;
+        inline Mat4 operator - (const Mat4& _mat) const;
+        inline Mat4 operator * (const Mat4& _mat) const;
 
         //Mat4 TO THIS OPERATIONS :
+        inline Mat4 operator += (const Mat4& _mat);
+        inline Mat4 operator -= (const Mat4& _mat);
+        inline Mat4 operator *= (const Mat4& _mat);
 
-        inline Mat4 operator+=(const Mat4& _Mat);
-        inline Mat4 operator-=(const Mat4& _Mat);
-        inline Mat4 operator*=(const Mat4& _Mat);
+        //Sca TO Mat4 OPERATIONS :
+		inline Mat4 operator * (float _sca) const;
+		inline Mat4 operator / (float _sca) const;
 
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
+		//Sca TO This OPERATIONS :
+		inline Mat4 operator *= (float _sca);
+		inline Mat4 operator /= (float _sca);
+
+		//Mat3 TO Vec3 OPERATIONS :
+		inline Vec3 operator * (const Vec3& _vec) const;
+
+		//Mat3 TO Vec4 OPERATIONS :
+		inline Vec4 operator * (const Vec4& _vec) const;
     };
 #endif
 
-#ifdef ENABLE_MATYX
-    template<unsigned int row, unsigned int col>
-    class MatXY
-    {
-    public:
-        union
-        {
-            struct
-            {
-                float data[row * col];
-            };
-            float __data[col][row];
-        };
+// #ifdef ENABLE_MATYX
+//     template<unsigned int row, unsigned int col>
+//     class MatXY
+//     {
+//     public:
+//         union
+//         {
+//             struct
+//             {
+//                 float data[row * col];
+//             };
+//             float __data[col][row];
+//         };
+//
+//         //CONSTRUCTORS :
+//
+//         inline MatXY(void)
+//         {
+//             for (unsigned int i = 0; i < row * col; i++)
+//                 data[i] = 0;
+//         }
+//         // intit a matrix of y by x 
+//         inline MatXY(float _data[row * col])
+//         {
+//             for (unsigned int i = 0; i < row * col; i++)
+//                 data[i] = _data[i];
+//         }
+//
+//         //DESTRUCTOR :
+//
+//         inline ~MatXY(void) {}
+//
+// #ifdef PRINT_FUNCTION
+//         inline void Print()
+//         {
+//             std::cout << this << " Value :" << std::endl;
+//             std::cout << "--------------------" << std::endl;
+//
+//             for (unsigned int y = 0; y < row; y++)
+//             {
+//                 std::cout << '[';
+//                 for (unsigned int x = 0; x < col; x++)
+//                 {
+//                     std::cout << ' ' << __data[x][y] << ' ';
+//                 }
+//                 std::cout << ']' << std::endl;
+//             }
+//
+//             std::cout << "Order:" << std::endl;
+//             std::cout << '[';
+//             for (unsigned int i = 0; i < row * col; i++)
+//             {
+//
+//                 std::cout << ' ' << data[i] << ' ';
+//             }
+//             std::cout << ']' << std::endl;
+//             std::cout << "--------------------" << std::endl;
+//         }
+// #endif // PRINT_FUNCTION
+//     };
+// #endif
 
-        //CONSTRUCTORS :
+    inline Mat3 MATHS_LIB_API Transpose(const Mat3& _mat);
+    inline Mat4 MATHS_LIB_API Transpose(const Mat4& _mat);
 
-        inline MatXY(void)
-        {
-            for (unsigned int i = 0; i < row * col; i++)
-                data[i] = 0;
-        }
-        // intit a matrix of y by x 
-        inline MatXY(float _data[row * col])
-        {
-            for (unsigned int i = 0; i < row * col; i++)
-                data[i] = _data[i];
-        }
+    inline Mat3 MATHS_LIB_API Inverse(const Mat3& _mat);
+    inline Mat4 MATHS_LIB_API Inverse(const Mat4& _mat);
 
-        //DESTRUCTOR :
+#pragma endregion Matrix
 
-        inline ~MatXY(void) {}
+//     // Complex number ------------------------------------------------------------------------------------------
+// #ifndef  DISABLE_COMP
+//     class Comp
+//     {
+//         //MEMBERS :
+//
+//         union
+//         {
+//             struct
+//             {
+//                 float x, iy;
+//             };
+//             float x_iy[2];
+//         };
+//
+//         //CONSTRUCTORS :
+//
+//         inline Comp(void);
+//         inline Comp(float x, float iy);
+//
+//         //DESTRUCTOR :
+//
+//         inline ~Comp(void);
+//
+//         //UTILS :
+//
+//         inline void Conjugate();
+//         inline Comp GetConjugate() const;
+//
+//         //ASSINGMENT AND EQUALITY OPERATIONS :
+//
+//         inline Comp operator = (const Comp& _Comp);
+//
+//         inline Comp operator - (void)               const;
+//         inline bool operator == (const Comp& _Comp) const;
+//         inline bool operator != (const Comp& _Comp) const;
+//
+//         //Comp TO Comp OPERATIONS :
+//
+//         inline Comp operator + (const Comp& _Comp) const;
+//         inline Comp operator - (const Comp& _Comp) const;
+//         inline Comp operator * (const Comp& _Comp) const;
+//         inline Comp operator / (const Comp& _Comp) const;
+//
+//         //Comp TO THIS OPERATIONS :
+//
+//         inline Comp operator += (const Comp& _Comp);
+//         inline Comp operator -= (const Comp& _Comp);
+//         inline Comp operator *= (const Comp& _Comp);
+//         inline Comp operator /= (const Comp& _Comp);
+//
+//         //SCALER TO Comp OPERATIONS :
+//
+//         inline Comp operator * (float _Sca) const;
+//         inline Comp operator / (float _Sca) const;
+//
+//         //SCALER TO THIS OPERATIONS :
+//
+//         inline Comp operator *= (float _Sca);
+//         inline Comp operator /= (float _Sca);
+//
+// #ifdef PRINT_FUNCTION
+//         void Print() const;
+// #endif // PRINT_FUNCTION
+//     };
+// #endif
 
-#ifdef PRINT_FUNCTION
-        inline void Print()
-        {
-            std::cout << this << " Value :" << std::endl;
-            std::cout << "--------------------" << std::endl;
+#pragma region Quaternion
 
-            for (unsigned int y = 0; y < row; y++)
-            {
-                std::cout << '[';
-                for (unsigned int x = 0; x < col; x++)
-                {
-                    std::cout << ' ' << __data[x][y] << ' ';
-                }
-                std::cout << ']' << std::endl;
-            }
-
-            std::cout << "Order:" << std::endl;
-            std::cout << '[';
-            for (unsigned int i = 0; i < row * col; i++)
-            {
-
-                std::cout << ' ' << data[i] << ' ';
-            }
-            std::cout << ']' << std::endl;
-            std::cout << "--------------------" << std::endl;
-        }
-#endif // PRINT_FUNCTION
-    };
-#endif
-
-    // Complex number ------------------------------------------------------------------------------------------
-#ifndef  DISABLE_COMP
-    class Comp
-    {
-        //MEMBERS :
-
-        union
-        {
-            struct
-            {
-                float x, iy;
-            };
-            float x_iy[2];
-        };
-
-        //CONSTRUCTORS :
-
-        inline Comp(void);
-        inline Comp(float x, float iy);
-
-        //DESTRUCTOR :
-
-        inline ~Comp(void);
-
-        //UTILS :
-
-        inline void Conjugate();
-        inline Comp GetConjugate() const;
-
-        //ASSINGMENT AND EQUALITY OPERATIONS :
-
-        inline Comp operator = (const Comp& _Comp);
-
-        inline Comp operator - (void)               const;
-        inline bool operator == (const Comp& _Comp) const;
-        inline bool operator != (const Comp& _Comp) const;
-
-        //Comp TO Comp OPERATIONS :
-
-        inline Comp operator + (const Comp& _Comp) const;
-        inline Comp operator - (const Comp& _Comp) const;
-        inline Comp operator * (const Comp& _Comp) const;
-        inline Comp operator / (const Comp& _Comp) const;
-
-        //Comp TO THIS OPERATIONS :
-
-        inline Comp operator += (const Comp& _Comp);
-        inline Comp operator -= (const Comp& _Comp);
-        inline Comp operator *= (const Comp& _Comp);
-        inline Comp operator /= (const Comp& _Comp);
-
-        //SCALER TO Comp OPERATIONS :
-
-        inline Comp operator * (float _Sca) const;
-        inline Comp operator / (float _Sca) const;
-
-        //SCALER TO THIS OPERATIONS :
-
-        inline Comp operator *= (float _Sca);
-        inline Comp operator /= (float _Sca);
-
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
-    };
-#endif
-
-    // Quaternion ----------------------------------------------------------------------------------------------
 #ifndef DISABLE_QUAT
     class Quat
     {
     public:
         //MEMBERS :
-
         union
         {
             struct
+			{
+				Vec3 imaginary;
+				float real;
+			};
+            struct
             {
-                float x, y, z, w; // R : w; I : x, y, z
+                float x, y, z, w;
             };
             float xyzw[4];
+            Vec4 vec;
         };
 
         //CONSTRUCTORS :
-
         inline Quat(void);
-        inline Quat(float x, float y, float z, float w);
-        
-        inline Quat(const Vec3& axis, float angle);
+        inline Quat(const Vec4& _vec);
+        inline Quat(float _w, float _x, float _y, float _z);
+        inline Quat(float _w, const Vec3& _imaginary);
+        inline Quat(const Vec3& _vector);
 
         //DESTRUCTOR :
-
         inline ~Quat(void);
 
         //UTILS :
+        inline static Quat Identity();
+        inline float GetMagnitudeSquared() const;
+		inline float GetMagnitude() const;
+        inline Quat GetNormalized() const;
+		inline Quat GetConjugate() const;
 
-        // inline void Normalize();
+        //CARE: can cause approximation errors if too many successive operation, use GetInversePrecise, if needed
+		inline Quat GetInverse() const;
+		//More precise, but a bit slower(4%), prefer GetInverse if you don't have to invert over and over the same quaternion
+		inline Quat GetInversePrecise() const;
 
-        // inline Quat AxisAngle(const Vec3& axis, float angle);
+        inline static Quat Nlerp(Quat _start, Quat _end, float _ratio);
+		inline static Quat Slerp(const Quat& _q1, const Quat& _q2, float _t);
 
-        // inline static Quat CreateFromEuler(const Vec3& _VecRotation);
-        // inline static Quat CreateFromRadians(const Vec3& _VecRotation);
-        // inline static Quat CreateFromMatrix(const Mat4& _MatRotation);
-
-        // inline Mat4 ToMatrix() const;
+        //CONVERSION
+		inline Vec3 RotateVector(const Vec3& _vec) const;
+		inline Mat3 ToRotationMatrix();
+        //Credits to Timboc on https://forum.unity.com/threads/is-there-a-conversion-method-from-quaternion-to-euler.624007/
+		inline Vec3 ToEulerAngles() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Quat operator = (const Quat& _Quat);
@@ -900,11 +659,10 @@ namespace Maths
         inline Quat operator /= (const Quat& _Quat);
 
 
-#ifdef PRINT_FUNCTION
-        void Print() const;
-#endif // PRINT_FUNCTION
     };
 #endif
+
+#pragma endregion Quaternion
 
 }
 
