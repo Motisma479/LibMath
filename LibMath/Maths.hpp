@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 18/09/2023                      *
+* Last Update : 03/10/2024                      *
 \***********************************************/
 #pragma once
 
@@ -57,7 +57,7 @@ namespace Maths
 
 		constexpr double PI_PRECISE = 3.141592653589793;
 
-		constexpr float TOLERANCE = 3e-7f; //Use this rather  than 0 comparison
+		constexpr float TOLERANCE = 3e-7f; //Use this rather than 0 comparison
 
 		constexpr float DEG2RAD = PI / 180.f;
 		constexpr double DEG2RAD_PRECISE = PI_PRECISE / 180.;
@@ -76,6 +76,7 @@ namespace Maths
     inline double MATHS_LIB_API ToDegrees(double _angleRadians);
 
     //------------------------------------------------------------------
+
 #pragma region Vector
 
 #ifndef DISABLE_VEC2
@@ -109,8 +110,8 @@ namespace Maths
         inline Vec2 GetPerpendicular()     const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
-        Vec2 operator = (const class Vec3& _vec);
-		Vec2 operator = (const class Vec4& _vec);
+        inline Vec2 operator = (const class Vec3& _vec);
+		inline Vec2 operator = (const class Vec4& _vec);
         inline Vec2 operator = (float _sca);
 
         inline Vec2 operator - (void)              const;
@@ -154,6 +155,16 @@ namespace Maths
             };
             float xyz[3];
         };
+
+        //STATIC MEMBERS :
+        static const Vec3 UP;
+		static const Vec3 DOWN;
+
+		static const Vec3 LEFT;
+		static const Vec3 RIGHT;
+
+		static const Vec3 BACKWARD;
+		static const Vec3 FORWARD;
 
         //CONSTRUCTORS :
         inline Vec3(void);
@@ -274,28 +285,31 @@ namespace Maths
         inline Vec4 operator /= (float _sca);
     };
 #endif
+    
+    namespace Vectors
+	{
+        inline void MATHS_LIB_API Normalize(Vec2& _vec);
+        inline void MATHS_LIB_API Normalize(Vec3& _vec);
+        inline void MATHS_LIB_API Normalize(Vec4& _vec);
 
-    inline void MATHS_LIB_API Normalize(Vec2& _vec);
-    inline void MATHS_LIB_API Normalize(Vec3& _vec);
-    inline void MATHS_LIB_API Normalize(Vec4& _vec);
+        inline float MATHS_LIB_API DotProduct(const Vec2& _vecA, const Vec2& _vecB);
+        inline float MATHS_LIB_API DotProduct(const Vec3& _vecA, const Vec3& _vecB);
+        inline float MATHS_LIB_API DotProduct(const Vec4& _vecA, const Vec4& _vecB);
 
-    inline float MATHS_LIB_API DotProduct(const Vec2& _vecA, const Vec2& _vecB);
-	inline float MATHS_LIB_API DotProduct(const Vec3& _vecA, const Vec3& _vecB);
-	inline float MATHS_LIB_API DotProduct(const Vec4& _vecA, const Vec4& _vecB);
+        inline float MATHS_LIB_API DistanceBetween(const Vec2& _vecA, const Vec2& _vecB);
+        inline float MATHS_LIB_API DistanceBetween(const Vec3& _vecA, const Vec3& _vecB);
+        inline float MATHS_LIB_API DistanceBetween(const Vec4& _vecA, const Vec4& _vecB);
 
-	inline float MATHS_LIB_API DistanceBetween(const Vec2& _vecA, const Vec2& _vecB);
-	inline float MATHS_LIB_API DistanceBetween(const Vec3& _vecA, const Vec3& _vecB);
-	inline float MATHS_LIB_API DistanceBetween(const Vec4& _vecA, const Vec4& _vecB);
+        inline float MATHS_LIB_API AngleBetween(const Vec2& _vecA, const Vec2& _vecB);
+        inline float MATHS_LIB_API AngleBetween(const Vec3& _vecA, const Vec3& _vecB);
+        inline float MATHS_LIB_API AngleBetween(const Vec4& _vecA, const Vec4& _vecB);
 
-	inline float MATHS_LIB_API AngleBetween(const Vec2& _vecA, const Vec2& _vecB);
-	inline float MATHS_LIB_API AngleBetween(const Vec3& _vecA, const Vec3& _vecB);
-	inline float MATHS_LIB_API AngleBetween(const Vec4& _vecA, const Vec4& _vecB);
+        //return the z value
+        inline float MATHS_LIB_API CrossProduct(const Vec2& _vecA, const Vec2& _vecB);
 
-	//return the z value
-	inline float MATHS_LIB_API CrossProduct(const Vec2& _vecA, const Vec2& _vecB);
-
-	inline Vec3 MATHS_LIB_API CrossProduct(const Vec3& _vecA, const Vec3& _vecB);
-	inline Vec3 MATHS_LIB_API Rotate(const Vec3& _vec, float _angle, const Vec3& _axis);
+        inline Vec3 MATHS_LIB_API CrossProduct(const Vec3& _vecA, const Vec3& _vecB);
+        inline Vec3 MATHS_LIB_API Rotate(const Vec3& _vec, float _angle, const Vec3& _axis);
+    }
 
 #pragma endregion Vector
 
@@ -318,8 +332,8 @@ namespace Maths
         inline Mat3(float _data[9]);
         inline Mat3(float _identityValue);
         inline Mat3(float _0, float _1, float _2,
-			float _3, float _4, float _5,
-			float _6, float _7, float _8);
+			        float _3, float _4, float _5,
+			        float _6, float _7, float _8);
         inline Mat3(const class Mat4& _mat);
 
         //DESTRUCTOR :
@@ -389,9 +403,9 @@ namespace Maths
         inline Mat4(float _data[16]);
         inline Mat4(float _indentityValue);
 		inline Mat4(float _0, float _1, float _2, float _3,
-			float _4, float _5, float _6, float _7,
-			float _8, float _9, float _10, float _11,
-			float _12, float _13, float _14, float _15);
+			        float _4, float _5, float _6, float _7,
+			        float _8, float _9, float _10, float _11,
+			        float _12, float _13, float _14, float _15);
         inline Mat4(const Mat3& _mat);
 
         //DESTRUCTOR :
@@ -510,11 +524,23 @@ namespace Maths
 //     };
 // #endif
 
-    inline Mat3 MATHS_LIB_API Transpose(const Mat3& _mat);
-    inline Mat4 MATHS_LIB_API Transpose(const Mat4& _mat);
+    namespace Matrices
+	{
+        inline Mat3 MATHS_LIB_API Transpose(const Mat3& _mat);
+        inline Mat4 MATHS_LIB_API Transpose(const Mat4& _mat);
 
-    inline Mat3 MATHS_LIB_API Inverse(const Mat3& _mat);
-    inline Mat4 MATHS_LIB_API Inverse(const Mat4& _mat);
+        inline Mat3 MATHS_LIB_API Inverse(const Mat3& _mat);
+        inline Mat4 MATHS_LIB_API Inverse(const Mat4& _mat);
+
+        inline Mat4 MATHS_LIB_API Frustum(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
+	    inline Mat4 MATHS_LIB_API Ortho(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
+	    inline Mat4 MATHS_LIB_API LookAt(float _eyeX, float _eyeY, float _eyeZ, float _centerX, float _centerY, float _centerZ, float _upX, float _upY, float _upZ);
+	    inline Mat4 MATHS_LIB_API LookAt(Vec3 _eyeZ, Vec3 _centerZ, Vec3 _upZ);
+	    inline Mat4 MATHS_LIB_API LookAt(Vec3 _forward, Vec3 _localUp);
+	    inline Mat4 MATHS_LIB_API LookAtNormalized(Vec3 _forward, Vec3 _localUp);
+	    inline Mat4 MATHS_LIB_API LookAtNormalized(Vec3 _eye, Vec3 _center, Vec3 _up);
+	    inline Mat4 MATHS_LIB_API Perspective(float _fovY, float _aspect, float _near, float _far);
+    }
 
 #pragma endregion Matrix
 
@@ -588,7 +614,7 @@ namespace Maths
 #pragma region Quaternion
 
 #ifndef DISABLE_QUAT
-    class Quat
+    class MATHS_LIB_API Quat
     {
     public:
         //MEMBERS :
@@ -596,14 +622,14 @@ namespace Maths
         {
             struct
 			{
-				Vec3 imaginary;
 				float real;
+				Vec3 imaginary;
 			};
             struct
             {
-                float x, y, z, w;
+                float w, x, y, z;
             };
-            float xyzw[4];
+            float wxyz[4];
             Vec4 vec;
         };
 
@@ -619,6 +645,7 @@ namespace Maths
 
         //UTILS :
         inline static Quat Identity();
+
         inline float GetMagnitudeSquared() const;
 		inline float GetMagnitude() const;
         inline Quat GetNormalized() const;
@@ -626,40 +653,60 @@ namespace Maths
 
         //CARE: can cause approximation errors if too many successive operation, use GetInversePrecise, if needed
 		inline Quat GetInverse() const;
+
 		//More precise, but a bit slower(4%), prefer GetInverse if you don't have to invert over and over the same quaternion
 		inline Quat GetInversePrecise() const;
 
-        inline static Quat Nlerp(Quat _start, Quat _end, float _ratio);
+        inline static Quat Nlerp(const Quat& _start, const Quat& _end, float _ratio);
 		inline static Quat Slerp(const Quat& _q1, const Quat& _q2, float _t);
 
         //CONVERSION
 		inline Vec3 RotateVector(const Vec3& _vec) const;
 		inline Mat3 ToRotationMatrix();
+
         //Credits to Timboc on https://forum.unity.com/threads/is-there-a-conversion-method-from-quaternion-to-euler.624007/
 		inline Vec3 ToEulerAngles() const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Quat operator = (const Quat& _Quat);
-
+        
         inline Quat operator - (void)               const;
-        inline bool operator == (const Quat& _Quat) const;
-        inline bool operator != (const Quat& _Quat) const;
+        inline bool operator == (const Quat& _Quat) const; //TODO: Test is precision check is needed
+        inline bool operator != (const Quat& _Quat) const; //TODO: Test is precision check is needed
 
 
         //Quat TO Quat OPERATIONS :
         inline Quat operator + (const Quat& _Quat) const;
         inline Quat operator - (const Quat& _Quat) const;
         inline Quat operator * (const Quat& _Quat) const;
-        inline Quat operator / (const Quat& _Quat) const;
+        //inline Quat operator / (const Quat& _Quat) const; //TODO: will be added if needed later or if requested
 
         //Quat TO THIS OPERATIONS :
         inline Quat operator += (const Quat& _Quat);
         inline Quat operator -= (const Quat& _Quat);
         inline Quat operator *= (const Quat& _Quat);
-        inline Quat operator /= (const Quat& _Quat);
+        //inline Quat operator /= (const Quat& _Quat); //TODO: will be added if needed later or if requested
 
+        //SCALER TO Quat OPERATIONS :
+        inline Quat operator * (float _Sca) const;
+        inline Quat operator / (float _Sca) const;
 
+        //SCALER TO THIS OPERATIONS :
+        inline Quat operator *= (float _Sca);
+        inline Quat operator /= (float _Sca);
     };
+
+    namespace Quaternions
+	{
+		inline float DotProduct(const Quat& _q1, const Quat& _q2);
+		// in radians
+		inline Quat MATHS_LIB_API FromAngleAxis(float _angle, const Vec3& _axis);
+		inline Quat MATHS_LIB_API LookAt(const Vec3 _from, const Vec3 _to);
+		inline Quat MATHS_LIB_API FromEulerAngles(const Vec3& _xyz);
+		inline Quat MATHS_LIB_API FromMatrix(const Mat3& _matrix);
+		inline Quat MATHS_LIB_API FromMatrix(const Mat4& _matrix);
+	}
+
 #endif
 
 #pragma endregion Quaternion
