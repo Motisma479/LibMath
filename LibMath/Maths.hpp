@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 03/10/2024                      *
+* Last Update : 10/10/2024                      *
 \***********************************************/
 #pragma once
 
@@ -524,13 +524,13 @@ namespace Maths
 //     };
 // #endif
 
-    namespace Matrices
+    namespace matrixes
 	{
-        inline Mat3 MATHS_LIB_API Transpose(const Mat3& _mat);
-        inline Mat4 MATHS_LIB_API Transpose(const Mat4& _mat);
+        inline Mat3 MATHS_LIB_API Transpose(Mat3& _mat);
+        inline Mat4 MATHS_LIB_API Transpose(Mat4& _mat);
 
-        inline Mat3 MATHS_LIB_API Inverse(const Mat3& _mat);
-        inline Mat4 MATHS_LIB_API Inverse(const Mat4& _mat);
+        inline Mat3 MATHS_LIB_API Inverse(Mat3& _mat);
+        inline Mat4 MATHS_LIB_API Inverse(Mat4& _mat);
 
         inline Mat4 MATHS_LIB_API Frustum(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
 	    inline Mat4 MATHS_LIB_API Ortho(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
