@@ -5,7 +5,7 @@ set (CMAKE_CXX_STANDARD 17)
 set(SOURCES
     
     "Sources/main.cpp"
-    "Externals/LibMath/Maths.cpp")
+    )
 
 include_directories ("Externals")
 
