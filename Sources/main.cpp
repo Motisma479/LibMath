@@ -1742,13 +1742,13 @@ VTEST(Maths)
 
             }
 
-            TEST(data)
+            TEST(data[9])
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM(data);
@@ -1767,11 +1767,12 @@ VTEST(Maths)
 
             }
 
-            TEST(from an indentity value)
+            TEST(indentity value)
             {
-                Maths::Mat3 MM(1);
+                float value = RAND_FLOAT;
+                Maths::Mat3 MM(value);
 
-                glm::mat3 MG(1);
+                glm::mat3 MG(value);
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -1782,13 +1783,13 @@ VTEST(Maths)
                 }
             }
 
-            TEST(separate value)
+            TEST(9 value)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM(data[0], data[1], data[2],
@@ -1808,25 +1809,26 @@ VTEST(Maths)
                 }
             }
         
-            TEST(from a matrix 4x4)
+            TEST(Mat4)
             {
-                float data[9] =
+                float data[16] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
-                Maths::Mat4 MTemp(data[0], data[1], data[2], 1,
-                                  data[3], data[4], data[5], 1,
-                                  data[6], data[7], data[8], 1,
-                                  1,       1,       1,       1);
+                Maths::Mat4 MTemp(data[0], data[1], data[2], data[3],
+                                  data[4], data[5], data[6], data[7],
+                                  data[8], data[9], data[10], data[11],
+                                  data[12], data[13], data[14], data[15]);
 
                 Maths::Mat3 MM(MTemp);
 
                 glm::mat3 MG(data[0], data[1], data[2],
-                    data[3], data[4], data[5],
-                    data[6], data[7], data[8]);
+                             data[4], data[5], data[6],
+                             data[8], data[9], data[10]);
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -1842,26 +1844,26 @@ VTEST(Maths)
         {
             TEST(Rotate2D)
             {
+                float value = RAND_FLOAT;
+                Maths::Mat3 MM = Maths::Mat3::Rotate2D(value);
 
-                Maths::Mat3 MM = Maths::Mat3::Rotate2D(80.f);
-
-                glm::mat4 MG = glm::rotate(80.f, glm::vec3(0, 0, 1));
+                glm::mat4 MG = glm::rotate(value, glm::vec3(0, 0, 1));
 
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        COMPARE_WITH_PRECISION(MM[i][j], MG[i][j], 0.0000001);
+                        COMPARE_WITH_PRECISION(MM[i][j], MG[i][j], Maths::Constants::TOLERANCE);
                     }
                 }
             }
 
             TEST(Translate2D)
             {
+                float value[2] = { RAND_FLOAT, RAND_FLOAT };
+                Maths::Mat3 MM = Maths::Mat3::Translate2D(Maths::Vec2(value[0], value[1]));
 
-                Maths::Mat3 MM = Maths::Mat3::Translate2D(Maths::Vec2(85.f, 963.f));
-
-                glm::mat4 MG = glm::translate(glm::vec3(85.f, 963.f, 0.f));
+                glm::mat4 MG = glm::translate(glm::vec3(value[0], value[1], 0.f));
 
                 COMPARE(MM[2][0], MG[3][0]);
                 COMPARE(MM[2][1], MG[3][1]);
@@ -1870,10 +1872,10 @@ VTEST(Maths)
 
             TEST(Scale2D)
             {
+                float value[2] = { RAND_FLOAT, RAND_FLOAT };
+                Maths::Mat3 MM = Maths::Mat3::Scale2D(Maths::Vec2(value[0], value[1]));
 
-                Maths::Mat3 MM = Maths::Mat3::Scale2D(Maths::Vec2(3.f, 3.f));
-
-                glm::mat4 MG = glm::scale(glm::vec3(3.f, 3.f, 1.f));
+                glm::mat4 MG = glm::scale(glm::vec3(value[0], value[1], 1.f));
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -1886,12 +1888,14 @@ VTEST(Maths)
 
             TEST(Transform)
             {
-                Maths::Mat3 MM = Maths::Mat3::Transform(Maths::Vec2(50.f, 734.f), 85.f, Maths::Vec2(5.f, 4.f));
+                float value[5] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,RAND_FLOAT ,RAND_FLOAT };
+
+                Maths::Mat3 MM = Maths::Mat3::Transform(Maths::Vec2(value[0], value[1]), value[2], Maths::Vec2(value[3], value[4]));
 
                 glm::mat4 MG = glm::identity<glm::mat4>();
-                MG[2][0] = 50.f;
-                MG[2][1] = 734.f;
-                MG *= glm::rotate(85.f, glm::vec3(0.f, 0.f, 1.f)) * glm::scale(glm::vec3(5.f, 4.f, 1.f));
+                MG[2][0] = value[0];
+                MG[2][1] = value[1];
+                MG *= glm::rotate(value[2], glm::vec3(0.f, 0.f, 1.f)) * glm::scale(glm::vec3(value[3], value[4], 1.f));
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -1906,9 +1910,9 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
 
@@ -1934,9 +1938,9 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,415,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
 
@@ -1962,9 +1966,9 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
 
@@ -1974,16 +1978,16 @@ VTEST(Maths)
                     data[3], data[4], data[5],
                     data[6], data[7], data[8]);
 
-                COMPARE(MM.GetDeterminant(), glm::determinant(MG));
+                COMPARE_WITH_PRECISION(MM.GetDeterminant(), glm::determinant(MG), Maths::Constants::TOLERANCE);
             }
    
             TEST(GetTrace)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
 
@@ -2002,13 +2006,13 @@ VTEST(Maths)
         NAMESPACE(Assignment and Equality operators)
         {
 
-            TEST(operator = on data)
+            TEST(operator = data[9])
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
 
@@ -2021,14 +2025,14 @@ VTEST(Maths)
                 }
             }
 
-            TEST(operator = on Mat4)
+            TEST(operator = Mat4)
             {
                 float data[16] =
                 {
-                    0, 1, 2, 1,
-                    3, 4, 5, 1,
-                    6, 7, 8, 1,
-                    1, 1, 1, 1
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat4 M4(data);
@@ -2049,9 +2053,9 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0, 1, 2,
-                    3, 4, 5,
-                    6, 7, 8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 glm::mat3 GM(data[0], data[1], data[2],
@@ -2073,16 +2077,16 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0, 1, 2,
-                    3, 4, 5,
-                    6, 7, 8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 float data2[9] =
                 {
-                    8, 1, 2,
-                    3, 4, 5,
-                    6, 7, 0
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM_A(data);
@@ -2098,16 +2102,16 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0, 1, 2,
-                    3, 4, 5,
-                    6, 7, 8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 float data2[9] =
                 {
-                    8, 1, 2,
-                    3, 4, 5,
-                    6, 7, 0
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM_A(data);
@@ -2123,9 +2127,9 @@ VTEST(Maths)
             {
                 Maths::Vec3 data[3] =
                 {
-                    {0, 1, 2},
-                    {3, 4, 5},
-                    {6, 7, 8}
+                    {RAND_FLOAT, RAND_FLOAT, RAND_FLOAT},
+                    {RAND_FLOAT, RAND_FLOAT, RAND_FLOAT},
+                    {RAND_FLOAT, RAND_FLOAT, RAND_FLOAT}
                 };
 
                 Maths::Mat3 MM(data[0][0], data[0][1], data[0][2],
@@ -2148,15 +2152,15 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[9] =
                 {
-                    85,63,0,
-                    4,7,52,
-                    12,35,47
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM1(data);
@@ -2187,15 +2191,15 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[9] =
                 {
-                    85,63,0,
-                    4,7,52,
-                    12,35,47
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM1(data);
@@ -2225,15 +2229,15 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[9] =
                 {
-                    85,63,0,
-                    4,7,52,
-                    12,35,47
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM1(data);
@@ -2268,15 +2272,15 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[9] =
                 {
-                    85,63,0,
-                    4,7,52,
-                    12,35,47
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM1(data);
@@ -2307,15 +2311,15 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[9] =
                 {
-                    85,63,0,
-                    4,7,52,
-                    12,35,47
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM1(data);
@@ -2345,15 +2349,15 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[9] =
                 {
-                    85,63,0,
-                    4,7,52,
-                    12,35,47
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat3 MM1(data);
@@ -2388,10 +2392,11 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
+                float value = RAND_FLOAT;
 
                 Maths::Mat3 MM(data);
 
@@ -2400,13 +2405,13 @@ VTEST(Maths)
                     data[6], data[7], data[8]);
 
 
-                Maths::Mat3 MM2 = MM * 2;
+                Maths::Mat3 MM2 = MM * value;
 
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        COMPARE(MM2[i][j], MG[i][j]*2);
+                        COMPARE(MM2[i][j], MG[i][j]* value);
                     }
                 }
             }
@@ -2415,10 +2420,11 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
+                float value = RAND_FLOAT;
 
                 Maths::Mat3 MM(data);
 
@@ -2427,13 +2433,13 @@ VTEST(Maths)
                     data[6], data[7], data[8]);
 
 
-                Maths::Mat3 MM2 = MM / 2;
+                Maths::Mat3 MM2 = MM / value;
 
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        COMPARE(MM2[i][j], MG[i][j] / 2);
+                        COMPARE(MM2[i][j], MG[i][j] / value);
                     }
                 }
             }
@@ -2447,10 +2453,11 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
+                float value = RAND_FLOAT;
 
                 Maths::Mat3 MM(data);
 
@@ -2458,8 +2465,8 @@ VTEST(Maths)
                     data[3], data[4], data[5],
                     data[6], data[7], data[8]);
 
-                MM *= 2;
-                MG *= 2;
+                MM *= value;
+                MG *= value;
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -2474,10 +2481,11 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
+                float value = RAND_FLOAT;
 
                 Maths::Mat3 MM(data);
 
@@ -2485,8 +2493,8 @@ VTEST(Maths)
                     data[3], data[4], data[5],
                     data[6], data[7], data[8]);
 
-                MM /= 2;
-                MG /= 2;
+                MM /= value;
+                MG /= value;
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -2505,12 +2513,12 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
-                float data2[2] = { 8, 16 };
+                float data2[2] = { RAND_FLOAT, RAND_FLOAT };
 
                 Maths::Mat3 MM(data);
                 Maths::Vec2 MV(data2[0],data2[1]);
@@ -2534,12 +2542,12 @@ VTEST(Maths)
             {
                 float data[9] =
                 {
-                    0,1,2,
-                    3,4,5,
-                    6,7,8
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
-                float data2[3] = { 8, 16, 32 };
+                float data2[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
                 Maths::Mat3 MM(data);
                 Maths::Vec3 MV(data2[0], data2[1], data2[2]);
