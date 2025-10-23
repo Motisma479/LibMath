@@ -1534,7 +1534,8 @@ VTEST(Maths)
         {
             TEST(Vec2)
             {
-                Maths::Vec2 MV(5,6); glm::vec2 GV(5,6);
+                float value[2] = { RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec2 MV(value[0], value[1]); glm::vec2 GV(value[0], value[1]);
 
                 Maths::Vectors::Normalize(MV); GV = glm::normalize(GV);
 
@@ -1544,7 +1545,8 @@ VTEST(Maths)
 
             TEST(Vec3)
             {
-                Maths::Vec3 MV(5,6,12); glm::vec3 GV(5,6,12);
+                float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 MV(value[0], value[1], value[2]); glm::vec3 GV(value[0], value[1], value[2]);
 
                 Maths::Vectors::Normalize(MV); GV = glm::normalize(GV);
 
@@ -1555,7 +1557,8 @@ VTEST(Maths)
 
             TEST(Vec4)
             {
-                Maths::Vec4 MV(5,6,12,45); glm::vec4 GV(5,6,12,45);
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec4 MV(value[0], value[1], value[2], value[3]); glm::vec4 GV(value[0], value[1], value[2], value[3]);
 
                 Maths::Vectors::Normalize(MV); GV = glm::normalize(GV);
 
@@ -1570,24 +1573,27 @@ VTEST(Maths)
         {
             TEST(Vec2)
             {
-                Maths::Vec2 MVA(5, 6); Maths::Vec2 MVB(7, 8);
-                glm::vec2 GVA(5, 6); glm::vec2 GVB(7, 8);
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec2 MVA(value[0], value[1]); Maths::Vec2 MVB(value[2], value[3]);
+                glm::vec2 GVA(value[0], value[1]); glm::vec2 GVB(value[2], value[3]);
 
                 COMPARE(Maths::Vectors::DotProduct(MVA, MVB), glm::dot(GVA, GVB));
             }
 
             TEST(Vec3)
             {
-                Maths::Vec3 MVA(5,6,12); Maths::Vec3 MVB(7, 8, 13); 
-                glm::vec3 GVA(5,6,12); glm::vec3 GVB(7, 8, 13);
+                float value[6] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 MVA(value[0], value[1], value[2]); Maths::Vec3 MVB(value[3], value[4], value[5]);
+                glm::vec3 GVA(value[0], value[1], value[2]); glm::vec3 GVB(value[3], value[4], value[5]);
 
                 COMPARE(Maths::Vectors::DotProduct(MVA, MVB), glm::dot(GVA, GVB));
             }
 
             TEST(Vec4)
             {
-                Maths::Vec4 MVA(5, 6, 12, 45); Maths::Vec4 MVB(7, 8, 13, 46); 
-                glm::vec4 GVA(5, 6, 12, 45); glm::vec4 GVB(7, 8, 13, 46);
+                float value[8] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec4 MVA(value[0], value[1], value[2], value[3]); Maths::Vec4 MVB(value[4], value[5], value[6], value[7]);
+                glm::vec4 GVA(value[0], value[1], value[2], value[3]); glm::vec4 GVB(value[4], value[5], value[6], value[7]);
 
                 COMPARE(Maths::Vectors::DotProduct(MVA, MVB), glm::dot(GVA, GVB));
             }
@@ -1597,24 +1603,27 @@ VTEST(Maths)
         {
             TEST(Vec2)
             {
-                Maths::Vec2 MVA(5, 6); Maths::Vec2 MVB(7, 8);
-                glm::vec2 GVA(5, 6); glm::vec2 GVB(7, 8);
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec2 MVA(value[0], value[1]); Maths::Vec2 MVB(value[2], value[3]);
+                glm::vec2 GVA(value[0], value[1]); glm::vec2 GVB(value[2], value[3]);
 
                 COMPARE(Maths::Vectors::DistanceBetween(MVA, MVB), glm::distance(GVA, GVB));
             }
 
             TEST(Vec3)
             {
-                Maths::Vec3 MVA(5,6,12); Maths::Vec3 MVB(7, 8, 13); 
-                glm::vec3 GVA(5,6,12); glm::vec3 GVB(7, 8, 13);
+                float value[6] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 MVA(value[0], value[1], value[2]); Maths::Vec3 MVB(value[3], value[4], value[5]);
+                glm::vec3 GVA(value[0], value[1], value[2]); glm::vec3 GVB(value[3], value[4], value[5]);
 
                 COMPARE(Maths::Vectors::DistanceBetween(MVA, MVB), glm::distance(GVA, GVB));
             }
 
             TEST(Vec4)
             {
-                Maths::Vec4 MVA(5, 6, 12, 45); Maths::Vec4 MVB(7, 8, 13, 46); 
-                glm::vec4 GVA(5, 6, 12, 45); glm::vec4 GVB(7, 8, 13, 46);
+                float value[8] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec4 MVA(value[0], value[1], value[2], value[3]); Maths::Vec4 MVB(value[4], value[5], value[6], value[7]);
+                glm::vec4 GVA(value[0], value[1], value[2], value[3]); glm::vec4 GVB(value[4], value[5], value[6], value[7]);
 
                 COMPARE(Maths::Vectors::DistanceBetween(MVA, MVB), glm::distance(GVA, GVB));
             }
@@ -1624,9 +1633,10 @@ VTEST(Maths)
         {
             TEST(Vec2)
             {
-                Maths::Vec2 MVA(5, 6); Maths::Vec2 MVB(7, 8);
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec2 MVA(value[0], value[1]); Maths::Vec2 MVB(value[2], value[3]);
+                glm::vec2 GVA(value[0], value[1]); glm::vec2 GVB(value[2], value[3]);
 
-                glm::vec2 GVA(5, 6); glm::vec2 GVB(7, 8);
                 GVA = glm::normalize(GVA);
                 GVB = glm::normalize(GVB);
 
@@ -1637,9 +1647,10 @@ VTEST(Maths)
 
             TEST(Vec3)
             {
-                Maths::Vec3 MVA(5,6,12); Maths::Vec3 MVB(7, 8, 13);
+                float value[6] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 MVA(value[0], value[1], value[2]); Maths::Vec3 MVB(value[3], value[4], value[5]);
 
-                glm::vec3 GVA(5,6,12); glm::vec3 GVB(7, 8, 13);
+                glm::vec3 GVA(value[0], value[1], value[2]); glm::vec3 GVB(value[3], value[4], value[5]);
                 GVA = glm::normalize(GVA);
                 GVB = glm::normalize(GVB);
                 glm::vec3 normal(0.0f, 0.0f, -1.0f);
@@ -1650,9 +1661,9 @@ VTEST(Maths)
 
             TEST(Vec4)
             {
-                Maths::Vec4 MVA(5, 6, 12, 45); Maths::Vec4 MVB(7, 8, 13, 46); 
-
-                glm::vec4 GVA(5, 6, 12, 45); glm::vec4 GVB(7, 8, 13, 46);
+                float value[8] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec4 MVA(value[0], value[1], value[2], value[3]); Maths::Vec4 MVB(value[4], value[5], value[6], value[7]);
+                glm::vec4 GVA(value[0], value[1], value[2], value[3]); glm::vec4 GVB(value[4], value[5], value[6], value[7]);
                 
                 float anglebetweenGLM = acos(std::clamp(glm::dot(GVA, GVB) / ( glm::length(GVA) * glm::length(GVB)), -1.0f, 1.0f));
 
@@ -1665,8 +1676,9 @@ VTEST(Maths)
         {
             TEST(Vec2)
             {
-                Maths::Vec2 MVA(5, 6); Maths::Vec2 MVB(7, 8);
-                glm::vec2 GVA(5, 6); glm::vec2 GVB(7, 8);
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec2 MVA(value[0], value[1]); Maths::Vec2 MVB(value[2], value[3]);
+                glm::vec2 GVA(value[0], value[1]); glm::vec2 GVB(value[2], value[3]);
                 float crossForGLM = GVA.x * GVB.y - GVA.y * GVB.x;
 
                 COMPARE(Maths::Vectors::CrossProduct(MVA, MVB), crossForGLM);
@@ -1675,8 +1687,9 @@ VTEST(Maths)
 
             TEST(Vec3)
             {
-                Maths::Vec3 MVA(5,6,12); Maths::Vec3 MVB(7, 8, 13); 
-                glm::vec3 GVA(5,6,12); glm::vec3 GVB(7, 8, 13);
+                float value[6] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 MVA(value[0], value[1], value[2]); Maths::Vec3 MVB(value[3], value[4], value[5]);
+                glm::vec3 GVA(value[0], value[1], value[2]); glm::vec3 GVB(value[3], value[4], value[5]);
 
                 Maths::Vec3 resultM = Maths::Vectors::CrossProduct(MVA, MVB);
                 glm::vec3 resultG = glm::cross(GVA, GVB);
@@ -1691,8 +1704,9 @@ VTEST(Maths)
         {
             TEST(Vec3)
             {
-                Maths::Vec3 MV(5,6,12); 
-                glm::vec3 GV(5,6,12);
+                float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 MV(value[0], value[1], value[2]);
+                glm::vec3 GV(value[0], value[1], value[2]);
 
                 float angle = 90.f;
 
