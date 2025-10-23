@@ -22,9 +22,9 @@ inline double MATHS_LIB_API Maths::ToRadians(double _angleDegrees)
 inline float Maths::ToDegrees(float _angleRadians)
 {
 	//dont use:
-	//return _angleRadians * Constants::RAD2DEG; 
+	return _angleRadians * Constants::RAD2DEG; 
 	//Constants::RAD2DEG is fine for small value conversion but as imprecision for big value.
- 	return (_angleRadians * 180.f)/Constants::PI;
+ 	//return (_angleRadians * 180.f)/Constants::PI;
 }
 inline double Maths::ToDegrees(double _angleRadians)
 {

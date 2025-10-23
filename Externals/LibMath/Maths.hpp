@@ -45,7 +45,9 @@ namespace Maths
 {
     namespace Constants
     {
-        constexpr float PI = 3.1415927f;
+        constexpr double PI_PRECISE = 3.141592653589793;
+
+        constexpr float PI = static_cast<float>(PI_PRECISE); //casted down for better presision
 		constexpr float TAU = PI * 2.f;//TAU = 2PI
 
 		constexpr float PI_2 = PI / 2.f;//PI/2
@@ -55,15 +57,13 @@ namespace Maths
 		constexpr float I_PI = 1.f / PI;//1/PI
 		constexpr float I_TAU = 1.f / TAU;//1/2PI
 
-		constexpr double PI_PRECISE = 3.141592653589793;
-
 		constexpr float TOLERANCE = 3e-7f; //Use this rather than 0 comparison
 
-		constexpr float DEG2RAD = PI / 180.f;
-		constexpr double DEG2RAD_PRECISE = PI_PRECISE / 180.;
+		constexpr double DEG2RAD_PRECISE = PI_PRECISE / 180.0;
+		constexpr float DEG2RAD = static_cast<float>(DEG2RAD_PRECISE); //casted down for better presision
 
-		constexpr float RAD2DEG = 180.f / PI;
-		constexpr double RAD2DEG_PRECISE = 180. / PI_PRECISE;
+		constexpr double RAD2DEG_PRECISE = 180.0 / PI_PRECISE;
+        constexpr float RAD2DEG = static_cast<float>(RAD2DEG_PRECISE); //casted down for better presision
 
     } 
 
@@ -250,6 +250,7 @@ namespace Maths
 
         inline float GetMagnitude()        const;
         inline float GetMagnitudeSquared() const;
+        //GetNormalized is right for non Homogeneous position/direction
         inline Vec4 GetNormalized()        const;
         inline Vec4 GetHomogenized()       const;
 
