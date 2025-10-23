@@ -104,10 +104,10 @@ VTEST(Maths)
     NAMESPACE(Vector2)
     {
 
-        NAMESPACE(Vector2_Constructor)
+        NAMESPACE(Constructor)
         {
 
-            TEST(Vec2_Constructor_default)
+            TEST(default)
             {
                 Maths::Vec2 VM; glm::vec2 VG(0); // test default constructor
 
@@ -115,7 +115,7 @@ VTEST(Maths)
                 COMPARE(VM.y, VG.y);
             }
 
-            TEST(Vec2_Constructor_Scalar)
+            TEST(Scalar)
             {
                 float value = RAND_FLOAT;
                 Maths::Vec2 VM(value); glm::vec2 VG(value); // test one scalar constructor
@@ -124,7 +124,7 @@ VTEST(Maths)
                 COMPARE(VM.y, VG.y);
             }
 
-            TEST(Vec2_Constructor_x_y)
+            TEST(x_y)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
 
@@ -134,7 +134,7 @@ VTEST(Maths)
                 COMPARE(VM.y, VG.y);
             }
 
-            TEST(Vec2_Constructor_Vec3)
+            TEST(Vec3)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec3 TMP_1(value[0], value[1], value[2]); glm::vec3 TMP_2(value[0], value[1], value[2]);
@@ -144,7 +144,7 @@ VTEST(Maths)
                 COMPARE(VM.y, VG.y);
             }
 
-            TEST(Vec2_Constructor_Vec4)
+            TEST(Vec4)
             {
                 float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec4 TMP_1(value[0], value[1], value[2], value[3]); glm::vec4 TMP_2(value[0], value[1], value[2], value[3]);
@@ -156,10 +156,10 @@ VTEST(Maths)
         
         }
 
-        NAMESPACE(Vector2_Utils)
+        NAMESPACE(Utils)
         {
 
-            TEST(Vec2_GetMagnitude)
+            TEST(GetMagnitude)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec2 VM(value[0], value[1]); glm::vec2 VG(value[0], value[1]);
@@ -167,7 +167,7 @@ VTEST(Maths)
                 COMPARE(VM.GetMagnitude(), glm::length(VG));
             }
 
-            TEST(Vec2_GetMagnitudeSquared)
+            TEST(GetMagnitudeSquared)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec2 VM(value[0], value[1]); glm::vec2 VG(value[0], value[1]);
@@ -175,7 +175,7 @@ VTEST(Maths)
                 COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
             }
 
-            TEST(Vec2_GetNormalized)
+            TEST(GetNormalized)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec2 VM(value[0], value[1]); glm::vec2 VG(value[0], value[1]);
@@ -187,7 +187,7 @@ VTEST(Maths)
                 COMPARE(tempM.y, tempG.y);
             }
 
-            TEST(Vec2_GetPerpendicular)
+            TEST(GetPerpendicular)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec2 VM(value[0], value[1]); glm::vec2 VG(value[0], value[1]);
@@ -201,10 +201,10 @@ VTEST(Maths)
         
         }
 
-        NAMESPACE(Vector2_Assignment_and_Equality_operations)
+        NAMESPACE(Assignment_and_Equality_operations)
         {
 
-            TEST(Vec2_Operator=_Vec3)
+            TEST(Operator = Vec3)
             {
                 Maths::Vec3 VMA(RAND_FLOAT, RAND_FLOAT, RAND_FLOAT);
 
@@ -216,7 +216,7 @@ VTEST(Maths)
                 COMPARE(VMA.y, VMB.y);
             }
 
-            TEST(Vec2_Operator=_Vec4)
+            TEST(Operator = Vec4)
             {
                 Maths::Vec4 VMA(RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT);
 
@@ -228,7 +228,7 @@ VTEST(Maths)
                 COMPARE(VMA.y, VMB.y);
             }
 
-            TEST(Vec2_Operator=_Sca)
+            TEST(Operator = Sca)
             {
                 Maths::Vec2 VM;
                 float value = RAND_FLOAT;
@@ -239,7 +239,7 @@ VTEST(Maths)
                 COMPARE(VM.y, value);
             }
 
-            TEST(Vec2_Operator_negate)
+            TEST(Operator negate)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
 
@@ -250,7 +250,7 @@ VTEST(Maths)
                 COMPARE((-VMA).y, VMB.y);
             }
 
-            TEST(Vec2_Operator==)
+            TEST(Operator ==)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
 
@@ -262,7 +262,7 @@ VTEST(Maths)
                 COMPARE(VMA == VMC, false);
             }
 
-            TEST(Vec2_Operator!=)
+            TEST(Operator !=)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
 
@@ -274,7 +274,7 @@ VTEST(Maths)
                 COMPARE(VMA != VMC, true);
             }
 
-            TEST(Vec2_Operator[])
+            TEST(Operator [])
             {
                 Maths::Vec2 VM(RAND_FLOAT, RAND_FLOAT);
                 COMPARE(VM[0], VM.x);
@@ -282,10 +282,10 @@ VTEST(Maths)
             }
         }
         
-        NAMESPACE(Vector2_Vec2_to_Vec2_operations)
+        NAMESPACE(Vec2_to_Vec2_operations)
         {
 
-            TEST(Vec2_Operator+)
+            TEST(Operator +)
             {
                 float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -303,7 +303,7 @@ VTEST(Maths)
                 COMPARE(VMC.y, VGC.y);
             }
 
-            TEST(Vec2_Operator-)
+            TEST(Operator -)
             {
                 float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -323,10 +323,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector2_Vec2_to_This_operations)
+        NAMESPACE(Vec2_to_This_operations)
         {
 
-            TEST(Vec2_Operator+=)
+            TEST(Operator +=)
             {
                 float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -344,7 +344,7 @@ VTEST(Maths)
                 COMPARE(VMA.y, VGA.y);
             }
 
-            TEST(Vec2_Operator-=)
+            TEST(Operator -=)
             {
                 float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -364,10 +364,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector2_Scaler_to_Vec2_operations)
+        NAMESPACE(Scaler_to_Vec2_operations)
         {
 
-            TEST(Vec2_Operator+)
+            TEST(Operator +)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT};
 
@@ -384,7 +384,7 @@ VTEST(Maths)
                 COMPARE(VMB.y, VGC.y);
             }
 
-            TEST(Vec2_Operator-)
+            TEST(Operator -)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -401,7 +401,7 @@ VTEST(Maths)
                 COMPARE(VMB.y, VGC.y);
             }
 
-            TEST(Vec2_Operator*)
+            TEST(Operator *)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -418,7 +418,7 @@ VTEST(Maths)
                 COMPARE(VMB.y, VGC.y);
             }
 
-            TEST(Vec2_Operator/)
+            TEST(Operator /)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -437,10 +437,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector2_Scaler_to_This_operations)
+        NAMESPACE(Scaler_to_This_operations)
         {
 
-            TEST(Vec2_Operator+=)
+            TEST(Operator +=)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -457,7 +457,7 @@ VTEST(Maths)
                 COMPARE(VMA.y, VGA.y);
             }
 
-            TEST(Vec2_Operator-=)
+            TEST(Operator -=)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -474,7 +474,7 @@ VTEST(Maths)
                 COMPARE(VMA.y, VGA.y);
             }
 
-            TEST(Vec2_Operator*=)
+            TEST(Operator *=)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -491,7 +491,7 @@ VTEST(Maths)
                 COMPARE(VMA.y, VGA.y);
             }
 
-            TEST(Vec2_Operator/=)
+            TEST(Operator /=)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -514,11 +514,10 @@ VTEST(Maths)
 
     NAMESPACE(Vector3)
     {
-
-        NAMESPACE(Vector3_Constructor)
+        NAMESPACE(Constructor)
         {
 
-            TEST(Vec3_Constructor_default)
+            TEST(default)
             {
                 Maths::Vec3 VM; glm::vec3 VG(0);
 
@@ -527,7 +526,7 @@ VTEST(Maths)
                 COMPARE(VM.z, VG.z);
             }
 
-            TEST(Vec3_Constructor_Scalar)
+            TEST(Scalar)
             {
                 float value = RAND_FLOAT;
                 Maths::Vec3 VM(value); glm::vec3 VG(value);
@@ -537,7 +536,7 @@ VTEST(Maths)
                 COMPARE(VM.z, VG.z);
             }
 
-            TEST(Vec3_Constructor_x_y_z)
+            TEST(x_y_z)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec3 VM(value[0], value[1], value[2]); glm::vec3 VG(value[0], value[1], value[2]);
@@ -547,7 +546,7 @@ VTEST(Maths)
                 COMPARE(VM.z, VG.z);
             }
 
-            TEST(Vec3_Constructor_Vec2)
+            TEST(Vec2)
             {
                 float value[2] = { RAND_FLOAT, RAND_FLOAT };
                 Maths::Vec2 TMP_1(value[0], value[1]);
@@ -558,7 +557,7 @@ VTEST(Maths)
                 COMPARE(VM.z, VG.z);
             }
 
-            TEST(Vec3_Constructor_Vec2_z)
+            TEST(Vec2_z)
             {
                 float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -570,7 +569,7 @@ VTEST(Maths)
                 COMPARE(VM.z, VG.z);
             }
 
-            TEST(Vec3_Constructor_Vec4)
+            TEST(Vec4)
             {
                 float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
 
@@ -584,10 +583,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector3_Utils)
+        NAMESPACE(Utils)
         {
 
-            TEST(Vec3_xy)
+            TEST(xy)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -598,7 +597,7 @@ VTEST(Maths)
                 COMPARE(VM1.xy().y, VM2.y);
             }
             
-            TEST(Vec3_xz)
+            TEST(xz)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -609,7 +608,7 @@ VTEST(Maths)
                 COMPARE(VM1.xz().y, VM2.y);
             }
 
-            TEST(Vec3_yz)
+            TEST(yz)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -620,7 +619,7 @@ VTEST(Maths)
                 COMPARE(VM1.yz().y, VM2.y);
             }
 
-            TEST(Vec3_GetMagnitude)
+            TEST(GetMagnitude)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -629,7 +628,7 @@ VTEST(Maths)
                 COMPARE(VM.GetMagnitude(), glm::length(VG));
             }
 
-            TEST(Vec3_GetMagnitudeSquared)
+            TEST(GetMagnitudeSquared)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -638,7 +637,7 @@ VTEST(Maths)
                 COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
             }
 
-            TEST(Vec3_GetNormalized)
+            TEST(GetNormalized)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -654,10 +653,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector3_Assignment_and_Equality_operations)
+        NAMESPACE(Assignment_and_Equality_operations)
         {
 
-            TEST(Vec3_Operator=_Vec2)
+            TEST(Operator = Vec2)
             {
                 float value[2] = { RAND_FLOAT ,RAND_FLOAT};
 
@@ -672,7 +671,7 @@ VTEST(Maths)
                 COMPARE(0, VMB.z);
             }
 
-            TEST(Vec3_Operator=_Vec4)
+            TEST(Operator = Vec4)
             {
                 float value[4] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT, RAND_FLOAT };
 
@@ -687,7 +686,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VMB.z);
             }
 
-            TEST(Vec3_Operator=_Sca)
+            TEST(Operator = Sca)
             {
                 float value = RAND_FLOAT;
                 Maths::Vec3 VM;
@@ -699,7 +698,7 @@ VTEST(Maths)
                 COMPARE(VM.z, value);
             }
 
-            TEST(Vec3_Operator_negate)
+            TEST(Operator negate)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -711,7 +710,7 @@ VTEST(Maths)
                 COMPARE((-VMA).z, VMB.z);
             }
 
-            TEST(Vec3_Operator==)
+            TEST(Operator ==)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -723,7 +722,7 @@ VTEST(Maths)
                 COMPARE(VMA == VMC, false);
             }
 
-            TEST(Vec3_Operator!=)
+            TEST(Operator !=)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -735,7 +734,7 @@ VTEST(Maths)
                 COMPARE(VMA != VMC, true);
             }
 
-            TEST(Vec3_Operator[])
+            TEST(Operator [])
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
 
@@ -747,10 +746,10 @@ VTEST(Maths)
 
         }
         
-        NAMESPACE(Vector3_Vec3_to_Vec3_operations)
+        NAMESPACE(Vec3_to_Vec3_operations)
         {
 
-            TEST(Vec3_Operator+)
+            TEST(Operator +)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -769,7 +768,7 @@ VTEST(Maths)
                 COMPARE(VMC.z, VGC.z);
             }
 
-            TEST(Vec3_Operator-)
+            TEST(Operator -)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -790,10 +789,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector3_Vec3_to_This_operations)
+        NAMESPACE(Vec3_to_This_operations)
         {
 
-            TEST(Vec3_Operator+=)
+            TEST(Operator +=)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -812,7 +811,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VGA.z);
             }
 
-            TEST(Vec3_Operator-=)
+            TEST(Operator -=)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -833,10 +832,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector3_Scaler_to_Vec3_operations)
+        NAMESPACE(Scaler_to_Vec3_operations)
         {
 
-            TEST(Vec3_Operator+)
+            TEST(Operator +)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -854,7 +853,7 @@ VTEST(Maths)
                 COMPARE(VMB.z, VGC.z);
             }
 
-            TEST(Vec3_Operator-)
+            TEST(Operator -)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -872,7 +871,7 @@ VTEST(Maths)
                 COMPARE(VMB.z, VGC.z);
             }
 
-            TEST(Vec3_Operator*)
+            TEST(Operator *)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -890,7 +889,7 @@ VTEST(Maths)
                 COMPARE(VMB.z, VGC.z);
             }
 
-            TEST(Vec3_Operator/)
+            TEST(Operator /)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -910,10 +909,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector3_Scaler_to_This_operations)
+        NAMESPACE(Scaler_to_This_operations)
         {
 
-            TEST(Vec3_Operator+=)
+            TEST(Operator +=)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -931,7 +930,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VGA.z);
             }
 
-            TEST(Vec3_Operator-=)
+            TEST(Operator -=)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -949,7 +948,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VGA.z);
             }
 
-            TEST(Vec3_Operator*=)
+            TEST(Operator *=)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -967,7 +966,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VGA.z);
             }
 
-            TEST(Vec3_Operator/=)
+            TEST(Operator /=)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -986,16 +985,15 @@ VTEST(Maths)
             }
 
         }
-
     }
 
     NAMESPACE(Vector4)
     {
 
-        NAMESPACE(Vector4_Constructor)
+        NAMESPACE(Constructor)
         {
 
-            TEST(Vec4_Constructor_default)
+            TEST(default)
             {
                 Maths::Vec4 VM; glm::vec4 VG(0);
 
@@ -1005,7 +1003,7 @@ VTEST(Maths)
                 COMPARE(VM.w, VG.w);
             }
 
-            TEST(Vec4_Constructor_Scalar)
+            TEST(Scalar)
             {
                 float value = RAND_FLOAT;
                 Maths::Vec4 VM(value); glm::vec4 VG(value);
@@ -1016,7 +1014,7 @@ VTEST(Maths)
                 COMPARE(VM.w, VG.w);
             }
 
-            TEST(Vec4_Constructor_x_y_z_w)
+            TEST(x_y_z_w)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM(value[0], value[1], value[2], value[3]);
@@ -1028,7 +1026,7 @@ VTEST(Maths)
                 COMPARE(VM.w, VG.w);
             }
 
-            TEST(Vec4_Constructor_Vec2)
+            TEST(Vec2)
             {
                 float value[2] = { RAND_FLOAT,RAND_FLOAT };
 
@@ -1043,7 +1041,7 @@ VTEST(Maths)
                 COMPARE(VM.w, VG.w);
             }
 
-            TEST(Vec4_Constructor_Vec2_z)
+            TEST(Vec2_z)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -1058,7 +1056,7 @@ VTEST(Maths)
                 COMPARE(VM.w, VG.w);
             }
 
-            TEST(Vec4_Constructor_Vec2_z_w)
+            TEST(Vec2_z_w)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec2 TMP_1(value[0], value[1]);
@@ -1072,7 +1070,7 @@ VTEST(Maths)
                 COMPARE(VM.w, VG.w);
             }
 
-            TEST(Vec4_Constructor_Vec3)
+            TEST(Vec3)
             {
                 float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec3 TMP_1(value[0], value[1], value[2]);
@@ -1086,7 +1084,7 @@ VTEST(Maths)
                 COMPARE(VM.w, VG.w);
             }
 
-            TEST(Vec4_Constructor_Vec3_w)
+            TEST(Vec3_w)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec3 TMP_1(value[0], value[1], value[2]);
@@ -1102,10 +1100,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector4_Utils)
+        NAMESPACE(Utils)
         {
 
-            TEST(Vec4_xyz)
+            TEST(xyz)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -1117,7 +1115,7 @@ VTEST(Maths)
                 COMPARE(VM1.xyz().z, VM2.z);
             }
 
-            TEST(Vec4_xzw)
+            TEST(xzw)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -1129,7 +1127,7 @@ VTEST(Maths)
                 COMPARE(VM1.xzw().z, VM2.z);
             }
 
-            TEST(Vec4_xyw)
+            TEST(xyw)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM1(value[0], value[1], value[2], value[3]);
@@ -1140,7 +1138,7 @@ VTEST(Maths)
                 COMPARE(VM1.xyw().z, VM2.z);
             }
 
-            TEST(Vec4_yzw)
+            TEST(yzw)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM1(value[0], value[1], value[2], value[3]);
@@ -1151,7 +1149,7 @@ VTEST(Maths)
                 COMPARE(VM1.yzw().z, VM2.z);
             }
 
-            TEST(Vec4_GetMagnitude)
+            TEST(GetMagnitude)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM(value[0], value[1], value[2], value[3]);
@@ -1160,7 +1158,7 @@ VTEST(Maths)
                 COMPARE(VM.GetMagnitude(), glm::length(VG));
             }
 
-            TEST(Vec4_GetMagnitudeSquared)
+            TEST(GetMagnitudeSquared)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM(value[0], value[1], value[2], value[3]);
@@ -1169,7 +1167,7 @@ VTEST(Maths)
                 COMPARE_WITH_PRECISION(VM.GetMagnitudeSquared(), glm::length2(VG), Maths::Constants::TOLERANCE);
             }
 
-            TEST(Vec4_GetNormalized)
+            TEST(GetNormalized)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM(value[0], value[1], value[2], value[3]);
@@ -1184,7 +1182,7 @@ VTEST(Maths)
                 COMPARE_WITH_PRECISION(tempM.w, tempG.w, Maths::Constants::TOLERANCE);
             }
 
-            TEST(Vec4_GetHomogenized)
+            TEST(GetHomogenized)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM(value[0], value[1], value[2], value[3]);
@@ -1201,10 +1199,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector4_Assignment_and_Equality_operations)
+        NAMESPACE(Assignment_and_Equality_operations)
         {
 
-            TEST(Vec4_Operator=_Vec2)
+            TEST(Operator = Vec2)
             {
                 Maths::Vec2 VMA(RAND_FLOAT, RAND_FLOAT);
 
@@ -1218,7 +1216,7 @@ VTEST(Maths)
                 COMPARE(1, VMB.w);
             }
 
-            TEST(Vec4_Operator=_Vec3)
+            TEST(Operator = Vec3)
             {
                 Maths::Vec3 VMA(RAND_FLOAT, RAND_FLOAT, RAND_FLOAT);
 
@@ -1232,7 +1230,7 @@ VTEST(Maths)
                 COMPARE(1, VMB.w);
             }
 
-            TEST(Vec4_Operator=_Sca)
+            TEST(Operator = Sca)
             {
                 float value = RAND_FLOAT;
                 Maths::Vec4 VMA;
@@ -1245,7 +1243,7 @@ VTEST(Maths)
                 COMPARE(VMA.w, value);
             }
 
-            TEST(Vec4_Operator_negate)
+            TEST(Operator negate)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1256,7 +1254,7 @@ VTEST(Maths)
                 COMPARE((-VMA).w, -value[3]);
             }
 
-            TEST(Vec4_Operator==)
+            TEST(Operator ==)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1267,7 +1265,7 @@ VTEST(Maths)
                 COMPARE(VMA == VMC, false);
             }
 
-            TEST(Vec4_Operator!=)
+            TEST(Operator !=)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1278,7 +1276,7 @@ VTEST(Maths)
                 COMPARE(VMA != VMC, true);
             }
 
-            TEST(Vec4_Operator[])
+            TEST(Operator [])
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VM(value[0], value[1], value[2], value[3]);
@@ -1290,10 +1288,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector4_Vec4_to_Vec4_operations)
+        NAMESPACE(Vec4_to_Vec4_operations)
         {
 
-            TEST(Vec4_Operator+)
+            TEST(Operator +)
             {
                 float value[8] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -1313,7 +1311,7 @@ VTEST(Maths)
                 COMPARE(VMC.w, VGC.w);
             }
 
-            TEST(Vec4_Operator-)
+            TEST(Operator -)
             {
                 float value[8] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -1335,10 +1333,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector4_Vec4_to_This_operations)
+        NAMESPACE(Vec4_to_This_operations)
         {
 
-            TEST(Vec4_Operator+=)
+            TEST(Operator +=)
             {
                 float value[8] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -1358,7 +1356,7 @@ VTEST(Maths)
                 COMPARE(VMA.w, VGA.w);
             }
 
-            TEST(Vec4_Operator-=)
+            TEST(Operator -=)
             {
                 float value[8] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
 
@@ -1380,10 +1378,10 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vector4_Scaler_to_Vec4_operations)
+        NAMESPACE(Scaler_to_Vec4_operations)
         {
 
-            TEST(Vec4_Operator+)
+            TEST(Operator +)
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1400,7 +1398,7 @@ VTEST(Maths)
                 COMPARE(VMB.z, VGC.z);
             }
 
-            TEST(Vec4_Operator - )
+            TEST(Operator - )
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1417,7 +1415,7 @@ VTEST(Maths)
                 COMPARE(VMB.z, VGC.z);
             }
 
-            TEST(Vec4_Operator*)
+            TEST(Operator *)
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1434,7 +1432,7 @@ VTEST(Maths)
                 COMPARE(VMB.z, VGC.z);
             }
 
-            TEST(Vec4_Operator/)
+            TEST(Operator /)
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1453,10 +1451,10 @@ VTEST(Maths)
         
         }
 
-        NAMESPACE(Vector4_Scaler_to_This_operations)
+        NAMESPACE(Scaler_to_This_operations)
         {
 
-            TEST(Vec4_Operator+=)
+            TEST(Operator +=)
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1473,7 +1471,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VGA.z);
             }
 
-            TEST(Vec4_Operator -= )
+            TEST(Operator -= )
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1490,7 +1488,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VGA.z);
             }
 
-            TEST(Vec4_Operator *= )
+            TEST(Operator *= )
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1507,7 +1505,7 @@ VTEST(Maths)
                 COMPARE(VMA.z, VGA.z);
             }
 
-            TEST(Vec4_Operator /= )
+            TEST(Operator /= )
             {
                 float value[5] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
                 Maths::Vec4 VMA(value[0], value[1], value[2], value[3]);
@@ -1723,1226 +1721,7 @@ VTEST(Maths)
             }
         }
     }
-/*
-    NAMESPACE(IVector2)
-    {
 
-        NAMESPACE(IVector2_Constructor)
-        {
-
-            TEST(IVec2_Constructor_default)
-            {
-                Maths::IVec2 VM; glm::ivec2 VG(0);
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-            }
-
-            TEST(IVec2_Constructor_Scalar)
-            {
-                Maths::IVec2 VM(8); glm::ivec2 VG(8);
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-            }
-
-            TEST(IVec2_Constructor_x_y)
-            {
-                Maths::IVec2 VM(8,42); glm::ivec2 VG(8,42);
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-            }
-
-            TEST(IVec2_Constructor_Vec2)
-            {
-                Maths::Vec2 temp(8, 42);
-                Maths::IVec2 VM(temp); glm::ivec2 VG(8,42);
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-            }
-
-        }
-
-        NAMESPACE(IVector2_Utils)
-        {
-
-            TEST(IVec2_GetMagnitude)
-            {
-                Maths::IVec2 VM(8, 42);
-                glm::vec2 VG(8, 42); // use of vec2 insted of ivec2 due to length function
-                
-                COMPARE(VM.GetMagnitude(), glm::length(VG));
-            }
-
-            TEST(IVec2_GetMagnitudeSquared)
-            {
-                Maths::IVec2 VM(8, 42); 
-                glm::vec2 VG(8, 42); // use of vec2 insted of ivec2 due to length2 function
-
-                COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
-            }
-
-        }
-
-        NAMESPACE(IVector2_Assignment_and_Equality_operations)
-        {
-            TEST(IVec2_Operator_equal_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                Maths::IVec2 VMB;
-
-                VMB = VMA;
-
-                COMPARE(VMA.x, VMB.x);
-                COMPARE(VMA.y, VMB.y);
-            }
-
-            TEST(IVec2_Operator_equal_Sca)
-            {
-                Maths::IVec2 VM;
-
-                VM = 1;
-
-                COMPARE(VM.x, 1);
-                COMPARE(VM.y, 1);
-            }
-
-            TEST(IVec2_Operator_negate)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(-8, -42);
-
-                COMPARE(-VMA.x, VMB.x);
-                COMPARE(-VMA.y, VMB.y);
-            }
-
-            TEST(IVec2_Operator_isEqual)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(8, 42);
-                Maths::IVec2 VMC(42, 8);
-
-                COMPARE(VMA == VMB, true);
-                COMPARE(VMA == VMC, false);
-            }
-
-            TEST(IVec2_Operator_isNotEqual)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(8, 42);
-                Maths::IVec2 VMC(42, 8);
-
-                COMPARE(VMA != VMB, false);
-                COMPARE(VMA != VMC, true);
-            }
-
-        }
-
-        NAMESPACE(IVector2_IVec2_to_IVec2_operations)
-        {
-            TEST(IVec2_Operator_Plus_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                Maths::IVec2 VMC = VMA + VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                glm::ivec2 VGC = VGA + VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-            }
-
-            TEST(IVec2_Operator_Minus_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                Maths::IVec2 VMC = VMA - VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                glm::ivec2 VGC = VGA - VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-            }
-
-            TEST(IVec2_Operator_Multiply_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                Maths::IVec2 VMC = VMA * VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                glm::ivec2 VGC = VGA * VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-            }
-
-            TEST(IVec2_Operator_Divide_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                Maths::IVec2 VMC = VMA / VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                glm::ivec2 VGC = VGA / VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-            }
-
-        }
-
-        NAMESPACE(IVector2_IVec2_to_This_operations)
-        {
-            TEST(IVec2_Operator_PlusEqual_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                VMA += VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                VGA += VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-            TEST(IVec2_Operator_MinusEqual_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                VMA -= VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                VGA -= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-            TEST(IVec2_Operator_MultiplyEqual_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                VMA *= VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                VGA *= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-            TEST(IVec2_Operator_DivideEqual_Vec)
-            {
-                Maths::IVec2 VMA(8, 42);
-                Maths::IVec2 VMB(42, 8);
-
-                VMA /= VMB;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(42, 8);
-
-                VGA /= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-        }
-
-        NAMESPACE(IVector2_Scaler_to_IVec2_operations)
-        {
-            TEST(IVec2_Operator_Plus_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                Maths::IVec2 VMB = VMA + 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                glm::ivec2 VGC = VGA + VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-            }
-
-            TEST(IVec2_Operator_Minus_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                Maths::IVec2 VMB = VMA - 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                glm::ivec2 VGC = VGA - VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-            }
-
-            TEST(IVec2_Operator_Multiply_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                Maths::IVec2 VMB = VMA * 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                glm::vec2 VGC = VGA * VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-            }
-
-            TEST(IVec2_Operator_Divide_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                Maths::IVec2 VMB = VMA / 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                glm::ivec2 VGC = VGA / VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-            }
-
-        }
-
-        NAMESPACE(IVector2_Scaler_to_This_operations)
-        {
-            TEST(IVec2_Operator_PlusEqual_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                VMA += 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                VGA += VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-            TEST(IVec2_Operator_MinusEqual_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                VMA -= 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                VGA -= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-            TEST(IVec2_Operator_MultiplyEqual_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                VMA *= 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                VGA *= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-            TEST(IVec2_Operator_DivideEqual_Sca)
-            {
-                Maths::IVec2 VMA(8, 42);
-
-                VMA /= 3;
-
-                glm::ivec2 VGA(8, 42);
-                glm::ivec2 VGB(3, 3);
-
-                VGA /= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-            }
-
-        }
-
-    }
-    
-    NAMESPACE(IVector3)
-    {
-
-        NAMESPACE(IVector3_Constructor)
-        {
-
-            TEST(IVec3_Constructor_default)
-            {
-                Maths::IVec3 VM; glm::ivec3 VG(0); // test default constructor
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-            }
-
-            TEST(IVec3_Constructor_Scalar)
-            {
-                Maths::IVec3 VM(3); glm::ivec3 VG(3); // test one scalar constructor
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-            }
-
-            TEST(IVec3_Constructor_x_y_z)
-            {
-                Maths::IVec3 VM(1, 2, 3); glm::ivec3 VG(1, 2, 3); // test constructor with x , y parameter
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-            }
-
-            TEST(IVec3_Constructor_Vec3)
-            {
-                Maths::Vec3 temp(3, 4, 5);
-                Maths::IVec3 VM(temp); glm::ivec3 VG(3, 4, 5);
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-            }
-
-        }
-
-        NAMESPACE(IVector3_Utils)
-        {
-
-            TEST(IVec3_GetMagnitude)
-            {
-                Maths::IVec3 VM(8, 42, 75);
-                glm::vec3 VG(8, 42, 75); // use of vec3 insted of ivec3 due to length function
-
-                COMPARE(VM.GetMagnitude(), glm::length(VG));
-            }
-
-            TEST(IVec3_GetMagnitudeSquared)
-            {
-                Maths::IVec3 VM(8, 42, 75);
-                glm::vec3 VG(8, 42, 75); // use of vec3 insted of ivec3 due to length2 function
-
-                COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
-            }
-
-        }
-
-        NAMESPACE(IVector3_Assignment_and_Equality_operations)
-        {
-
-            TEST(IVec3_Operator_equal_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                Maths::IVec3 VMB;
-
-                VMB = VMA;
-
-                COMPARE(VMA.x, VMB.x);
-                COMPARE(VMA.y, VMB.y);
-                COMPARE(VMA.z, VMB.z);
-            }
-
-            TEST(IVec3_Operator_equal_Sca)
-            {
-                Maths::IVec3 VM;
-
-                VM = 1;
-
-                COMPARE(VM.x, 1);
-                COMPARE(VM.y, 1);
-                COMPARE(VM.z, 1);
-            }
-
-            TEST(IVec3_Operator_negate)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(-2, -5, -9);
-
-                COMPARE(-VMA.x, VMB.x);
-                COMPARE(-VMA.y, VMB.y);
-                COMPARE(-VMA.z, VMB.z);
-            }
-
-            TEST(IVec3_Operator_isEqual)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(2, 5, 9);
-                Maths::IVec3 VMC(9, 5, 2);
-
-                COMPARE(VMA == VMB, true);
-                COMPARE(VMA == VMC, false);
-            }
-
-            TEST(IVec3_Operator_isNotEqual)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(2, 5, 9);
-                Maths::IVec3 VMC(9, 5, 2);
-
-                COMPARE(VMA != VMB, false);
-                COMPARE(VMA != VMC, true);
-            }
-
-        }
-
-        NAMESPACE(IVector3_IVec3_to_IVec3_operations)
-        {
-
-            TEST(IVec3_Operator_Plus_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                Maths::IVec3 VMC = VMA + VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                glm::ivec3 VGC = VGA + VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-            }
-
-            TEST(IVec3_Operator_Minus_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                Maths::IVec3 VMC = VMA - VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                glm::ivec3 VGC = VGA - VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-            }
-
-            TEST(IVec3_Operator_Multiply_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                Maths::IVec3 VMC = VMA * VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                glm::ivec3 VGC = VGA * VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-            }
-
-            TEST(IVec3_Operator_Divide_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                Maths::IVec3 VMC = VMA / VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                glm::ivec3 VGC = VGA / VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-            }
-
-        }
-
-        NAMESPACE(IVector3_IVec3_to_This_operations)
-        {
-
-            TEST(IVec3_Operator_PlusEqual_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                VMA += VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                VGA += VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec3_Operator_MinusEqual_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                VMA -= VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                VGA -= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec3_Operator_MultiplyEqual_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                VMA *= VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                VGA *= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec3_Operator_DivideEqual_Vec)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-                Maths::IVec3 VMB(9, 5, 2);
-
-                VMA /= VMB;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(9, 5, 2);
-
-                VGA /= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-        }
-
-        NAMESPACE(IVector3_Scaler_to_IVec3_operations)
-        {
-
-            TEST(IVec3_Operator_Plus_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                Maths::IVec3 VMB = VMA + 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                glm::ivec3 VGC = VGA + VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-            TEST(IVec3_Operator_Minus_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                Maths::IVec3 VMB = VMA - 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                glm::ivec3 VGC = VGA - VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-            TEST(Vec3_Operator_Multiply_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                Maths::IVec3 VMB = VMA * 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                glm::ivec3 VGC = VGA * VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-            TEST(Vec3_Operator_Divide_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                Maths::IVec3 VMB = VMA / 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                glm::ivec3 VGC = VGA / VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-        }
-
-        NAMESPACE(IVector3_Scaler_to_This_operations)
-        {
-
-            TEST(IVec3_Operator_PlusEqual_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                VMA += 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                VGA += VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec3_Operator_MinusEqual_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                VMA -= 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                VGA -= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec3_Operator_MultiplyEqual_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                VMA *= 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                VGA *= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(Vec3_Operator_DivideEqual_Sca)
-            {
-                Maths::IVec3 VMA(2, 5, 9);
-
-                VMA /= 3;
-
-                glm::ivec3 VGA(2, 5, 9);
-                glm::ivec3 VGB(3, 3, 3);
-
-                VGA /= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-        }
-
-    }
-
-    NAMESPACE(IVector4)
-    {
-
-        NAMESPACE(IVector4_Constructor)
-        {
-            TEST(IVec4_Constructor_default)
-            {
-                Maths::IVec4 VM; glm::ivec4 VG(0); // test default constructor
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-                COMPARE(VM.w, VG.w);
-            }
-
-            TEST(IVec4_Constructor_Scalar)
-            {
-                Maths::IVec4 VM(4); glm::ivec4 VG(4); // test one scalar constructor
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-                COMPARE(VM.w, VG.w);
-            }
-
-            TEST(IVec4_Constructor_x_y_z_w)
-            {
-                Maths::IVec4 VM(1, 2, 3, 4); glm::ivec4 VG(1, 2, 3, 4); // test constructor with x , y parameter
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-                COMPARE(VM.w, VG.w);
-            }
-
-            TEST(IVec4_Constructor_Vec4)
-            {
-                Maths::Vec4 temp(3, 4, 8, 9);
-                Maths::IVec4 VM(temp);
-
-                glm::vec4 VG(3, 4, 8, 9);
-
-                COMPARE(VM.x, VG.x);
-                COMPARE(VM.y, VG.y);
-                COMPARE(VM.z, VG.z);
-                COMPARE(VM.w, VG.w);
-            }
-
-        }
-
-        NAMESPACE(IVector4_Utils)
-        {
-
-            TEST(IVec4_GetMagnitude)
-            {
-                Maths::IVec4 VM(2, 5, 9, 11);
-                glm::vec4 VG(2, 5, 9, 11);// use of vec4 insted of ivec4 due to length function
-
-                COMPARE(VM.GetMagnitude(), glm::length(VG));
-            }
-
-            TEST(IVec4_GetMagnitudeSquared)
-            {
-                Maths::IVec4 VM(2, 5, 9, 11);
-                glm::vec4 VG(2, 5, 9, 11);// use of vec4 insted of ivec4 due to length function
-
-                COMPARE(VM.GetMagnitudeSquared(), glm::length2(VG));
-            }
-
-        }
-
-        NAMESPACE(IVector4_Assignment_and_Equality_operations)
-        {
-            TEST(IVec4_Operator_equal_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 3, 8);
-
-                Maths::IVec4 VMB;
-
-                VMB = VMA;
-
-                COMPARE(VMA.x, VMB.x);
-                COMPARE(VMA.y, VMB.y);
-                COMPARE(VMA.z, VMB.z);
-                COMPARE(VMA.w, VMB.w);
-            }
-
-            TEST(IVec4_Operator_equal_Sca)
-            {
-                Maths::IVec4 VMA;
-
-                VMA = 8;
-
-                COMPARE(VMA.x, 8);
-                COMPARE(VMA.y, 8);
-                COMPARE(VMA.z, 8);
-                COMPARE(VMA.w, 8);
-            }
-
-            TEST(IVec4_Operator_negate)
-            {
-                Maths::IVec4 VMA(2, 5, 3, 8);
-
-                COMPARE(-VMA.x, -2);
-                COMPARE(-VMA.y, -5);
-                COMPARE(-VMA.z, -3);
-                COMPARE(-VMA.w, -8);
-            }
-
-            TEST(IVec4_Operator_isEqual)
-            {
-                Maths::IVec4 VMA(2, 5, 3, 4);
-                Maths::IVec4 VMB(2, 5, 3, 4);
-                Maths::IVec4 VMC(5, 2, 5, 7);
-
-                COMPARE(VMA == VMB, true);
-                COMPARE(VMA == VMC, false);
-            }
-
-            TEST(IVec4_Operator_isNotEqual)
-            {
-                Maths::IVec4 VMA(2, 5, 3, 4);
-                Maths::IVec4 VMB(2, 5, 3, 4);
-                Maths::IVec4 VMC(5, 2, 5, 7);
-
-                COMPARE(VMA != VMB, false);
-                COMPARE(VMA != VMC, true);
-            }
-
-        }
-
-        NAMESPACE(IVector4_IVec4_to_IVec4_operations)
-        {
-
-            TEST(IVec4_Operator_Plus_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                Maths::IVec4 VMC = VMA + VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                glm::ivec4 VGC = VGA + VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-                COMPARE(VMC.w, VGC.w);
-            }
-
-            TEST(IVec4_Operator_Minus_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                Maths::IVec4 VMC = VMA - VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                glm::ivec4 VGC = VGA - VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-                COMPARE(VMC.w, VGC.w);
-            }
-
-            TEST(IVec4_Operator_Multiply_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                Maths::IVec4 VMC = VMA * VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                glm::ivec4 VGC = VGA * VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-                COMPARE(VMC.w, VGC.w);
-            }
-
-            TEST(IVec4_Operator_Divide_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                Maths::IVec4 VMC = VMA / VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                glm::ivec4 VGC = VGA / VGB;
-
-                COMPARE(VMC.x, VGC.x);
-                COMPARE(VMC.y, VGC.y);
-                COMPARE(VMC.z, VGC.z);
-                COMPARE(VMC.w, VGC.w);
-            }
-
-        }
-
-        NAMESPACE(IVector4_IVec4_to_This_operations)
-        {
-
-            TEST(IVec4_Operator_PlusEqual_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                VMA += VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                VGA += VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-                COMPARE(VMA.w, VGA.w);
-            }
-
-            TEST(IVec4_Operator_MinusEqual_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                VMA -= VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                VGA -= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-                COMPARE(VMA.w, VGA.w);
-            }
-
-            TEST(IVec4_Operator_MultiplyEqual_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                VMA *= VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                VGA *= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-                COMPARE(VMA.w, VGA.w);
-            }
-
-            TEST(IVec4_Operator_DivideEqual_Vec)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-                Maths::IVec4 VMB(9, 5, 2, 5);
-
-                VMA /= VMB;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(9, 5, 2, 5);
-
-                VGA /= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-                COMPARE(VMA.w, VGA.w);
-            }
-
-        }
-
-        NAMESPACE(IVector4_Scaler_to_IVec4_operations)
-        {
-
-            TEST(IVec4_Operator_Plus_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                Maths::IVec4 VMB = VMA + 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                glm::ivec4 VGC = VGA + VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-            TEST(IVec4_Operator_Minus_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                Maths::IVec4 VMB = VMA - 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                glm::ivec4 VGC = VGA - VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-            TEST(IVec4_Operator_Multiply_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                Maths::IVec4 VMB = VMA * 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                glm::ivec4 VGC = VGA * VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-            TEST(IVec4_Operator_Divide_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                Maths::IVec4 VMB = VMA / 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                glm::ivec4 VGC = VGA / VGB;
-
-                COMPARE(VMB.x, VGC.x);
-                COMPARE(VMB.y, VGC.y);
-                COMPARE(VMB.z, VGC.z);
-            }
-
-        }
-
-        NAMESPACE(IVector4_Scaler_to_This_operations)
-        {
-
-            TEST(IVec4_Operator_PlusEqual_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                VMA += 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                VGA += VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec4_Operator_MinusEqual_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                VMA -= 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                VGA -= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec4_Operator_MultiplyEqual_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                VMA *= 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                VGA *= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-            TEST(IVec4_Operator_DivideEqual_Sca)
-            {
-                Maths::IVec4 VMA(2, 5, 9, 7);
-
-                VMA /= 3;
-
-                glm::ivec4 VGA(2, 5, 9, 7);
-                glm::ivec4 VGB(3, 3, 3, 3);
-
-                VGA /= VGB;
-
-                COMPARE(VMA.x, VGA.x);
-                COMPARE(VMA.y, VGA.y);
-                COMPARE(VMA.z, VGA.z);
-            }
-
-        }
-
-    }
-*/
     NAMESPACE(Matrix_3x3)
     {
 
