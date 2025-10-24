@@ -877,9 +877,9 @@ inline Maths::Mat3 Maths::Mat3::Transform(const Vec2& _translation, float _angle
 
 }
 
-inline Maths::Mat3 Maths::Mat3::Transpose()
+inline Maths::Mat3 Maths::Mat3::GetTranspose() const
 {
-	return *this =
+	return
 	{
 		data[0],
 		data[3],
@@ -894,14 +894,14 @@ inline Maths::Mat3 Maths::Mat3::Transpose()
 		data[8]
 	};
 }
-inline Maths::Mat3 Maths::Mat3::Inverse()
+inline Maths::Mat3 Maths::Mat3::GetInverse()   const
 {
 	float det = GetDeterminant();
 	if (det != 0.f)
 	{
 		det = 1.f / det;
 
-		return *this =
+		return
 		{
 			(data_3_3[1][1] * data_3_3[2][2] - data_3_3[2][1] * data_3_3[1][2]) * det,
 			(data_3_3[0][2] * data_3_3[2][1] - data_3_3[0][1] * data_3_3[2][2]) * det,
@@ -920,8 +920,8 @@ inline Maths::Mat3 Maths::Mat3::Inverse()
 inline float Maths::Mat3::GetDeterminant()     const
 {
 	return data[0] * (data[4] * data[8] - data[7] * data[5])
-		- data[1] * (data[3] * data[8] - data[6] * data[5])
-		+ data[2] * (data[3] * data[7] - data[6] * data[4]);
+		 - data[1] * (data[3] * data[8] - data[6] * data[5])
+		 + data[2] * (data[3] * data[7] - data[6] * data[4]);
 }
 inline float Maths::Mat3::GetTrace()           const
 {
@@ -2021,11 +2021,22 @@ inline Maths::Vec4 Maths::Mat4::operator * (const Vec4& _vec) const
 	};
 }
 
+#pragma endregion Mat4
+#endif
+
+inline Maths::Mat3 Maths::matrixes::Transpose(Mat3& _mat)
+{
+	_mat = _mat.GetTranspose();
+}
 inline Maths::Mat4 Maths::matrixes::Transpose(Mat4& _mat)
 {
 	_mat = _mat.GetTranspose();
 }
 
+inline Maths::Mat3 Maths::matrixes::Inverse(Mat3& _mat)
+{
+	_mat = _mat.GetInverse();
+}
 inline Maths::Mat4 Maths::matrixes::Inverse(Mat4& _mat)
 {
 	_mat = _mat.GetInverse();
@@ -2125,10 +2136,6 @@ inline Maths::Mat4 Maths::matrixes::Perspective(float _fovY, float _aspect, floa
 				0.f		,0.f	,(_far + _near) * iDist		,-1.f,
 				0.f		,0.f	,2.f * _far * _near * iDist , 0.f };
 }
-
-
-#pragma endregion Mat4
-#endif
 
 #pragma endregion Matrix
 

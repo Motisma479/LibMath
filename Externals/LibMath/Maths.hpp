@@ -348,8 +348,8 @@ namespace Maths
         inline static Mat3 Scale2D(const Vec2& _scaling);
         inline static Mat3 Transform(const Vec2& _translation, float _angleInRad, const Vec2& _scaling);
 
-        inline Mat3 Transpose();
-        inline Mat3 Inverse();
+        inline Mat3 GetTranspose()    const;
+        inline Mat3 GetInverse()      const;
         inline float GetDeterminant() const;
         inline float GetTrace()       const;
 
@@ -529,8 +529,10 @@ namespace Maths
 
     namespace matrixes
 	{
+        inline Mat3 MATHS_LIB_API Transpose(Mat3& _mat);
         inline Mat4 MATHS_LIB_API Transpose(Mat4& _mat);
 
+        inline Mat3 MATHS_LIB_API Inverse(Mat3& _mat);
         inline Mat4 MATHS_LIB_API Inverse(Mat4& _mat);
 
         inline Mat4 MATHS_LIB_API Frustum(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
