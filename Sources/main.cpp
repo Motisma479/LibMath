@@ -19,9 +19,9 @@
 VTEST(Maths)
 {
 
-    NAMESPACE(Maths_Constants)
+    NAMESPACE(Maths Constants)
     {
-        NAMESPACE(PI_Float)
+        NAMESPACE(PI Float)
         {
 
             TEST(PI)
@@ -64,7 +64,7 @@ VTEST(Maths)
                 COMPARE(Maths::Constants::I_TAU, glm::one_over_two_pi<float>());
             }
         }
-        NAMESPACE(PI_Double)
+        NAMESPACE(PI Double)
         {
             TEST(PI)
             {
@@ -72,7 +72,7 @@ VTEST(Maths)
             }
         }
     }
-    NAMESPACE(Maths_Functions)
+    NAMESPACE(Maths Functions)
     {
 
         TEST(float_Angle_to_Radians)
@@ -104,7 +104,7 @@ VTEST(Maths)
     NAMESPACE(Vector2)
     {
 
-        NAMESPACE(Constructor)
+        NAMESPACE(Constructors)
         {
 
             TEST(default)
@@ -201,7 +201,7 @@ VTEST(Maths)
         
         }
 
-        NAMESPACE(Assignment_and_Equality_operations)
+        NAMESPACE(Assignment and Equality operators)
         {
 
             TEST(Operator = Vec3)
@@ -282,7 +282,7 @@ VTEST(Maths)
             }
         }
         
-        NAMESPACE(Vec2_to_Vec2_operations)
+        NAMESPACE(Vec2 to Vec2 operators)
         {
 
             TEST(Operator +)
@@ -323,7 +323,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vec2_to_This_operations)
+        NAMESPACE(Vec2 to This operators)
         {
 
             TEST(Operator +=)
@@ -364,7 +364,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Scaler_to_Vec2_operations)
+        NAMESPACE(Scaler to Vec2 operators)
         {
 
             TEST(Operator +)
@@ -437,7 +437,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Scaler_to_This_operations)
+        NAMESPACE(Scaler to This operators)
         {
 
             TEST(Operator +=)
@@ -514,7 +514,7 @@ VTEST(Maths)
 
     NAMESPACE(Vector3)
     {
-        NAMESPACE(Constructor)
+        NAMESPACE(Constructors)
         {
 
             TEST(default)
@@ -585,40 +585,6 @@ VTEST(Maths)
 
         NAMESPACE(Utils)
         {
-
-            TEST(xy)
-            {
-                float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
-
-                Maths::Vec3 VM1(value[0], value[1], value[2]);
-                Maths::Vec2 VM2(value[0], value[1]);
-
-                COMPARE(VM1.xy().x, VM2.x);
-                COMPARE(VM1.xy().y, VM2.y);
-            }
-            
-            TEST(xz)
-            {
-                float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
-
-                Maths::Vec3 VM1(value[0], value[1], value[2]);
-                Maths::Vec2 VM2(value[0], value[2]);
-
-                COMPARE(VM1.xz().x, VM2.x);
-                COMPARE(VM1.xz().y, VM2.y);
-            }
-
-            TEST(yz)
-            {
-                float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
-
-                Maths::Vec3 VM1(value[0], value[1], value[2]);
-                Maths::Vec2 VM2(value[1], value[2]);
-
-                COMPARE(VM1.yz().x, VM2.x);
-                COMPARE(VM1.yz().y, VM2.y);
-            }
-
             TEST(GetMagnitude)
             {
                 float value[3] = { RAND_FLOAT ,RAND_FLOAT ,RAND_FLOAT };
@@ -653,7 +619,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Assignment_and_Equality_operations)
+        NAMESPACE(Assignment and Equality operators)
         {
 
             TEST(Operator = Vec2)
@@ -746,7 +712,7 @@ VTEST(Maths)
 
         }
         
-        NAMESPACE(Vec3_to_Vec3_operations)
+        NAMESPACE(Vec3 to Vec3 operators)
         {
 
             TEST(Operator +)
@@ -789,7 +755,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vec3_to_This_operations)
+        NAMESPACE(Vec3 to This operators)
         {
 
             TEST(Operator +=)
@@ -832,7 +798,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Scaler_to_Vec3_operations)
+        NAMESPACE(Scaler to Vec3 operators)
         {
 
             TEST(Operator +)
@@ -909,7 +875,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Scaler_to_This_operations)
+        NAMESPACE(Scaler to This operators)
         {
 
             TEST(Operator +=)
@@ -990,7 +956,7 @@ VTEST(Maths)
     NAMESPACE(Vector4)
     {
 
-        NAMESPACE(Constructor)
+        NAMESPACE(Constructors)
         {
 
             TEST(default)
@@ -1102,53 +1068,6 @@ VTEST(Maths)
 
         NAMESPACE(Utils)
         {
-
-            TEST(xyz)
-            {
-                float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
-
-                Maths::Vec4 VM1(value[0], value[1], value[2], value[3]);
-                Maths::Vec3 VM2(value[0], value[1], value[2]);
-
-                COMPARE(VM1.xyz().x, VM2.x);
-                COMPARE(VM1.xyz().y, VM2.y);
-                COMPARE(VM1.xyz().z, VM2.z);
-            }
-
-            TEST(xzw)
-            {
-                float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
-
-                Maths::Vec4 VM1(value[0], value[1], value[2], value[3]);
-                Maths::Vec3 VM2(value[0], value[2], value[3]);
-
-                COMPARE(VM1.xzw().x, VM2.x);
-                COMPARE(VM1.xzw().y, VM2.y);
-                COMPARE(VM1.xzw().z, VM2.z);
-            }
-
-            TEST(xyw)
-            {
-                float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
-                Maths::Vec4 VM1(value[0], value[1], value[2], value[3]);
-                Maths::Vec3 VM2(value[0], value[1], value[3]);
-
-                COMPARE(VM1.xyw().x, VM2.x);
-                COMPARE(VM1.xyw().y, VM2.y);
-                COMPARE(VM1.xyw().z, VM2.z);
-            }
-
-            TEST(yzw)
-            {
-                float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
-                Maths::Vec4 VM1(value[0], value[1], value[2], value[3]);
-                Maths::Vec3 VM2(value[1], value[2], value[3]);
-
-                COMPARE(VM1.yzw().x, VM2.x);
-                COMPARE(VM1.yzw().y, VM2.y);
-                COMPARE(VM1.yzw().z, VM2.z);
-            }
-
             TEST(GetMagnitude)
             {
                 float value[4] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
@@ -1199,7 +1118,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Assignment_and_Equality_operations)
+        NAMESPACE(Assignment and Equality operators)
         {
 
             TEST(Operator = Vec2)
@@ -1288,7 +1207,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vec4_to_Vec4_operations)
+        NAMESPACE(Vec4 to Vec4 operators)
         {
 
             TEST(Operator +)
@@ -1333,7 +1252,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Vec4_to_This_operations)
+        NAMESPACE(Vec4 to This operators)
         {
 
             TEST(Operator +=)
@@ -1378,7 +1297,7 @@ VTEST(Maths)
 
         }
 
-        NAMESPACE(Scaler_to_Vec4_operations)
+        NAMESPACE(Scaler to Vec4 operators)
         {
 
             TEST(Operator +)
@@ -1451,7 +1370,7 @@ VTEST(Maths)
         
         }
 
-        NAMESPACE(Scaler_to_This_operations)
+        NAMESPACE(Scale to This operators)
         {
 
             TEST(Operator +=)
@@ -1526,7 +1445,7 @@ VTEST(Maths)
 
     }
 
-    NAMESPACE(Vector_functions)
+    NAMESPACE(Vector functions)
     {
         NAMESPACE(Normalize)
         {
@@ -1638,9 +1557,7 @@ VTEST(Maths)
                 GVA = glm::normalize(GVA);
                 GVB = glm::normalize(GVB);
 
-                COMPARE(Maths::Vectors::AngleBetween(MVA, MVB), glm::orientedAngle(GVA, GVB));
-                float a = Maths::Vectors::AngleBetween(MVA, MVB);
-                float b = glm::angle(GVA, GVB);
+                COMPARE_WITH_PRECISION(Maths::Vectors::AngleBetween(MVA, MVB), glm::orientedAngle(GVA, GVB), Maths::Constants::TOLERANCE);
             }
 
             TEST(Vec3)
@@ -1665,7 +1582,7 @@ VTEST(Maths)
                 
                 float anglebetweenGLM = acos(std::clamp(glm::dot(GVA, GVB) / ( glm::length(GVA) * glm::length(GVB)), -1.0f, 1.0f));
 
-                COMPARE(Maths::Vectors::AngleBetween(MVA, MVB), anglebetweenGLM);
+                COMPARE_WITH_PRECISION(Maths::Vectors::AngleBetween(MVA, MVB), anglebetweenGLM, Maths::Constants::TOLERANCE);
                 std::cout << "since glm does not have an angle bewteen two vector 4 I implemented it using glm functions." <<std::endl;
             }
         }
@@ -1715,17 +1632,17 @@ VTEST(Maths)
                 Maths::Vec3 resultM = Maths::Vectors::Rotate(MV, angle, Maths::Vec3(x,y,z));
                 glm::vec3 resultG = glm::angleAxis(angle, glm::vec3(x,y,z)) * GV;
 
-                COMPARE(resultM.x, resultG.x);
-                COMPARE(resultM.y, resultG.y);
-                COMPARE(resultM.z, resultG.z);
+                COMPARE_WITH_PRECISION(resultM.x, resultG.x, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(resultM.y, resultG.y, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(resultM.z, resultG.z, Maths::Constants::TOLERANCE);
             }
         }
     }
 
-    NAMESPACE(Matrix_3x3)
+    NAMESPACE(Matrix 3x3)
     {
 
-        NAMESPACE(Constructor)
+        NAMESPACE(Constructors)
         {
 
             TEST(default)
@@ -1906,7 +1823,7 @@ VTEST(Maths)
                 }
             }
 
-            TEST(Transpose)
+            TEST(GetTranspose)
             {
                 float data[9] =
                 {
@@ -1922,7 +1839,7 @@ VTEST(Maths)
                     data[3], data[4], data[5],
                     data[6], data[7], data[8]);
 
-                MM = MM.Transpose();
+                MM = MM.GetTranspose();
                 MG = glm::transpose(MG);
 
                 for (int i = 0; i < 3; i++)
@@ -1934,7 +1851,7 @@ VTEST(Maths)
                 }
             }
 
-            TEST(Inverse)
+            TEST(GetInverse)
             {
                 float data[9] =
                 {
@@ -1950,14 +1867,14 @@ VTEST(Maths)
                     data[3], data[4], data[5],
                     data[6], data[7], data[8]);
 
-                MM.Inverse();
+                MM = MM.GetInverse();
                 MG = glm::inverse(MG);
 
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        COMPARE(MM[i][j], MG[i][j]);
+                        COMPARE_WITH_PRECISION(MM[i][j], MG[i][j], 3e-5);
                     }
                 }
             }
@@ -2566,14 +2483,13 @@ VTEST(Maths)
             }
         }
     }
-/*
-    NAMESPACE(Matrix_4x4)
+
+    NAMESPACE(Matrix 4x4)
     {
 
-        NAMESPACE(Matrix_4x4_Constructor)
+        NAMESPACE(Constructors)
         {
-
-            TEST(Mat4_Constructor_default)
+            TEST(default)
             {
                 Maths::Mat4 MM; glm::mat4 MG(0);
 
@@ -2581,20 +2497,20 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM.data_4_4[i][j], MG[i][j]);
+                        COMPARE(MM[i][j], MG[i][j]);
                     }
                 }
 
             }
 
-            TEST(Mat4_Constructor_data)
+            TEST(data[16])
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
 
@@ -2609,37 +2525,175 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM.data_4_4[i][j], MG[i][j]);
+                        COMPARE(MM[i][j], MG[i][j]);
                     }
                 }
 
             }
 
+            TEST(indentity value)
+            {
+                float value = RAND_FLOAT;
+                Maths::Mat4 MM(value);
+
+                glm::mat4 MG(value);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(16 value)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                Maths::Mat4 MM(data[0], data[1], data[2], data[3],
+                               data[4], data[5], data[6], data[7],
+                               data[8], data[9], data[10], data[11],
+                               data[12], data[13], data[14], data[15]);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                             data[4], data[5], data[6], data[7],
+                             data[8], data[9], data[10], data[11],
+                             data[12], data[13], data[14], data[15]);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(Mat3)
+            {
+                float data[9] =
+                {
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                Maths::Mat3 MTemp(data[0], data[1], data[2],
+                                  data[3], data[4], data[5],
+                                  data[6], data[7], data[8]);
+
+                Maths::Mat4 MM(MTemp);
+
+                glm::mat4 MG(data[0], data[1], data[2], 0,
+                             data[3], data[4], data[5], 0,
+                             data[6], data[7], data[8], 0,
+                             0,       0,       0,       1);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
         }
 
-        NAMESPACE(Matrix_4x4_Utils)
+        NAMESPACE(Utils)
         {
-
-            TEST(Mat4_Transpose)
+            TEST(Translate)
             {
-                float data[16] =
+                float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Mat4 MM = Maths::Mat4::Translate(Maths::Vec3(value[0], value[1], value[2]));
+
+                glm::mat4 MG = glm::translate(glm::vec3(value[0], value[1], value[2]));
+
+                for (int i = 0; i < 4; i++)
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
-                };
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
 
+            TEST(Rotate)
+            {
+                float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Mat4 MM = Maths::Mat4::Rotate(Maths::Vec3(value[0], value[1], value[2]));
 
-                Maths::Mat4 MM(data);
+                glm::mat4 MG = glm::rotate(value[0], glm::vec3(1, 0, 0)) * glm::rotate(value[1], glm::vec3(0, 1, 0)) * glm::rotate(value[2], glm::vec3(0, 0, 1));
 
-                glm::mat4 MG(data[0], data[1], data[2], data[3],
-                    data[4], data[5], data[6], data[7],
-                    data[8], data[9], data[10], data[11],
-                    data[12], data[13], data[14], data[15]);
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
 
-                MM.Transpose();
-                MG = glm::transpose(MG);
+            TEST(RotateX)
+            {
+                float value = RAND_FLOAT;
+                Maths::Mat4 MM = Maths::Mat4::RotateX(value);
+
+                glm::mat4 MG = glm::rotate(value, glm::vec3(1, 0, 0));
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(RotateY)
+            {
+                float value = RAND_FLOAT;
+                Maths::Mat4 MM = Maths::Mat4::RotateY(value);
+
+                glm::mat4 MG = glm::rotate(value, glm::vec3(0, 1, 0));
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(RotateZ)
+            {
+                float value = RAND_FLOAT;
+                Maths::Mat4 MM = Maths::Mat4::RotateZ(value);
+
+                glm::mat4 MG = glm::rotate(value, glm::vec3(0, 0, 1));
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(Scale)
+            {
+                float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Mat4 MM = Maths::Mat4::Scale(Maths::Vec3(value[0], value[1], value[2]));
+
+                glm::mat4 MG = glm::scale(glm::vec3(value[0], value[1], value[2]));
 
                 for (int i = 0; i < 4; i++)
                 {
@@ -2650,16 +2704,52 @@ VTEST(Maths)
                 }
             }
 
-            TEST(Mat4_GetTranspose)
+            TEST(Transform Rotation as Vec3)
+            {
+                float value[9] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Mat4 MM = Maths::Mat4::Transform(Maths::Vec3(value[0], value[1], value[2]), Maths::Vec3(value[3], value[4], value[5]), Maths::Vec3(value[6], value[7], value[8]));
+
+                glm::mat4 MG = glm::translate(glm::vec3(value[0], value[1], value[2]));
+                MG *= glm::rotate(value[3], glm::vec3(1, 0, 0)) * glm::rotate(value[4], glm::vec3(0, 1, 0)) * glm::rotate(value[5], glm::vec3(0, 0, 1));
+                MG *= glm::scale(glm::vec3(value[6], value[7], value[8]));
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM.data_4_4[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(Transform Rotation as Quat)
+            {
+                float value[9] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat rotation(Maths::Vec3(value[3], value[4], value[5]));
+                Maths::Mat4 MM = Maths::Mat4::Transform(Maths::Vec3(value[0], value[1], value[2]), rotation, Maths::Vec3(value[6], value[7], value[8]));
+                
+                glm::mat4 MG = glm::translate(glm::vec3(value[0], value[1], value[2]));
+                MG *= glm::toMat4(glm::quat(glm::vec3(value[3], value[4], value[5])));
+                MG *= glm::scale(glm::vec3(value[6], value[7], value[8]));
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE_WITH_PRECISION(MM[i][j], MG[i][j], Maths::Constants::TOLERANCE);
+                    }
+                }
+            }
+
+            TEST(GetTranspose)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
-
 
                 Maths::Mat4 MM(data);
 
@@ -2668,118 +2758,76 @@ VTEST(Maths)
                     data[8], data[9], data[10], data[11],
                     data[12], data[13], data[14], data[15]);
 
-                Maths::Mat4 MM2 = Maths::Mat4::GetTranspose(MM);
+                Maths::Mat4 MM2 = MM.GetTranspose();
                 glm::mat4 MG2 = glm::transpose(MG);
 
                 for (int i = 0; i < 4; i++)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM2.data_4_4[i][j], MG2[i][j]);
+                        COMPARE(MM2[i][j], MG2[i][j]);
                     }
                 }
             }
 
-            TEST(Mat4_Determinant)
+            TEST(GetInverse)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
-
 
                 Maths::Mat4 MM(data);
 
                 glm::mat4 MG(data[0], data[1], data[2], data[3],
-                    data[4], data[5], data[6], data[7],
-                    data[8], data[9], data[10], data[11],
-                    data[12], data[13], data[14], data[15]);
+                             data[4], data[5], data[6], data[7],
+                             data[8], data[9], data[10], data[11],
+                             data[12], data[13], data[14], data[15]);
 
-                COMPARE(MM.Determinant(), glm::determinant(MG));
-            }
-
-            TEST(Mat4_Inverse)
-            {
-                float data[16] =
-                {
-                    52,  1, 45, 12,
-                    68, 85, 89, 77,
-                    55, 41, 10, 81,
-                    12,  3, 14,  5
-                };
-
-                float data[16] =
-                {
-                    73, 22, 58, 91,
-                    86, 47, 33, 65,
-                    20, 74, 17, 39,
-                    29, 11, 42, 8
-                };
-
-
-                Maths::Mat4 MM(data);
-
-                glm::mat4 MG(data[0], data[1], data[2], data[3],
-                    data[4], data[5], data[6], data[7],
-                    data[8], data[9], data[10], data[11],
-                    data[12], data[13], data[14], data[15]);
-
-                MM.Inverse();
-
-                MG = glm::inverse(MG);
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
-                    }
-                }
-            }
-
-            TEST(Mat4_GetInverse)
-            {
-                float data[16] =
-                {
-                    73, 22, 58, 91,
-                    86, 47, 33, 65,
-                    20, 74, 17, 39,
-                    29, 11, 42, 8
-                };
-
-
-                Maths::Mat4 MM(data);
-
-                glm::mat4 MG(data[0], data[1], data[2], data[3],
-                    data[4], data[5], data[6], data[7],
-                    data[8], data[9], data[10], data[11],
-                    data[12], data[13], data[14], data[15]);
-
-                Maths::Mat4 MM2 = Maths::Mat4::GetInverse(MM);
+                Maths::Mat4 MM2 = MM.GetInverse();
                 glm::mat4 MG2 = glm::inverse(MG);
 
                 for (int i = 0; i < 4; i++)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE_WITH_PRECISION(MM2.data_4_4[i][j], MG2[i][j], 0.0000001);
+                        COMPARE_WITH_PRECISION(MM2[i][j], MG2[i][j], 3e-5);
                     }
                 }
             }
-            
-            TEST(Mat4_Trace)
+
+            TEST(Determinant)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
+                Maths::Mat4 MM(data);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                             data[4], data[5], data[6], data[7],
+                             data[8], data[9], data[10], data[11],
+                             data[12], data[13], data[14], data[15]);
+
+                COMPARE(MM.GetDeterminant(), glm::determinant(MG));
+            }
+
+            TEST(Trace)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
 
                 Maths::Mat4 MM(data);
 
@@ -2788,151 +2836,20 @@ VTEST(Maths)
                     data[8], data[9], data[10], data[11],
                     data[12], data[13], data[14], data[15]);
 
-                COMPARE(MM.Trace(), (MG[0][0] + MG[1][1] + MG[2][2] + MG[3][3]));
+                COMPARE(MM.GetTrace(), (MG[0][0] + MG[1][1] + MG[2][2] + MG[3][3]));
             }
-
-            TEST(Mat4_CreateIdentityMatrix)
-            {
-
-                Maths::Mat4 MM = Maths::Mat4::CreateIdentityMatrix();
-
-                glm::mat4 MG = glm::identity<glm::mat4>();
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE(MM.data_4_4[i][j], MG[i][j]);
-                    }
-                }
-            }
-
-            TEST(Mat4_CreateXRotationMatrix)
-            {
-
-                Maths::Mat4 MM = Maths::Mat4::CreateXRotationMatrix(80.f);
-
-                glm::mat4 MG = glm::rotate(80.f, glm::vec3(1, 0, 0));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
-                    }
-                }
-            }
-
-            TEST(Mat4_CreateYRotationMatrix)
-            {
-
-                Maths::Mat4 MM = Maths::Mat4::CreateYRotationMatrix(80.f);
-
-                glm::mat4 MG = glm::rotate(80.f, glm::vec3(0, 1, 0));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
-                    }
-                }
-            }
-
-            TEST(Mat4_CreateZRotationMatrix)
-            {
-
-                Maths::Mat4 MM = Maths::Mat4::CreateZRotationMatrix(80.f);
-
-                glm::mat4 MG = glm::rotate(80.f, glm::vec3(0, 0, 1));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
-                    }
-                }
-            }
-
-            TEST(Mat4_CreateRotationMatrix)
-            {
-
-                Maths::Mat4 MM = Maths::Mat4::CreateRotationMatrix(Maths::Vec3(30,50,80));
-
-                glm::mat4 MG = glm::rotate(30.f, glm::vec3(1, 0, 0)) * glm::rotate(50.f, glm::vec3(0, 1, 0)) * glm::rotate(80.f, glm::vec3(0, 0, 1));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE_WITH_PRECISION(MM.data_4_4[i][j], MG[i][j], 0.0000001);
-                    }
-                }
-            }
-
-            TEST(Mat4_CreateTranslationMatrix)
-            {
-
-                Maths::Mat4 MM = Maths::Mat4::CreateTranslationMatrix(Maths::Vec3(85.f, 963.f, 74.f));
-
-                glm::mat4 MG = glm::translate(glm::vec3(85.f, 963.f, 74.f));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE(MM.data_4_4[i][j], MG[i][j], 0.0000001);
-                    }
-                }
-            }
-
-            TEST(Mat4_CreateScaleMatrix)
-            {
-
-                Maths::Mat4 MM = Maths::Mat4::CreateScaleMatrix(Maths::Vec3(3.f, 3.f, 3.f));
-
-                glm::mat4 MG = glm::scale(glm::vec3(3.f, 3.f, 3.f));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE(MM.data_4_4[i][j], MG[i][j]);
-                    }
-                }
-            }
-
-            TEST(Mat4_CreateTransformMatrix)
-            {
-                Maths::Mat4 MM = Maths::Mat4::CreateTransformMatrix(Maths::Vec3(85.f, 963.f, 74.f), Maths::Vec3(85.f, 74.f, 96.f), Maths::Vec3(5.f, 4.f, 87.f));
-
-                glm::mat4 MG = glm::translate(glm::vec3(85.f, 963.f, 74.f));
-                MG *= glm::rotate(85.f, glm::vec3(1, 0, 0)) * glm::rotate(74.f, glm::vec3(0, 1, 0)) * glm::rotate(96.f, glm::vec3(0, 0, 1));
-                MG *= glm::scale(glm::vec3(5.f, 4.f, 87.f));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        COMPARE(MM.data_4_4[i][j], MG[i][j]);
-                    }
-                }
-            }
-
         }
 
-        NAMESPACE(Matrix_4x4_Assignment_and_Equality_operations)
+        NAMESPACE(Assignment and Equality operators)
         {
-
-            TEST(Mat4_Operator_equal_data)
+            TEST(operator = data[16])
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
 
@@ -2944,27 +2861,155 @@ VTEST(Maths)
                     COMPARE(MM.data[i], data[i]);
                 }
             }
+            
+            TEST(operator = Mat3)
+            {
+                float data[9] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+                Maths::Mat3 M3(data);
 
-        }
+                Maths::Mat4 M4;
+                M4 = M3;
 
-        NAMESPACE(Matrix_4x4_Mat3_to_Mat3_operations)
-        {
+                Maths::Mat4 check(data[0], data[1], data[2], 0,
+                                  data[3], data[4], data[5], 0,
+                                  data[6], data[7], data[8], 0,
+                                  0,       0,       0,       1);
 
-            TEST(Mat4_Operator_Plus_Mat)
+                for (int i = 0; i < 16; i++)
+                {
+                    COMPARE(M4.data[i], check.data[i]);
+                }
+            }
+
+            TEST(operator negate)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                glm::mat4 GM(data[0], data[1], data[2], data[3],
+                             data[4], data[5], data[6], data[7],
+                             data[8], data[9], data[10], data[11],
+                             data[12], data[13], data[14], data[15]);
+
+                Maths::Mat4 MM(data);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        COMPARE((-MM)[i][j], (-GM)[i][j]);
+                    }
+                }
+            }
+        
+            TEST(operator ==)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                float data2[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                Maths::Mat4 MM_A(data);
+                Maths::Mat4 MM_B(data);
+                Maths::Mat4 MM_C(data2);
+
+                COMPARE(MM_A == MM_B, true);
+                COMPARE(MM_A == MM_C, false);
+
+            }
+
+            TEST(operator !=)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                float data2[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                Maths::Mat4 MM_A(data);
+                Maths::Mat4 MM_B(data);
+                Maths::Mat4 MM_C(data2);
+
+                COMPARE(MM_A != MM_B, false);
+                COMPARE(MM_A != MM_C, true);
+
+            }
+
+            TEST(operator [])
+            {
+                Maths::Vec4 data[4] =
+                {
+                    {RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT},
+                    {RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT},
+                    {RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT},
+                    {RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT}
+                };
+
+                Maths::Mat4 MM(data[0][0], data[0][1], data[0][2], data[0][3],
+                               data[1][0], data[1][1], data[1][2], data[1][3],
+                               data[2][0], data[2][1], data[2][2], data[2][3],
+                               data[3][0], data[3][1], data[3][2], data[3][3]);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    COMPARE(MM[i].x, data[i].x);
+                    COMPARE(MM[i].y, data[i].y);
+                    COMPARE(MM[i].z, data[i].z);
+                    COMPARE(MM[i].w, data[i].w);
+                }
+            }
+
+        }
+
+        NAMESPACE(Mat4 to Mat4 operators)
+        {
+
+            TEST(operator +)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[16] =
                 {
-                    52,  1, 45, 12,
-                    68, 85, 89, 77,
-                    55, 41, 10, 81,
-                    12,  3, 14,  5
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat4 MM1(data);
@@ -2987,27 +3032,27 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM3.data_4_4[i][j], MG3[i][j]);
+                        COMPARE(MM3[i][j], MG3[i][j]);
                     }
                 }
 
             }
 
-            TEST(Mat4_Operator_Minus_Mat)
+            TEST(operator -)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[16] =
                 {
-                    52,  1, 45, 12,
-                    68, 85, 89, 77,
-                    55, 41, 10, 81,
-                    12,  3, 14,  5
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat4 MM1(data);
@@ -3030,26 +3075,26 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM3.data_4_4[i][j], MG3[i][j]);
+                        COMPARE(MM3[i][j], MG3[i][j]);
                     }
                 }
             }
 
-            TEST(Mat4_Operator_Multiply_Mat)
+            TEST(operator *)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[16] =
                 {
-                    52,  1, 45, 12,
-                    68, 85, 89, 77,
-                    55, 41, 10, 81,
-                    12,  3, 14,  5
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat4 MM1(data);
@@ -3072,31 +3117,31 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM3.data_4_4[i][j], MG3[i][j]);
+                        COMPARE(MM3[i][j], MG3[i][j]);
                     }
                 }
             }
 
         }
 
-        NAMESPACE(Matrix_4x4_Mat3_to_This_operations)
+        NAMESPACE(Mat4 to This operators)
         {
 
-            TEST(Mat4_Operator_PlusEqual_Mat)
+            TEST(operator +=)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[16] =
                 {
-                    52,  1, 45, 12,
-                    68, 85, 89, 77,
-                    55, 41, 10, 81,
-                    12,  3, 14,  5
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat4 MM1(data);
@@ -3119,27 +3164,27 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM1.data_4_4[i][j], MG1[i][j]);
+                        COMPARE(MM1[i][j], MG1[i][j]);
                     }
                 }
 
             }
 
-            TEST(Mat4_Operator_MinusEqual_Mat)
+            TEST(operator -=)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[16] =
                 {
-                    52,  1, 45, 12,
-                    68, 85, 89, 77,
-                    55, 41, 10, 81,
-                    12,  3, 14,  5
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat4 MM1(data);
@@ -3162,26 +3207,26 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM1.data_4_4[i][j], MG1[i][j]);
+                        COMPARE(MM1[i][j], MG1[i][j]);
                     }
                 }
             }
 
-            TEST(Mat4_Operator_MultiplyEqual_Mat)
+            TEST(operator *=)
             {
                 float data[16] =
                 {
-                     0,  1,  2,  3,
-                     4,  5,  6,  7,
-                     8,  9, 10, 11,
-                    12, 13, 14, 15
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
                 float data2[16] =
                 {
-                    52,  1, 45, 12,
-                    68, 85, 89, 77,
-                    55, 41, 10, 81,
-                    12,  3, 14,  5
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
                 };
 
                 Maths::Mat4 MM1(data);
@@ -3204,7 +3249,334 @@ VTEST(Maths)
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        COMPARE(MM1.data_4_4[i][j], MG1[i][j]);
+                        COMPARE(MM1[i][j], MG1[i][j]);
+                    }
+                }
+            }
+
+        }
+
+        NAMESPACE(Scalar to Mat4 operators)
+        {
+
+            TEST(operator *)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+                float value = RAND_FLOAT;
+
+                Maths::Mat4 MM(data);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+
+
+                MM = MM * value;
+                MG = MG * value;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(operator /)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+                float value = RAND_FLOAT;
+
+                Maths::Mat4 MM(data);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+
+
+                MM = MM / value;
+                MG = MG / value;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+        }
+
+        NAMESPACE(Scalar to this operators)
+        {
+
+            TEST(operator *=)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+                float value = RAND_FLOAT;
+
+                Maths::Mat4 MM(data);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+
+                MM *= value;
+                MG *= value;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+            TEST(operator /=)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+                float value = RAND_FLOAT;
+
+                Maths::Mat4 MM(data);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+
+                MM /= value;
+                MG /= value;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+        }
+        
+        NAMESPACE(Mat4 to Vec3 operators)
+        {
+            TEST(operator *)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                float data2[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+
+                Maths::Mat4 MM(data);
+                Maths::Vec3 MV(data2[0], data2[1], data2[2]);
+
+                glm::mat4 GM(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+                glm::vec3 GV(data2[0], data2[1], data2[2]);
+
+                Maths::Vec3 MR = MM * MV;
+                glm::vec3 GR = { GM[0][0] * GV.x + GM[0][1] * GV.y + GM[0][2] * GV.z + GM[0][3],
+                    GM[1][0] * GV.x + GM[1][1] * GV.y + GM[1][2] * GV.z + GM[1][3],
+                    GM[2][0] * GV.x + GM[2][1] * GV.y + GM[2][2] * GV.z + GM[2][3] };
+
+                COMPARE(MR.x, GR.x);
+                COMPARE(MR.y, GR.y);
+                COMPARE(MR.z, GR.z);
+            }
+        }
+        
+        NAMESPACE(Mat4 to Vec4 operators)
+        {
+            TEST(operator *)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                float data2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+
+                Maths::Mat4 MM(data);
+                Maths::Vec4 MV(data2[0], data2[1], data2[2], data2[3]);
+
+                glm::mat4 GM(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+                glm::vec4 GV(data2[0], data2[1], data2[2], data2[3]);//vec2 extended to a vec3 due to lack of operator.
+
+                Maths::Vec4 MR = MM * MV;
+                glm::vec4 GR = GV * GM;
+
+                COMPARE(MR.x, GR.x);
+                COMPARE(MR.y, GR.y);
+                COMPARE(MR.z, GR.z);
+                COMPARE(MR.w, GR.w);
+            }
+            
+        }
+        
+    }
+
+    NAMESPACE(Matrix functions)
+    {
+
+        NAMESPACE(Transpose)
+        {
+            TEST(Mat3)
+            {
+                float data[9] =
+                {
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+
+                Maths::Mat3 MM(data);
+
+                glm::mat3 MG(data[0], data[1], data[2],
+                    data[3], data[4], data[5],
+                    data[6], data[7], data[8]);
+
+                Maths::matrixes::Transpose(MM);
+                MG = glm::transpose(MG);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+            
+            TEST(Mat4)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                Maths::Mat4 MM(data);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+
+                Maths::matrixes::Transpose(MM);
+                MG = glm::transpose(MG);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE(MM[i][j], MG[i][j]);
+                    }
+                }
+            }
+
+        }
+
+        NAMESPACE(Inverse)
+        {
+            TEST(Mat3)
+            {
+                float data[9] =
+                {
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                    RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+
+                Maths::Mat3 MM(data);
+
+                glm::mat3 MG(data[0], data[1], data[2],
+                    data[3], data[4], data[5],
+                    data[6], data[7], data[8]);
+
+                Maths::matrixes::Inverse(MM);
+                MG = glm::inverse(MG);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        COMPARE_WITH_PRECISION(MM[i][j], MG[i][j], 3e-6);
+                    }
+                }
+            }
+            
+            TEST(Mat4)
+            {
+                float data[16] =
+                {
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT,
+                     RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT
+                };
+
+                Maths::Mat4 MM(data);
+
+                glm::mat4 MG(data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7],
+                    data[8], data[9], data[10], data[11],
+                    data[12], data[13], data[14], data[15]);
+
+                Maths::matrixes::Inverse(MM);
+                MG = glm::inverse(MG);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        COMPARE_WITH_PRECISION(MM[i][j], MG[i][j], 3e-6);
                     }
                 }
             }
@@ -3212,7 +3584,566 @@ VTEST(Maths)
         }
 
     }
-*/
+
+    NAMESPACE(Quaternion)
+    {
+        NAMESPACE(Constructor)
+        {
+            TEST(default)
+            {
+                Maths::Quat QM;
+                glm::quat QG(1,0,0,0);
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(w_x_y_z)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(Vec4)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec4 VM(value[1], value[2], value[3], value[0]);
+                Maths::Quat QM(VM);
+                
+                //no equivalent for glm;
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(w and Vec3 as imaginary)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 VM(value[1], value[2], value[3]);
+                Maths::Quat QM(value[0], VM);
+
+                glm::vec3 VG(value[1], value[2], value[3]);
+                glm::quat QG(value[0], VG);
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(Vec3 as euler angles)
+            {
+                float value[3] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Vec3 VM(value[0], value[1], value[2]);
+                Maths::Quat QM(VM);
+
+                glm::vec3 VG(value[0], value[1], value[2]);
+                glm::quat QG(VG);
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+        }
+
+        NAMESPACE(Utils)
+        {
+            TEST(Identity)
+            {
+                Maths::Quat QM;
+                glm::quat QG = glm::quat_identity<float, glm::packed_highp>();
+                    
+                std::cout << "maybe make a function\n";
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(FromAngleAxis)
+            {
+                float value = Maths::ToRadians(RAND_FLOAT);
+                Maths::Quat QM = Maths::Quat::FromAngleAxis(value, Maths::Vec3::UP);
+                glm::quat QG = glm::angleAxis(value, glm::vec3(0, 1, 0));
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+
+                QM = Maths::Quat::FromAngleAxis(value, Maths::Vec3::DOWN);
+                QG = glm::angleAxis(value, glm::vec3(0, -1, 0));
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+
+                QM = Maths::Quat::FromAngleAxis(value, Maths::Vec3::RIGHT);
+                QG = glm::angleAxis(value, glm::vec3(1, 0, 0));
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+
+                QM = Maths::Quat::FromAngleAxis(value, Maths::Vec3::LEFT);
+                QG = glm::angleAxis(value, glm::vec3(-1, 0, 0));
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+
+                QM = Maths::Quat::FromAngleAxis(value, Maths::Vec3::FORWARD);
+                QG = glm::angleAxis(value, glm::vec3(0, 0, 1));
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+
+                QM = Maths::Quat::FromAngleAxis(value, Maths::Vec3::BACKWARD);
+                QG = glm::angleAxis(value, glm::vec3(0, 0, -1));
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+        
+            TEST(LookAt)
+            {
+                float valueFrom[3] = {0,0,0};
+                float valueTo[3] = {10,1,30};
+                Maths::Quat QM = Maths::Quat::LookAt(Maths::Vec3(valueFrom[0], valueFrom[1], valueFrom[2]), Maths::Vec3(valueTo[0], valueTo[1], valueTo[2]));
+
+                glm::vec3 dir = glm::normalize(glm::vec3(valueTo[0], valueTo[1], valueTo[2]) - glm::vec3(valueFrom[0], valueFrom[1], valueFrom[2]));
+                glm::quat QG = glm::rotation(glm::vec3(0, 0, 1), dir);
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(FromEulerAngle)
+            {
+                float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
+                Maths::Quat QM = Maths::Quat::FromEulerAngles(Maths::Vec3(value[0], value[1], value[2]));
+                glm::quat QG(glm::vec3(value[0], value[1], value[2]));
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(FromMatrix Mat3)
+            {
+                float value = RAND_FLOAT;
+                Maths::Quat QM = Maths::Quat::FromMatrix(Maths::Mat3::Rotate2D(value));
+                glm::quat QG(glm::vec3(0, 0, value));
+
+                COMPARE_WITH_PRECISION(QM.w, QG.w, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.x, QG.x, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.y, QG.y, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.z, QG.z, Maths::Constants::TOLERANCE);
+            }
+
+            TEST(FromMatrix Mat4)
+            {
+                float value[3] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT };
+                Maths::Mat4 rotm = Maths::Mat4::Rotate(Maths::Vec3(value[0], value[1], value[2]));
+                Maths::Quat QM = Maths::Quat::FromMatrix(rotm);
+
+                glm::mat4 rotg = glm::rotate(value[0], glm::vec3(1, 0, 0));
+                rotg *= glm::rotate(value[1], glm::vec3(0, 1, 0));
+                rotg *= glm::rotate(value[2], glm::vec3(0, 0, 1));
+
+                glm::quat QG = glm::toQuat(rotg);
+
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(GetMagnitudeSquared)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+
+                COMPARE(QM.GetMagnitudeSquared(), glm::length2(QG));
+            }
+
+            TEST(GetMagnitude)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+
+                COMPARE_WITH_PRECISION(QM.GetMagnitude(), glm::length(QG),Maths::Constants::TOLERANCE);
+            }
+
+            TEST(GetNormalized)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                QM = QM.GetNormalized();
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                QG = glm::normalize(QG);
+
+
+                COMPARE_WITH_PRECISION(QM.w, QG.w, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.x, QG.x, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.y, QG.y, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.z, QG.z, Maths::Constants::TOLERANCE);
+            }
+
+            TEST(GetConjugate)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                QM = QM.GetConjugate();
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                QG = glm::conjugate(QG);
+
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+        
+            TEST(GetInverse)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                QM = QM.GetInverse();
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                QG = glm::inverse(QG);
+
+
+                COMPARE_WITH_PRECISION(QM.w, QG.w, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.x, QG.x, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.y, QG.y, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.z, QG.z, Maths::Constants::TOLERANCE);
+            }
+        
+            TEST(RotateVector)
+            {
+                float value[7] = { RAND_FLOAT,RAND_FLOAT,RAND_FLOAT,RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                Maths::Vec3 PosM(value[4], value[5], value[6]);
+
+                PosM = QM.RotateVector(PosM);
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                glm::vec3 PosG(value[4], value[5], value[6]);
+
+                PosG = glm::rotate(QG, PosG);
+
+
+                COMPARE_WITH_PRECISION(PosM.x, PosG.x, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(PosM.y, PosG.y, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(PosM.z, PosG.z, Maths::Constants::TOLERANCE);
+            }
+            
+            TEST(ToRotationMatrix)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+
+                Maths::Mat3 MM = QM.ToRotationMatrix();
+                glm::mat3 MG = glm::toMat3(QG);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        COMPARE_WITH_PRECISION(MM[i][j], MG[i][j], Maths::Constants::TOLERANCE);
+                    }
+                }
+            }
+
+            TEST(ToEulerAngles)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+
+                Maths::Vec3 AM = QM.ToEulerAngles();
+                glm::vec3 AQ = glm::eulerAngles(QG);
+
+                COMPARE(AM.x, AQ.x);
+                COMPARE(AM.y, AQ.y);
+                COMPARE(AM.z, AQ.z);
+            }
+        }
+
+        NAMESPACE(Assignment and Equality operators)
+        {
+            TEST(operator negate)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+
+                QM = -QM;
+                QG = -QG;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(operator ==)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QA(value[0], value[1], value[2], value[3]);
+                Maths::Quat QB(value[0], value[1], value[2], value[3]);
+                Maths::Quat QC(value2[0], value2[1], value2[2], value2[3]);
+                
+
+                COMPARE(QA == QB, true);
+                COMPARE(QA == QC, false);
+            }
+
+            TEST(operator !=)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QA(value[0], value[1], value[2], value[3]);
+                Maths::Quat QB(value[0], value[1], value[2], value[3]);
+                Maths::Quat QC(value2[0], value2[1], value2[2], value2[3]);
+
+
+                COMPARE(QA != QC, true);
+                COMPARE(QA != QB, false);
+            }
+
+            TEST(operator [])
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat Q(value[0], value[1], value[2], value[3]);
+                glm::quat Q2(value[0], value[1], value[2], value[3]);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    COMPARE(Q[i], Q2[i]);
+                }
+            }
+
+        }
+
+        NAMESPACE(Quat to Quat operators)
+        {
+            TEST(operator +)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                Maths::Quat QM2(value2[0], value2[1], value2[2], value2[3]);
+                QM = QM + QM2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                glm::quat QG2(value2[0], value2[1], value2[2], value2[3]);
+                QG = QG + QG2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+
+            }
+
+            TEST(operator -)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                Maths::Quat QM2(value2[0], value2[1], value2[2], value2[3]);
+                QM = QM - QM2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                glm::quat QG2(value2[0], value2[1], value2[2], value2[3]);
+                QG = QG - QG2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(operator *)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                Maths::Quat QM2(value2[0], value2[1], value2[2], value2[3]);
+                QM = QM * QM2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                glm::quat QG2(value2[0], value2[1], value2[2], value2[3]);
+                QG = QG * QG2;
+
+                COMPARE_WITH_PRECISION(QM.w, QG.w, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.x, QG.x, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.y, QG.y, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.z, QG.z, Maths::Constants::TOLERANCE);
+            }
+        }
+
+        NAMESPACE(Quat to This operators)
+        {
+            TEST(operator +=)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                Maths::Quat QM2(value2[0], value2[1], value2[2], value2[3]);
+                QM += QM2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                glm::quat QG2(value2[0], value2[1], value2[2], value2[3]);
+                QG += QG2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+
+            }
+
+            TEST(operator -)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                Maths::Quat QM2(value2[0], value2[1], value2[2], value2[3]);
+                QM -= QM2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                glm::quat QG2(value2[0], value2[1], value2[2], value2[3]);
+                QG -= QG2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(operator *)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                Maths::Quat QM2(value2[0], value2[1], value2[2], value2[3]);
+                QM *= QM2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                glm::quat QG2(value2[0], value2[1], value2[2], value2[3]);
+                QG *= QG2;
+
+                COMPARE_WITH_PRECISION(QM.w, QG.w, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.x, QG.x, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.y, QG.y, Maths::Constants::TOLERANCE);
+                COMPARE_WITH_PRECISION(QM.z, QG.z, Maths::Constants::TOLERANCE);
+            }
+        }
+
+        NAMESPACE(Scaler to Quat operators)
+        {
+            TEST(operator *)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2 = RAND_FLOAT;
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                QM = QM * value2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                QG = QG * value2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(operator /)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2 = RAND_FLOAT;
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                QM = QM / value2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                QG = QG / value2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+        }
+
+        NAMESPACE(Scaler to This operators)
+        {
+            TEST(operator *=)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2 = RAND_FLOAT;
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                QM *= value2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                QG *= value2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+
+            TEST(operator /=)
+            {
+                float value[4] = { RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, RAND_FLOAT };
+                float value2 = RAND_FLOAT;
+                Maths::Quat QM(value[0], value[1], value[2], value[3]);
+                QM /= value2;
+
+                glm::quat QG(value[0], value[1], value[2], value[3]);
+                QG /= value2;
+
+                COMPARE(QM.w, QG.w);
+                COMPARE(QM.x, QG.x);
+                COMPARE(QM.y, QG.y);
+                COMPARE(QM.z, QG.z);
+            }
+        }
+    }
 }
 
 int main()
@@ -3220,6 +4151,7 @@ int main()
     system("cls");
     std::cout << "Library used for the tests : glm\n";
     // IterationValue(1000000);
+    IterationValue(10000);
     runTests();
     system("pause");
     return 0;
