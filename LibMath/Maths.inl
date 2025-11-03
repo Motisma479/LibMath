@@ -7,8 +7,9 @@
 \***********************************************/
 #include "Maths.hpp"
 
-#include <cmath>
+#include <algorithm>
 #include <cassert>
+#include <cmath>
 
 inline float MATHS_LIB_API Maths::ToRadians(float _angleDegrees)
 {
