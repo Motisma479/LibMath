@@ -30,7 +30,6 @@ inline double Maths::ToDegrees(double _angleRadians)
 
 #pragma region Vector
 
-#ifndef DISABLE_VEC2
 /************************\
  *-------VECTOR_2-------*
 \************************/
@@ -68,19 +67,19 @@ inline Maths::Vec2 Maths::Vec2::GetPerpendicular() const
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
-inline Maths::Vec2 Maths::Vec2::operator = (const Vec3& _vec)
+inline Maths::Vec2& Maths::Vec2::operator = (const Vec3& _vec)
 {
 	x = _vec.x;
 	y = _vec.y;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator = (const Vec4& _vec)
+inline Maths::Vec2& Maths::Vec2::operator = (const Vec4& _vec)
 {
 	x = _vec.x;
 	y = _vec.y;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator = (float _sca)
+inline Maths::Vec2& Maths::Vec2::operator = (float _sca)
 {
 	x = _sca;
 	y = _sca;
@@ -129,13 +128,13 @@ inline Maths::Vec2 Maths::Vec2::operator - (const Vec2& _vec) const
 }
 
 //Vec2 TO THIS OPERATIONS :
-inline Maths::Vec2 Maths::Vec2::operator += (const Vec2& _vec)
+inline Maths::Vec2& Maths::Vec2::operator += (const Vec2& _vec)
 {
 	x += _vec.x;
 	y += _vec.y;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator -= (const Vec2& _vec)
+inline Maths::Vec2& Maths::Vec2::operator -= (const Vec2& _vec)
 {
 	x -= _vec.x;
 	y -= _vec.y;
@@ -177,39 +176,81 @@ inline Maths::Vec2 Maths::Vec2::operator / (float _sca) const
 }
 
 //SCALER TO THIS OPERATIONS :
-inline Maths::Vec2 Maths::Vec2::operator += (float _sca)
+inline Maths::Vec2& Maths::Vec2::operator += (float _sca)
 {
 	x += _sca;
 	y += _sca;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator -= (float _sca)
+inline Maths::Vec2& Maths::Vec2::operator -= (float _sca)
 {
 	x -= _sca;
 	y -= _sca;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator *= (float _sca)
+inline Maths::Vec2& Maths::Vec2::operator *= (float _sca)
 {
 	x *= _sca;
 	y *= _sca;
 	return *this;
 }
-inline Maths::Vec2 Maths::Vec2::operator /= (float _sca)
+inline Maths::Vec2& Maths::Vec2::operator /= (float _sca)
 {
 	x /= _sca;
 	y /= _sca;
 	return *this;
 }
 
-#pragma endregion Vec2
-#endif
 
-#ifndef DISABLE_VEC3
+inline Maths::Vec2& MATHS_LIB_API Maths::Vectors::Normalize(Vec2& _vec)
+{
+	float m = _vec.GetMagnitude();
+	if (m != 0.f)
+		_vec.operator*=(1.f / m);
+
+	return _vec;
+}
+inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec2& _vecA, const Vec2& _vecB)
+{
+	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y);
+}
+inline float MATHS_LIB_API Maths::Vectors::DistanceBetween(const Vec2& _vecA, const Vec2& _vecB)
+{
+	return sqrt((_vecA.x - _vecB.x) * (_vecA.x - _vecB.x) + (_vecA.y - _vecB.y) * (_vecA.y - _vecB.y));
+}
+inline float MATHS_LIB_API Maths::Vectors::AngleBetween(const Vec2& _vecA, const Vec2& _vecB)
+{
+	float angle = acos(std::clamp(DotProduct(_vecA, _vecB) / (_vecA.GetMagnitude() * _vecB.GetMagnitude()), -1.0f, 1.0f));
+	if (CrossProduct(_vecA, _vecB) >= 0)
+		return angle;
+	return -angle;
+}
+inline float MATHS_LIB_API Maths::Vectors::CrossProduct(const Vec2& _vecA, const Vec2& _vecB)
+{
+	return _vecA.x * _vecB.y - _vecA.y * _vecB.x;
+}
+
+#pragma endregion Vec2
+
+
+
+
+
+
 /************************\
  *-------VECTOR_3-------*
 \************************/
 #pragma region Vec3
+
+//STATIC MEMBERS :
+const Maths::Vec3 Maths::Vec3::UP = Maths::Vec3(0.f, 1.f, 0.f);
+const Maths::Vec3 Maths::Vec3::DOWN = Maths::Vec3(0.f, -1.f, 0.f);
+
+const Maths::Vec3 Maths::Vec3::RIGHT = Maths::Vec3(1.f, 0.f, 0.f);
+const Maths::Vec3 Maths::Vec3::LEFT = Maths::Vec3(-1.f, 0.f, 0.f);
+
+const Maths::Vec3 Maths::Vec3::FORWARD = Maths::Vec3(0.f, 0.f, 1.f);
+const Maths::Vec3 Maths::Vec3::BACKWARD = Maths::Vec3(0.f, 0.f, -1.f);
 
 //CONSTRUCTORS :
 inline Maths::Vec3::Vec3(void) : x(0), y(0), z(0) {}
@@ -222,19 +263,6 @@ inline Maths::Vec3::Vec3(const Vec4& _vec) : x(_vec.x), y(_vec.y), z(_vec.z) {}
 inline Maths::Vec3::~Vec3(void) {}
 
 //UTILS :
-inline Maths::Vec2 Maths::Vec3::xy() const
-{
-	return { x, y };
-}
-inline Maths::Vec2 Maths::Vec3::xz() const
-{
-	return { x, z };
-}
-inline Maths::Vec2 Maths::Vec3::yz() const
-{
-	return { y, z };
-}
-
 inline float Maths::Vec3::GetMagnitude()        const
 {
 	return sqrt(GetMagnitudeSquared());
@@ -252,21 +280,21 @@ inline Maths::Vec3 Maths::Vec3::GetNormalized() const
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
-inline Maths::Vec3 Maths::Vec3::operator = (const Vec2& _vec)
+inline Maths::Vec3& Maths::Vec3::operator = (const Vec2& _vec)
 {
 	x = _vec.x;
 	y = _vec.y;
 	z = 0.f;
 	return *this;
 }
-inline Maths::Vec3 Maths::Vec3::operator = (const Vec4& _vec)
+inline Maths::Vec3& Maths::Vec3::operator = (const Vec4& _vec)
 {
 	x = _vec.x;
 	y = _vec.y;
 	z = _vec.z;
 	return *this;
 }
-inline Maths::Vec3 Maths::Vec3::operator = (float _sca)
+inline Maths::Vec3& Maths::Vec3::operator = (float _sca)
 {
 	x = _sca;
 	y = _sca;
@@ -319,14 +347,14 @@ inline Maths::Vec3 Maths::Vec3::operator - (const Vec3& _vec) const
 }
 
 //Vec3 TO THIS OPERATIONS :
-inline Maths::Vec3 Maths::Vec3::operator += (const Vec3& _vec)
+inline Maths::Vec3& Maths::Vec3::operator += (const Vec3& _vec)
 {
 	x += _vec.x;
 	y += _vec.y;
 	z += _vec.z;
 	return *this;
 }
-inline Maths::Vec3 Maths::Vec3::operator -= (const Vec3& _vec)
+inline Maths::Vec3& Maths::Vec3::operator -= (const Vec3& _vec)
 {
 	x -= _vec.x;
 	y -= _vec.y;
@@ -373,28 +401,28 @@ inline Maths::Vec3 Maths::Vec3::operator / (float _sca) const
 }
 
 //SCALER TO THIS OPERATIONS :
-inline Maths::Vec3 Maths::Vec3::operator += (float _sca)
+inline Maths::Vec3& Maths::Vec3::operator += (float _sca)
 {
 	x += _sca;
 	y += _sca;
 	z += _sca;
 	return *this;
 }
-inline Maths::Vec3 Maths::Vec3::operator -= (float _sca)
+inline Maths::Vec3& Maths::Vec3::operator -= (float _sca)
 {
 	x -= _sca;
 	y -= _sca;
 	z -= _sca;
 	return *this;
 }
-inline Maths::Vec3 Maths::Vec3::operator *= (float _sca)
+inline Maths::Vec3& Maths::Vec3::operator *= (float _sca)
 {
 	x *= _sca;
 	y *= _sca;
 	z *= _sca;
 	return *this;
 }
-inline Maths::Vec3 Maths::Vec3::operator /= (float _sca)
+inline Maths::Vec3& Maths::Vec3::operator /= (float _sca)
 {
 	x /= _sca;
 	y /= _sca;
@@ -402,10 +430,48 @@ inline Maths::Vec3 Maths::Vec3::operator /= (float _sca)
 	return *this;
 }
 
-#pragma endregion Vec3
-#endif
 
-#ifndef DISABLE_VEC4
+inline Maths::Vec3& MATHS_LIB_API Maths::Vectors::Normalize(Vec3& _vec)
+{
+	float m = _vec.GetMagnitude();
+	if (m != 0.f)
+		_vec.operator*=(1.f / m);
+
+	return _vec;
+}
+inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec3& _vecA, const Vec3& _vecB)
+{
+	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y + _vecA.z * _vecB.z);
+}
+inline float MATHS_LIB_API Maths::Vectors::DistanceBetween(const Vec3& _vecA, const Vec3& _vecB)
+{
+	return sqrt((_vecA.x - _vecB.x) * (_vecA.x - _vecB.x) + (_vecA.y - _vecB.y) * (_vecA.y - _vecB.y) + (_vecA.z - _vecB.z) * (_vecA.z - _vecB.z));
+}
+inline float MATHS_LIB_API Maths::Vectors::AngleBetween(const Vec3& _vecA, const Vec3& _vecB)
+{
+	return acos(std::clamp(DotProduct(_vecA, _vecB) / (_vecA.GetMagnitude() * _vecB.GetMagnitude()), -1.0f, 1.0f));
+}
+inline Maths::Vec3 MATHS_LIB_API Maths::Vectors::CrossProduct(const Vec3& _vecA, const Vec3& _vecB)
+{
+	return
+	{
+		_vecA.y * _vecB.z - _vecA.z * _vecB.y,
+		_vecA.z * _vecB.x - _vecA.x * _vecB.z,
+		_vecA.x * _vecB.y - _vecA.y * _vecB.x
+	};
+}
+inline Maths::Vec3 MATHS_LIB_API Maths::Vectors::Rotate(const Vec3& _vec, float _angle, const Vec3& _axis)
+{
+	Quat rotator = Quat::FromAngleAxis(_angle, _axis);
+	return rotator.RotateVector(_vec);
+}
+#pragma endregion Vec3
+
+
+
+
+
+
 /************************\
  *-------VECTOR_4-------*
 \************************/
@@ -422,23 +488,6 @@ inline Maths::Vec4::Vec4(const class Vec3& _vec, float _w) : x(_vec.x), y(_vec.y
 inline Maths::Vec4::~Vec4(void) {}
 
 //UTILS :
-inline Maths::Vec3 Maths::Vec4::xyz() const
-{
-	return Vec3(x, y, z);
-}
-inline Maths::Vec3 Maths::Vec4::xzw() const
-{
-	return Vec3(x, z, w);
-}
-inline Maths::Vec3 Maths::Vec4::xyw() const
-{
-	return Vec3(x, y, w);
-}
-inline Maths::Vec3 Maths::Vec4::yzw() const
-{
-	return Vec3(y, z, w);
-}
-
 inline float Maths::Vec4::GetMagnitude()         const
 {
 	return sqrt(GetMagnitudeSquared());
@@ -462,7 +511,7 @@ inline Maths::Vec4 Maths::Vec4::GetHomogenized() const
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
-inline Maths::Vec4 Maths::Vec4::operator = (const Vec2& _vec)
+inline Maths::Vec4& Maths::Vec4::operator = (const Vec2& _vec)
 {
 	x = _vec.x;
 	y = _vec.y;
@@ -470,7 +519,7 @@ inline Maths::Vec4 Maths::Vec4::operator = (const Vec2& _vec)
 	w = 1.f;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator = (const Vec3& _vec)
+inline Maths::Vec4& Maths::Vec4::operator = (const Vec3& _vec)
 {
 	x = _vec.x;
 	y = _vec.y;
@@ -478,7 +527,7 @@ inline Maths::Vec4 Maths::Vec4::operator = (const Vec3& _vec)
 	w = 1.f;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator = (float _sca)
+inline Maths::Vec4& Maths::Vec4::operator = (float _sca)
 {
 	x = _sca;
 	y = _sca;
@@ -535,7 +584,7 @@ inline Maths::Vec4 Maths::Vec4::operator - (const Vec4& _vec) const
 }
 
 //Vec4 TO THIS OPERATIONS :
-inline Maths::Vec4 Maths::Vec4::operator += (const Vec4& _vec)
+inline Maths::Vec4& Maths::Vec4::operator += (const Vec4& _vec)
 {
 	x += _vec.x;
 	y += _vec.y;
@@ -543,7 +592,7 @@ inline Maths::Vec4 Maths::Vec4::operator += (const Vec4& _vec)
 	w += _vec.w;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator -= (const Vec4& _vec)
+inline Maths::Vec4& Maths::Vec4::operator -= (const Vec4& _vec)
 {
 	x -= _vec.x;
 	y -= _vec.y;
@@ -597,7 +646,7 @@ inline Maths::Vec4 Maths::Vec4::operator / (float _sca) const
 
 //SCALER TO THIS OPERATIONS :
 
-inline Maths::Vec4 Maths::Vec4::operator += (float _sca)
+inline Maths::Vec4& Maths::Vec4::operator += (float _sca)
 {
 	x += _sca;
 	y += _sca;
@@ -605,7 +654,7 @@ inline Maths::Vec4 Maths::Vec4::operator += (float _sca)
 	w += _sca;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator -= (float _sca)
+inline Maths::Vec4& Maths::Vec4::operator -= (float _sca)
 {
 	x -= _sca;
 	y -= _sca;
@@ -613,7 +662,7 @@ inline Maths::Vec4 Maths::Vec4::operator -= (float _sca)
 	w -= _sca;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator *= (float _sca)
+inline Maths::Vec4& Maths::Vec4::operator *= (float _sca)
 {
 	x *= _sca;
 	y *= _sca;
@@ -621,7 +670,7 @@ inline Maths::Vec4 Maths::Vec4::operator *= (float _sca)
 	w *= _sca;
 	return *this;
 }
-inline Maths::Vec4 Maths::Vec4::operator /= (float _sca)
+inline Maths::Vec4& Maths::Vec4::operator /= (float _sca)
 {
 	x /= _sca;
 	y /= _sca;
@@ -630,95 +679,39 @@ inline Maths::Vec4 Maths::Vec4::operator /= (float _sca)
 	return *this;
 }
 
-#pragma endregion Vec4
-#endif
 
-inline void MATHS_LIB_API Maths::Vectors::Normalize(Vec2& _vec)
+inline Maths::Vec4& MATHS_LIB_API Maths::Vectors::Normalize(Vec4& _vec)
 {
 	float m = _vec.GetMagnitude();
 	if (m != 0.f)
-		_vec.operator*=(1 / m);
-}
-inline void MATHS_LIB_API Maths::Vectors::Normalize(Vec3& _vec)
-{
-	float m = _vec.GetMagnitude();
-	if (m != 0.f)
-		_vec.operator*=(1 / m);
-}
-inline void MATHS_LIB_API Maths::Vectors::Normalize(Vec4& _vec)
-{
-	float m = _vec.GetMagnitude();
-	if (m != 0.f)
-		_vec.operator*=(1 / m);
-}
+		_vec.operator*=(1.f / m);
 
-inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec2& _vecA, const Vec2& _vecB)
-{
-	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y);
-}
-inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec3& _vecA, const Vec3& _vecB)
-{
-	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y + _vecA.z * _vecB.z);
+	return _vec;
 }
 inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec4& _vecA, const Vec4& _vecB)
 {
 	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y + _vecA.z * _vecB.z + _vecA.w * _vecB.w);
 }
-
-inline float MATHS_LIB_API Maths::Vectors::DistanceBetween(const Vec2& _vecA, const Vec2& _vecB)
-{
-	return sqrt((_vecA.x - _vecB.x) * (_vecA.x - _vecB.x) + (_vecA.y - _vecB.y) * (_vecA.y - _vecB.y));
-}
-inline float MATHS_LIB_API Maths::Vectors::DistanceBetween(const Vec3& _vecA, const Vec3& _vecB)
-{
-	return sqrt((_vecA.x - _vecB.x) * (_vecA.x - _vecB.x) + (_vecA.y - _vecB.y) * (_vecA.y - _vecB.y) + (_vecA.z - _vecB.z) * (_vecA.z - _vecB.z));
-}
 inline float MATHS_LIB_API Maths::Vectors::DistanceBetween(const Vec4& _vecA, const Vec4& _vecB)
 {
 	return sqrt((_vecA.x - _vecB.x) * (_vecA.x - _vecB.x) + (_vecA.y - _vecB.y) * (_vecA.y - _vecB.y) + (_vecA.z - _vecB.z) * (_vecA.z - _vecB.z) + (_vecA.w - _vecB.w) * (_vecA.w - _vecB.w));
 }
-
-inline float MATHS_LIB_API Maths::Vectors::AngleBetween(const Vec2& _vecA, const Vec2& _vecB)
-{
-	float angle = acos(DotProduct(_vecA, _vecB) / (_vecA.GetMagnitude() * _vecB.GetMagnitude()));
-	if (CrossProduct(_vecA, _vecB) >= 0)
-		return angle;
-	return -angle;
-}
-inline float MATHS_LIB_API Maths::Vectors::AngleBetween(const Vec3& _vecA, const Vec3& _vecB)
-{
-	return acos(DotProduct(_vecA, _vecB) / (_vecA.GetMagnitude() * _vecB.GetMagnitude()));
-}
 inline float MATHS_LIB_API Maths::Vectors::AngleBetween(const Vec4& _vecA, const Vec4& _vecB)
 {
-	return acos(DotProduct(_vecA, _vecB) / (_vecA.GetMagnitude() * _vecB.GetMagnitude()));
+	return acos(std::clamp(DotProduct(_vecA, _vecB) / (_vecA.GetMagnitude() * _vecB.GetMagnitude()), -1.0f, 1.0f));
 }
 
-inline float MATHS_LIB_API Maths::Vectors::CrossProduct(const Vec2& _vecA, const Vec2& _vecB)
-{
-	return _vecA.x * _vecB.y - _vecA.y * _vecB.x;
-}
-
-inline Maths::Vec3 MATHS_LIB_API Maths::Vectors::CrossProduct(const Vec3& _vecA, const Vec3& _vecB)
-{
-	return
-	{
-		_vecA.y * _vecB.z - _vecA.z * _vecB.y,
-		_vecA.z * _vecB.x - _vecA.x * _vecB.z,
-		_vecA.x * _vecB.y - _vecA.y * _vecB.x
-	};
-}
-inline Maths::Vec3 MATHS_LIB_API Maths::Vectors::Rotate(const Vec3& _vec, float _angle, const Vec3& _axis)
-{
-	Quat rotator = Quaternions::FromAngleAxis(_angle, _axis);
-	return rotator.RotateVector(_vec);
-}
+#pragma endregion Vec4
 
 #pragma endregion Vector
 
+
+
+
+
+
 #pragma region Matrix
 
-#ifndef DISABLE_MAT3
 /************************\
  *-------MATRIX_3-------*
 \************************/
@@ -821,9 +814,9 @@ inline Maths::Mat3 Maths::Mat3::Rotate2D(float _angleInRad)
 	}
 	return
 	{
-		ca, sa, 0,
-		-sa, ca, 0,
-		0,  0,  1,
+		ca,   sa,  0,
+		-sa,  ca,  0,
+		0,    0,   1,
 	};
 
 }
@@ -831,18 +824,18 @@ inline Maths::Mat3 Maths::Mat3::Translate2D(const Vec2& _translation)
 {
 	return
 	{
-		1.f,			 0.f,			0.f,
-		0.f,			 1.f,			0.f,
-		_translation.x, _translation.y, 1.f
+		1.f,             0.f,            0.f,
+		0.f,             1.f,            0.f,
+		_translation.x,  _translation.y, 1.f
 	};
 }
 inline Maths::Mat3 Maths::Mat3::Scale2D(const Vec2& _scaling)
 {
 	return
 	{
-		_scaling.x, 0.f,        0.f,
-		0.f,        _scaling.y, 0.f,
-		0.f,        0.f,        1.f
+		_scaling.x,  0.f,         0.f,
+		0.f,         _scaling.y,  0.f,
+		0.f,         0.f,         1.f
 	};
 }
 inline Maths::Mat3 Maths::Mat3::Transform(const Vec2& _translation, float _angleInRad, const Vec2& _scaling)
@@ -861,28 +854,58 @@ inline Maths::Mat3 Maths::Mat3::Transform(const Vec2& _translation, float _angle
 	}
 	return
 	{
-		_scaling[0] * ca, _scaling[0] * sa, 0.f,
-		_scaling[1] * -sa, _scaling[1] * ca, 0.f,
-		_translation[0]  , _translation[1] , 1.f
+		_scaling.x * ca,   _scaling.x * sa,  0.f,
+		_scaling.y * -sa,  _scaling.y * ca,  0.f,
+		_translation.x,    _translation.y,   1.f
 	};
 
 }
 
 inline Maths::Mat3 Maths::Mat3::GetTranspose() const
 {
-	Mat3 temp;
-	return matrixes::Inverse(temp);
+	return
+	{
+		data[0],
+		data[3],
+		data[6],
+
+		data[1],
+		data[4],
+		data[7],
+
+		data[2],
+		data[5],
+		data[8]
+	};
 }
 inline Maths::Mat3 Maths::Mat3::GetInverse()   const
 {
-	Mat3 temp;
-	return matrixes::Inverse(temp);
+	float det = GetDeterminant();
+	if (det != 0.f)
+	{
+		det = 1.f / det;
+
+		return
+		{
+			(data_3_3[1][1] * data_3_3[2][2] - data_3_3[2][1] * data_3_3[1][2]) * det,
+			(data_3_3[0][2] * data_3_3[2][1] - data_3_3[0][1] * data_3_3[2][2]) * det,
+			(data_3_3[0][1] * data_3_3[1][2] - data_3_3[0][2] * data_3_3[1][1]) * det,
+			(data_3_3[1][2] * data_3_3[2][0] - data_3_3[1][0] * data_3_3[2][2]) * det,
+			(data_3_3[0][0] * data_3_3[2][2] - data_3_3[0][2] * data_3_3[2][0]) * det,
+			(data_3_3[1][0] * data_3_3[0][2] - data_3_3[0][0] * data_3_3[1][2]) * det,
+			(data_3_3[1][0] * data_3_3[2][1] - data_3_3[2][0] * data_3_3[1][1]) * det,
+			(data_3_3[2][0] * data_3_3[0][1] - data_3_3[0][0] * data_3_3[2][1]) * det,
+			(data_3_3[0][0] * data_3_3[1][1] - data_3_3[1][0] * data_3_3[0][1]) * det
+		};
+	}
+	return *this;
+
 }
 inline float Maths::Mat3::GetDeterminant()     const
 {
 	return data[0] * (data[4] * data[8] - data[7] * data[5])
-		- data[1] * (data[3] * data[8] - data[6] * data[5])
-		+ data[2] * (data[3] * data[7] - data[6] * data[4]);
+		 - data[1] * (data[3] * data[8] - data[6] * data[5])
+		 + data[2] * (data[3] * data[7] - data[6] * data[4]);
 }
 inline float Maths::Mat3::GetTrace()           const
 {
@@ -890,7 +913,7 @@ inline float Maths::Mat3::GetTrace()           const
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
-inline Maths::Mat3 Maths::Mat3::operator = (float _data[9])
+inline Maths::Mat3& Maths::Mat3::operator = (float _data[9])
 {
 	return *this =
 	{
@@ -907,7 +930,7 @@ inline Maths::Mat3 Maths::Mat3::operator = (float _data[9])
 		_data[8]
 	};
 }
-inline Maths::Mat3 Maths::Mat3::operator = (const Mat4& _mat)
+inline Maths::Mat3& Maths::Mat3::operator = (const Mat4& _mat)
 {
 	return *this =
 	{
@@ -952,11 +975,7 @@ inline bool Maths::Mat3::operator == (const Mat3& _mat) const
 }
 inline bool Maths::Mat3::operator != (const Mat3& _mat) const
 {
-	for (int i = 0; i < 9; i++)
-	{
-		if (data[i] == _mat.data[i]) return false;
-	}
-	return true;
+	return !operator==(_mat);
 }
 
 inline Maths::Vec3 Maths::Mat3::operator [] (int _index) const
@@ -1021,7 +1040,7 @@ inline Maths::Mat3 Maths::Mat3::operator * (const Mat3& _mat) const
 }
 
 //Mat3 TO THIS OPERATIONS :
-inline Maths::Mat3 Maths::Mat3::operator += (const Mat3& _mat)
+inline Maths::Mat3& Maths::Mat3::operator += (const Mat3& _mat)
 {
 	data[0] += _mat.data[0];
 	data[1] += _mat.data[1];
@@ -1036,7 +1055,7 @@ inline Maths::Mat3 Maths::Mat3::operator += (const Mat3& _mat)
 	data[8] += _mat.data[8];
 	return *this;
 }
-inline Maths::Mat3 Maths::Mat3::operator -= (const Mat3& _mat)
+inline Maths::Mat3& Maths::Mat3::operator -= (const Mat3& _mat)
 {
 	data[0] -= _mat.data[0];
 	data[1] -= _mat.data[1];
@@ -1051,7 +1070,7 @@ inline Maths::Mat3 Maths::Mat3::operator -= (const Mat3& _mat)
 	data[8] -= _mat.data[8];
 	return *this;
 }
-inline Maths::Mat3 Maths::Mat3::operator *= (const Mat3& _mat)
+inline Maths::Mat3& Maths::Mat3::operator *= (const Mat3& _mat)
 {
 	return *this =
 	{
@@ -1110,7 +1129,7 @@ inline Maths::Mat3 Maths::Mat3::operator / (float _sca) const
 }
 
 //Sca TO This OPERATIONS :
-inline Maths::Mat3 Maths::Mat3::operator *= (float _sca)
+inline Maths::Mat3& Maths::Mat3::operator *= (float _sca)
 {
 	data[0] *= _sca;
 	data[1] *= _sca;
@@ -1126,7 +1145,7 @@ inline Maths::Mat3 Maths::Mat3::operator *= (float _sca)
 
 	return *this;
 }
-inline Maths::Mat3 Maths::Mat3::operator /= (float _sca)
+inline Maths::Mat3& Maths::Mat3::operator /= (float _sca)
 {
 	data[0] /= _sca;
 	data[1] /= _sca;
@@ -1171,15 +1190,30 @@ inline Maths::Vec3 Maths::Mat3::operator * (const Vec3& _vec) const
 	};
 }
 
-#pragma endregion Mat3
-#endif
 
-#ifndef DISABLE_MAT4
+
+inline Maths::Mat3& Maths::matrixes::Transpose(Mat3& _mat)
+{
+	return _mat = _mat.GetTranspose();
+}
+inline Maths::Mat3& Maths::matrixes::Inverse(Mat3& _mat)
+{
+	return _mat = _mat.GetInverse();
+}
+
+#pragma endregion Mat3
+
+
+
+
+
+
 /************************\
  *-------MATRIX_4-------*
 \************************/
 #pragma region Mat4
 
+//CONSTRUCTORS :
 inline Maths::Mat4::Mat4(void)
 {
 	data[0] = 0;
@@ -1295,42 +1329,33 @@ inline Maths::Mat4::Mat4(const Mat3& _mat3)
 	data[15] = 1.f;
 }
 
+//DESTRUCTOR :
 inline Maths::Mat4::~Mat4(void) {}
 
-inline Maths::Mat4 Maths::Mat4::Transform(const Vec3& _translation, const Vec3& _anglesInRad, const Vec3& _scaling)
+//UTILS :
+inline Maths::Mat4 Maths::Mat4::Translate(const Vec3& _translation)
 {
-	//rotation
-	Mat4 temp = Rotate(_anglesInRad);
+	return
+	{
+		 1.f,
+		 0.f,
+		 0.f,
+		 0.f,
 
-	//scaling
-	temp.data[0] *= _scaling.x; temp.data[1] *= _scaling.x; temp.data[2] *= _scaling.x;
-	temp.data[4] *= _scaling.y; temp.data[5] *= _scaling.y; temp.data[6] *= _scaling.y;
-	temp.data[8] *= _scaling.z; temp.data[9] *= _scaling.z; temp.data[10] *= _scaling.z;
+		 0.f,
+		 1.f,
+		 0.f,
+		 0.f,
 
-	//translation
-	temp.data[12] = _translation.x;
-	temp.data[13] = _translation.y;
-	temp.data[14] = _translation.z;
+		 0.f,
+		 0.f,
+		 1.f,
+		 0.f,
 
-	return temp;
-}
-inline Maths::Mat4 Maths::Mat4::Transform(const Vec3& _translation, const Quat& _rotation, const Vec3& _scaling)
-{
-	float xx = _rotation.x * _rotation.x;
-	float yy = _rotation.y * _rotation.y;
-	float zz = _rotation.z * _rotation.z;
-
-	float xy = _rotation.x * _rotation.y;
-	float xz = _rotation.x * _rotation.z;
-	float xw = _rotation.x * _rotation.w;
-	float yw = _rotation.y * _rotation.w;
-	float yz = _rotation.y * _rotation.z;
-	float zw = _rotation.z * _rotation.w;
-	return {
-			(1.f - 2.f * (yy + zz)) * _scaling.x,   (2.f * (xy + zw)) * _scaling.x, (2.f * (xz - yw)) * _scaling.x, 0.f,
-			(2.f * (xy - zw)) * _scaling.y , (1.f - 2.f * (xx + zz)) * _scaling.y, (2.f * (yz + xw)) * _scaling.y,  0.f,
-			(2.f * (xz + yw)) * _scaling.z , (2.f * (yz - xw)) * _scaling.z, (1.f - 2.f * (xx + yy)) * _scaling.z,  0.f,
-			 _translation.x				   , _translation.y				   ,  _translation.z                     ,  1.f
+		 _translation.x,
+		 _translation.y,
+		 _translation.z,
+		 1.f
 	};
 }
 inline Maths::Mat4 Maths::Mat4::Rotate(const Vec3& _anglesInRad)
@@ -1379,7 +1404,6 @@ inline Maths::Mat4 Maths::Mat4::RotateX(float _angleInRad)
 		1.f
 	};
 }
-
 inline Maths::Mat4 Maths::Mat4::RotateY(float _angleInRad)
 {
 	float cosY = cos(_angleInRad);
@@ -1408,7 +1432,6 @@ inline Maths::Mat4 Maths::Mat4::RotateY(float _angleInRad)
 		1.f
 	};
 }
-
 inline Maths::Mat4 Maths::Mat4::RotateZ(float _angleInRad)
 {
 	float cosZ = cos(_angleInRad);
@@ -1437,33 +1460,6 @@ inline Maths::Mat4 Maths::Mat4::RotateZ(float _angleInRad)
 		1.f
 	};
 }
-
-inline Maths::Mat4 Maths::Mat4::Translate(const Vec3& _translation)
-{
-	return
-	{
-		 1.f,
-		 0.f,
-		 0.f,
-		 0.f,
-
-		 0.f,
-		 1.f,
-		 0.f,
-		 0.f,
-
-		 0.f,
-		 0.f,
-		 1.f,
-		 0.f,
-
-		 _translation.x,
-		 _translation.y,
-		 _translation.z,
-		 1.f
-	};
-}
-
 inline Maths::Mat4 Maths::Mat4::Scale(const Vec3& _scaling)
 {
 	return
@@ -1487,29 +1483,159 @@ inline Maths::Mat4 Maths::Mat4::Scale(const Vec3& _scaling)
 		0.f,
 		0.f,
 		1.f
-	};;
+	};
+}
+inline Maths::Mat4 Maths::Mat4::Transform(const Vec3& _translation, const Vec3& _anglesInRad, const Vec3& _scaling)
+{
+	//rotation
+	Mat4 temp = Rotate(_anglesInRad);
+
+	//scaling
+	temp.data[0] *= _scaling.x; temp.data[1] *= _scaling.x; temp.data[2] *= _scaling.x;
+	temp.data[4] *= _scaling.y; temp.data[5] *= _scaling.y; temp.data[6] *= _scaling.y;
+	temp.data[8] *= _scaling.z; temp.data[9] *= _scaling.z; temp.data[10] *= _scaling.z;
+
+	//translation
+	temp.data[12] = _translation.x;
+	temp.data[13] = _translation.y;
+	temp.data[14] = _translation.z;
+
+	return temp;
+}
+inline Maths::Mat4 Maths::Mat4::Transform(const Vec3& _translation, const Quat& _rotation, const Vec3& _scaling)
+{
+	float xx = _rotation.x * _rotation.x;
+	float yy = _rotation.y * _rotation.y;
+	float zz = _rotation.z * _rotation.z;
+
+	float xy = _rotation.x * _rotation.y;
+	float zw = _rotation.z * _rotation.w;
+	float xz = _rotation.x * _rotation.z;
+	float yw = _rotation.y * _rotation.w;
+	float xw = _rotation.x * _rotation.w;
+	float yz = _rotation.y * _rotation.z;
+	return {
+			(1.f - 2.f * (yy + zz)) * _scaling.x, (2.f * (xy + zw))       * _scaling.x, (2.f * (xz - yw))       * _scaling.x, 0.f,
+			(2.f * (xy - zw))       * _scaling.y, (1.f - 2.f * (xx + zz)) * _scaling.y, (2.f * (yz + xw))       * _scaling.y, 0.f,
+			(2.f * (xz + yw))       * _scaling.z, (2.f * (yz - xw))       * _scaling.z, (1.f - 2.f * (xx + yy)) * _scaling.z, 0.f,
+			_translation.x,                       _translation.y,                       _translation.z,                       1.f
+	};
 }
 
-inline float Maths::Mat4::GetDeterminant() const
+inline Maths::Mat4 Maths::Mat4::Frustum(float _left, float _right, float _bottom, float _top, float _near, float _far)
 {
-	return data_4_4[0][0] * (data_4_4[1][1] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
-		- data_4_4[1][2] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
-		+ data_4_4[1][3] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1]))
-		- data_4_4[0][1] * (data_4_4[1][0] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
-			- data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
-			+ data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0]))
-		+ data_4_4[0][2] * (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
-			- data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
-			+ data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0]))
-		- data_4_4[0][3] * (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])
-			- data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
-			+ data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0]));
+	assert((_right - _left) && (_top - _bottom) && (_far - _near));
+	float iHdist = 1.f / (_right - _left);
+	float iVdist = 1.f / (_top - _bottom);
+	float iZdist = 1.f / (_far - _near);
+	//Same computation for [2][2] and [2][3]
+	float quickZ = (_far + _near) * _near * iZdist;
+
+	return { 2.f * _near * iHdist , 0.f					   , 0.f						,0.f,
+				0.f					 , 2.f * _near * iVdist , 0.f						,0.f,
+			(_right + _left) * iHdist ,(_top + _bottom) * iVdist,-quickZ						,0.f,
+				0.f					 , 0.f					   ,-2.f * quickZ				,1.f };
 }
-inline float Maths::Mat4::GetTrace() const
+inline Maths::Mat4 Maths::Mat4::Ortho(float _left, float _right, float _bottom, float _top, float _near, float _far)
 {
-	return data[0] + data[5] + data[10] + data[15];
+	assert((_right - _left) && (_top - _bottom) && (_far - _near));
+	float iHdist = 1.f / (_right - _left);
+	float iVdist = 1.f / (_top - _bottom);
+	float iZdist = 1.f / (_far - _near);
+
+	return { 2.f * iHdist			 ,0.f						,0.f					 , 0.f,
+				0.f					 ,2.f * iVdist				,0.f					 , 0.f,
+				0.f	  	             ,0.f						,-2.f * iZdist			 , 0.f ,
+				-(_right + _left) * iHdist                  ,-(_top + _bottom) * iVdist                       ,-(_far + _near) * iZdist                     , 1.f };
+}
+//Doesn't assume all vec3 are normalized
+inline Maths::Mat4 Maths::Mat4::LookAt(Vec3 _eye, Vec3 _center, Vec3 _up)
+{
+	Vec3 forward = (_center - _eye).GetNormalized();
+	Vectors::Normalize(_up);
+	Vec3 side = Vectors::CrossProduct(forward, _up);
+	Vec3 newUp = Vectors::CrossProduct(side, _up);// Should be the same as previous, just a check
+
+	return { side.x, newUp.x, -forward.x, 0.f,
+			 side.y, newUp.y, -forward.y, 0.f,
+			 side.z, newUp.z, -forward.z, 0.f,
+			 0.f	  , 0.f	   ,  0.f	, 1.f };
+}
+//Doesn't assume all vec3 are normalized
+inline Maths::Mat4 Maths::Mat4::LookAt(Vec3 _forward, Vec3 _localUp)
+{
+	Vectors::Normalize(_forward);
+	Vectors::Normalize(_localUp);
+	Vec3 side = Vectors::CrossProduct(_forward, _localUp);
+
+	return { side.x, _localUp.x, -_forward.x, 0.f,
+			 side.y, _localUp.y, -_forward.y, 0.f,
+			 side.z, _localUp.z, -_forward.z, 0.f,
+			 0.f	  , 0.f	   ,  0.f	   , 1.f };
+}
+//Assumes all vec3 are normalized
+inline Maths::Mat4 Maths::Mat4::LookAtNormalized(Vec3 _eye, Vec3 _center, Vec3 _up)
+{
+	Vec3 forward = (_center - _eye);
+	Vec3 side = Vectors::CrossProduct(forward, _up);
+	Vec3 newUp = Vectors::CrossProduct(side, _up); // Should be the same as previous, just a check
+
+	return { side.x, newUp.x, -forward.x, 0.f,
+			 side.y, newUp.y, -forward.y, 0.f,
+			 side.z, newUp.z, -forward.z, 0.f,
+			 0.f	  , 0.f	   ,  0.f	   , 1.f };
+}
+//Assumes all vec3 are normalized
+inline Maths::Mat4 Maths::Mat4::LookAtNormalized(Vec3 _forward, Vec3 _localUp)
+{
+	Vec3 side = Vectors::CrossProduct(_forward, _localUp);
+
+	return { side.x, _localUp.x, -_forward.x, 0.f,
+			 side.y, _localUp.y, -_forward.y, 0.f,
+			 side.z, _localUp.z, -_forward.z, 0.f,
+			 0.f	  , 0.f	   ,  0.f	   , 1.f };
+}
+inline Maths::Mat4 Maths::Mat4::Perspective(float _fovY, float _aspect, float _near, float _far)
+{
+	using namespace Constants;
+	// Safe tan
+	float f = 0.f;
+	// Could be too specific
+	if (_fovY != 0.f && _fovY != PI)
+		f = tan((PI - _fovY) * 0.5f);
+	float iDist = 1.f / (_near - _far);
+	return { f / _aspect,0.f	,0.f						, 0.f,
+				0.f		,f		,0.f						, 0.f,
+				0.f		,0.f	,(_far + _near) * iDist		,-1.f,
+				0.f		,0.f	,2.f * _far * _near * iDist , 0.f };
 }
 
+
+inline Maths::Mat4 Maths::Mat4::GetTranspose() const
+{
+	return
+	{
+		data[0],
+		data[4],
+		data[8],
+		data[12],
+
+		data[1],
+		data[5],
+		data[9],
+		data[13],
+
+		data[2],
+		data[6],
+		data[10],
+		data[14],
+
+		data[3],
+		data[7],
+		data[11],
+		data[15]
+	};
+}
 inline Maths::Mat4 Maths::Mat4::GetInverse() const
 {
 	//DISCLAIMER: this abomination runs 15 times faster than its equivalent from glm
@@ -1609,34 +1735,28 @@ inline Maths::Mat4 Maths::Mat4::GetInverse() const
 	}
 	return *this;
 }
-
-inline Maths::Mat4 Maths::Mat4::GetTranspose() const
+inline float Maths::Mat4::GetDeterminant() const
 {
-	return
-	{
-		data[0],
-		data[4],
-		data[8],
-		data[12],
-
-		data[1],
-		data[5],
-		data[9],
-		data[13],
-
-		data[2],
-		data[6],
-		data[10],
-		data[14],
-
-		data[3],
-		data[7],
-		data[11],
-		data[15]
-	};
+	return data_4_4[0][0] * (data_4_4[1][1] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
+		- data_4_4[1][2] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
+		+ data_4_4[1][3] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1]))
+		- data_4_4[0][1] * (data_4_4[1][0] * (data_4_4[2][2] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][2])
+			- data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
+			+ data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0]))
+		+ data_4_4[0][2] * (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][1])
+			- data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][3] - data_4_4[2][3] * data_4_4[3][0])
+			+ data_4_4[1][3] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0]))
+		- data_4_4[0][3] * (data_4_4[1][0] * (data_4_4[2][1] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][1])
+			- data_4_4[1][1] * (data_4_4[2][0] * data_4_4[3][2] - data_4_4[2][2] * data_4_4[3][0])
+			+ data_4_4[1][2] * (data_4_4[2][0] * data_4_4[3][1] - data_4_4[2][1] * data_4_4[3][0]));
+}
+inline float Maths::Mat4::GetTrace() const
+{
+	return data[0] + data[5] + data[10] + data[15];
 }
 
-inline Maths::Mat4 Maths::Mat4::operator = (float _data[16])
+//ASSINGMENT AND EQUALITY OPERATIONS :
+inline Maths::Mat4& Maths::Mat4::operator = (float _data[16])
 {
 	data[0] = _data[0];
 	data[1] = _data[1];
@@ -1660,6 +1780,31 @@ inline Maths::Mat4 Maths::Mat4::operator = (float _data[16])
 
 	return *this;
 }
+inline Maths::Mat4& Maths::Mat4::operator = (const Mat3& _mat)
+{
+	data[0] = _mat.data[0];
+	data[1] = _mat.data[1];
+	data[2] = _mat.data[2];
+	data[3] = 0;
+
+	data[4] = _mat.data[3];
+	data[5] = _mat.data[4];
+	data[6] = _mat.data[5];
+	data[7] = 0;
+
+	data[8] = _mat.data[6];
+	data[9] = _mat.data[7];
+	data[10] = _mat.data[8];
+	data[11] = 0;
+
+	data[12] = 0;
+	data[13] = 0;
+	data[14] = 0;
+	data[15] = 1;
+
+	return *this;
+}
+
 
 inline Maths::Mat4 Maths::Mat4::operator - (void) const
 {
@@ -1709,6 +1854,7 @@ inline Maths::Vec4 Maths::Mat4::operator [] (int _index) const
 	return data4V[_index];
 }
 
+//Mat4 TO Mat4 OPERATIONS :
 inline Maths::Mat4 Maths::Mat4::operator + (const Mat4& _mat) const
 {
 	return
@@ -1785,7 +1931,8 @@ inline Maths::Mat4 Maths::Mat4::operator * (const Mat4& _mat) const
 	};
 }
 
-inline Maths::Mat4 Maths::Mat4::operator += (const Mat4& _mat)
+//Mat4 TO THIS OPERATIONS :
+inline Maths::Mat4& Maths::Mat4::operator += (const Mat4& _mat)
 {
 	data[0] += _mat.data[0];
 	data[1] += _mat.data[1];
@@ -1808,7 +1955,7 @@ inline Maths::Mat4 Maths::Mat4::operator += (const Mat4& _mat)
 	data[15] += _mat.data[15];
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator -= (const Mat4& _mat)
+inline Maths::Mat4& Maths::Mat4::operator -= (const Mat4& _mat)
 {
 	data[0] -= _mat.data[0];
 	data[1] -= _mat.data[1];
@@ -1831,7 +1978,7 @@ inline Maths::Mat4 Maths::Mat4::operator -= (const Mat4& _mat)
 	data[15] -= _mat.data[15];
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator *= (const Mat4& _mat)
+inline Maths::Mat4& Maths::Mat4::operator *= (const Mat4& _mat)
 {
 	return *this =
 	{
@@ -1857,6 +2004,7 @@ inline Maths::Mat4 Maths::Mat4::operator *= (const Mat4& _mat)
 	};
 }
 
+//Sca TO Mat4 OPERATIONS :
 inline Maths::Mat4 Maths::Mat4::operator * (float _sca) const
 {
 	return
@@ -1908,7 +2056,8 @@ inline Maths::Mat4 Maths::Mat4::operator / (float _sca) const
 	};
 }
 
-inline Maths::Mat4 Maths::Mat4::operator *= (float _sca)
+//Sca TO This OPERATIONS :
+inline Maths::Mat4& Maths::Mat4::operator *= (float _sca)
 {
 	data[0] *= _sca;
 	data[1] *= _sca;
@@ -1931,7 +2080,7 @@ inline Maths::Mat4 Maths::Mat4::operator *= (float _sca)
 	data[15] *= _sca;
 	return *this;
 }
-inline Maths::Mat4 Maths::Mat4::operator /= (float _sca)
+inline Maths::Mat4& Maths::Mat4::operator /= (float _sca)
 {
 	data[0] /= _sca;
 	data[1] /= _sca;
@@ -1955,6 +2104,7 @@ inline Maths::Mat4 Maths::Mat4::operator /= (float _sca)
 	return *this;
 }
 
+//Mat4 TO Vec3 OPERATIONS :
 inline Maths::Vec3 Maths::Mat4::operator * (const Vec3& _vec) const
 {
 	return
@@ -1967,6 +2117,7 @@ inline Maths::Vec3 Maths::Mat4::operator * (const Vec3& _vec) const
 	};
 }
 
+//Mat4 TO Vec4 OPERATIONS :
 inline Maths::Vec4 Maths::Mat4::operator * (const Vec4& _vec) const
 {
 	return
@@ -1981,123 +2132,333 @@ inline Maths::Vec4 Maths::Mat4::operator * (const Vec4& _vec) const
 	};
 }
 
-inline Maths::Mat4 Maths::matrixes::Transpose(Mat4& _mat)
+
+
+inline Maths::Mat4& Maths::matrixes::Transpose(Mat4& _mat)
 {
-	_mat = _mat.GetTranspose();
+	return _mat = _mat.GetTranspose();
 }
-
-inline Maths::Mat4 Maths::matrixes::Inverse(Mat4& _mat)
+inline Maths::Mat4& Maths::matrixes::Inverse(Mat4& _mat)
 {
-	_mat = _mat.GetInverse();
+	return _mat = _mat.GetInverse();
 }
-
-inline Maths::Mat4 Maths::matrixes::Frustum(float _left, float _right, float _bottom, float _top, float _near, float _far)
-{
-	assert((_right - _left) && (_top - _bottom) && (_far - _near));
-	float iHdist = 1.f / (_right - _left);
-	float iVdist = 1.f / (_top - _bottom);
-	float iZdist = 1.f / (_far - _near);
-	//Same computation for [2][2] and [2][3]
-	float quickZ = (_far + _near) * _near * iZdist;
-
-	return { 2.f * _near * iHdist , 0.f					   , 0.f						,0.f,
-				0.f					 , 2.f * _near * iVdist , 0.f						,0.f,
-			(_right + _left) * iHdist ,(_top + _bottom) * iVdist,-quickZ						,0.f,
-				0.f					 , 0.f					   ,-2.f * quickZ				,1.f };
-}
-inline Maths::Mat4 Maths::matrixes::Ortho(float _left, float _right, float _bottom, float _top, float _near, float _far)
-{
-	assert((_right - _left) && (_top - _bottom) && (_far - _near));
-	float iHdist = 1.f / (_right - _left);
-	float iVdist = 1.f / (_top - _bottom);
-	float iZdist = 1.f / (_far - _near);
-
-	return { 2.f * iHdist			 ,0.f						,0.f					 , 0.f,
-				0.f					 ,2.f * iVdist				,0.f					 , 0.f,
-				0.f	  	             ,0.f						,-2.f * iZdist			 , 0.f ,
-				-(_right + _left) * iHdist                  ,-(_top + _bottom) * iVdist                       ,-(_far + _near) * iZdist                     , 1.f };
-}
-
-//Doesn't assume all vec3 are normalized
-inline Maths::Mat4 Maths::matrixes::LookAt(float _eyeX, float _eyeY, float _eyeZ, float _centerX, float _centerY, float _centerZ, float _upX, float _upY, float _upZ)
-{
-	return LookAt(Vec3(_eyeX, _eyeY, _eyeZ), Vec3(_centerX, _centerY, _centerZ), Vec3(_upX, _upY, _upZ));
-}
-//Doesn't assume all vec3 are normalized
-inline Maths::Mat4 Maths::matrixes::LookAt(Vec3 _eye, Vec3 _center, Vec3 _up)
-{
-	Vec3 forward = (_center - _eye).GetNormalized();
-	Vectors::Normalize(_up);
-	Vec3 side = Vectors::CrossProduct(forward, _up);
-	Vec3 newUp = Vectors::CrossProduct(side, _up);// Should be the same as previous, just a check
-
-	return { side.x, newUp.x, -forward.x, 0.f,
-			 side.y, newUp.y, -forward.y, 0.f,
-			 side.z, newUp.z, -forward.z, 0.f,
-			 0.f	  , 0.f	   ,  0.f	, 1.f };
-}
-//Doesn't assume all vec3 are normalized
-inline Maths::Mat4 Maths::matrixes::LookAt(Vec3 _forward, Vec3 _localUp)
-{
-	Vectors::Normalize(_forward);
-	Vectors::Normalize(_localUp);
-	Vec3 side = Vectors::CrossProduct(_forward, _localUp);
-
-	return { side.x, _localUp.x, -_forward.x, 0.f,
-			 side.y, _localUp.y, -_forward.y, 0.f,
-			 side.z, _localUp.z, -_forward.z, 0.f,
-			 0.f	  , 0.f	   ,  0.f	   , 1.f };
-}
-//Assumes all vec3 are normalized
-inline Maths::Mat4 Maths::matrixes::LookAtNormalized(Vec3 _eye, Vec3 _center, Vec3 _up)
-{
-	Vec3 forward = (_center - _eye);
-	Vec3 side = Vectors::CrossProduct(forward, _up);
-	Vec3 newUp = Vectors::CrossProduct(side, _up); // Should be the same as previous, just a check
-
-	return { side.x, newUp.x, -forward.x, 0.f,
-			 side.y, newUp.y, -forward.y, 0.f,
-			 side.z, newUp.z, -forward.z, 0.f,
-			 0.f	  , 0.f	   ,  0.f	   , 1.f };
-}
-//Assumes all vec3 are normalized
-inline Maths::Mat4 Maths::matrixes::LookAtNormalized(Vec3 _forward, Vec3 _localUp)
-{
-	Vec3 side = Vectors::CrossProduct(_forward, _localUp);
-
-	return { side.x, _localUp.x, -_forward.x, 0.f,
-			 side.y, _localUp.y, -_forward.y, 0.f,
-			 side.z, _localUp.z, -_forward.z, 0.f,
-			 0.f	  , 0.f	   ,  0.f	   , 1.f };
-}
-
-inline Maths::Mat4 Maths::matrixes::Perspective(float _fovY, float _aspect, float _near, float _far)
-{
-	using namespace Constants;
-	// Safe tan
-	float f = 0.f;
-	// Could be too specific
-	if (_fovY != 0.f && _fovY != PI)
-		f = tan((PI - _fovY) * 0.5f);
-	float iDist = 1.f / (_near - _far);
-	return { f / _aspect,0.f	,0.f						, 0.f,
-				0.f		,f		,0.f						, 0.f,
-				0.f		,0.f	,(_far + _near) * iDist		,-1.f,
-				0.f		,0.f	,2.f * _far * _near * iDist , 0.f };
-}
-
 
 #pragma endregion Mat4
-#endif
 
 #pragma endregion Matrix
 
-#ifndef DISABLE_QUAT
+
+
+
+
+
 /************************\
  *---------QUAT---------*
 \************************/
 #pragma region Quat
+//CONSTRUCTORS :
+inline Maths::Quat::Quat() : w(1.f), x(0.f), y(0.f), z(0.f)  {}
+inline Maths::Quat::Quat(const Vec4& _vec) : w(_vec.w), x(_vec.x), y(_vec.y), z(_vec.z) {}
+inline Maths::Quat::Quat(float _w, float _x, float _y, float _z) : w(_w), x(_x), y(_y), z(_z) {}
+inline Maths::Quat::Quat(float _w, const Vec3& _imaginary) :  w(_w), x(_imaginary.x), y(_imaginary.y), z(_imaginary.z) {}
+inline Maths::Quat::Quat(const Vec3& _vector)
+{
+	*this = FromEulerAngles(_vector);
+}
 
+//DESTRUCTOR :
+inline Maths::Quat::~Quat(void) {}
+
+//UTILS :
+inline Maths::Quat Maths::Quat::FromAngleAxis(float _angle, const Vec3& _axis)
+{
+	float hAngle = _angle * 0.5f;
+	float sinA = std::sin(hAngle);
+
+	Vec3 axisN = _axis.GetNormalized();
+	return Quat(std::cos(hAngle), sinA * axisN.x, sinA * axisN.y, sinA * axisN.z);
+}
+inline Maths::Quat Maths::Quat::LookAt(const Vec3& _from, const Vec3& _to)
+{
+	Vec3 forwardVector = Vectors::Normalize(_to - _from);
+
+	float dot = Quaternions::DotProduct(Vec3::FORWARD, forwardVector);
+
+	if (std::abs(dot - (-1.0f)) < Constants::TOLERANCE)
+	{
+		return Quat(Constants::PI, Vec3::UP);
+	}
+	if (std::abs(dot - (1.0f)) < Constants::TOLERANCE)
+	{
+		return Quat();
+	}
+
+	float rotAngle = std::acos(dot);
+	Vec3 rotAxis = Vectors::Normalize(Vectors::CrossProduct(Vec3::FORWARD, forwardVector));
+	return FromAngleAxis(rotAngle, rotAxis);
+}
+inline Maths::Quat Maths::Quat::FromEulerAngles(const Vec3& _xyz)
+{
+	float c[3] = { std::cos(_xyz.x * 0.5f), std::cos(_xyz.y * 0.5f), std::cos(_xyz.z * 0.5f) };
+	float s[3] = { std::sin(_xyz.x * 0.5f), std::sin(_xyz.y * 0.5f), std::sin(_xyz.z * 0.5f) };
+
+	return {
+	c[0] * c[1] * c[2] + s[0] * s[1] * s[2],
+	s[0] * c[1] * c[2] - c[0] * s[1] * s[2],
+	c[0] * s[1] * c[2] + s[0] * c[1] * s[2],
+	c[0] * c[1] * s[2] - s[0] * s[1] * c[2]
+	};
+}
+inline Maths::Quat Maths::Quat::FromMatrix(const Mat3& _matrix)
+{
+	float trace = _matrix.GetTrace();
+
+	float real = sqrt(1.f + trace) / 2.f;
+	Vec3 imaginary(_matrix[1][2] - _matrix[2][1], _matrix[2][0] - _matrix[0][2], _matrix[0][1] - _matrix[1][0]);
+
+	//If precision issues, change for denom then /denom
+	float iDenom = 1.f / (4.f * real);
+
+	return Quat(real, imaginary * iDenom);
+}
+inline Maths::Quat Maths::Quat::FromMatrix(const Mat4& _matrix)
+{
+	Mat3 mat3 = _matrix;
+
+	return FromMatrix(mat3);
+}
+inline float Maths::Quat::GetMagnitudeSquared() const
+{
+	return Quaternions::DotProduct(*this, *this);
+}
+inline float Maths::Quat::GetMagnitude() const
+{
+	return std::sqrt(GetMagnitudeSquared());
+}
+inline Maths::Quat Maths::Quat::GetNormalized() const
+{
+	float magnitudeSq = GetMagnitudeSquared();
+	if (magnitudeSq != 0.f && magnitudeSq != 1.f)
+	{
+		float iMagnitude = 1.f / sqrt(magnitudeSq);
+		return
+		{
+			w * iMagnitude,
+			x * iMagnitude,
+			y * iMagnitude,
+			z * iMagnitude
+		};
+	}
+
+	//else return the null Quat or already
+	return Quat();
+}
+inline Maths::Quat Maths::Quat::GetConjugate() const
+{
+	return Quat(real, -imaginary);
+}
+inline Maths::Quat Maths::Quat::GetInverse() const
+{
+	float sqMagnitude = this->GetMagnitudeSquared();
+	if (!sqMagnitude)
+		//return this null Quat
+		return *this;
+	Quat conjugate = this->GetConjugate();
+	//Check if the quaternion is normalized
+	if (sqMagnitude == 1.f)
+		return { this->real, conjugate.imaginary };
+	//Otherwise normalize it
+	float iSqMagnitude = 1.f / sqMagnitude;
+	return { this->real * iSqMagnitude, conjugate.imaginary * iSqMagnitude };
+}
+
+inline Maths::Quat Maths::Quat::Nlerp(const Quat& _start, const Quat& _end, float _ratio)
+{
+	//Lerp aka glm::mix
+	Quat lerped = (_start * (1.f - _ratio) + _end * _ratio);
+	//NLerp
+	return lerped.GetNormalized();
+}
+inline Maths::Quat Maths::Quat::Slerp(const Quat& _q1, const Quat& _q2, float _t)
+{
+	float cosAngle = Quaternions::DotProduct(_q1, _q2);
+
+	bool reverse = false;
+
+	if (cosAngle < -Constants::TOLERANCE)
+	{
+		reverse = true;
+		cosAngle = -cosAngle;
+	}
+
+	//For sinusoidal interpolation
+	float s1, s2;
+
+	if (cosAngle > (1.0f - Constants::TOLERANCE))
+	{
+		// Too close, do straight linear interpolation.
+		s1 = 1.0f - _t;
+		s2 = _t;
+	}
+	else
+	{
+		float angle = std::acos(cosAngle);
+		float invSinAngle = 1.f / std::sin(angle);
+
+		s1 = std::sin((1.0f - _t) * angle) * invSinAngle;
+		s2 = std::sin(_t * angle) * invSinAngle;
+	}
+	if (reverse)
+		s2 = -s2;
+
+	return{ s1 * _q1.w + s2 * _q2.w,
+	   Vec3(s1 * _q1.imaginary.x + s2 * _q2.imaginary.x,
+			s1 * _q1.imaginary.y + s2 * _q2.imaginary.y,
+			s1 * _q1.imaginary.z + s2 * _q2.imaginary.z) };
+}
+
+inline Maths::Vec3 Maths::Quat::RotateVector(const Vec3& _vec) const
+{
+	Vec3 const QuatVector(x, y, z);
+	Vec3 const uv(Vectors::CrossProduct(QuatVector, _vec) * 2);
+	return _vec + uv * w + Vectors::CrossProduct(QuatVector, uv);
+}
+inline Maths::Mat3 Maths::Quat::ToRotationMatrix() const
+{
+	float xx = x * x;
+	float yy = y * y;
+	float zz = z * z;
+
+	float xy = x * y;
+	float zw = z * w;
+	float xz = x * z;
+	float yw = y * w;
+	float xw = x * w;
+	float yz = y * z;
+	return {
+			(1.f - 2.f * (yy + zz)), (2.f * (xy + zw)),       (2.f * (xz - yw)),
+			(2.f * (xy - zw)),       (1.f - 2.f * (xx + zz)), (2.f * (yz + xw)),
+			(2.f * (xz + yw)),       (2.f * (yz - xw)),       (1.f - 2.f * (xx + yy))
+	};
+}
+inline Maths::Vec3 Maths::Quat::ToEulerAngles() const
+{
+	float ww = w * w;
+	float xx = x * x;
+	float yy = y * y;
+	float zz = z * z;
+	
+	//pitch
+	float pitch;
+	float const tempY = 2.f * (y * z + w * x);
+	float const tempX = ww - xx - yy + zz;
+
+	if (abs(tempX - tempY) < Constants::TOLERANCE) //handle singularity
+		pitch = 2.f * atan2(x, w);
+	else
+		pitch = atan2(tempY, tempX);
+
+	// yaw
+	float yaw = asin(std::min(std::max(-2.f * (x * z - w * y), -1.f), 1.f));
+
+	//roll
+	float roll = std::atan2(2.f * (x * y + w * z), ww + xx - yy - zz);
+
+	return { pitch,yaw,roll };
+}
+
+//ASSINGMENT AND EQUALITY OPERATIONS :
+inline Maths::Quat Maths::Quat::operator - (void) const
+{
+	return { -w, -imaginary};
+}
+inline bool Maths::Quat::operator == (const Quat& _Quat) const
+{
+	return (w == _Quat.w && imaginary == _Quat.imaginary);
+}
+inline bool Maths::Quat::operator != (const Quat& _Quat) const
+{
+	return (w != _Quat.w || imaginary != _Quat.imaginary);
+}
+inline float Maths::Quat::operator [] (int i) const
+{
+	const float* ptr = &x;
+	return (i < 3) ? ptr[i] : w;
+}
+inline float& Maths::Quat::operator [] (int i)
+{
+	float* ptr = &x;
+	return (i < 3) ? ptr[i] : w;
+}
+
+//Quat TO Quat OPERATIONS :
+inline Maths::Quat Maths::Quat::operator + (const Quat& _Quat) const
+{
+	return { w + _Quat.w, imaginary + _Quat.imaginary };
+}
+
+inline Maths::Quat Maths::Quat::operator - (const Quat& _Quat) const
+{
+	return { w - _Quat.w, imaginary - _Quat.imaginary };
+}
+
+inline Maths::Quat Maths::Quat::operator * (const Quat& _Quat) const
+{
+	return { w * _Quat.w - Vectors::DotProduct(imaginary, _Quat.imaginary),                                              //Real part
+			 (imaginary * _Quat.w) + (_Quat.imaginary * w) + Vectors::CrossProduct(imaginary, _Quat.imaginary) }; //Imaginary part
+}
+
+//Quat TO This OPERATIONS :
+inline Maths::Quat& Maths::Quat::operator += (const Quat& _Quat)
+{
+	w += _Quat.w;
+	imaginary += _Quat.imaginary;
+	return *this;
+}
+
+inline Maths::Quat& Maths::Quat::operator -= (const Quat& _Quat)
+{
+	w -= _Quat.w;
+	imaginary -= _Quat.imaginary;
+	return *this;
+}
+
+inline Maths::Quat& Maths::Quat::operator *= (const Quat& _Quat)
+{
+	*this = *this * _Quat;
+	return *this;
+}
+
+//Sca TO Quat OPERATIONS :
+inline Maths::Quat Maths::Quat::operator * (float _Sca) const
+{
+	return { w * _Sca, imaginary * _Sca };
+}
+
+inline Maths::Quat Maths::Quat::operator / (float _Sca) const
+{
+	return { w / _Sca, imaginary / _Sca };
+}
+
+//Sca TO This OPERATIONS :
+inline Maths::Quat& Maths::Quat::operator *= (float _Sca)
+{
+	w *= _Sca;
+	imaginary *= _Sca;
+	return *this;
+}
+
+inline Maths::Quat& Maths::Quat::operator /= (float _Sca)
+{
+	w /= _Sca;
+	imaginary /= _Sca;
+	return *this;
+}
+
+
+inline float Maths::Quaternions::DotProduct(const Quat& _q1, const Quat& _q2)
+{
+	return Vectors::DotProduct(_q1.imaginary, _q2.imaginary) + _q1.w * _q2.w;
+}
 
 #pragma endregion Quat
-#endif
