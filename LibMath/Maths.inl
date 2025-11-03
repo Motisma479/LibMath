@@ -3,7 +3,7 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 10/10/2024                      *
+* Last Update : 03/11/2025                      *
 \***********************************************/
 #include "Maths.hpp"
 
@@ -64,7 +64,7 @@ inline Maths::Vec2 Maths::Vec2::GetNormalized()    const
 }
 inline Maths::Vec2 Maths::Vec2::GetPerpendicular() const
 {
-	return {y, -x};
+	return { y, -x };
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -211,6 +211,15 @@ inline Maths::Vec2& MATHS_LIB_API Maths::Vectors::Normalize(Vec2& _vec)
 
 	return _vec;
 }
+inline Maths::Vec2 MATHS_LIB_API Maths::Vectors::Normalize(const Vec2& _vec)
+{
+	Vec2 result = _vec;
+	float m = result.GetMagnitude();
+	if (m != 0.f)
+		result.operator*=(1.f / m);
+
+	return result;
+}
 inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec2& _vecA, const Vec2& _vecB)
 {
 	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y);
@@ -305,7 +314,7 @@ inline Maths::Vec3& Maths::Vec3::operator = (float _sca)
 
 inline Maths::Vec3 Maths::Vec3::operator - (void)		const
 {
-	return 
+	return
 	{
 		-x,
 		-y,
@@ -366,7 +375,7 @@ inline Maths::Vec3& Maths::Vec3::operator -= (const Vec3& _vec)
 //SCALER TO Vec3 OPERATIONS :
 inline Maths::Vec3 Maths::Vec3::operator + (float _sca) const
 {
-	return 
+	return
 	{
 		x + _sca,
 		y + _sca,
@@ -375,7 +384,7 @@ inline Maths::Vec3 Maths::Vec3::operator + (float _sca) const
 }
 inline Maths::Vec3 Maths::Vec3::operator - (float _sca) const
 {
-	return 
+	return
 	{
 		x - _sca,
 		y - _sca,
@@ -384,7 +393,7 @@ inline Maths::Vec3 Maths::Vec3::operator - (float _sca) const
 }
 inline Maths::Vec3 Maths::Vec3::operator * (float _sca) const
 {
-	return 
+	return
 	{
 		x * _sca,
 		y * _sca,
@@ -393,7 +402,7 @@ inline Maths::Vec3 Maths::Vec3::operator * (float _sca) const
 }
 inline Maths::Vec3 Maths::Vec3::operator / (float _sca) const
 {
-	return 
+	return
 	{
 		x / _sca,
 		y / _sca,
@@ -439,6 +448,15 @@ inline Maths::Vec3& MATHS_LIB_API Maths::Vectors::Normalize(Vec3& _vec)
 		_vec.operator*=(1.f / m);
 
 	return _vec;
+}
+inline Maths::Vec3 MATHS_LIB_API Maths::Vectors::Normalize(const Vec3& _vec)
+{
+	Vec3 result = _vec;
+	float m = result.GetMagnitude();
+	if (m != 0.f)
+		result.operator*=(1.f / m);
+
+	return result;
 }
 inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec3& _vecA, const Vec3& _vecB)
 {
@@ -501,7 +519,7 @@ inline Maths::Vec4 Maths::Vec4::GetNormalized()  const
 {
 	float i = GetMagnitude();
 	if (i != 0)
-		return operator*(1/i);
+		return operator*(1 / i);
 	return *this;
 }
 inline Maths::Vec4 Maths::Vec4::GetHomogenized() const
@@ -689,6 +707,15 @@ inline Maths::Vec4& MATHS_LIB_API Maths::Vectors::Normalize(Vec4& _vec)
 
 	return _vec;
 }
+inline Maths::Vec4 MATHS_LIB_API Maths::Vectors::Normalize(const Vec4& _vec)
+{
+	Vec4 result = _vec;
+	float m = result.GetMagnitude();
+	if (m != 0.f)
+		result.operator*=(1.f / m);
+
+	return result;
+}
 inline float MATHS_LIB_API Maths::Vectors::DotProduct(const Vec4& _vecA, const Vec4& _vecB)
 {
 	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y + _vecA.z * _vecB.z + _vecA.w * _vecB.w);
@@ -764,8 +791,8 @@ inline Maths::Mat3::Mat3(float _identityValue)
 	data[8] = _identityValue;
 }
 inline Maths::Mat3::Mat3(float _0, float _1, float _2,
-						float _3, float _4, float _5,
-						float _6, float _7, float _8)
+	float _3, float _4, float _5,
+	float _6, float _7, float _8)
 {
 	data[0] = _0;
 	data[1] = _1;
@@ -796,7 +823,7 @@ inline Maths::Mat3::Mat3(const class Mat4& _mat)
 }
 
 //DESTRUCTOR :
-inline Maths::Mat3::~Mat3(void){}
+inline Maths::Mat3::~Mat3(void) {}
 
 //UTILS :
 inline Maths::Mat3 Maths::Mat3::Rotate2D(float _angleInRad)
@@ -905,8 +932,8 @@ inline Maths::Mat3 Maths::Mat3::GetInverse()   const
 inline float Maths::Mat3::GetDeterminant()     const
 {
 	return data[0] * (data[4] * data[8] - data[7] * data[5])
-		 - data[1] * (data[3] * data[8] - data[6] * data[5])
-		 + data[2] * (data[3] * data[7] - data[6] * data[4]);
+		- data[1] * (data[3] * data[8] - data[6] * data[5])
+		+ data[2] * (data[3] * data[7] - data[6] * data[4]);
 }
 inline float Maths::Mat3::GetTrace()           const
 {
@@ -1516,9 +1543,9 @@ inline Maths::Mat4 Maths::Mat4::Transform(const Vec3& _translation, const Quat& 
 	float xw = _rotation.x * _rotation.w;
 	float yz = _rotation.y * _rotation.z;
 	return {
-			(1.f - 2.f * (yy + zz)) * _scaling.x, (2.f * (xy + zw))       * _scaling.x, (2.f * (xz - yw))       * _scaling.x, 0.f,
-			(2.f * (xy - zw))       * _scaling.y, (1.f - 2.f * (xx + zz)) * _scaling.y, (2.f * (yz + xw))       * _scaling.y, 0.f,
-			(2.f * (xz + yw))       * _scaling.z, (2.f * (yz - xw))       * _scaling.z, (1.f - 2.f * (xx + yy)) * _scaling.z, 0.f,
+			(1.f - 2.f * (yy + zz)) * _scaling.x, (2.f * (xy + zw)) * _scaling.x, (2.f * (xz - yw)) * _scaling.x, 0.f,
+			(2.f * (xy - zw)) * _scaling.y, (1.f - 2.f * (xx + zz)) * _scaling.y, (2.f * (yz + xw)) * _scaling.y, 0.f,
+			(2.f * (xz + yw)) * _scaling.z, (2.f * (yz - xw)) * _scaling.z, (1.f - 2.f * (xx + yy)) * _scaling.z, 0.f,
 			_translation.x,                       _translation.y,                       _translation.z,                       1.f
 	};
 }
@@ -2158,10 +2185,10 @@ inline Maths::Mat4& Maths::matrixes::Inverse(Mat4& _mat)
 \************************/
 #pragma region Quat
 //CONSTRUCTORS :
-inline Maths::Quat::Quat() : w(1.f), x(0.f), y(0.f), z(0.f)  {}
+inline Maths::Quat::Quat() : w(1.f), x(0.f), y(0.f), z(0.f) {}
 inline Maths::Quat::Quat(const Vec4& _vec) : w(_vec.w), x(_vec.x), y(_vec.y), z(_vec.z) {}
 inline Maths::Quat::Quat(float _w, float _x, float _y, float _z) : w(_w), x(_x), y(_y), z(_z) {}
-inline Maths::Quat::Quat(float _w, const Vec3& _imaginary) :  w(_w), x(_imaginary.x), y(_imaginary.y), z(_imaginary.z) {}
+inline Maths::Quat::Quat(float _w, const Vec3& _imaginary) : w(_w), x(_imaginary.x), y(_imaginary.y), z(_imaginary.z) {}
 inline Maths::Quat::Quat(const Vec3& _vector)
 {
 	*this = FromEulerAngles(_vector);
@@ -2348,7 +2375,7 @@ inline Maths::Vec3 Maths::Quat::ToEulerAngles() const
 	float xx = x * x;
 	float yy = y * y;
 	float zz = z * z;
-	
+
 	//pitch
 	float pitch;
 	float const tempY = 2.f * (y * z + w * x);
@@ -2371,7 +2398,7 @@ inline Maths::Vec3 Maths::Quat::ToEulerAngles() const
 //ASSINGMENT AND EQUALITY OPERATIONS :
 inline Maths::Quat Maths::Quat::operator - (void) const
 {
-	return { -w, -imaginary};
+	return { -w, -imaginary };
 }
 inline bool Maths::Quat::operator == (const Quat& _Quat) const
 {

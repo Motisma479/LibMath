@@ -3,20 +3,20 @@
 * GitHub : https://github.com/Motisma479        *
 * License : MIT license                         *
 * Unit Test Based on : OpenGL Mathematics (GLM) *
-* Last Update : 10/10/2024                      *
+* Last Update : 03/11/2025                      *
 \***********************************************/
 #pragma once
 
 
 // Use if you make a dll with Visual Studio(msvc)
 #ifdef MATHS_FOR_MSVC_DLL
-    #ifdef DLL_EXPORTS
-        #define MATHS_LIB_API __declspec(dllexport)
-    #else
-        #define MATHS_LIB_API __declspec(dllimport)
-    #endif
+#ifdef DLL_EXPORTS
+#define MATHS_LIB_API __declspec(dllexport)
 #else
-    #define MATHS_LIB_API
+#define MATHS_LIB_API __declspec(dllimport)
+#endif
+#else
+#define MATHS_LIB_API
 #endif
 
 //---USED_TO_ENABLE_CLASS_DISABLED_BY_DEFAULT---
@@ -33,24 +33,24 @@ namespace Maths
         constexpr double PI_PRECISE = 3.141592653589793;
 
         constexpr float PI = static_cast<float>(PI_PRECISE); //casted down for better presision
-		constexpr float TAU = PI * 2.f;//TAU = 2PI
+        constexpr float TAU = PI * 2.f;//TAU = 2PI
 
-		constexpr float PI_2 = PI / 2.f;//PI/2
-		constexpr float PI_3 = PI / 3.f;//PI/3
-		constexpr float PI_4 = PI / 4.f;//PI/4
-		constexpr float PI_6 = PI / 6.f;//PI/6
-		constexpr float I_PI = 1.f / PI;//1/PI
-		constexpr float I_TAU = 1.f / TAU;//1/2PI
+        constexpr float PI_2 = PI / 2.f;//PI/2
+        constexpr float PI_3 = PI / 3.f;//PI/3
+        constexpr float PI_4 = PI / 4.f;//PI/4
+        constexpr float PI_6 = PI / 6.f;//PI/6
+        constexpr float I_PI = 1.f / PI;//1/PI
+        constexpr float I_TAU = 1.f / TAU;//1/2PI
 
-		constexpr float TOLERANCE = 3e-7f; //Use this rather than 0 comparison
+        constexpr float TOLERANCE = 3e-7f; //Use this rather than 0 comparison
 
-		constexpr double DEG2RAD_PRECISE = PI_PRECISE / 180.0;
-		constexpr float DEG2RAD = static_cast<float>(DEG2RAD_PRECISE); //casted down for better presision
+        constexpr double DEG2RAD_PRECISE = PI_PRECISE / 180.0;
+        constexpr float DEG2RAD = static_cast<float>(DEG2RAD_PRECISE); //casted down for better presision
 
-		constexpr double RAD2DEG_PRECISE = 180.0 / PI_PRECISE;
+        constexpr double RAD2DEG_PRECISE = 180.0 / PI_PRECISE;
         constexpr float RAD2DEG = static_cast<float>(RAD2DEG_PRECISE); //casted down for better presision
 
-    } 
+    }
 
     //-- Angle Conversion ----------------------------------------------
 
@@ -95,7 +95,7 @@ namespace Maths
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Vec2& operator = (const class Vec3& _vec);
-		inline Vec2& operator = (const class Vec4& _vec);
+        inline Vec2& operator = (const class Vec4& _vec);
         inline Vec2& operator = (float _sca);
 
         inline Vec2 operator - (void)              const;
@@ -128,6 +128,9 @@ namespace Maths
     {
         //return the input vector normalised
         inline Vec2& MATHS_LIB_API Normalize(Vec2& _vec);
+        //Can be usded with C++17 guaranteed RVO
+        inline Vec2 MATHS_LIB_API Normalize(const Vec2& _vec);
+
         inline float MATHS_LIB_API DotProduct(const Vec2& _vecA, const Vec2& _vecB);
         inline float MATHS_LIB_API DistanceBetween(const Vec2& _vecA, const Vec2& _vecB);
         inline float MATHS_LIB_API AngleBetween(const Vec2& _vecA, const Vec2& _vecB);
@@ -155,13 +158,13 @@ namespace Maths
 
         //STATIC MEMBERS :
         static const Vec3 UP;
-		static const Vec3 DOWN;
+        static const Vec3 DOWN;
 
-		static const Vec3 RIGHT;
-		static const Vec3 LEFT;
+        static const Vec3 RIGHT;
+        static const Vec3 LEFT;
 
-		static const Vec3 FORWARD;
-		static const Vec3 BACKWARD;
+        static const Vec3 FORWARD;
+        static const Vec3 BACKWARD;
 
         //CONSTRUCTORS :
         inline Vec3(void);
@@ -180,7 +183,7 @@ namespace Maths
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Vec3& operator = (const class Vec2& _vec);
-		inline Vec3& operator = (const class Vec4& _vec);
+        inline Vec3& operator = (const class Vec4& _vec);
         inline Vec3& operator = (float _sca);
 
         inline Vec3 operator - (void)              const;
@@ -213,6 +216,9 @@ namespace Maths
     {
         //return the input vector normalised
         inline Vec3& MATHS_LIB_API Normalize(Vec3& _vec);
+        //Can be usded with C++17 guaranteed RVO
+        inline Vec3 MATHS_LIB_API Normalize(const Vec3& _vec);
+
         inline float MATHS_LIB_API DotProduct(const Vec3& _vecA, const Vec3& _vecB);
         inline float MATHS_LIB_API DistanceBetween(const Vec3& _vecA, const Vec3& _vecB);
         inline float MATHS_LIB_API AngleBetween(const Vec3& _vecA, const Vec3& _vecB);
@@ -243,7 +249,7 @@ namespace Maths
         inline Vec4(float _xyzw);
         inline Vec4(float _x, float _y, float _z, float _w);
         inline Vec4(const class Vec2& _vec, float _z = 0.f, float _w = 1.f);
-		inline Vec4(const class Vec3& _vec, float _w = 1.f);
+        inline Vec4(const class Vec3& _vec, float _w = 1.f);
 
         //DESTRUCTOR :
         inline ~Vec4(void);
@@ -290,11 +296,14 @@ namespace Maths
     {
         //return the input vector normalised
         inline Vec4& MATHS_LIB_API Normalize(Vec4& _vec);
+        //Can be usded with C++17 guaranteed RVO
+        inline Vec4 MATHS_LIB_API Normalize(const Vec4& _vec);
+
         inline float MATHS_LIB_API DotProduct(const Vec4& _vecA, const Vec4& _vecB);
         inline float MATHS_LIB_API DistanceBetween(const Vec4& _vecA, const Vec4& _vecB);
         inline float MATHS_LIB_API AngleBetween(const Vec4& _vecA, const Vec4& _vecB);
     }
-    
+
 #pragma endregion Vector
 
 
@@ -320,8 +329,8 @@ namespace Maths
         inline Mat3(float _data[9]);
         inline Mat3(float _identityValue);
         inline Mat3(float _0, float _1, float _2,
-			        float _3, float _4, float _5,
-			        float _6, float _7, float _8);
+            float _3, float _4, float _5,
+            float _6, float _7, float _8);
         inline Mat3(const class Mat4& _mat);
 
         //DESTRUCTOR :
@@ -344,7 +353,7 @@ namespace Maths
 
         inline Mat3 operator - (void)              const;
         inline bool operator == (const Mat3& _mat) const;
-		inline bool operator != (const Mat3& _mat) const;
+        inline bool operator != (const Mat3& _mat) const;
 
         inline Vec3 operator [] (int _index) const;
 
@@ -359,18 +368,18 @@ namespace Maths
         inline Mat3& operator *= (const Mat3& _mat);
 
         //Sca TO Mat3 OPERATIONS :
-		inline Mat3 operator * (float _sca) const;
-		inline Mat3 operator / (float _sca) const;
+        inline Mat3 operator * (float _sca) const;
+        inline Mat3 operator / (float _sca) const;
 
-		//Sca TO This OPERATIONS :
-		inline Mat3& operator *= (float _sca);
-		inline Mat3& operator /= (float _sca);
+        //Sca TO This OPERATIONS :
+        inline Mat3& operator *= (float _sca);
+        inline Mat3& operator /= (float _sca);
 
         //Mat3 TO Vec2 OPERATIONS :
-		inline Vec2 operator * (const Vec2& _vec) const;
+        inline Vec2 operator * (const Vec2& _vec) const;
 
-		//Mat3 TO Vec3 OPERATIONS :
-		inline Vec3 operator * (const Vec3& _vec) const;
+        //Mat3 TO Vec3 OPERATIONS :
+        inline Vec3 operator * (const Vec3& _vec) const;
     };
     namespace matrixes
     {
@@ -398,10 +407,10 @@ namespace Maths
         inline Mat4(void);
         inline Mat4(float _data[16]);
         inline Mat4(float _indentityValue);
-		inline Mat4(float _0, float _1, float _2, float _3,
-			        float _4, float _5, float _6, float _7,
-			        float _8, float _9, float _10, float _11,
-			        float _12, float _13, float _14, float _15);
+        inline Mat4(float _0, float _1, float _2, float _3,
+            float _4, float _5, float _6, float _7,
+            float _8, float _9, float _10, float _11,
+            float _12, float _13, float _14, float _15);
         inline Mat4(const Mat3& _mat);
 
         //DESTRUCTOR :
@@ -411,8 +420,8 @@ namespace Maths
         inline static Mat4 Translate(const Vec3& _translation);
         inline static Mat4 Rotate(const Vec3& _anglesInRad);
         inline static Mat4 RotateX(float _angleInRad);
-		inline static Mat4 RotateY(float _angleInRad);
-		inline static Mat4 RotateZ(float _angleInRad);
+        inline static Mat4 RotateY(float _angleInRad);
+        inline static Mat4 RotateZ(float _angleInRad);
         inline static Mat4 Scale(const Vec3& _scale);
         inline static Mat4 Transform(const Vec3& _translation, const Vec3& _anglesInRad, const Vec3& _scale);
         inline static Mat4 Transform(const Vec3& _translation, const class Quat& _anglesInRad, const Vec3& _scale);
@@ -435,8 +444,8 @@ namespace Maths
         inline Mat4& operator = (const Mat3& _mat);
 
         inline Mat4 operator - (void) const;
-		inline bool operator == (const Mat4& _mat) const;
-		inline bool operator != (const Mat4& _mat) const;
+        inline bool operator == (const Mat4& _mat) const;
+        inline bool operator != (const Mat4& _mat) const;
 
         inline Vec4 operator [] (int _index) const;
 
@@ -451,20 +460,20 @@ namespace Maths
         inline Mat4& operator *= (const Mat4& _mat);
 
         //Sca TO Mat4 OPERATIONS :
-		inline Mat4 operator * (float _sca) const;
-		inline Mat4 operator / (float _sca) const;
+        inline Mat4 operator * (float _sca) const;
+        inline Mat4 operator / (float _sca) const;
 
-		//Sca TO This OPERATIONS :
-		inline Mat4& operator *= (float _sca);
-		inline Mat4& operator /= (float _sca);
+        //Sca TO This OPERATIONS :
+        inline Mat4& operator *= (float _sca);
+        inline Mat4& operator /= (float _sca);
 
-		//Mat3 TO Vec3 OPERATIONS :
-		inline Vec3 operator * (const Vec3& _vec) const;
+        //Mat3 TO Vec3 OPERATIONS :
+        inline Vec3 operator * (const Vec3& _vec) const;
 
-		//Mat3 TO Vec4 OPERATIONS :
-		inline Vec4 operator * (const Vec4& _vec) const;
+        //Mat3 TO Vec4 OPERATIONS :
+        inline Vec4 operator * (const Vec4& _vec) const;
     };
-   
+
     namespace matrixes
     {
         inline Mat4& MATHS_LIB_API Transpose(Mat4& _mat);
@@ -487,10 +496,10 @@ namespace Maths
         union
         {
             struct
-			{
-				float real;
-				Vec3 imaginary;
-			};
+            {
+                float real;
+                Vec3 imaginary;
+            };
             struct
             {
                 float w, x, y, z;
@@ -518,19 +527,19 @@ namespace Maths
         inline static Quat FromMatrix(const Mat4& _matrix);
 
         inline float GetMagnitudeSquared() const;
-		inline float GetMagnitude() const;
+        inline float GetMagnitude() const;
         inline Quat GetNormalized() const;
-		inline Quat GetConjugate() const;
-		inline Quat GetInverse() const;
+        inline Quat GetConjugate() const;
+        inline Quat GetInverse() const;
 
         //TODO move outside function
         inline static Quat Nlerp(const Quat& _start, const Quat& _end, float _ratio);
-		inline static Quat Slerp(const Quat& _q1, const Quat& _q2, float _t);
+        inline static Quat Slerp(const Quat& _q1, const Quat& _q2, float _t);
 
         //CONVERSION
-		inline Vec3 RotateVector(const Vec3& _vec) const;
-		inline Mat3 ToRotationMatrix() const;
-		inline Vec3 ToEulerAngles() const;
+        inline Vec3 RotateVector(const Vec3& _vec) const;
+        inline Mat3 ToRotationMatrix() const;
+        inline Vec3 ToEulerAngles() const;
 
         // ASSINGMENT AND EQUALITY OPERATIONS :
         inline Quat operator - (void)               const;
@@ -539,7 +548,7 @@ namespace Maths
 
         //return x->y->z->w
         inline float operator[](int _index) const;
-		inline float& operator[](int _index);
+        inline float& operator[](int _index);
 
         //Quat TO Quat OPERATIONS :
         inline Quat operator + (const Quat& _Quat) const;
@@ -563,9 +572,9 @@ namespace Maths
     };
 
     namespace Quaternions
-	{
-		inline float DotProduct(const Quat& _q1, const Quat& _q2);		
-	}
+    {
+        inline float DotProduct(const Quat& _q1, const Quat& _q2);
+    }
 
 #pragma endregion Quaternion
 
