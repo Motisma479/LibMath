@@ -253,14 +253,14 @@ inline float MATHS_LIB_API Maths::Vectors::CrossProduct(const Vec2& _vecA, const
 #pragma region Vec3
 
 //STATIC MEMBERS :
-const Maths::Vec3 Maths::Vec3::UP = Maths::Vec3(0.f, 1.f, 0.f);
-const Maths::Vec3 Maths::Vec3::DOWN = Maths::Vec3(0.f, -1.f, 0.f);
+inline const Maths::Vec3 Maths::Vec3::UP = Maths::Vec3(0.f, 1.f, 0.f);
+inline const Maths::Vec3 Maths::Vec3::DOWN = Maths::Vec3(0.f, -1.f, 0.f);
 
-const Maths::Vec3 Maths::Vec3::RIGHT = Maths::Vec3(1.f, 0.f, 0.f);
-const Maths::Vec3 Maths::Vec3::LEFT = Maths::Vec3(-1.f, 0.f, 0.f);
+inline const Maths::Vec3 Maths::Vec3::RIGHT = Maths::Vec3(1.f, 0.f, 0.f);
+inline const Maths::Vec3 Maths::Vec3::LEFT = Maths::Vec3(-1.f, 0.f, 0.f);
 
-const Maths::Vec3 Maths::Vec3::FORWARD = Maths::Vec3(0.f, 0.f, 1.f);
-const Maths::Vec3 Maths::Vec3::BACKWARD = Maths::Vec3(0.f, 0.f, -1.f);
+inline const Maths::Vec3 Maths::Vec3::FORWARD = Maths::Vec3(0.f, 0.f, 1.f);
+inline const Maths::Vec3 Maths::Vec3::BACKWARD = Maths::Vec3(0.f, 0.f, -1.f);
 
 //CONSTRUCTORS :
 inline Maths::Vec3::Vec3(void) : x(0), y(0), z(0) {}
