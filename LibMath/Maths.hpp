@@ -50,6 +50,8 @@ namespace Maths
         constexpr double RAD2DEG_PRECISE = 180.0 / PI_PRECISE;
         constexpr float RAD2DEG = static_cast<float>(RAD2DEG_PRECISE); //casted down for better presision
 
+        constexpr float INF = std::numeric_limits<float>::infinity();
+        constexpr double INF_PRECISE = std::numeric_limits<double>::infinity();
     }
 
     //-- Angle Conversion ----------------------------------------------
