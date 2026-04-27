@@ -70,7 +70,7 @@ inline Maths::Vec2 Maths::Vec2::GetPerpendicular() const
 inline bool Maths::Vec2::IsNearZero()              const
 {
 	float s = 1e-8;
-	return (std::abs(x) < s) && (std::fabs(y) < s));
+	return (std::abs(x) < s) && (std::fabs(y) < s);
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -298,7 +298,7 @@ inline Maths::Vec3 Maths::Vec3::GetNormalized() const
 inline bool Maths::Vec3::IsNearZero()           const
 {
 	float s = 1e-8;
-	return (std::abs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s));
+	return (std::abs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s);
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -544,7 +544,7 @@ inline Maths::Vec4 Maths::Vec4::GetHomogenized() const
 inline bool Maths::Vec4::IsNearZero()            const
 {
 	float s = 1e-8;
-	return (std::abs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s) && (std::fabs(w) < s));
+	return (std::abs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s) && (std::fabs(w) < s);
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
