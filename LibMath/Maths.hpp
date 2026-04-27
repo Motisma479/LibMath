@@ -94,6 +94,7 @@ namespace Maths
         inline float GetMagnitudeSquared() const;
         inline Vec2 GetNormalized()        const;
         inline Vec2 GetPerpendicular()     const;
+        inline bool IsNearZero()           const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Vec2& operator = (const class Vec3& _vec);
@@ -182,6 +183,7 @@ namespace Maths
         inline float GetMagnitude()        const;
         inline float GetMagnitudeSquared() const;
         inline Vec3 GetNormalized()        const;
+        inline bool IsNearZero()           const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Vec3& operator = (const class Vec2& _vec);
@@ -262,6 +264,7 @@ namespace Maths
         //GetNormalized is right for non Homogeneous position/direction
         inline Vec4 GetNormalized()        const;
         inline Vec4 GetHomogenized()       const;
+        inline bool IsNearZero()           const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
         inline Vec4& operator = (const class Vec2& _vec);

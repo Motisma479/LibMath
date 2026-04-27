@@ -67,6 +67,12 @@ inline Maths::Vec2 Maths::Vec2::GetPerpendicular() const
 	return { y, -x };
 }
 
+inline bool Maths::Vec2::IsNearZero()              const
+{
+	float s = 1e-8;
+	return (std::abs(x) < s) && (std::fabs(y) < s));
+}
+
 //ASSINGMENT AND EQUALITY OPERATIONS :
 inline Maths::Vec2& Maths::Vec2::operator = (const Vec3& _vec)
 {
@@ -287,6 +293,12 @@ inline Maths::Vec3 Maths::Vec3::GetNormalized() const
 	if (i != 0)
 		return operator*(1 / i);
 	return *this;
+}
+
+inline bool Maths::Vec3::IsNearZero()           const
+{
+	float s = 1e-8;
+	return (std::abs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s));
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
@@ -527,6 +539,12 @@ inline Maths::Vec4 Maths::Vec4::GetHomogenized() const
 	if (w == 0)
 		return { x, y, z, w };
 	return { x / w, y / w, z / w, 1 };
+}
+
+inline bool Maths::Vec4::IsNearZero()            const
+{
+	float s = 1e-8;
+	return (std::abs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s) && (std::fabs(w) < s));
 }
 
 //ASSINGMENT AND EQUALITY OPERATIONS :
