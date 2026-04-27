@@ -6,7 +6,7 @@
 * Last Update : 03/11/2025                      *
 \***********************************************/
 #pragma once
-
+#include <limits>
 
 // Use if you make a dll with Visual Studio(msvc)
 #ifdef MATHS_FOR_MSVC_DLL
