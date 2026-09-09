@@ -153,7 +153,10 @@ namespace Maths::SI
     //the base unit for electric current is the ampere (A)
     namespace ElectricCurrent
     {
-
+        namespace Literals
+        {
+            METRIC_PREFIX_DECLARATION(A)
+        }
     }
 
     //the base unit for temperature is the kelvin K
@@ -181,13 +184,19 @@ namespace Maths::SI
     //the base unit for amount of substance is the mole (mol)
     namespace AmountOfSubstance
     {
-
+        namespace Literals
+        {
+            METRIC_PREFIX_DECLARATION(mol)
+        }
     }
 
     //the base unit for luminous intensity is the candela (cd)
     namespace LuminousItensity
     {
-
+        namespace Literals
+        {
+            METRIC_PREFIX_DECLARATION(cd)
+        }
     }
 }
 

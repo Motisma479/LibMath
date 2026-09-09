@@ -125,7 +125,9 @@ inline constexpr long double Maths::SI::Length::Literals::operator""_mi(long dou
 
 #pragma endregion Length
 
+
 //------------------------------------------------------------------
+
 
 #pragma region Mass
 
@@ -182,7 +184,23 @@ inline constexpr long double Maths::SI::Mass::Literals::operator""_oz(long doubl
 
 #pragma endregion Mass
 
+
 //------------------------------------------------------------------
+
+
+#pragma region ElectricCurrent
+
+#pragma region ElectricCurrent_Literals
+
+METRIC_PREFIX_DEFINITION(Maths::SI::ElectricCurrent::Literals,A)
+     
+#pragma endregion ElectricCurrent_Literals
+
+#pragma endregion ElectricCurrent
+
+
+//------------------------------------------------------------------
+
 
 #pragma region Temperature
 
@@ -203,3 +221,34 @@ inline constexpr long double Maths::SI::Temperature::Literals::operator""_F(long
 #pragma endregion Literals
 
 #pragma endregion Temperature
+
+
+//------------------------------------------------------------------
+
+
+#pragma region AmountOfSubstance
+
+#pragma region AmountOfSubstance_Literals
+
+METRIC_PREFIX_DEFINITION(Maths::SI::AmountOfSubstance::Literals,mol)
+     
+#pragma endregion AmountOfSubstance_Literals
+
+#pragma endregion AmountOfSubstance
+
+
+//------------------------------------------------------------------
+
+
+#pragma region LuminousItensity
+
+#pragma region LuminousItensity_Literals
+
+METRIC_PREFIX_DEFINITION(Maths::SI::LuminousItensity::Literals,cd)
+     
+#pragma endregion LuminousItensity_Literals
+
+#pragma endregion LuminousItensity
+
+
+//------------------------------------------------------------------
