@@ -70,61 +70,222 @@ namespace Maths
     {
     public:
         //MEMBERS :
+        /**
+         * @brief Storage for the vector's components.
+         *
+         * The named components (x, y) and the array form (xy) occupy the same
+         * memory, so modifying one is reflected in the other.
+         */
         union
         {
+            /**
+             * @brief Named access to the components.
+             */
             struct
             {
-                float x, y;
+                float x; /**< X component. */
+                float y; /**< Y component. */
             };
+
+            /**
+             * @brief Array access: xy[0] = x, xy[1] = y.
+             * @note No bounds check are performed; check @ref operator[] for bound checked acess.
+             */
             float xy[2];
         };
 
         //CONSTRUCTORS :
+        /**
+         * @brief Default constructor.
+         * 
+         * Initializes x and y to 0
+         */
         inline Vec2(void);
+        /**
+         * @brief Constructs a vector with equal components.
+         * @param _xy Value assigned to both x and y.
+         */
         inline Vec2(float _xy);
+        /**
+         * @brief Constructs a vector from individual components.
+         * @param _x Value assigned to x.
+         * @param _y Value assigned to y.
+         */
         inline Vec2(float _x, float _y);
+        /**
+         * @brief Constructs a vector from a @ref Vec3, discarding the z component.
+         * @param _vec Source Vec3 whose x and y are copied.
+         * @note The z component of @p _vec is ignored.
+         */
         inline Vec2(const class Vec3& _vec);
+        /**
+         * @brief Constructs a vector from a @ref Vec4, discarding the z and w components.
+         * @param _vec Source Vec4 whose x and y are copied.
+         * @note The z and w components of @p _vec are ignored.
+         */
         inline Vec2(const class Vec4& _vec);
 
         //DESTRUCTOR :
         inline ~Vec2(void);
 
         //UTILS :
+        /**
+         * @brief Computes the magnitude (length) of the vector.
+         * @return The Euclidean length of the vector.
+         * @note Involves a square root; prefer @ref GetMagnitudeSquared for comparisons.
+         */
         inline float GetMagnitude()        const;
+        /**
+         * @brief Computes the squared magnitude of the vector.
+         * @return The squared length (x*x + y*y).
+         * @note Cheaper than @ref GetMagnitude since it avoids the square root.
+         */
         inline float GetMagnitudeSquared() const;
+        /**
+         * @brief Returns a normalized copy of this vector (unit length).
+         * @return A new @ref Vec2 with the same direction and magnitude 1.
+         * @note If the magnitude of this vector is zero it will return itself instead.
+         */
         inline Vec2 GetNormalized()        const;
+        /**
+         * @brief Returns a vector perpendicular to this one.
+         * @return A new @ref Vec2 rotated 90 degrees from this vector.
+         */
         inline Vec2 GetPerpendicular()     const;
+        /**
+         * @brief Checks whether the vector is close enough to zero.
+         * @return true if both components are within a small epsilon of 0, false otherwise.
+         */
         inline bool IsNearZero()           const;
 
         //ASSINGMENT AND EQUALITY OPERATIONS :
+        /**
+         * @brief Assigns from a @ref Vec3, discarding the z component.
+         * @param _vec Source Vec3 whose x and y are copied.
+         * @return Reference to this vector after assignment.
+         * @note The z component of @p _vec is ignored.
+         */
         inline Vec2& operator = (const class Vec3& _vec);
+        /**
+         * @brief Assigns from a @ref Vec4, discarding the z and w components.
+         * @param _vec Source Vec4 whose x and y are copied.
+         * @return Reference to this vector after assignment.
+         * @note The z and w components of @p _vec are ignored.
+         */
 		inline Vec2& operator = (const class Vec4& _vec);
+        /**
+         * @brief Assigns the same value to both x and y.
+         * @param _sca Value assigned to both components.
+         * @return Reference to this vector after assignment.
+         */
         inline Vec2& operator = (float _sca);
 
+        /**
+         * @brief Returns the negated vector.
+         * @return A new Vec2 with both components negated.
+         */
         inline Vec2 operator - (void)              const;
+        /**
+         * @brief Checks equality between this vector and another.
+         * @param _vec Vector to compare against.
+         * @return true if both components are equal, false otherwise.
+         */
         inline bool operator == (const Vec2& _vec) const;
+        /**
+         * @brief Checks inequality between this vector and another.
+         * @param _vec Vector to compare against.
+         * @return true if any component differs, false otherwise.
+         */
         inline bool operator != (const Vec2& _vec) const;
 
+        /**
+         * @brief Accesses a component by index.
+         * @param _index Index of the component (0 = x, 1 = y).
+         * @return The value of the requested component.
+         * @note Bounds check are performed; passing an index outside [0, 1] triggers and assert.
+         */
         inline float operator [] (int _index) const;
 
         //Vec2 TO Vec2 OPERATIONS :
+        /**
+         * @brief Adds two vectors component-wise.
+         * @param _vec Vector to add.
+         * @return A new Vec2 equal to this + @p _vec.
+         */
         inline Vec2 operator + (const Vec2& _vec) const;
+        /**
+         * @brief Subtracts a vector component-wise.
+         * @param _vec Vector to subtract.
+         * @return A new Vec2 equal to this - @p _vec.
+         */
         inline Vec2 operator - (const Vec2& _vec) const;
 
         //Vec2 TO THIS OPERATIONS :
+        /**
+         * @brief Adds a vector to this one in place.
+         * @param _vec Vector to add.
+         * @return Reference to this vector after addition.
+         */
         inline Vec2& operator += (const Vec2& _vec);
+        /**
+         * @brief Subtracts a vector from this one in place.
+         * @param _vec Vector to subtract.
+         * @return Reference to this vector after subtraction.
+         */
         inline Vec2& operator -= (const Vec2& _vec);
 
         //SCALER TO Vec2 OPERATIONS :
+        /**
+         * @brief Adds a scalar to both components.
+         * @param _sca Scalar value to add.
+         * @return A new Vec2 with @p _sca added to x and y.
+         */
         inline Vec2 operator + (float _sca) const;
+        /**
+         * @brief Subtracts a scalar from both components.
+         * @param _sca Scalar value to subtract.
+         * @return A new Vec2 with @p _sca subtracted from x and y.
+         */
         inline Vec2 operator - (float _sca) const;
+        /**
+         * @brief Multiplies both components by a scalar.
+         * @param _sca Scalar value to multiply by.
+         * @return A new Vec2 scaled by @p _sca.
+         */
         inline Vec2 operator * (float _sca) const;
+        /**
+         * @brief Divides both components by a scalar.
+         * @param _sca Scalar value to divide by.
+         * @return A new Vec2 divided by @p _sca.
+         * @note No check is performed for division by zero.
+         */
         inline Vec2 operator / (float _sca) const;
 
         //SCALER TO THIS OPERATIONS :
+        /**
+         * @brief Adds a scalar to both components in place.
+         * @param _sca Scalar value to add.
+         * @return Reference to this vector after addition.
+         */
         inline Vec2& operator += (float _sca);
+        /**
+         * @brief Subtracts a scalar from both components in place.
+         * @param _sca Scalar value to subtract.
+         * @return Reference to this vector after subtraction.
+         */
         inline Vec2& operator -= (float _sca);
+        /**
+         * @brief Multiplies both components by a scalar in place.
+         * @param _sca Scalar value to multiply by.
+         * @return Reference to this vector after multiplication.
+         */
         inline Vec2& operator *= (float _sca);
+        /**
+         * @brief Divides both components by a scalar in place.
+         * @param _sca Scalar value to divide by.
+         * @return Reference to this vector after division.
+         * @note No check is performed for division by zero.
+         */
         inline Vec2& operator /= (float _sca);
     };
     namespace Vectors
