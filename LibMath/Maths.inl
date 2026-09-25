@@ -11,6 +11,143 @@
 #include <cassert>
 #include <cmath>
 
+#ifdef ENABLE_SWIZZLE
+#define SWIZZLE_MIXER_2_DEFINITION(namespace, a, b)\
+inline Maths::Vec2 namespace##::a##b() { return Vec2(a, b); }\
+inline Maths::Vec2 namespace##::b##a() { return Vec2(b, a); }\
+\
+inline Maths::Vec3 namespace##::a##b##b() { return Vec3(a, b, b); }\
+inline Maths::Vec3 namespace##::a##b##a() { return Vec3(a, b, a); }\
+inline Maths::Vec3 namespace##::b##b##a() { return Vec3(b, b, a); }\
+inline Maths::Vec3 namespace##::b##a##a() { return Vec3(b, a, a); }\
+inline Maths::Vec3 namespace##::b##a##b() { return Vec3(b, a, b); }\
+\
+inline Maths::Vec4 namespace##::a##a##a##b() { return Vec4(a, a, a, b); }\
+inline Maths::Vec4 namespace##::a##a##b##b() { return Vec4(a, a, b, b); }\
+inline Maths::Vec4 namespace##::a##b##b##b() { return Vec4(a, b, b, b); }\
+inline Maths::Vec4 namespace##::a##b##a##a() { return Vec4(a, b, a, a); }\
+inline Maths::Vec4 namespace##::a##b##a##b() { return Vec4(a, b, a, b); }\
+inline Maths::Vec4 namespace##::a##b##b##a() { return Vec4(a, b, b, a); }\
+inline Maths::Vec4 namespace##::a##a##b##a() { return Vec4(a, a, b, a); }\
+inline Maths::Vec4 namespace##::b##b##b##a() { return Vec4(b, b, b, a); }\
+inline Maths::Vec4 namespace##::b##b##a##a() { return Vec4(b, b, a, a); }\
+inline Maths::Vec4 namespace##::b##a##a##a() { return Vec4(b, a, a, a); }\
+inline Maths::Vec4 namespace##::b##a##b##b() { return Vec4(b, a, b, b); }\
+inline Maths::Vec4 namespace##::b##a##b##a() { return Vec4(b, a, b, a); }\
+inline Maths::Vec4 namespace##::b##a##a##b() { return Vec4(b, a, a, b); }\
+inline Maths::Vec4 namespace##::b##b##a##b() { return Vec4(b, b, a, b); }
+
+
+#define SWIZZLE_MIXER_3_DEFINITION(namespace, a, b, c)\
+inline Maths::Vec3 namespace##::a##b##c() { return Vec3(a, b, c); }\
+inline Maths::Vec3 namespace##::b##a##c() { return Vec3(b, a, c); }\
+inline Maths::Vec3 namespace##::c##a##b() { return Vec3(c, a, b); }\
+inline Maths::Vec3 namespace##::a##c##b() { return Vec3(a, c, b); }\
+inline Maths::Vec3 namespace##::b##c##a() { return Vec3(b, c, a); }\
+inline Maths::Vec3 namespace##::c##b##a() { return Vec3(c, b, a); }\
+\
+inline Maths::Vec4 namespace##::a##b##c##a() { return Vec4(a, b, c, a); }\
+inline Maths::Vec4 namespace##::a##b##c##b() { return Vec4(a, b, c, b); }\
+inline Maths::Vec4 namespace##::a##b##c##c() { return Vec4(a, b, c, c); }\
+inline Maths::Vec4 namespace##::b##a##c##a() { return Vec4(b, a, c, a); }\
+inline Maths::Vec4 namespace##::b##a##c##b() { return Vec4(b, a, c, b); }\
+inline Maths::Vec4 namespace##::b##a##c##c() { return Vec4(b, a, c, c); }\
+inline Maths::Vec4 namespace##::c##a##b##a() { return Vec4(c, a, b, a); }\
+inline Maths::Vec4 namespace##::c##a##b##b() { return Vec4(c, a, b, b); }\
+inline Maths::Vec4 namespace##::c##a##b##c() { return Vec4(c, a, b, c); }\
+inline Maths::Vec4 namespace##::a##c##b##a() { return Vec4(a, c, b, a); }\
+inline Maths::Vec4 namespace##::a##c##b##b() { return Vec4(a, c, b, b); }\
+inline Maths::Vec4 namespace##::a##c##b##c() { return Vec4(a, c, b, c); }\
+inline Maths::Vec4 namespace##::b##c##a##a() { return Vec4(b, c, a, a); }\
+inline Maths::Vec4 namespace##::b##c##a##b() { return Vec4(b, c, a, b); }\
+inline Maths::Vec4 namespace##::b##c##a##c() { return Vec4(b, c, a, c); }\
+inline Maths::Vec4 namespace##::c##b##a##a() { return Vec4(c, b, a, a); }\
+inline Maths::Vec4 namespace##::c##b##a##b() { return Vec4(c, b, a, b); }\
+inline Maths::Vec4 namespace##::c##b##a##c() { return Vec4(c, b, a, c); }\
+inline Maths::Vec4 namespace##::a##a##b##c() { return Vec4(a, a, b, c); }\
+inline Maths::Vec4 namespace##::a##a##c##b() { return Vec4(a, a, c, b); }\
+inline Maths::Vec4 namespace##::a##b##a##c() { return Vec4(a, b, a, c); }\
+inline Maths::Vec4 namespace##::a##b##b##c() { return Vec4(a, b, b, c); }\
+inline Maths::Vec4 namespace##::a##c##a##b() { return Vec4(a, c, a, b); }\
+inline Maths::Vec4 namespace##::a##c##c##b() { return Vec4(a, c, c, b); }\
+inline Maths::Vec4 namespace##::b##a##a##c() { return Vec4(b, a, a, c); }\
+inline Maths::Vec4 namespace##::b##a##b##c() { return Vec4(b, a, b, c); }\
+inline Maths::Vec4 namespace##::b##b##a##c() { return Vec4(b, b, a, c); }\
+inline Maths::Vec4 namespace##::b##b##c##a() { return Vec4(b, b, c, a); }\
+inline Maths::Vec4 namespace##::b##c##b##a() { return Vec4(b, c, b, a); }\
+inline Maths::Vec4 namespace##::b##c##c##a() { return Vec4(b, c, c, a); }\
+inline Maths::Vec4 namespace##::c##a##a##b() { return Vec4(c, a, a, b); }\
+inline Maths::Vec4 namespace##::c##a##c##b() { return Vec4(c, a, c, b); }\
+inline Maths::Vec4 namespace##::c##b##b##a() { return Vec4(c, b, b, a); }\
+inline Maths::Vec4 namespace##::c##b##c##a() { return Vec4(c, b, c, a); }\
+inline Maths::Vec4 namespace##::c##c##a##b() { return Vec4(c, c, a, b); }\
+inline Maths::Vec4 namespace##::c##c##b##a() { return Vec4(c, c, b, a); }
+
+
+#define SWIZZLE_MIXER_4_DEFINITION(namespace, a, b, c, d)\
+inline Maths::Vec4 namespace##::a##b##c##d() { return Vec4(a, b, c, d); }\
+inline Maths::Vec4 namespace##::b##a##c##d() { return Vec4(b, a, c, d); }\
+inline Maths::Vec4 namespace##::c##a##b##d() { return Vec4(c, a, b, d); }\
+inline Maths::Vec4 namespace##::a##c##b##d() { return Vec4(a, c, b, d); }\
+inline Maths::Vec4 namespace##::b##c##a##d() { return Vec4(b, c, a, d); }\
+inline Maths::Vec4 namespace##::c##b##a##d() { return Vec4(c, b, a, d); }\
+inline Maths::Vec4 namespace##::c##b##d##a() { return Vec4(c, b, d, a); }\
+inline Maths::Vec4 namespace##::b##c##d##a() { return Vec4(b, c, d, a); }\
+inline Maths::Vec4 namespace##::d##c##b##a() { return Vec4(d, c, b, a); }\
+inline Maths::Vec4 namespace##::c##d##b##a() { return Vec4(c, d, b, a); }\
+inline Maths::Vec4 namespace##::b##d##c##a() { return Vec4(b, d, c, a); }\
+inline Maths::Vec4 namespace##::d##b##c##a() { return Vec4(d, b, c, a); }\
+inline Maths::Vec4 namespace##::d##a##c##b() { return Vec4(d, a, c, b); }\
+inline Maths::Vec4 namespace##::c##d##a##b() { return Vec4(c, d, a, b); }\
+inline Maths::Vec4 namespace##::d##c##a##b() { return Vec4(a, c, d, b); }\
+inline Maths::Vec4 namespace##::a##c##d##b() { return Vec4(a, c, d, b); }\
+inline Maths::Vec4 namespace##::c##a##d##b() { return Vec4(c, a, d, b); }\
+inline Maths::Vec4 namespace##::b##a##d##c() { return Vec4(b, a, d, c); }\
+inline Maths::Vec4 namespace##::a##b##d##c() { return Vec4(a, b, d, c); }\
+inline Maths::Vec4 namespace##::d##b##a##c() { return Vec4(d, b, a, c); }\
+inline Maths::Vec4 namespace##::b##d##a##c() { return Vec4(b, d, a, c); }\
+inline Maths::Vec4 namespace##::a##d##b##c() { return Vec4(a, d, b, c); }\
+inline Maths::Vec4 namespace##::d##a##b##c() { return Vec4(d, a, b, c); }
+
+
+#define SWIZZLE_DUPLICATE_DEFINITION(namespace, a)\
+inline Maths::Vec2 namespace##::a##a() { return Vec2(a, a); }\
+inline Maths::Vec3 namespace##::a##a##a() { return Vec3(a, a, a); }\
+inline Maths::Vec4 namespace##::a##a##a##a() { return Vec4(a, a, a, a); }
+
+//--SWIZZLE_2----------------------------
+#define SWIZZLE_2_DEFINITION(namespace, a, b)\
+SWIZZLE_DUPLICATE_DEFINITION(namespace, a)\
+SWIZZLE_DUPLICATE_DEFINITION(namespace, b)\
+\
+SWIZZLE_MIXER_2_DEFINITION(namespace, a,b)
+
+//--SWIZZLE_3----------------------------
+#define SWIZZLE_3_DEFINITION(namespace, a, b, c)\
+SWIZZLE_2_DEFINITION(namespace, a,b)\
+SWIZZLE_DUPLICATE_DEFINITION(namespace, c)\
+\
+SWIZZLE_MIXER_2_DEFINITION(namespace, a,c)\
+SWIZZLE_MIXER_2_DEFINITION(namespace, b,c)\
+\
+SWIZZLE_MIXER_3_DEFINITION(namespace, a,b,c)
+
+//--SWIZZLE_4----------------------------
+#define SWIZZLE_4_DEFINITION(namespace, a, b, c, d)\
+SWIZZLE_3_DEFINITION(namespace, a,b,c)\
+SWIZZLE_DUPLICATE_DEFINITION(namespace, d)\
+\
+SWIZZLE_MIXER_2_DEFINITION(namespace, a,d)\
+SWIZZLE_MIXER_2_DEFINITION(namespace, b,d)\
+SWIZZLE_MIXER_2_DEFINITION(namespace, c,d)\
+\
+SWIZZLE_MIXER_3_DEFINITION(namespace, a,b,d)\
+SWIZZLE_MIXER_3_DEFINITION(namespace, a,c,d)\
+SWIZZLE_MIXER_3_DEFINITION(namespace, b,c,d)\
+\
+SWIZZLE_MIXER_4_DEFINITION(namespace, a,b,c,d)
+#endif
+
 inline float MATHS_LIB_API Maths::ToRadians(float _angleDegrees)
 {
 	return _angleDegrees * Constants::DEG2RAD;
@@ -35,6 +172,10 @@ inline double Maths::ToDegrees(double _angleRadians)
  *-------VECTOR_2-------*
 \************************/
 #pragma region Vec2
+
+#ifdef ENABLE_SWIZZLE
+	SWIZZLE_2_DEFINITION(Maths::Vec2,x,y)
+#endif
 
 //CONSTRUCTORS :
 inline Maths::Vec2::Vec2(void) : x(0), y(0) {}
@@ -113,7 +254,7 @@ inline bool Maths::Vec2::operator != (const Vec2& _vec) const
 inline float Maths::Vec2::operator [] (int _index) const
 {
 	assert(_index > -1 && _index < 3);
-	return xy[_index];
+	return xy_raw[_index];
 }
 
 //Vec2 TO Vec2 OPERATIONS :
@@ -258,6 +399,10 @@ inline float MATHS_LIB_API Maths::Vectors::CrossProduct(const Vec2& _vecA, const
 \************************/
 #pragma region Vec3
 
+#ifdef ENABLE_SWIZZLE
+	SWIZZLE_3_DEFINITION(Maths::Vec3,x,y,z)
+#endif
+
 //STATIC MEMBERS :
 inline const Maths::Vec3 Maths::Vec3::UP = Maths::Vec3(0.f, 1.f, 0.f);
 inline const Maths::Vec3 Maths::Vec3::DOWN = Maths::Vec3(0.f, -1.f, 0.f);
@@ -345,7 +490,7 @@ inline bool Maths::Vec3::operator != (const Vec3& _vec)	const
 inline float Maths::Vec3::operator [] (int _index) const
 {
 	assert(_index > -1 && _index < 4);
-	return xyz[_index];
+	return xyz_raw[_index];
 }
 
 //Vec3 TO Vec3 OPERATIONS :
@@ -508,6 +653,10 @@ inline Maths::Vec3 MATHS_LIB_API Maths::Vectors::Rotate(const Vec3& _vec, float 
 \************************/
 #pragma region Vec4
 
+#ifdef ENABLE_SWIZZLE
+	SWIZZLE_4_DEFINITION(Maths::Vec4,x,y,z,w)
+#endif
+
 //CONSTRUCTORS :
 inline Maths::Vec4::Vec4(void) : x(0), y(0), z(0), w(0) {}
 inline Maths::Vec4::Vec4(const float _xyzw) : x(_xyzw), y(_xyzw), z(_xyzw), w(_xyzw) {}
@@ -595,7 +744,7 @@ inline bool Maths::Vec4::operator != (const Vec4& _vec)	const
 inline float Maths::Vec4::operator [] (int _index) const
 {
 	assert(_index > -1 && _index < 5);
-	return xyzw[_index];
+	return xyzw_raw[_index];
 }
 
 //Vec4 TO Vec4 OPERATIONS :

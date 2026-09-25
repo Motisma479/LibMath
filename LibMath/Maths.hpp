@@ -19,12 +19,146 @@
     #define MATHS_LIB_API
 #endif
 
-//---USED_TO_ENABLE_CLASS_DISABLED_BY_DEFAULT---
+//---USED_TO_ENABLE_CLASS_AND_FEATURE_DISABLED_BY_DEFAULT---
 
 //#define ENABLE_MATYX   need to be implemented
-//#define ENABLE_SWIZZLE need to be implemented
+//#define ENABLE_SWIZZLE
 
-//----------------------------------------------
+//----------------------------------------------------------
+
+#ifdef ENABLE_SWIZZLE
+#define SWIZZLE_MIXER_2_DECLARATION(a, b)\
+inline Maths::Vec2 a##b();\
+inline Maths::Vec2 b##a();\
+\
+inline Maths::Vec3 a##b##b();\
+inline Maths::Vec3 a##b##a();\
+inline Maths::Vec3 b##b##a();\
+inline Maths::Vec3 b##a##a();\
+inline Maths::Vec3 b##a##b();\
+\
+inline Maths::Vec4 a##a##a##b();\
+inline Maths::Vec4 a##a##b##b();\
+inline Maths::Vec4 a##b##b##b();\
+inline Maths::Vec4 a##b##a##a();\
+inline Maths::Vec4 a##b##a##b();\
+inline Maths::Vec4 a##b##b##a();\
+inline Maths::Vec4 a##a##b##a();\
+inline Maths::Vec4 b##b##b##a();\
+inline Maths::Vec4 b##b##a##a();\
+inline Maths::Vec4 b##a##a##a();\
+inline Maths::Vec4 b##a##b##b();\
+inline Maths::Vec4 b##a##b##a();\
+inline Maths::Vec4 b##a##a##b();\
+inline Maths::Vec4 b##b##a##b();
+
+#define SWIZZLE_MIXER_3_DECLARATION(a, b, c)\
+inline Maths::Vec3 a##b##c();\
+inline Maths::Vec3 b##a##c();\
+inline Maths::Vec3 c##a##b();\
+inline Maths::Vec3 a##c##b();\
+inline Maths::Vec3 b##c##a();\
+inline Maths::Vec3 c##b##a();\
+\
+inline Maths::Vec4 a##b##c##a();\
+inline Maths::Vec4 a##b##c##b();\
+inline Maths::Vec4 a##b##c##c();\
+inline Maths::Vec4 b##a##c##a();\
+inline Maths::Vec4 b##a##c##b();\
+inline Maths::Vec4 b##a##c##c();\
+inline Maths::Vec4 c##a##b##a();\
+inline Maths::Vec4 c##a##b##b();\
+inline Maths::Vec4 c##a##b##c();\
+inline Maths::Vec4 a##c##b##a();\
+inline Maths::Vec4 a##c##b##b();\
+inline Maths::Vec4 a##c##b##c();\
+inline Maths::Vec4 b##c##a##a();\
+inline Maths::Vec4 b##c##a##b();\
+inline Maths::Vec4 b##c##a##c();\
+inline Maths::Vec4 c##b##a##a();\
+inline Maths::Vec4 c##b##a##b();\
+inline Maths::Vec4 c##b##a##c();\
+inline Maths::Vec4 a##a##b##c();\
+inline Maths::Vec4 a##a##c##b();\
+inline Maths::Vec4 a##b##a##c();\
+inline Maths::Vec4 a##b##b##c();\
+inline Maths::Vec4 a##c##a##b();\
+inline Maths::Vec4 a##c##c##b();\
+inline Maths::Vec4 b##a##a##c();\
+inline Maths::Vec4 b##a##b##c();\
+inline Maths::Vec4 b##b##a##c();\
+inline Maths::Vec4 b##b##c##a();\
+inline Maths::Vec4 b##c##b##a();\
+inline Maths::Vec4 b##c##c##a();\
+inline Maths::Vec4 c##a##a##b();\
+inline Maths::Vec4 c##a##c##b();\
+inline Maths::Vec4 c##b##b##a();\
+inline Maths::Vec4 c##b##c##a();\
+inline Maths::Vec4 c##c##a##b();\
+inline Maths::Vec4 c##c##b##a();
+
+#define SWIZZLE_MIXER_4_DECLARATION(a, b, c, d)\
+inline Maths::Vec4 a##b##c##d();\
+inline Maths::Vec4 b##a##c##d();\
+inline Maths::Vec4 c##a##b##d();\
+inline Maths::Vec4 a##c##b##d();\
+inline Maths::Vec4 b##c##a##d();\
+inline Maths::Vec4 c##b##a##d();\
+inline Maths::Vec4 c##b##d##a();\
+inline Maths::Vec4 b##c##d##a();\
+inline Maths::Vec4 d##c##b##a();\
+inline Maths::Vec4 c##d##b##a();\
+inline Maths::Vec4 b##d##c##a();\
+inline Maths::Vec4 d##b##c##a();\
+inline Maths::Vec4 d##a##c##b();\
+inline Maths::Vec4 c##d##a##b();\
+inline Maths::Vec4 d##c##a##b();\
+inline Maths::Vec4 a##c##d##b();\
+inline Maths::Vec4 c##a##d##b();\
+inline Maths::Vec4 b##a##d##c();\
+inline Maths::Vec4 a##b##d##c();\
+inline Maths::Vec4 d##b##a##c();\
+inline Maths::Vec4 b##d##a##c();\
+inline Maths::Vec4 a##d##b##c();\
+inline Maths::Vec4 d##a##b##c();\
+
+#define SWIZZLE_DUPLICATE_DECLARATION(a)\
+inline Maths::Vec2 a##a();\
+inline Maths::Vec3 a##a##a();\
+inline Maths::Vec4 a##a##a##a();
+
+//--SWIZZLE_2----------------------------
+#define SWIZZLE_2_DECLARATION(a, b) \
+SWIZZLE_DUPLICATE_DECLARATION(a)\
+SWIZZLE_DUPLICATE_DECLARATION(b)\
+\
+SWIZZLE_MIXER_2_DECLARATION(a,b)
+
+//--SWIZZLE_3----------------------------
+#define SWIZZLE_3_DECLARATION(a, b, c)\
+SWIZZLE_2_DECLARATION(a,b)\
+SWIZZLE_DUPLICATE_DECLARATION(c)\
+\
+SWIZZLE_MIXER_2_DECLARATION(a,c)\
+SWIZZLE_MIXER_2_DECLARATION(b,c)\
+\
+SWIZZLE_MIXER_3_DECLARATION(a,b,c)
+
+//--SWIZZLE_4----------------------------
+#define SWIZZLE_4_DECLARATION(a, b, c, d) \
+SWIZZLE_3_DECLARATION(a,b,c)\
+SWIZZLE_DUPLICATE_DECLARATION(d)\
+\
+SWIZZLE_MIXER_2_DECLARATION(a,d)\
+SWIZZLE_MIXER_2_DECLARATION(b,d)\
+SWIZZLE_MIXER_2_DECLARATION(c,d)\
+\
+SWIZZLE_MIXER_3_DECLARATION(a,b,d)\
+SWIZZLE_MIXER_3_DECLARATION(a,c,d)\
+SWIZZLE_MIXER_3_DECLARATION(b,c,d)\
+\
+SWIZZLE_MIXER_4_DECLARATION(a,b,c,d)
+#endif
 
 namespace Maths
 {
@@ -65,6 +199,11 @@ namespace Maths
     //------------------------------------------------------------------
 
 #pragma region Vector
+    class MATHS_LIB_API Vec2;
+    class MATHS_LIB_API Vec3;
+    class MATHS_LIB_API Vec4;
+
+    
 
     class MATHS_LIB_API Vec2
     {
@@ -91,8 +230,12 @@ namespace Maths
              * @brief Array access: xy[0] = x, xy[1] = y.
              * @note No bounds check are performed; check @ref operator[] for bound checked acess.
              */
-            float xy[2];
+            float xy_raw[2];
         };
+
+#ifdef ENABLE_SWIZZLE
+        SWIZZLE_2_DECLARATION(x,y)
+#endif
 
         //CONSTRUCTORS :
         /**
@@ -290,11 +433,48 @@ namespace Maths
     };
     namespace Vectors
     {
-        //return the input vector normalised
+        /**
+         * @brief Normalizes a vector in place.
+         *
+         * Modifies the input vector so that it has a magnitude of 1 while
+         * preserving its direction.
+         *
+         * @param _vec Vector to normalize.
+         * @return Reference to the normalized vector.
+         *
+         * @note If the magnitude of the vector is zero, the vector is left unchanged.
+         */
         inline Vec2& MATHS_LIB_API Normalize(Vec2& _vec);
-        //Can be used with C++17 guaranteed RVO
+        /**
+         * @brief Returns a normalized copy of a vector.
+         *
+         * Creates a new vector with a magnitude of 1 while preserving the
+         * direction of the input vector.
+         *
+         * @param _vec Vector to normalize.
+         * @return A normalized copy of @p _vec.
+         *
+         * @note If the magnitude of the vector is zero, the input vector is returned unchanged.
+         * @note The returned value can be constructed efficiently using C++17 guaranteed
+         *       return value optimization (RVO).
+         */
         inline Vec2 MATHS_LIB_API Normalize(const Vec2& _vec);
 
+        /**
+         * @brief Computes the dot product of two vectors.
+         *
+         * The dot product is calculated as:
+         * @f[
+         * A \cdot B = A_x B_x + A_y B_y
+         * @f]
+         *
+         * @param _vecA First vector.
+         * @param _vecB Second vector.
+         * @return The dot product of @p _vecA and @p _vecB.
+         *
+         * @note The result can be used to determine the relationship between
+         *       the directions of the two vectors.
+         */
         inline float MATHS_LIB_API DotProduct(const Vec2& _vecA, const Vec2& _vecB);
         inline float MATHS_LIB_API DistanceBetween(const Vec2& _vecA, const Vec2& _vecB);
         inline float MATHS_LIB_API AngleBetween(const Vec2& _vecA, const Vec2& _vecB);
@@ -317,8 +497,12 @@ namespace Maths
             {
                 float x, y, z;
             };
-            float xyz[3];
+            float xyz_raw[3];
         };
+
+#ifdef ENABLE_SWIZZLE
+        SWIZZLE_3_DECLARATION(x, y, z)
+#endif
 
         //STATIC MEMBERS :
         static const Vec3 UP;
@@ -406,8 +590,12 @@ namespace Maths
             {
                 float x, y, z, w;
             };
-            float xyzw[4];
+            float xyzw_raw[4];
         };
+
+#ifdef ENABLE_SWIZZLE
+        SWIZZLE_4_DECLARATION(x,y,z,w)
+#endif
 
         //CONSTRUCTORS :
         inline Vec4(void);
