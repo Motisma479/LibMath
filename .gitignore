@@ -1,2 +1,4 @@
 /.vs
 /.vscode
+# ignore doxygen generated documentation
+/documentation
